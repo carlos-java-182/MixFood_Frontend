@@ -396,7 +396,24 @@ input.file
 /*=====  End of Select2 single  ======*/
 
 
+.ng-value-container{
+    /* background-color: black !important; */
+}
 
-  
+.ng-value{
+    background: #ff4a52 !important;
+	color: #fff !important;
+	height: 40px !important;
+	padding: 10px !important;
+	border-radius: 2px !important;
+}
 
+.ng-value-icon{
+	border:none !important
+}
+
+.ng-value-icon:hover{
+	background: none !important;
+	color: #333;
+}
 
