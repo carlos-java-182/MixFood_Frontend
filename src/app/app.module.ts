@@ -36,10 +36,15 @@ import { SearchrecipeGuestComponent } from './components/guest/searchrecipe-gues
 import { EditprofileUserComponent } from './components/user/profile/editprofile-user/editprofile-user.component';
 import { RecipesUserComponent } from './components/user/recipes/recipes-user/recipes-user.component';
 import { LoginComponent } from './components/guest/login-guest/login.component';
+
+//*Depencences 
 import { NgSelect2Module } from 'ng-select2';
 import { NgSelectModule } from '@ng-select/ng-select';
+import { NgxTypeaheadModule} from 'ngx-typeahead';
+import { FormsModule,ReactiveFormsModule  } from '@angular/forms';
+//import { NgxTypeAheadComponent } from 'ngx-typeahead/src/modules/ngx-typeahead.component';
+import { NgxTypeaheadModule } from 'ngx-typeahead';
 
-import { FormsModule } from '@angular/forms';
 @NgModule({
   declarations: [
     AppComponent,
@@ -82,6 +87,9 @@ import { FormsModule } from '@angular/forms';
     AppRoutingModule,
     NgSelect2Module,
     NgSelectModule,
+    NgxTypeaheadModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

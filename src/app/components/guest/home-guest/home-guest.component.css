@@ -1,11 +1,133 @@
 
 
 /* @import "~@ng-select/ng-select/themes/default.theme.css"; */
-
-.ng-value-container{
-    background-color: black !important;
+.input-search{
+    width: 100%;
+    height: 60px !important;
+    padding-left: 4rem !important;
 }
 
-.ng-value{
-    background-color: red !important;
+.recipe-container-dropdown{
+    position: absolute;
+    z-index: 1;
+    width: 100%;
+    max-height: 300px;
+    background: #fff;
+    border: 1px solid gray;
+    border-top: none;
+
+    overflow-y: auto;
+}
+.recipe-container-dropdown .result-container:hover{
+    background-color: crimson;
+    color: #fff !important;
+    cursor: pointer;
+}
+.recipe-container-dropdown .result-item{
+    box-sizing: border-box;
+    margin: 10px;
+    /* color: red */
+}
+/* .recipe-container-dropdown .result-item:hover{
+   
+    color: #fff !important;
+    cursor: pointer;
+} */
+
+.recipe{
+    padding: 10px;
+    color: black;
+}
+
+.recipe:hover{
+    color: red;
+}
+
+.form-control-feedback {
+    position: absolute;
+    z-index: 20;
+    display: block;
+    width: 4rem;
+    height: 4rem;
+    line-height: 6rem;
+    text-align: center;
+    pointer-events: none;
+    color: #aaa;
+}
+
+.btn-clear{
+    position: absolute;
+    background: none;
+    border: none;
+    right: 20px;
+    z-index: 20;
+    display: block;
+    width: 4rem;
+    height: 4rem;
+    line-height: 6rem;
+    text-align: center;
+    /* pointer-events: none; */
+    color: blue;
+}
+.btn-clear:hover{
+    cursor: pointer;
+}
+
+
+.searchs{
+    background-color:#fff;
+    
+    /* width: 450px; */
+    /* margin: 30px auto; */
+}
+.searchs .back-image{
+    position: absolute;
+    z-index: 5;
+    width: 500px;
+    height: 500px;
+}
+
+.searchs .back-image img{
+    width: 100%;
+}
+
+
+.container-search{
+    /* position: relative; */
+  position: relative;
+  z-index: 10;
+}
+
+.tabs{
+
+}
+
+.by-ingredients,
+.by-recipes{
+  width: 50%;
+  background: #ff4a52;
+  color: #fff;
+  float: left;
+  height: 60px;
+  line-height: 60px;
+  text-align: center;
+  cursor: pointer;
+  text-transform: uppercase;
+}
+
+
+.search-byingredients,
+.search-byrecipes{
+  background: #fff;
+  padding: 40px;
+  clear: both;
+  width: 100%;
+  box-sizing: border-box;
+  box-shadow: 2px 2px 5px grey;  /* height: 400px; */
+}
+
+.search-active{
+    background-color: #fff;
+    color: #000;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }

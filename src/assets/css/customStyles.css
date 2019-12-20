@@ -417,3 +417,55 @@ input.file
 	color: #333;
 }
 
+.ng-input input{
+	/* color: red !important */
+}
+
+.select2-multiple .ng-value-container{
+	height: 60px !important;
+}
+
+.select2-multiple .ng-select-container{
+	height: 60px !important;
+}
+
+.btn-submit{
+	height: 60px;
+	bottom: -9px;
+
+}
+
+
+.card-item{
+	padding-bottom: 10px;
+}
+
+.product-box-layout1{
+	/* box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); */
+	border: 1px solid rgba(175, 175, 175, 0.3);
+}
+
+.product-box-layout1:hover 
+{
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.btn-signup, .btn-login{
+	width: 100%;
+}
+
+.btn-signup{
+	background-color: #fff !important;
+	color: black !important;
+	border: 1px solid black !important;
+}
+
+.btn-signup:hover{
+	background-color: #000 !important;
+	color: #fff !important;
+	border-color: #fff !important;
+}
+
+.main-input-box:focus{
+	border-color: #000 !important;
+}

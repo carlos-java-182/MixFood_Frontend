@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { Select2OptionData } from 'ng-select2';
 import { Options } from 'select2';
 import { NgModel } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-home-guest',
@@ -10,6 +11,17 @@ import { NgModel } from '@angular/forms';
   styleUrls: ['./home-guest.component.css']
 })
 export class HomeGuestComponent implements OnInit {
+
+
+  //*Variables declaration
+  showDropDown: boolean = false;
+  isSearchIngredientsVisible: boolean = false;
+ 
+ 
+  //*Objects declaration
+  recipeForm: FormGroup;
+
+
   public exampleData: Array<Select2OptionData>;
   public options: Options;
   public value: string[];
@@ -27,10 +39,68 @@ export class HomeGuestComponent implements OnInit {
     {id: 2, name: 'Node Js'},
     {id: 8, name: 'ReactJs'}
   ];
-  constructor() { }
+
+  public myLocalList = [
+    "Burgers",
+    "Sandwiches",
+    "French Fries",
+    "Milkshakes",
+    "Taco",
+    "Biscuit",
+    "Cookies",
+    "Hot Dog",
+    "Pizza",
+    "Pancake"
+  ];
+  public search1 = '';
+  selectedStatic(result) {
+    this.search1 = result;
+  }
+
+
+ 
+  constructor(private fb: FormBuilder) 
+  {
+    this.initForm();
+  }
+
+  initForm(): FormGroup {
+    return this.recipeForm = this.fb.group({
+      search: [null]
+    })
+  }
+
+  toggleDropDown(){
+    this.showDropDown = !this.showDropDown;
+  }
+
+  toggleShowSearch(){
+    this.isSearchIngredientsVisible = !this.isSearchIngredientsVisible;
+  }
+
+  getValue(value)
+  {
+    this.recipeForm.patchValue({"search": value});
+   this.showDropDown = false;
+  }
+
+  getSearchValue()
+  {
+    return this.recipeForm.value.search;
+  }
+
+  searchRecipe(value){
+    console.log(value);
+  }
+
+  
 
   ngOnInit() {
    
+
+
+
+
     this.exampleData = [
       {
         id: 'multiple1',
