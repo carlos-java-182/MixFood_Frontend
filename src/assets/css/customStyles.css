@@ -469,3 +469,18 @@ input.file
 .main-input-box:focus{
 	border-color: #000 !important;
 }
+
+
+
+
+/*=============================================
+=            Slider            =
+=============================================*/
+.owl-theme .owl-dots .owl-dot.active span, .owl-theme .owl-dots .owl-dot:hover span {
+	background: #ff4a52 !important; 
+ }
+
+
+/*=====  End of Slider  ======*/
+
+
