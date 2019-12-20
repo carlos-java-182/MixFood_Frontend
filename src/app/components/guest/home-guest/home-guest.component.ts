@@ -5,6 +5,10 @@ import { Options } from 'select2';
 import { NgModel } from '@angular/forms';
 import { FormBuilder, FormGroup } from '@angular/forms';
 
+import * as $ from 'jquery';
+
+
+
 @Component({
   selector: 'app-home-guest',
   templateUrl: './home-guest.component.html',
@@ -21,6 +25,7 @@ export class HomeGuestComponent implements OnInit {
   //*Objects declaration
   recipeForm: FormGroup;
 
+  
 
   public exampleData: Array<Select2OptionData>;
   public options: Options;
@@ -97,7 +102,7 @@ export class HomeGuestComponent implements OnInit {
 
   ngOnInit() {
    
-
+  
 
 
 

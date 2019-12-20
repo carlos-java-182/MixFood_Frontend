@@ -1,4 +1,5 @@
-
+/* @import '../../../node_modules/ngx-owl-carousel-o/lib/styles/scss/owl.carousel'; */
+/* @import '~ngx-owl-carousel-o/lib/styles/scss/owl.theme.default'; */
 
 /* @import "~@ng-select/ng-select/themes/default.theme.css"; */
 .input-search{
@@ -123,7 +124,7 @@
   clear: both;
   width: 100%;
   box-sizing: border-box;
-  box-shadow: 2px 2px 5px grey;  /* height: 400px; */
+  box-shadow: 2px 2px 5px rgba(128,128,128,0.4); 
 }
 
 .search-active{
@@ -131,3 +132,19 @@
     color: #000;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
+
+
+
+
+/*=============================================
+=            Section Slider cards block            =
+=============================================*/
+
+.carousel-inner{
+    background-color: red;
+}
+
+
+
+/*=====  End of Section Slider cards block  ======*/
+

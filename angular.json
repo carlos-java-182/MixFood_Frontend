@@ -24,6 +24,7 @@
               "src/assets"
             ],
             "styles": [
+              "node_modules/bootstrap/dist/css/bootstrap.min.css",
               "src/styles.css",
               "src/assets/css/normalize.css",
               "src/assets/css/main.css",
@@ -38,12 +39,15 @@
               "src/assets/css/styles.css",
               "src/assets/css/customStyles.css",
               "src/assets/css/component.css",
-              "node_modules/select2/dist/css/select2.min.css"
+              "node_modules/select2/dist/css/select2.min.css",
+              "node_modules/ngx-owl-carousel-o/lib/styles/prebuilt-themes/owl.carousel.min.css",
+              "node_modules/ngx-owl-carousel-o/lib/styles/prebuilt-themes/owl.theme.default.min.css"
               
             ],
             "scripts": [
               "node_modules/jquery/dist/jquery.min.js",
-              "node_modules/select2/dist/js/select2.min.js" ,
+              "node_modules/bootstrap/dist/js/bootstrap.min.js",
+              "node_modules/select2/dist/js/select2.min.js",
               "src/assets/js/popper.min.js",
               "src/assets/js/bootstrap.min.js",
               "src/assets/js/plugins.js",

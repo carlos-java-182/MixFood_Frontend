@@ -44,7 +44,8 @@ import { NgxTypeaheadModule} from 'ngx-typeahead';
 import { FormsModule,ReactiveFormsModule  } from '@angular/forms';
 //import { NgxTypeAheadComponent } from 'ngx-typeahead/src/modules/ngx-typeahead.component';
 import { NgxTypeaheadModule } from 'ngx-typeahead';
-
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';  
+import { CarouselModule } from 'ngx-owl-carousel-o';
 @NgModule({
   declarations: [
     AppComponent,
@@ -89,7 +90,9 @@ import { NgxTypeaheadModule } from 'ngx-typeahead';
     NgSelectModule,
     NgxTypeaheadModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgbModule,
+    CarouselModule 
   ],
   providers: [],
   bootstrap: [AppComponent]
