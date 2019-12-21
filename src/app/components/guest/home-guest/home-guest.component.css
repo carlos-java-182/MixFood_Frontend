@@ -133,9 +133,16 @@
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
+.flex-bottom {
+    display: flex;
+    align-items: flex-end;
+  }
 
-
-
+.btn-sub{
+    height: 60px !important;
+    font-weight: bold;
+    padding: 20px 40px !important;
+}
 /*=============================================
 =            Section Slider cards block            =
 =============================================*/

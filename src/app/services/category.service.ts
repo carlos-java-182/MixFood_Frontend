@@ -2,29 +2,22 @@ import { Injectable } from '@angular/core';
 import { HttpClient,HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
-
 @Injectable({
   providedIn: 'root'
 })
-export class RecipesService {
+export class CategoryService {
   //*Variables declaration
   url:string = 'http://localhost:8080/api/';
   constructor(private http: HttpClient) { }
 
-  getRecipeCard():Observable<Recipe[]>{
-    return this.http.get<Recipe[]>(this.url+'recipes/cards');
+  getCategoriesCard():Observable<CategoryCard[]>{
+    return this.http.get<CategoryCard[]>(this.url+'categories/cards')
   }
 }
 
-
-
-export interface Recipe{
+export interface CategoryCard{
   id : number,
   name : string,
-  userName : string,
-  thumbRoute : string,
-  createAt : string,
-  averangeRanking : number,
-  categoryName : string,
-  idUser : number
+  thumbRoute: string,
+  amountRecipes: number
 }

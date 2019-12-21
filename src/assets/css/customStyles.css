@@ -431,7 +431,7 @@ input.file
 
 .btn-submit{
 	height: 60px;
-	bottom: -9px;
+	/* bottom: -9px; */
 
 }
 
