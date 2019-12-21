@@ -7,6 +7,9 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 
 import * as $ from 'jquery';
 
+//*Import services
+import { RecipesService,Recipe } from 'src/app/services/recipes.service';
+import { CategoryService,CategoryCard } from 'src/app/services/category.service';
 
 
 @Component({
@@ -20,7 +23,9 @@ export class HomeGuestComponent implements OnInit {
   //*Variables declaration
   showDropDown: boolean = false;
   isSearchIngredientsVisible: boolean = false;
- 
+  //*Object declaration
+  recipes: Recipe[];
+  categories: CategoryCard[];
  
   //*Objects declaration
   recipeForm: FormGroup;
@@ -64,21 +69,24 @@ export class HomeGuestComponent implements OnInit {
 
 
  
-  constructor(private fb: FormBuilder) 
+
+  constructor(private fb: FormBuilder, private _recipeService: RecipesService, private _categoryService: CategoryService) 
   {
     this.initForm();
   }
 
+  //*Initialize Form
   initForm(): FormGroup {
     return this.recipeForm = this.fb.group({
       search: [null]
     })
   }
 
+  //*This function hidde or show the drop down list of search
   toggleDropDown(){
     this.showDropDown = !this.showDropDown;
   }
-
+  //*This function show the search container
   toggleShowSearch(){
     this.isSearchIngredientsVisible = !this.isSearchIngredientsVisible;
   }
@@ -101,8 +109,13 @@ export class HomeGuestComponent implements OnInit {
   
 
   ngOnInit() {
-   
+    this._recipeService.getRecipeCard().subscribe(data => {
+      this.recipes = data;
+    });
   
+    this._categoryService.getCategoriesCard().subscribe(data => {
+      this.categories = data;
+    });
 
 
 

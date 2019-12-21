@@ -46,6 +46,8 @@ import { FormsModule,ReactiveFormsModule  } from '@angular/forms';
 import { NgxTypeaheadModule } from 'ngx-typeahead';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';  
 import { CarouselModule } from 'ngx-owl-carousel-o';
+import {TimeAgoPipe} from 'time-ago-pipe';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -79,7 +81,8 @@ import { CarouselModule } from 'ngx-owl-carousel-o';
     EditprofileUserComponent,
     RecipesUserComponent,
     LoginComponent,
-    
+    TimeAgoPipe
+
     
     
   ],
@@ -92,7 +95,7 @@ import { CarouselModule } from 'ngx-owl-carousel-o';
     FormsModule,
     ReactiveFormsModule,
     NgbModule,
-    CarouselModule 
+    CarouselModule ,
   ],
   providers: [],
   bootstrap: [AppComponent]
