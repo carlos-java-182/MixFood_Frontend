@@ -33,6 +33,7 @@ import { CreatetagsAdminComponent } from './components/admin/tags/createtags-adm
 import { EditusersAdminComponent } from './components/admin/users/editusers-admin/editusers-admin.component';
 import { TagsAdminComponent } from './components/admin/tags/tags-admin/tags-admin.component';
 import { EdittagsAdminComponent } from './components/admin/tags/edittags-admin/edittags-admin.component';
+import { RecipeComponent } from './components/shared/recipe/recipe.component';
 
 
 //2.- Asignar ruta al componente
@@ -57,6 +58,7 @@ const routes: Routes = [
   {component: LoginComponent, path: 'guest/login-guest'},
   {component: SignupGuestComponent, path: 'guest/signup-guest'},
   {component: ForgotpasswordGuestComponent, path: 'guest/forgotpassword-guest'},
+  {component: RecipeComponent, path: 'recipe/:id'},
 
   //*Admin routes
   {component: HomeAdminComponent, path: 'admin/home-admin'},

@@ -1,6 +1,28 @@
 (function ($) {
     "use strict";
 
+
+
+    $(document).ready(function(){
+      
+        $('.owl-carousel').owlCarousel({
+      loop:true,
+      margin:10,
+      nav:true,
+      responsive:{
+          0:{
+              items:1
+          },
+          600:{
+              items:3
+          },
+          1000:{
+              items:4
+          }
+      }
+      })
+      });
+
     /*-------------------------------------
     Contact Form initiating
     -------------------------------------*/
@@ -65,6 +87,10 @@
         _self.toggleClass('icon-alter');
 
     });
+
+
+
+
 
     /*-------------------------------------
     Quantity Holder

@@ -1,3 +1,5 @@
+
+
 <!-- Header Area Start Here -->
 <app-navbar-guest></app-navbar-guest>
 <!-- Header Area End Here -->
@@ -52,27 +54,30 @@
             </div>
 
         </div>
-
+        <!-- Search by recipe Start Here -->
         <div *ngIf="!isSearchIngredientsVisible" class="search-byrecipes row gutters-60">            
             <div  class="col-lg-12">
                 <form class="submit-recipe-form form-row"  [formGroup]='recipeForm' autocomplete="new-password" novalidate>
                     <div class="form-group search-recipe col-lg-6">
                         <h2>Search recipe</h2>
                         <span class="fa fa-search form-control-feedback"></span>
-                        <button (click)="search.value = ''" class=" btn-clear">Clear</button>
-                        <input (clickOutside)="toggleDropDown()" (click)="toggleDropDown()" (keydown)="searchRecipe(search.value)" #search formControlName="search" type="text" class="form-control input-search">
-                      
+                        <button (click)="hiddeDropDown(); search.value = ''" class=" btn-clear">Clear</button>
+                        <input (clickOutside)="hiddeDropDown()" 
+                        (keyup)="searchRecipe(search.value)" 
+                        #search formControlName="search" 
+                        type="text" 
+                        class="form-control input-search"
+                        placeholder="Type the recipe name" 
+                        required>                  
                         <!-- List results Start Here -->
                         <div *ngIf="showDropDown" class="recipe-container-dropdown">
-                            <div class="result-container" (click)='selectValue(recipe)' *ngFor="let recipe of myLocalList">
+                            <div class="result-container" (click)='selectValue(recipe)' *ngFor="let recipe of recipesNames">
                                <span class="result-item">
-                                 {{recipe}}
+                                 {{recipe.name}}
                                </span>
                             </div>
                         </div>
-                        <!-- List results End Here -->
-    
-                        
+                        <!-- List results End Here -->                 
                     </div>
                     <div class="form-group select2-multiple col-lg-2">
                         <h2>Category</h2>
@@ -83,7 +88,7 @@
                         name="teachersSelect"                           
                         [multiple]="false"
                         placeholder ="Select a category"
-                        notFoundText = "Sin resultados"
+                        notFoundText = "Result not found"
                         required>
                         </ng-select>
                     </div>
@@ -96,13 +101,10 @@
                 </form>
             </div>
         </div>
+        <!-- Search by recipe End Here -->
     </div>
-
-
-
 </section>
 <!-- Search section End Here -->
-
 
 <!-- Content Area Start Here -->
 <!-- Recent Recipe Start Here -->
@@ -115,12 +117,12 @@
                 </div>
                 <div class="owl-carousel owl-theme">             
                     <div class="item"  *ngFor="let recipe of recipes">     
-                        <div class="card-item col-lg-12 col-md-12 col-sm-12">
+                        <div class="card-item col-lg-12 col-md-12 col-sm-12" (click)="showRecipe(recipe)">
                             <div class="product-box-layout1">
                                 <figure class="item-figure"><a href="single-recipe1.html"><img  src="assets/img/product/product5.jpg"  
                                             alt="Product"></a></figure>
                                 <div class="item-content">
-                                    <h3 class="item-title"><a href="single-recipe1.html">{{recipe.name}}</a></h3>
+                                    <h3 class="item-title"><a (click)="showRecipe(recipe)" >{{recipe.name}}</a></h3>
                                     <span class="sub-title">{{recipe.categoryName.toUpperCase()}}</span>
                                     <ul class="item-rating">
                                             <li class="star-fill"><i class="fas fa-star"></i></li>
@@ -146,6 +148,17 @@
                 <div class="widget">
                     <div class="section-heading heading-dark">
                         <h3 class="item-heading">Popular tags</h3>
+                    </div>
+
+                    <div class="widget-tag">
+                        <ul>
+                            <li *ngFor="let tag of tags">
+                                <a href="#">
+                                    {{tag.name.toUpperCase()}}
+                                </a>
+                            </li>
+                        </ul>
+                       
                     </div>
                     <div class="widget-tag">
                         <ul>
@@ -185,10 +198,6 @@
     </div>
 </section>
 <!-- Recent Recipe End Here -->
-
-
-
-
 
 <!-- Category Area Start Here -->
 <section class="category-page-wrap padding-top-80 padding-bottom-50">

@@ -43,10 +43,10 @@ import { NgSelectModule } from '@ng-select/ng-select';
 import { NgxTypeaheadModule} from 'ngx-typeahead';
 import { FormsModule,ReactiveFormsModule  } from '@angular/forms';
 //import { NgxTypeAheadComponent } from 'ngx-typeahead/src/modules/ngx-typeahead.component';
-import { NgxTypeaheadModule } from 'ngx-typeahead';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';  
 import { CarouselModule } from 'ngx-owl-carousel-o';
 import {TimeAgoPipe} from 'time-ago-pipe';
+import { RecipeComponent } from './components/shared/recipe/recipe.component';
 
 @NgModule({
   declarations: [
@@ -81,7 +81,8 @@ import {TimeAgoPipe} from 'time-ago-pipe';
     EditprofileUserComponent,
     RecipesUserComponent,
     LoginComponent,
-    TimeAgoPipe
+    TimeAgoPipe,
+    RecipeComponent
 
     
     
