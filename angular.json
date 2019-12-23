@@ -48,13 +48,14 @@
               "node_modules/jquery/dist/jquery.min.js",
               "node_modules/bootstrap/dist/js/bootstrap.min.js",
               "node_modules/select2/dist/js/select2.min.js",
+              "src/assets/js/main.js",
               "src/assets/js/popper.min.js",
               "src/assets/js/bootstrap.min.js",
               "src/assets/js/plugins.js",
               "src/assets/js/owl.carousel.min.js",
               "src/assets/js/select2.full.min.js",
               "src/assets/js/smoothscroll.min.js",
-              "src/assets/js/main.js"
+             
      
             ]
           },

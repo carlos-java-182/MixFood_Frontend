@@ -4,12 +4,13 @@ import { Select2OptionData } from 'ng-select2';
 import { Options } from 'select2';
 import { NgModel } from '@angular/forms';
 import { FormBuilder, FormGroup } from '@angular/forms';
-
+import { Router } from '@angular/router';
 import * as $ from 'jquery';
 
 //*Import services
 import { RecipesService,Recipe } from 'src/app/services/recipes.service';
 import { CategoryService,CategoryCard } from 'src/app/services/category.service';
+import { TagService, TagShort } from 'src/app/services/tag.service';
 
 
 @Component({
@@ -18,20 +19,18 @@ import { CategoryService,CategoryCard } from 'src/app/services/category.service'
   styleUrls: ['./home-guest.component.css']
 })
 export class HomeGuestComponent implements OnInit {
-
-
   //*Variables declaration
   showDropDown: boolean = false;
   isSearchIngredientsVisible: boolean = false;
-  //*Object declaration
-  recipes: Recipe[];
-  categories: CategoryCard[];
  
   //*Objects declaration
+  recipes: Recipe[];
+  categories: CategoryCard[];
+  recipesNames: any;
+  tags: TagShort[];
   recipeForm: FormGroup;
 
-  
-
+  //*Test
   public exampleData: Array<Select2OptionData>;
   public options: Options;
   public value: string[];
@@ -63,62 +62,34 @@ export class HomeGuestComponent implements OnInit {
     "Pancake"
   ];
   public search1 = '';
+  
   selectedStatic(result) {
     this.search1 = result;
   }
 
-
- 
-
-  constructor(private fb: FormBuilder, private _recipeService: RecipesService, private _categoryService: CategoryService) 
+  constructor(private fb: FormBuilder, 
+    private _recipeService: RecipesService,
+    private _categoryService: CategoryService,
+    private _tagService: TagService,
+    private router: Router) 
   {
     this.initForm();
   }
 
-  //*Initialize Form
-  initForm(): FormGroup {
-    return this.recipeForm = this.fb.group({
-      search: [null]
-    })
-  }
-
-  //*This function hidde or show the drop down list of search
-  toggleDropDown(){
-    this.showDropDown = !this.showDropDown;
-  }
-  //*This function show the search container
-  toggleShowSearch(){
-    this.isSearchIngredientsVisible = !this.isSearchIngredientsVisible;
-  }
-
-  getValue(value)
-  {
-    this.recipeForm.patchValue({"search": value});
-   this.showDropDown = false;
-  }
-
-  getSearchValue()
-  {
-    return this.recipeForm.value.search;
-  }
-
-  searchRecipe(value){
-    console.log(value);
-  }
-
-  
-
   ngOnInit() {
-    this._recipeService.getRecipeCard().subscribe(data => {
+    this._recipeService.getRecipeCard().subscribe(data => 
+    {
       this.recipes = data;
     });
   
-    this._categoryService.getCategoriesCard().subscribe(data => {
-      this.categories = data;
+    this._categoryService.getCategoriesCard().subscribe(data => 
+      {
+        this.categories = data;
     });
 
-
-
+    this.getTagsShort();
+  
+    //*Test
     this.exampleData = [
       {
         id: 'multiple1',
@@ -139,6 +110,7 @@ export class HomeGuestComponent implements OnInit {
     ];
     this.value = ['multiple2', 'multiple4'];
 
+    //*Ingredients select config
     this.options = {
       width: '500',
       multiple: true,
@@ -149,6 +121,67 @@ export class HomeGuestComponent implements OnInit {
       formatSearching: () => 'papa'
     };
    
+  }
+
+  //*Initialize Form
+  initForm(): FormGroup {
+    return this.recipeForm = this.fb.group({
+      search: [null]
+    })
+  }
+
+  //*This function hidde or show the drop down list of search
+  toggleDropDown(){
+    this.showDropDown = !this.showDropDown;
+  }
+
+  //*This function show the search container
+  toggleShowSearch(){
+    this.isSearchIngredientsVisible = !this.isSearchIngredientsVisible;
+  }
+
+  //*This function clean the input value and hidde the list of suggestions
+  hiddeDropDown()
+  {
+    this.showDropDown = false;
+  }
+
+  getValue(value)
+  {
+    this.recipeForm.patchValue({"search": value});
+    this.showDropDown = false;
+  }
+
+  getSearchValue()
+  {
+    return this.recipeForm.value.search;
+  }
+
+  //*This function get the search results and show this results
+  searchRecipe(term){
+    this._recipeService.getSearchForName(term).subscribe(data =>
+    {
+      this.recipesNames = data
+      if(this.recipesNames.length == 0)
+      {
+        this.showDropDown = false;
+      } 
+      else{
+        this.showDropDown = true;
+      }
+    });
+  }
+
+  showRecipe(recipe)
+  {
+    this.router.navigate(['/recipe/',recipe.id])
+  }
+
+  getTagsShort()
+  {
+    this._tagService.getTagsShort().subscribe(
+      data => this.tags = data
+    );
   }
 
 }

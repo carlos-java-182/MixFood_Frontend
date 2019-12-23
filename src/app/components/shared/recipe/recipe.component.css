@@ -1,0 +1,9 @@
+.entry-meta{
+	display: flex !important;
+	flex-direction: row !important;
+}
+
+.recipe-thumb{
+	max-width: 150px;
+	max-height: 130px;
+}

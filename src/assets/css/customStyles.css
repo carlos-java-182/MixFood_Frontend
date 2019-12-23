@@ -470,17 +470,60 @@ input.file
 	border-color: #000 !important;
 }
 
-
+.entry-meta{
+	display: flex !important;
+	flex-direction: column !important;
+}
 
 
 /*=============================================
 =            Slider            =
 =============================================*/
-.owl-theme .owl-dots .owl-dot.active span, .owl-theme .owl-dots .owl-dot:hover span {
+.owl-theme .owl-dots .owl-dot{
+	margin-top: 10px !important;
+}
+
+.owl-theme .owl-dots .owl-dot.active span,
+ .owl-theme .owl-dots .owl-dot:hover span {
 	background: #ff4a52 !important; 
  }
+.owl-theme .owl-nav{
+	position: absolute;
+	top: 45%;
+	transform: translateY(-50%);
+	width: 100%;
+	display: flex !important;
+	justify-content: space-between !important;
+}
+.owl-theme .owl-nav .owl-prev{
+	position: relative;
+}
 
+.owl-theme .owl-nav .owl-prev:focus,
+.owl-theme .owl-nav .owl-next:focus
+{
 
+	outline:0px;
+}
+.owl-theme .owl-nav .owl-prev:hover,
+.owl-theme .owl-nav .owl-next:hover{
+	background:none !important;
+}
+
+.owl-theme .owl-nav .owl-prev span , 
+.owl-theme .owl-nav .owl-next span{
+	color: rgba(255, 77, 85,0.2);
+	height: 20px !important;
+	width: 20px !important;
+	padding: 0px !important;
+	margin: 0 !important;
+	font-size: 12rem;
+	top: 0 !important;
+}
+.owl-theme .owl-nav .owl-prev span:hover,
+.owl-theme .owl-nav .owl-next span:hover{
+	color: #e92731;
+}
 /*=====  End of Slider  ======*/
 
 
