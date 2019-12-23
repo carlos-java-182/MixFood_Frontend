@@ -10,6 +10,7 @@ import { ActivatedRoute } from '@angular/router';
 export class RecipeComponent implements OnInit {
   //*Variables declaration
   id: number;
+  isLogged: boolean = false;
   //*Objects declaration
   recipe: any
   recipesLatests: RecipeLatest[];

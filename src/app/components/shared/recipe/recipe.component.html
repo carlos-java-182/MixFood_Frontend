@@ -30,9 +30,13 @@
                         </div>
                         <div class="col-xl-3 col-12">
                             <ul class="action-item">
-                                <li><button><i class="fas fa-heart"></i></button></li>
-                                <li><button><i class="far fa-heart"></i></button></li>
-                                <li class="action-share-hover"><button><i class="fas fa-share-alt"></i></button>
+                                <li *ngIf="isLogged">
+                                    <button><i class="fas fa-heart"></i></button>
+                                </li>
+                                <li *ngIf="isLogged">
+                                    <button><i class="far fa-heart"></i></button>
+                                </li>
+                                <!-- <li class="action-share-hover"><button><i class="fas fa-share-alt"></i></button>
                                     <div class="action-share-wrap">
                                         <a href="#" title="facebook"><i class="fab fa-facebook-f"></i></a>
                                         <a href="#" title="twitter"><i class="fab fa-twitter"></i></a>
@@ -41,7 +45,7 @@
                                         <a href="#" title="skype"><i class="fab fa-skype"></i></a>
                                         <a href="#" title="rss"><i class="fas fa-rss"></i></a>
                                     </div>
-                                </li>
+                                </li> -->
                             </ul>
                         </div>
                     </div>
@@ -698,19 +702,19 @@
                     </div>
                     <div class="widget-latest">
                         <ul class="block-list">
-                            <li class="single-item" *ngFor="let latest of recipesLatests">
+                            <li class="single-item" *ngFor="let latest of recipesLatests let i = index">
                                 <div class="item-img">
                                     <a href="#"><img  class="img-thumbnail recipe-thumb" [src]="latest.thumbRoute" alt="Post"></a>
-                                    <div class="count-number">1</div>
+                                    <div class="count-number">{{i+1}}</div>
                                 </div>
                                 <div class="item-content">
-                                    <div class="item-ctg">{{latest.category.name}}</div>
+                                    <div class="item-ctg">{{latest.category.name.toUpperCase()}}</div>
                                     <h4 class="item-title"><a href="#">{{latest.name}}</a></h4>
                                     <div class="item-post-by"><a href="single-blog.html"><i class="fas fa-user"></i>
                                             John Martin</a></div>
                                 </div>
                             </li>
-                            <li class="single-item">
+                            <!-- <li class="single-item">
                                 <div class="item-img">
                                     <a href="#"><img src="assets/img/product/latest2.jpg" alt="Post"></a>
                                     <div class="count-number">2</div>
@@ -722,8 +726,8 @@
                                     <div class="item-post-by"><a href="single-blog.html"><i class="fas fa-user"></i><span>by</span>
                                             John Martin</a></div>
                                 </div>
-                            </li>
-                            <li class="single-item">
+                            </li> -->
+                            <!-- <li class="single-item">
                                 <div class="item-img">
                                     <a href="#"><img src="assets/img/product/latest3.jpg" alt="Post"></a>
                                     <div class="count-number">3</div>
@@ -748,7 +752,7 @@
                                     <div class="item-post-by"><a href="single-blog.html"><i class="fas fa-user"></i><span>by</span>
                                             John Martin</a></div>
                                 </div>
-                            </li>
+                            </li> -->
                         </ul>
                     </div>
                 </div>
@@ -786,19 +790,19 @@
                             data-r-medium-nav="true" data-r-medium-dots="false" data-r-large="1"
                             data-r-large-nav="true" data-r-large-dots="false" data-r-extra-large="1"
                             data-r-extra-large-nav="true" data-r-extra-large-dots="false">
-                            <div class="featured-box-layout1">
+                            <div class="featured-box-layout1" *ngFor="let featured of recipesFeatured">
                                 <div class="item-img">
-                                    <img src="assets/img/product/product17.jpg" alt="Brand" class="img-fluid">
+                                    <img [src]="featured.thumbRoute" alt="Brand" class="img-fluid">
                                 </div>
                                 <div class="item-content">
-                                    <span class="ctg-name">BREAKFAST</span>
-                                    <h4 class="item-title"><a href="single-recipe1.html">Baked Garlic Prawn</a></h4>
+                                    <span class="ctg-name">{{featured.category.name.toUpperCase() }}</span>
+                                    <h4 class="item-title"><a href="single-recipe1.html">{{featured.name}}</a></h4>
                                     <p>Definitiones noel ei verear intelle
                                         gatpri civibus consequat area
                                         refund efficiantue.</p>
                                 </div>
                             </div>
-                            <div class="featured-box-layout1">
+                            <!-- <div class="featured-box-layout1">
                                 <div class="item-img">
                                     <img src="assets/img/product/product18.jpg" alt="Brand" class="img-fluid">
                                 </div>
@@ -821,7 +825,7 @@
                                         gatpri civibus consequat area
                                         refund efficiantue.</p>
                                 </div>
-                            </div>
+                            </div> -->
                         </div>
                     </div>
                 </div>
