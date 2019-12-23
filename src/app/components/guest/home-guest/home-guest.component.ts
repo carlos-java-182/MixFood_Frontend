@@ -78,8 +78,8 @@ export class HomeGuestComponent implements OnInit {
 
   ngOnInit() {
     this._recipeService.getRecipeCard().subscribe(data => 
-      {
-        this.recipes = data;
+    {
+      this.recipes = data;
     });
   
     this._categoryService.getCategoriesCard().subscribe(data => 

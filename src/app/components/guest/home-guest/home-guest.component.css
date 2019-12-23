@@ -162,3 +162,7 @@
 
 /*=====  End of Section Slider cards block  ======*/
 
+.card-tags li a{
+    font-weight: bold;
+    /* color: #ff4a52; */
+}
