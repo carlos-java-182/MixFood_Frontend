@@ -47,6 +47,10 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { CarouselModule } from 'ngx-owl-carousel-o';
 import {TimeAgoPipe} from 'time-ago-pipe';
 import { RecipeComponent } from './components/shared/recipe/recipe.component';
+import { ReadComponent } from './components/admin/crud/read/read.component';
+import { CreateComponent } from './components/admin/crud/create/create.component';
+import { EditComponent } from './components/admin/crud/edit/edit.component';
+import { ShowComponent } from './components/admin/crud/show/show.component';
 
 @NgModule({
   declarations: [
@@ -82,7 +86,11 @@ import { RecipeComponent } from './components/shared/recipe/recipe.component';
     RecipesUserComponent,
     LoginComponent,
     TimeAgoPipe,
-    RecipeComponent
+    RecipeComponent,
+    ReadComponent,
+    CreateComponent,
+    EditComponent,
+    ShowComponent
 
     
     
