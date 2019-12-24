@@ -34,12 +34,22 @@ import { EditusersAdminComponent } from './components/admin/users/editusers-admi
 import { TagsAdminComponent } from './components/admin/tags/tags-admin/tags-admin.component';
 import { EdittagsAdminComponent } from './components/admin/tags/edittags-admin/edittags-admin.component';
 import { RecipeComponent } from './components/shared/recipe/recipe.component';
+import { ReadComponent } from './components/admin/crud/read/read.component';
+import { EditComponent } from './components/admin/crud/edit/edit.component';
+import { CreateComponent } from './components/admin/crud/create/create.component';
+import { ShowComponent } from './components/admin/crud/show/show.component';
+
+
+//*Crud example imports
 
 
 //2.- Asignar ruta al componente
 //mipagina.com/path/path/path
 const routes: Routes = [
  
+  //*Crud Example routes
+  {component: ShowComponent, path: 'crud/show'},
+  {component: CreateComponent, path: 'crud/create'},
  
   //*User routes
   {component: NavbarUserComponent, path: 'user/navbar-user'},

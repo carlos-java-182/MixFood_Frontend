@@ -1,0 +1,40 @@
+
+<div class="container">
+<!-- Form client Start Here -->
+<form (ngSubmit)="createClient()"  class="submit-recipe-form">
+    <div class="form-row">
+      <div class="form-group col-md-6">
+        <label for="inputId">Id</label>
+        <input type="text" class="form-control" id="inputId" placeholder="Id" [(ngModel)]="client.id" name="id">
+      </div>
+      
+      <div class="form-group col-md-6">
+        <label for="inputName">Name</label>
+        <input type="text" class="form-control" id="inputName" placeholder="Name" [(ngModel)]="client.name"  name="name">
+      </div>
+      
+      <div class="form-group col-md-6">
+        <label for="inputLastname">Last name</label>
+        <input type="text" class="form-control" id="inputLastname" placeholder="Last name" [(ngModel)]="client.lastname" name="lastname">
+      </div>
+      
+      <div class="form-group col-md-6">
+        <label for="inputEmail">Email</label>
+        <input type="email" class="form-control" id="inputEmail" placeholder="Email" [(ngModel)]="client.email"  name="email">
+      </div>
+      
+      <div class="form-group col-md-6">
+        <label for="inputAge">Age</label>
+        <input type="text" class="form-control" id="inputAge" placeholder="Age" [(ngModel)]="client.age"  name="age">
+      </div>
+
+      <div class="form-group col-md-6">
+        <label for="inputGender">Gender</label>
+        <input type="text" class="form-control" id="inputGender" placeholder="Gender" [(ngModel)]="client.gender"  name="gender">
+      </div>
+    <button type="submit" class="btn btn-primary btn-lg">Save</button>
+    </div>
+  
+</form>
+<!-- Form client End Here -->
+</div>

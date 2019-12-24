@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient,HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { TestBed } from '@angular/core/testing';
 
 
 @Injectable({
@@ -52,6 +53,10 @@ export interface RecipeLatest{
     id: number,
     name: string
   }
+}
+
+export class Test{
+
 }
 
 export interface Recipe{
