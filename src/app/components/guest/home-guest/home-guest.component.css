@@ -10,8 +10,8 @@
 }
 
 .recipe-container-dropdown{
-    /* position: absolute; */
-    z-index: 1;
+    position: absolute;
+    z-index: 200;
     width: 100%;
     height: 400px;
     background: #fff;
@@ -79,6 +79,46 @@
     color: #e92731;
 }
 
+.search-sticky
+{
+    position: fixed;
+    z-index: 100;
+    top: 60px;
+    width: 100%;
+    /* height: 50px; */
+    padding: 0;
+    margin: 0;
+    
+    /* background-color: red !important; */
+}
+
+/*Search sticky Start Here*/
+.search-sticky .container-search
+{
+    width: 100% !important;
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
+.search-sticky .input-search{
+    /* background-color: pink; */
+}
+
+.search-sticky .tabs{
+    display: none;
+}
+.search-sticky .search-byrecipes{
+    padding: 20px  10px 0px 10px !important;
+    /* padding-top: 20px !important; */
+    /* margin: 0 !important; */
+    width: 100 !important;
+}
+
+.search-sticky h2
+{
+    display: none;
+}
+/*Sarch Sticky End Here*/
 
 .searchs{
     background-color:#fff;

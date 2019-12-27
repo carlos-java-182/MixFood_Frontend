@@ -42,7 +42,7 @@
     /*-------------------------------------
     Contact Form initiating
     -------------------------------------*/
-    var contactForm = $('#contact-form');
+   /* var contactForm = $('#contact-form');
     if (contactForm.length) {
         contactForm.validator().on('submit', function (e) {
             var $this = $(this),
@@ -69,7 +69,7 @@
                 return false;
             }
         });
-    }
+    }*/
 
     /*-------------------------------------
     Jquery Serch Box

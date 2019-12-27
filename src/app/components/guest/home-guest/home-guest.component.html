@@ -4,113 +4,198 @@
 <!-- Header Area End Here -->
 
 <!-- Search section Start Here -->
-<section class="searchs submit-recipe-page-wrap padding-top-74 padding-bottom-50">
+<section class="searchs search-sticky submit-recipe-page-wrap padding-top-74 padding-bottom-50">
     <!-- <div class="back-image">
         <img  src="https://cdn-image.myrecipes.com/sites/default/files/styles/4_3_horizontal_-_1200x900/public/mrtrending0475.jpg?itok=ULkGk3Pn" alt="">
     </div> -->
     <div class="container-search container">
-        <div class="tabs row gutters-60">            
-            <div [ngClass]="{'search-active': isSearchIngredientsVisible}" class="by-ingredients  col-lg-2" (click)="toggleShowSearch()">Search by ingredients</div>
-            <div [ngClass]="{'search-active': !isSearchIngredientsVisible}" class="by-recipes col-lg-2" (click)="toggleShowSearch()">Search by recipes</div>
-        </div>
-        
-        <div *ngIf="isSearchIngredientsVisible" class="search-byingredients row gutters-60">
-            <div class="col-lg-12">
-                <form class="submit-recipe-form form-row">                          
-                    <div class="form-group select2-multiple col-lg-6">
-                        <h2>Ingredients</h2>
-                        <ng-select
-                        class="select-multiple"
-                        [items]="items"
-                        bindLabel="name"
-                        bindValue="codeTeacher"
-                        name="teachersSelect"                           
-                        [multiple]="true"
-                        placeholder ="Select your ingredients"
-                        notFoundText = "Sin resultados"
-                        required>
-                        </ng-select>
-                    </div>
-                    <div class="form-group select2-multiple col-lg-2">
-                        <h2>Category</h2>
-                        <ng-select
-                        [items]="categories"
-                        bindLabel="name"
-                        bindValue="codeTeacher"
-                        name="teachersSelect"                           
-                        [multiple]="false"
-                        placeholder ="Select a category"
-                        notFoundText = "Sin resultados"
-                        required>
-                        </ng-select>
-                    </div>
-                    <div class="form-group col-1 flex-bottom">       
-                        <!-- <button class="btn btn-lg btn-primary">test</button> -->
-                        <button class="btn-fill btn-red btn-sub">Search</button>
-                    </div>  
-                    
-                </form>    
-            </div>
+        <div class="row gutters-60">
+        <div class="col-lg-12">
 
-        </div>
-        <!-- Search by recipe Start Here -->
-        <div *ngIf="!isSearchIngredientsVisible" class="search-byrecipes row gutters-60">            
-            <div  class="col-lg-12">
-                <form class="submit-recipe-form form-row"  [formGroup]='recipeForm' autocomplete="new-password" novalidate>
-                    <div class="form-group search-recipe col-lg-6">
-                        <h2>Search recipe</h2>
-                        <span class="fa fa-search form-control-feedback"></span>
-                        <button (click)="hiddeDropDown(); search.value = ''" class=" btn-clear">Clear</button>
-                        <input (clickOutside)="hiddeDropDown()" 
-                        (keyup)="searchRecipe(search.value)" 
-                        #search formControlName="search" 
-                        type="text" 
-                        class="form-control input-search"
-                        placeholder="Type the recipe name" 
-                        required>                  
-                        <!-- List results Start Here -->
-                        <div *ngIf="showDropDown" class="recipe-container-dropdown">
-                            <div class="result-container" (click)='selectValue(recipe)' *ngFor="let recipe of recipesNames">
-                               <span class="result-item">
-                                 {{recipe.name}}
-                               </span>
-                            </div>
-                        </div>
-                        <!-- List results End Here -->                 
-                    </div>
-                    <div class="form-group select2-multiple col-lg-2">
-                        <h2>Category</h2>
-                        <ng-select
-                        [items]="categories"
-                        bindLabel="name"
-                        bindValue="codeTeacher"
-                        name="teachersSelect"                           
-                        [multiple]="false"
-                        placeholder ="Select a category"
-                        notFoundText = "Result not found"
-                        required>
-                        </ng-select>
-                    </div>
-                    <div class="form-group col-1 flex-bottom">       
-                        <button type="submit" class="btn-fill btn-red btn-sub">Search</button>
-                    </div>  
-                    <!-- <div class="form-group positon-relative col-lg-2">       
-                        <button type="submit" class="btn-submit position-absolute">Random Search now</button>
-                    </div>   -->
-                </form>
+      
+       
+            <div class="tabs row gutters-60">            
+                <div [ngClass]="{'search-active': isSearchIngredientsVisible}" class="by-ingredients  col-lg-2" (click)="toggleShowSearch()">Search by ingredients</div>
+                <div [ngClass]="{'search-active': !isSearchIngredientsVisible}" class="by-recipes col-lg-2" (click)="toggleShowSearch()">Search by recipes</div>
             </div>
-        </div>
-        <!-- Search by recipe End Here -->
+            
+            <div *ngIf="isSearchIngredientsVisible" class="search-byingredients row">
+                <div class="col-lg-12">
+                    <form class="submit-recipe-form form-row">                          
+                        <div class="form-group select2-multiple col-lg-6">
+                            <h2>Ingredients</h2>
+                            <ng-select
+                            class="select-multiple"
+                            [items]="items"
+                            bindLabel="name"
+                            bindValue="codeTeacher"
+                            name="teachersSelect"                           
+                            [multiple]="true"
+                            placeholder ="Select your ingredients"
+                            notFoundText = "Sin resultados"
+                            [(ngModel)]="searchModel.ingredients"
+                            name="ingredients"
+                            required>
+                            </ng-select>
+                        </div>
+                        <div class="form-group select2-multiple col-lg-2">
+                            <h2>Category</h2>
+                            <ng-select
+                            [items]="categories"
+                            bindLabel="name"
+                            bindValue="codeTeacher"
+                            name="teachersSelect"                           
+                            [multiple]="false"
+                            placeholder ="Select a category"
+                            notFoundText = "Sin resultados"
+                            required>
+                            </ng-select>
+                        </div>
+                        <div class="form-group col-1 flex-bottom">       
+                            <!-- <button class="btn btn-lg btn-primary">test</button> -->
+                            <button class="btn-fill btn-red btn-sub" (click)="searchRecipeByTerm()">Search</button>
+                        </div>                
+                    </form>    
+                </div>
+            </div>
+            <!-- Search by recipe Start Here -->
+            <div *ngIf="!isSearchIngredientsVisible" class="search-byrecipes row gutters-60">            
+                <div  class="col-lg-12">
+                    <!-- form search by term start here -->
+                    <form 
+                    class="submit-recipe-form form-row"  
+                    [formGroup]='searchTermForm' 
+                    (ngSubmit)="searchRecipeByTerm(searchTermForm.value)"
+                    novalidate>
+                        <div class="form-group search-recipe col-lg-6">
+                            <h2>Search recipe</h2>
+                            <span class="fa fa-search form-control-feedback"></span>
+                            <button (click)="hiddeDropDown();" class=" btn-clear">Clear</button>
+                            <input 
+                            formControlName="searchTerm"
+                            name="searchTerm"
+                            type="text" 
+                            class="form-control input-search"
+                            placeholder="Type the recipe name" 
+                            (clickOutside)="hiddeDropDown()" 
+                            (keyup)="searchRecipe(searchTermForm.value.searchTerm)" 
+                            required>                  
+                            <!-- List results term Start Here -->
+                            <div *ngIf="showDropDown" class="recipe-container-dropdown">
+                                <div class="result-container" (click)='selectValue(recipe)' *ngFor="let recipe of recipesNames">
+                                <span class="result-item">
+                                    {{recipe.name}}
+                                </span>
+                                </div>
+                            </div>
+                            <!-- List results term End Here -->                 
+                        </div>
+                        <div class="form-group select2-multiple col-lg-2">
+                            <h2>Category</h2>
+                            <ng-select
+                            formControlName="idCategory"
+                            [items]="categories"
+                            bindLabel="name"
+                            bindValue="id"
+                            name="categorySelect"                         
+                            [multiple]="false"
+                            placeholder ="Select a category"
+                            notFoundText = "Result not found"
+                            required>
+                            </ng-select>
+                        </div>
+                        <div class="form-group col-1 flex-bottom">       
+                            <button [disabled]="searchTermForm.invalid"  type="submit" class="btn-fill btn-red btn-sub" (click)="searchRecipeByIngredients(  )">Search</button>
+                        </div>  
+                        <!-- <div class="form-group positon-relative col-lg-2">       
+                            <button type="submit" class="btn-submit position-absolute">Random Search now</button>
+                        </div>   -->
+                    </form>
+                    <!-- form search by term end here -->
+                </div>
+            </div>
+            <!-- Search by recipe End Here -->
+        </div>  
+    </div>
+
     </div>
 </section>
 <!-- Search section End Here -->
 
 <!-- Content Area Start Here -->
-<!-- Recent Recipe Start Here -->
+
+<!-- Results Recipe Start Here -->
+<section class="padding-bottom-45" *ngIf="isSearch">
+    <div class="container">
+     
+        
+
+      
+      
+    </div>
+</section>
+<!-- Results Recipe End Here -->
+
+
 <section class="padding-bottom-45">
     <div class="container">
         <div class="row gutters-60">
-            <div class="col-lg-10">
+            <!-- Results Recipe Start Here -->
+            <div class="col-lg-10" *ngIf="isSearch">
+                <div class="section-heading heading-dark row">
+                    <h2 class="item-heading">Resulsts </h2>
+                </div>
+                <div class="row">
+                    <div *ngFor="let recipe of recipesRes | paginate: {id: 'pagination-nav', itemsPerPage: 12, currentPage: p, totalItems: totalItems}" 
+                    class="card-item col-lg-3 col-md-3 col-sm-12" (click)="showRecipe(recipe)">
+                        <div class="product-box-layout1">
+                            <figure class="item-figure">
+                                <a>
+                                    <img  src="assets/img/product/product5.jpg"  
+                                        alt="Product">
+                                </a>
+                            </figure>
+                            <div class="item-content">
+                                <h3 class="item-title"><a (click)="showRecipe(recipe)" >{{recipe.name}}</a></h3>
+                                <span class="sub-title">{{recipe.category.name}}</span>
+                                <ul class="item-rating">
+                                        <li class="star-fill"><i class="fas fa-star"></i></li>
+                                        <li class="star-fill"><i class="fas fa-star"></i></li>
+                                        <li class="star-fill"><i class="fas fa-star"></i></li>
+                                        <li class="star-fill"><i class="fas fa-star"></i></li>
+                                        <li class="star-empty"><i class="fas fa-star"></i></li>
+                                </ul>
+                                <ul class="entry-meta">
+                                    <li><a href="#"><i class="fas fa-clock"></i>{{recipe.createAt | timeAgo}}</a></li>
+                                    <li><a href="#"><i class="fas fa-user"></i><span>{{recipe.user.name +' '+ recipe.user.lastname}}</span></a></li>
+                                    <li>
+                                        <ul class="card-tags">
+                                            <!-- <li *ngFor="let tag of recipe.tags"><a >#tag</a></li> -->
+                                        </ul>
+                                    </li>
+                                
+                                </ul>
+                            </div>
+                        </div>
+                    </div>                                      
+                       
+                </div>    
+                <!-- Pagination Start Here -->
+                <pagination-controls 
+                *ngIf="isSearch"
+                id="pagination-nav"
+                (pageChange)="getPage($event)"
+                previousLabel="Prev"
+                nextLabel="Next"
+                responsive="true"
+                screenReaderPaginationLabel="Pagination"
+                ></pagination-controls>
+                <!-- Pagination End Here -->                        
+            </div>
+            <!-- Results Recipe End Here -->
+           
+            <!-- Recent Recipe Start Here -->
+            <div class="col-lg-10" *ngIf="!isSearch">
                 <div class="section-heading heading-dark row">
                     <h2 class="item-heading">Recent recipes </h2>
                 </div>
@@ -123,14 +208,17 @@
                                 <div class="item-content">
                                     <h3 class="item-title"><a (click)="showRecipe(recipe)" >{{recipe.name}}</a></h3>
                                     <span class="sub-title">{{recipe.category.name.toUpperCase()}}</span>
+                                   
                                     <ul class="item-rating">
+                                       <li> <bar-rating [(rate)]="recipe.averangeRanking" [max]="5" ></bar-rating></li>
+                                            <!-- <li class="star-fill"><i class="fas fa-star"></i></li>
                                             <li class="star-fill"><i class="fas fa-star"></i></li>
                                             <li class="star-fill"><i class="fas fa-star"></i></li>
                                             <li class="star-fill"><i class="fas fa-star"></i></li>
-                                            <li class="star-fill"><i class="fas fa-star"></i></li>
-                                            <li class="star-empty"><i class="fas fa-star"></i></li>
+                                            <li class="star-empty"><i class="fas fa-star"></i></li> -->
                                     </ul>
                                     <ul class="entry-meta">
+                                        <li><a href="#"><i class="fas fa-eye"></i> {{recipe.views}}</a></li>
                                         <li><a href="#"><i class="fas fa-clock"></i> {{recipe.createAt | timeAgo}}</a></li>
                                         <li><a href="#"><i class="fas fa-user"></i>by <span>{{recipe.user.name }} {{recipe.user.lastname }}</span></a></li>
                                         <li>
@@ -146,6 +234,8 @@
                     </div>
                   </div>
             </div>
+            <!-- Recent Recipe End Here -->
+          
             <!-- Popular tags start here -->
             <div class="col-lg-2 sidebar-widget-area sidebar-break-md">
                 <div class="widget">
@@ -163,7 +253,7 @@
                         </ul>
                        
                     </div>
-                    <div class="widget-tag">
+                    <!-- <div class="widget-tag">
                         <ul>
                             <li>
                                 <a href="#">DESERT</a>
@@ -193,14 +283,19 @@
                                 <a href="#">JUICE</a>
                             </li>
                         </ul>
-                    </div>
+                    </div> -->
                 </div>                    
             </div>
             <!-- Popular tags end here -->
         </div>
     </div>
 </section>
-<!-- Recent Recipe End Here -->
+
+
+<!-- Results Recipe Start Here -->
+<!-- <app-searchresults *ngIf="isSearch"></app-searchresults> -->
+
+<!-- Results Recipe End Here -->
 
 <!-- Category Area Start Here -->
 <section class="category-page-wrap padding-top-80 padding-bottom-50">
@@ -209,7 +304,7 @@
             <h2 class="item-heading">Categories </h2>
         </div>
         <div class="row">      
-            <div class="col-lg-3 col-md-6 col-sm-6 col-12" *ngFor="let category of categories">
+            <div class="col-lg-2 col-md-6 col-sm-6 col-12" *ngFor="let category of categories">
                 <div class="category-box-layout1">
                     <figure class="item-figure">
                         <a href="single-recipe1.html">
@@ -233,40 +328,6 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-<!-- Category Area Start Here -->
-<section class="category-page-wrap padding-top-80 padding-bottom-50">
-    <div class="container">
-        <div class="section-heading heading-dark row">
-            <h2 class="item-heading">Categories </h2>
-        </div>
-        <div class="row">      
-            <div class="col-lg-3 col-md-6 col-sm-6 col-12" *ngFor="let number of [0,1,2,3,4,5,6,7]">
-                <div class="category-box-layout1">
-                    <figure class="item-figure"><a href="single-recipe1.html">
-                        <img src="assets/img/product/product29.jpg"
-                                alt="Product"></a></figure>
-                    <div class="item-content">
-                        <h3 class="item-title"><a href="single-recipe1.html">Chicken</a></h3>
-                        <span class="sub-title"> 14 Recipes</span>
-                    </div>
-                </div>
-            </div>
-           
-        </div>
-    </div>
-</section>
-<!-- Category Area End Here -->
 
 
 

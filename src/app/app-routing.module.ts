@@ -38,6 +38,8 @@ import { ReadComponent } from './components/admin/crud/read/read.component';
 import { EditComponent } from './components/admin/crud/edit/edit.component';
 import { CreateComponent } from './components/admin/crud/create/create.component';
 import { ShowComponent } from './components/admin/crud/show/show.component';
+import { SearchresultsComponent } from './components/shared/searchresults/searchresults.component';
+import { UserprofileComponent } from './components/shared/userprofile/userprofile.component';
 
 
 //*Crud example imports
@@ -58,18 +60,20 @@ const routes: Routes = [
   {component: CreaterecipeUserComponent, path: 'user/createrecipe'},
   {component: EditrecipeUserComponent, path: 'user/editrecipe-user'},
   {component: HomeUserComponent, path: 'user/home'},
-
+ 
   //*Guest routes
   {component: NavbarGuestComponent, path: 'guest/navbar-guest'},
   {component: HomeGuestComponent, path: 'home'},
+  {component: HomeGuestComponent, path: 'home/:id'},
   {component: SearchrecipeGuestComponent, path: 'searchrecipe-guest'},
   {component: SearchresultsGuestComponent, path: 'searchresults-guest'},
-  {component: CategoriesGuestComponent, path: 'guest/categories-guest'},
+  {component: CategoriesGuestComponent, path: 'categories'},
   {component: LoginComponent, path: 'guest/login-guest'},
   {component: SignupGuestComponent, path: 'guest/signup-guest'},
   {component: ForgotpasswordGuestComponent, path: 'guest/forgotpassword-guest'},
   {component: RecipeComponent, path: 'recipe/:id'},
-
+  {component: SearchresultsComponent, path: 'search/:term/:idcategory/:page'},
+  {component: SearchresultsComponent, path: 'search/:ingredients/:idcategory'},
   //*Admin routes
   {component: HomeAdminComponent, path: 'admin/home-admin'},
   {component: IngredientsAdminComponent, path: 'admin/ingredients-admin'},
@@ -82,8 +86,10 @@ const routes: Routes = [
   {component: CreatetagsAdminComponent, path: 'admin/createtags-admin'},
   {component: EditusersAdminComponent, path: 'admin/edituser-admin'},
   {component: TagsAdminComponent, path: 'admin/tags-admin'},
-  {component: EdittagsAdminComponent, path: 'admin/edit-admin'}
+  {component: EdittagsAdminComponent, path: 'admin/edit-admin'},
 
+  //*Shared components
+  {component: UserprofileComponent, path: 'profile/:id'}
 ];
 
 @NgModule({

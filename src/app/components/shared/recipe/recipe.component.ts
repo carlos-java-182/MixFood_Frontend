@@ -1,7 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,OnChanges } from '@angular/core';
 import * as $ from 'jquery';
-import { RecipesService,RecipeLatest,Recipe } from 'src/app/services/recipes.service';
-import { ActivatedRoute } from '@angular/router';
+import { RecipesService,RecipeLatest,Recipe,RecipeFeatured } from 'src/app/services/recipes.service';
+import { ActivatedRoute, Router } from '@angular/router';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { RankingService, NewRanking } from 'src/app/services/ranking.service';
 @Component({
   selector: 'app-recipe',
   templateUrl: './recipe.component.html',
@@ -10,35 +12,55 @@ import { ActivatedRoute } from '@angular/router';
 export class RecipeComponent implements OnInit {
   //*Variables declaration
   id: number;
+  ///ratingComment: number = 0;
   isLogged: boolean = false;
+
   //*Objects declaration
   recipe: any
   recipesLatests: RecipeLatest[];
-  recipesFeatured: Recipe[];
+  recipesFeatured: RecipeFeatured[];
+  commentForm: FormGroup;
 
   constructor(private _recipeService: RecipesService,
-              private activateRoute: ActivatedRoute) { }
+              private _rankingService: RankingService,
+              private activatedRoute: ActivatedRoute,
+              private router: Router,
+              private formBuilder: FormBuilder) { }
 
   ngOnInit() 
   {
-    this.activateRoute.params.subscribe(param => 
-    {
-      this.id = param['id'];
+    //*Create form group for new comment
+    this.commentForm = this.formBuilder.group({
+      comment: ['',Validators.required],
+      rating: ['',Validators.required]
     });
-   
+
+    this.activatedRoute.paramMap.subscribe(params =>
+      {
+        this.id = Number.parseInt(params.get('id'));
+        this.getRecipeById(this.id);
+      /*  this.activatedRoute.params.subscribe(param => 
+          {
+            this.id = param['id'];
+          });*/
+         
+      })
+
+  
     //*Call functions for get data
-    this.getRecipeById();
+ //   this.getRecipeById();
     this.getRecipesLatests(1);
     this.getRecipesCardsFeatured(1);
 
   }
 
   //*Get recipe by id param get in rotute
-  getRecipeById():void
+  getRecipeById(id: number):void
   {
-    this._recipeService.getById(this.id).subscribe(data =>
+    this._recipeService.getById(id).subscribe(data =>
     {
       this.recipe = data;
+      console.log(this.recipe);
     });  
   } 
 
@@ -57,8 +79,38 @@ export class RecipeComponent implements OnInit {
     this._recipeService.getRecipesCardsFeatured(id).subscribe(data =>
     {
         this.recipesFeatured = data;
-        console.table(this.recipesFeatured);
+        console.log(this.recipesFeatured);
     });
+  }
+
+  /**
+   * 
+   * @param values 
+   */
+  createComment(values):void
+  {
+    let newRanking: NewRanking;
+    newRanking =
+    {
+      comment: values.comment,
+      punctuation: values.rating,
+      user:
+      {
+        id: 1
+      },
+      recipe: {
+        id: 1
+      }
+    };
+    
+    this._rankingService.createRanking(newRanking).subscribe(response => {
+        console.log(response);
+    });
+  }
+
+  private showRecipe(id):void
+  {
+    this.router.navigate(['/recipe/',id]);
   }
 
 

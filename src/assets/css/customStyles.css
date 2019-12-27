@@ -527,3 +527,105 @@ input.file
 /*=====  End of Slider  ======*/
 
 
+
+/*=============================================
+=            Section pagination nav block            =
+=============================================*/
+#pagination-nav .ngx-pagination
+{
+	-webkit-box-pack: center;
+	-ms-flex-pack: center;
+	justify-content: center;
+	display: -webkit-box;
+	display: -ms-flexbox;
+	display: flex;
+	-webkit-box-align: center;
+	-ms-flex-align: center;
+	align-items: center;
+	-ms-flex-wrap: wrap;
+	flex-wrap: wrap;
+	margin-top: 2rem;
+	margin-bottom: 3rem;
+}
+
+#pagination-nav .ngx-pagination li 
+{
+	margin: 10px 2px 0;
+	-webkit-transition: all 0.5s ease-out;
+	-moz-transition: all 0.5s ease-out;
+	-ms-transition: all 0.5s ease-out;
+	-o-transition: all 0.5s ease-out;
+	transition: all 0.5s ease-out;
+}
+
+#pagination-nav .ngx-pagination li a {
+	height: 4.6rem;
+	width: 5.2rem;
+	background-color: #e1e1e1;
+	font-size: 22px;
+	line-height: 1;
+	color: #111111;
+	-webkit-box-pack: center;
+	-ms-flex-pack: center;
+	justify-content: center;
+	display: -webkit-box;
+	display: -ms-flexbox;
+	display: flex;
+	-webkit-box-align: center;
+	-ms-flex-align: center;
+	align-items: center;
+	padding-top: 4px;
+	-webkit-transition: all 0.5s ease-out;
+	-moz-transition: all 0.5s ease-out;
+	-ms-transition: all 0.5s ease-out;
+	-o-transition: all 0.5s ease-out;
+	transition: all 0.5s ease-out;
+}
+
+#pagination-nav .ngx-pagination .current span
+{
+	background-color: #ff4a52 !important;
+	color: #ffffff !important;
+}
+
+
+
+#pagination-nav .ngx-pagination .current .show-for-sr
+{
+	background: none !important;
+}
+#pagination-nav .ngx-pagination .current span
+{
+	height: 4.6rem;
+	width: 5.2rem;
+	background-color: #e1e1e1;
+	font-size: 22px;
+	line-height: 1;
+	color: #111111;
+	-webkit-box-pack: center;
+	-ms-flex-pack: center;
+	justify-content: center;
+	display: -webkit-box;
+	display: -ms-flexbox;
+	display: flex;
+	-webkit-box-align: center;
+	-ms-flex-align: center;
+	align-items: center;
+	padding-top: 4px;
+	-webkit-transition: all 0.5s ease-out;
+	-moz-transition: all 0.5s ease-out;
+	-ms-transition: all 0.5s ease-out;
+	-o-transition: all 0.5s ease-out;
+	transition: all 0.5s ease-out;
+}
+
+#pagination-nav .ngx-pagination .pagination-previous a,
+#pagination-nav .ngx-pagination .pagination-next a
+{
+	background: none !important;
+}
+#pagination-nav .ngx-pagination .ellipsis{
+	display: none !important;
+}
+/*=====  End of Section pagination nav block  ======*/
+

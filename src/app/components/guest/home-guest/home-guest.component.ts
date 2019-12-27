@@ -2,9 +2,10 @@ import { Component, OnInit } from '@angular/core';
 
 import { Select2OptionData } from 'ng-select2';
 import { Options } from 'select2';
-import { NgModel } from '@angular/forms';
+import { NgModel, Validators } from '@angular/forms';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
+
 import * as $ from 'jquery';
 
 //*Import services
@@ -22,14 +23,30 @@ export class HomeGuestComponent implements OnInit {
   //*Variables declaration
   showDropDown: boolean = false;
   isSearchIngredientsVisible: boolean = false;
- 
+  isSearch: boolean =  false;
+  term: string = '';
+  categoryId: number = 0;
+  test:string  ='hello World!!';
+  from: number;
+  until: number;
+  totalItems: number = 0;
+  p: number = 1;
+  rate: number = 3.5;
+  
   //*Objects declaration
   recipes: Recipe[];
+  recipesRes: Recipe[];
   categories: CategoryCard[];
+  searchModel: any;
   recipesNames: any;
   tags: TagShort[];
+  
+  //*Create FormGroups
   recipeForm: FormGroup;
+  searchTermForm: FormGroup;
 
+  paginator: any;
+  pages: number[];
   //*Test
   public exampleData: Array<Select2OptionData>;
   public options: Options;
@@ -49,18 +66,7 @@ export class HomeGuestComponent implements OnInit {
     {id: 8, name: 'ReactJs'}
   ];
 
-  public myLocalList = [
-    "Burgers",
-    "Sandwiches",
-    "French Fries",
-    "Milkshakes",
-    "Taco",
-    "Biscuit",
-    "Cookies",
-    "Hot Dog",
-    "Pizza",
-    "Pancake"
-  ];
+
   public search1 = '';
   
   selectedStatic(result) {
@@ -71,12 +77,22 @@ export class HomeGuestComponent implements OnInit {
     private _recipeService: RecipesService,
     private _categoryService: CategoryService,
     private _tagService: TagService,
-    private router: Router) 
+    private router: Router,
+    private activateRoute: ActivatedRoute,
+    private formBuilder: FormBuilder) 
   {
     this.initForm();
   }
 
   ngOnInit() {
+
+    //*Create form grup for search by term
+    this.searchTermForm = this.formBuilder.group({
+      searchTerm: ['', Validators.required],
+      idCategory: ['',Validators.required]
+    });
+
+
     this._recipeService.getRecipeCard().subscribe(data => 
     {
       this.recipes = data;
@@ -89,25 +105,6 @@ export class HomeGuestComponent implements OnInit {
 
     this.getTagsShort();
   
-    //*Test
-    this.exampleData = [
-      {
-        id: 'multiple1',
-        text: 'Multiple 1'
-      },
-      {
-        id: 'multiple2',
-        text: 'Multiple 2'
-      },
-      {
-        id: 'multiple3',
-        text: 'Multiple 3'
-      },
-      {
-        id: 'multiple4',
-        text: 'Multiple 4'
-      }
-    ];
     this.value = ['multiple2', 'multiple4'];
 
     //*Ingredients select config
@@ -120,7 +117,6 @@ export class HomeGuestComponent implements OnInit {
       formatNoMatches: (term: string) => 'hey',
       formatSearching: () => 'papa'
     };
-   
   }
 
   //*Initialize Form
@@ -157,7 +153,44 @@ export class HomeGuestComponent implements OnInit {
     return this.recipeForm.value.search;
   }
 
-  //*This function get the search results and show this results
+  
+  
+
+
+  searchRecipeByIngredients():void
+  {
+    this.isSearch = true;
+  }
+
+
+  showRecipe(recipe)
+  {
+    this.router.navigate(['/recipe/',recipe.id]);
+  }
+
+  getTagsShort()
+  {
+    this._tagService.getTagsShort().subscribe(
+      data => this.tags = data
+    );
+  }
+
+  getRecipsCardsResults(term: string, idCategory: number,page: number)
+  {
+    this._recipeService.getRecipsCardsResults(term,idCategory, page).subscribe(response =>
+      {
+        this.recipesRes = response.content as Recipe[];
+        this.paginator = response; 
+        this.totalItems = this.paginator.totalElements;
+        this.p = this.paginator.number + 1;
+      });
+  }
+
+
+  /**
+   * This function get the search results and show this results
+   * @param term: term for find the names recipe 
+   */
   searchRecipe(term){
     this._recipeService.getSearchForName(term).subscribe(data =>
     {
@@ -172,16 +205,24 @@ export class HomeGuestComponent implements OnInit {
     });
   }
 
-  showRecipe(recipe)
+  /**
+   * 
+   * @param values: form values for search recipes
+   */
+  searchRecipeByTerm(values):void
   {
-    this.router.navigate(['/recipe/',recipe.id])
+    this.isSearch = true;
+    let term = values.searchTerm;
+    let idCategory = values.idCategory;
+    this.getRecipsCardsResults(term,idCategory,0);
   }
 
-  getTagsShort()
+  /**
+   * 
+   * @param page 
+   */
+  getPage(page: number):void
   {
-    this._tagService.getTagsShort().subscribe(
-      data => this.tags = data
-    );
+    this.getRecipsCardsResults('a',1,page-1);
   }
-
 }
