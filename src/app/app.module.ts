@@ -51,7 +51,11 @@ import { ReadComponent } from './components/admin/crud/read/read.component';
 import { CreateComponent } from './components/admin/crud/create/create.component';
 import { EditComponent } from './components/admin/crud/edit/edit.component';
 import { ShowComponent } from './components/admin/crud/show/show.component';
-
+import { SearchresultsComponent } from './components/shared/searchresults/searchresults.component';
+import { PaginatorResultsComponent } from './components/shared/paginator-results/paginator-results.component';
+import { NgxPaginationModule } from 'ngx-pagination';
+import { BarRatingModule } from "ngx-bar-rating";
+import { UserprofileComponent } from './components/shared/userprofile/userprofile.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -90,7 +94,10 @@ import { ShowComponent } from './components/admin/crud/show/show.component';
     ReadComponent,
     CreateComponent,
     EditComponent,
-    ShowComponent
+    ShowComponent,
+    SearchresultsComponent,
+    PaginatorResultsComponent,
+    UserprofileComponent
 
     
     
@@ -105,6 +112,8 @@ import { ShowComponent } from './components/admin/crud/show/show.component';
     ReactiveFormsModule,
     NgbModule,
     CarouselModule ,
+    NgxPaginationModule,
+    BarRatingModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -16,12 +16,8 @@
                                 <li class="single-meta"><a href="#"><i class="fas fa-user"></i><span>{{recipe.user.name }} {{recipe.user.lastname}}</span></a></li>
                                 <li class="single-meta">
                                     <ul class="item-rating">
-                                        <li class="star-fill"><i class="fas fa-star"></i></li>
-                                        <li class="star-fill"><i class="fas fa-star"></i></li>
-                                        <li class="star-fill"><i class="fas fa-star"></i></li>
-                                        <li class="star-fill"><i class="fas fa-star"></i></li>
-                                        <li class="star-empty"><i class="fas fa-star"></i></li>
-                                        <!-- <li><span>9<span> / 10</span></span> </li> -->
+                                        <li><bar-rating [(rate)]="recipe.averangeRanking" [max]="5" [readOnly]="true"></bar-rating></li>
+                                  
                                     </ul>
                                 </li>
                                 <li class="single-meta"><a href="#"><i class="fas fa-heart"></i><span>02</span>
@@ -106,6 +102,19 @@
                                         <div class="media-body space-sm">
                                             <div class="feature-title">VIEWS</div>
                                             <div class="feature-sub-title">{{recipe.views}}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="feature-wrap">
+                                    <div class="media">
+                                        <div class="feature-icon">
+                                            <i class="far fa-eye"></i>
+                                        </div>
+                                        <div class="media-body space-sm">
+                                            <div class="feature-title">Difficulty</div>
+                                            <div class="feature-sub-title">{{recipe.difficulty}}</div>
                                         </div>
                                     </div>
                                 </div>
@@ -401,13 +410,10 @@
                     </div> -->
                     <div class="direction-wrap-layout1">
                         <div class="section-heading heading-dark">
-                            <h2 class="item-heading">DIRECTIONS</h2>
+                            <h2 class="item-heading">STEPS</h2>
                         </div>
-                        <p class="section-paragraph">Salamander lied porpoise much over tightly circa horse
-                            taped so innocuously side crudey mightily rigorous plot life. New homes in
-                            particular are subject. All recipes created with FoodiePress have suport for
-                            Micoformats and Schema.org is a collaboration byo improve convallis.</p>
-                        <div class="direction-box-layout1">
+                        <p class="section-paragraph">{{recipe.steps}}</p>
+                        <!-- <div class="direction-box-layout1">
                             <div class="item-figure">
                                 <img src="img/figure/direction1.jpg" alt="DIRECTIONS">
                             </div>
@@ -454,7 +460,7 @@
                                     the web by creat inegaera structured markupinn ocuously
                                     side crudey mightily rigorous plot life.</p>
                             </div>
-                        </div>
+                        </div> -->
                     </div>
                     <div class="section-heading heading-dark row">
                         <h2 class="item-heading">Tags</h2>
@@ -515,11 +521,9 @@
                         <div class="media media-none--xs">
                             <img src="assets/img/blog/author9.jpg" alt="Blog Author" class="rounded-circle media-img-auto">
                             <div class="media-body">
-                                <h4 class="author-title">Michel Jack</h4>
+                                <h4 class="author-title">{{recipe.user.name + ' '+ recipe.user.lastname}}</h4>
                                 <h5 class="author-sub-title">Written by</h5>
-                                <p>I love cooking and blogging. Using a fork, break salmon. Halve reserved 
-                                        potatoes and eggs crosswise. The of something of did require met of
-                                        help have someone.</p>
+                                <p>{{recipe.user.description}}</p>
                                 <ul class="author-social">
                                     <li>
                                         <a href="#"><i class="fab fa-facebook-f"></i></a>
@@ -593,38 +597,39 @@
                         <div class="avarage-rating-wrap">
                             <div class="avarage-rating">Avarage Rating: 
                                 <span class="rating-icon-wrap">
+                                    <bar-rating [(rate)]="recipe.averangeRanking" [max]="5" [readOnly]="true"></bar-rating>
+                                    <!-- <i class="fas fa-star"></i>
                                     <i class="fas fa-star"></i>
                                     <i class="fas fa-star"></i>
                                     <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i> -->
                                 </span>
-                                <span class="rating-number">(5)</span>                                        
+                                <!-- <span class="rating-number"></span>                                         -->
                             </div>
-                            <div class="total-reviews">Total Reviews:<span class="review-number">(02)</span></div>
+                            <div class="total-reviews">Total Reviews:<span class="review-number">(({{recipe.rankings.length}})</span></div>
                         </div>
                         <ul>
-                            <li class="reviews-single-item">
+                            <li class="reviews-single-item" *ngFor="let ranking of recipe.rankings">
                                 <div class="media media-none--xs">
                                     <img src="assets/img/blog/comment1.jpg" alt="Comment" class="media-img-auto">
                                     <div class="media-body">
-                                        <h4 class="comment-title">Liza Zaman</h4>
-                                        <span class="post-date">September 27, 2018</span>
-                                        <p>Absolutely great recipe. I cooked it for my kids and they loved it, even 
-                                                asked for more, can you believe it?</p>
+                                        <h4 class="comment-title">{{ranking.user.name+' '+ranking.user.lastname}}</h4>
+                                        <span class="post-date">{{ranking.createAt}}</span>
+                                        <p>{{ranking.comment}}</p>
                                         <ul class="item-rating">
+                                            <bar-rating [(rate)]="ranking.punctuation" [max]="5" [readOnly]="true"></bar-rating>
+                                            <!-- <li class="single-item star-fill"><i class="fas fa-star"></i></li>
                                             <li class="single-item star-fill"><i class="fas fa-star"></i></li>
                                             <li class="single-item star-fill"><i class="fas fa-star"></i></li>
                                             <li class="single-item star-fill"><i class="fas fa-star"></i></li>
-                                            <li class="single-item star-fill"><i class="fas fa-star"></i></li>
-                                            <li class="single-item star-empty"><i class="fas fa-star"></i></li>
-                                            <li class="single-item"><span>9<span> / 10</span></span> </li>
+                                            <li class="single-item star-empty"><i class="fas fa-star"></i></li> -->
+                                            <!-- <li class="single-item"><span>9<span> / 10</span></span> </li> -->
                                         </ul>
                                         <a href="#" class="item-btn">REPLY<i class="fas fa-long-arrow-alt-right"></i></a>
                                     </div>
                                 </div>
                             </li>
-                            <li class="reviews-single-item">
+                            <!-- <li class="reviews-single-item">
                                 <div class="media media-none--xs">
                                     <img src="assets/img/blog/comment2.jpg" alt="Comment" class="media-img-auto">
                                     <div class="media-body">
@@ -643,54 +648,66 @@
                                         <a href="#" class="item-btn">REPLY<i class="fas fa-long-arrow-alt-right"></i></a>
                                     </div>
                                 </div>
-                            </li>
+                            </li> -->
                         </ul>
                     </div>
                     <div class="leave-review">
+                        <form class="leave-form-box" 
+                        [formGroup]="commentForm" 
+                        (ngSubmit)="createComment(commentForm.value)"
+                        novalidate>
                         <div class="section-heading heading-dark">
                             <h2 class="item-heading">LEAVE A REVIEW</h2>
                         </div>
                         <div class="rate-wrapper">
                             <div class="rate-label">Rating</div>
                             <div class="rate">
-                                <div class="rate-item"><i class="fa fa-star" aria-hidden="true"></i></div>
-                                <div class="rate-item"><i class="fa fa-star" aria-hidden="true"></i></div>
-                                <div class="rate-item"><i class="fa fa-star" aria-hidden="true"></i></div>
-                                <div class="rate-item"><i class="fa fa-star" aria-hidden="true"></i></div>
-                                <div class="rate-item"><i class="fa fa-star" aria-hidden="true"></i></div>
+                                <bar-rating
+                                formControlName="rating"
+                                [max]="5" >
+                                </bar-rating>
                             </div>
                         </div>
-                        <form class="leave-form-box">
-                            <div class="row">
-                                <div class="col-12 form-group">
-                                    <label>Comment :</label>
-                                    <textarea placeholder="" class="textarea form-control" name="message" rows="7"
-                                        cols="20" data-error="Message field is required" required></textarea>
-                                    <div class="help-block with-errors"></div>
-                                </div>
-                                <!-- <div class="col-lg-4 form-group">
-                                    <label>Name :</label>
-                                    <input type="text" placeholder="" class="form-control" name="name"
-                                        data-error="Name field is required" required>
-                                    <div class="help-block with-errors"></div>
-                                </div>
-                                <div class="col-lg-4 form-group">
-                                    <label>E-mail :</label>
-                                    <input type="email" placeholder="" class="form-control" name="email"
-                                        data-error="E-mail field is required" required>
-                                    <div class="help-block with-errors"></div>
-                                </div>
-                                <div class="col-lg-4 form-group">
-                                    <label>Website :</label>
-                                    <input type="email" placeholder="" class="form-control" name="email"
-                                        data-error="E-mail field is required" required>
-                                    <div class="help-block with-errors"></div>
-                                </div> -->
-                                <div class="col-12 form-group mb-0">
-                                    <button type="submit" class="item-btn">POST REVIEW</button>
-                                </div>
+                
+                        <div class="row">
+                            <div class="col-12 form-group">
+                                <label>Comment :</label>
+                                <textarea 
+                                formControlName="comment"
+                                placeholder="" 
+                                class="textarea form-control" 
+                                name="message" 
+                                rows="7"
+                                cols="20" 
+                                data-error="Message field is required"
+                                required>
+                                </textarea>
+                                <div class="help-block with-errors"></div>
                             </div>
-                            <div class="form-response"></div>
+                            <!-- <div class="col-lg-4 form-group">
+                                <label>Name :</label>
+                                <input type="text" placeholder="" class="form-control" name="name"
+                                    data-error="Name field is required" required>
+                                <div class="help-block with-errors"></div>
+                            </div>
+                            <div class="col-lg-4 form-group">
+                                <label>E-mail :</label>
+                                <input type="email" placeholder="" class="form-control" name="email"
+                                    data-error="E-mail field is required" required>
+                                <div class="help-block with-errors"></div>
+                            </div>
+                            <div class="col-lg-4 form-group">
+                                <label>Website :</label>
+                                <input type="email" placeholder="" class="form-control" name="email"
+                                    data-error="E-mail field is required" required>
+                                <div class="help-block with-errors"></div>
+                            </div> -->
+                            <div class="col-12 form-group mb-0">
+
+                                <button type="submit" class="item-btn">POST REVIEW</button>
+                            </div>
+                        </div>
+                            <!-- <div class="form-response"></div> -->
                         </form>
                     </div>
                 </div>
@@ -702,16 +719,16 @@
                     </div>
                     <div class="widget-latest">
                         <ul class="block-list">
-                            <li class="single-item" *ngFor="let latest of recipesLatests let i = index">
+                            <li class="single-item" *ngFor="let latest of recipesLatests let i = index" (click)="showRecipe(latest.id)">
                                 <div class="item-img">
-                                    <a href="#"><img  class="img-thumbnail recipe-thumb" [src]="latest.thumbRoute" alt="Post"></a>
+                                    <a><img  class="img-thumbnail recipe-thumb" [src]="latest.thumbRoute" alt="Post"></a>
                                     <div class="count-number">{{i+1}}</div>
                                 </div>
                                 <div class="item-content">
                                     <div class="item-ctg">{{latest.category.name.toUpperCase()}}</div>
-                                    <h4 class="item-title"><a href="#">{{latest.name}}</a></h4>
+                                    <h4 class="item-title"><a (click)="showRecipe(latest.id)">{{latest.name}}</a></h4>
                                     <div class="item-post-by"><a href="single-blog.html"><i class="fas fa-user"></i>
-                                            John Martin</a></div>
+                                            {{latest.user.name +' '+latest.user.lastname}}</a></div>
                                 </div>
                             </li>
                             <!-- <li class="single-item">
@@ -794,12 +811,13 @@
                                 <div class="item-img">
                                     <img [src]="featured.thumbRoute" alt="Brand" class="img-fluid">
                                 </div>
-                                <div class="item-content">
-                                    <span class="ctg-name">{{featured.category.name.toUpperCase() }}</span>
+                                <div class="item-content">    
                                     <h4 class="item-title"><a href="single-recipe1.html">{{featured.name}}</a></h4>
-                                    <p>Definitiones noel ei verear intelle
-                                        gatpri civibus consequat area
-                                        refund efficiantue.</p>
+                                    <span class="ctg-name">{{featured.category.name.toUpperCase()}}</span>
+                                    <p class="text-center">
+                                        <bar-rating [(rate)]="featured.averangeRanking" [max]="5" ></bar-rating>
+                                    </p>
+                                    <p>{{featured.description}}</p>
                                 </div>
                             </div>
                             <!-- <div class="featured-box-layout1">
