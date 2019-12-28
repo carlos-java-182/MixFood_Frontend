@@ -1,0 +1,8 @@
+.section-heading
+{
+    display: flex;
+}
+.section-heading button
+{
+    margin-left: 10px !important;
+}

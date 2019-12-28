@@ -32,6 +32,7 @@ export class HomeGuestComponent implements OnInit {
   totalItems: number = 0;
   p: number = 1;
   rate: number = 3.5;
+  showAlert: boolean = false;
   
   //*Objects declaration
   recipes: Recipe[];
@@ -179,10 +180,16 @@ export class HomeGuestComponent implements OnInit {
   {
     this._recipeService.getRecipsCardsResults(term,idCategory, page).subscribe(response =>
       {
-        this.recipesRes = response.content as Recipe[];
-        this.paginator = response; 
-        this.totalItems = this.paginator.totalElements;
-        this.p = this.paginator.number + 1;
+        if(response.content == 0){
+          this.showAlert = true;
+          console.log(this.recipesRes == undefined);
+        }
+        else{
+          this.recipesRes = response.content as Recipe[];
+          this.paginator = response; 
+          this.totalItems = this.paginator.totalElements;
+          this.p = this.paginator.number + 1;
+        }
       });
   }
 

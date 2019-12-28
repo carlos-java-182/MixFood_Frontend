@@ -110,7 +110,7 @@ import { UserprofileComponent } from './components/shared/userprofile/userprofil
     NgxTypeaheadModule,
     FormsModule,
     ReactiveFormsModule,
-    NgbModule,
+    //NgbModule,
     CarouselModule ,
     NgxPaginationModule,
     BarRatingModule
