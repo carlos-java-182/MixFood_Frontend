@@ -4,6 +4,7 @@ import { RecipesService,RecipeLatest,Recipe,RecipeFeatured } from 'src/app/servi
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { RankingService, NewRanking } from 'src/app/services/ranking.service';
+import { CategoryService, CategoryCard } from 'src/app/services/category.service';
 @Component({
   selector: 'app-recipe',
   templateUrl: './recipe.component.html',
@@ -19,10 +20,12 @@ export class RecipeComponent implements OnInit {
   recipe: any
   recipesLatests: RecipeLatest[];
   recipesFeatured: RecipeFeatured[];
+  categoryList: CategoryCard[];
   commentForm: FormGroup;
 
   constructor(private _recipeService: RecipesService,
               private _rankingService: RankingService,
+              private _categoryService: CategoryService,
               private activatedRoute: ActivatedRoute,
               private router: Router,
               private formBuilder: FormBuilder) { }
@@ -51,6 +54,7 @@ export class RecipeComponent implements OnInit {
  //   this.getRecipeById();
     this.getRecipesLatests(1);
     this.getRecipesCardsFeatured(1);
+    this.getCategoriesList();
 
   }
 
@@ -83,11 +87,20 @@ export class RecipeComponent implements OnInit {
     });
   }
 
+  getCategoriesList(): void
+  {
+    this._categoryService.getCategoriesList().subscribe(data =>
+    {
+      this.categoryList = data;  
+      console.log("data: "+data);
+    });
+  }
+
   /**
    * 
    * @param values 
    */
-  createComment(values):void
+  private createComment(values):void
   {
     let newRanking: NewRanking;
     newRanking =

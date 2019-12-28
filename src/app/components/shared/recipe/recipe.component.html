@@ -773,7 +773,7 @@
                         </ul>
                     </div>
                 </div>
-                <div class="widget">
+                <!-- <div class="widget">
                     <div class="section-heading heading-dark">
                         <h3 class="item-heading">SUBSCRIBE &amp; FOLLOW</h3>
                     </div>
@@ -787,7 +787,7 @@
                             <li class="single-item"><a href="#"><i class="fab fa-youtube"></i>Subscribe</a></li>
                         </ul>
                     </div>
-                </div>
+                </div> -->
                 <div class="widget">
                     <div class="widget-ad">
                         <a href="#"><img src="assets/img/figure/figure4.jpg" alt="Ad" class="img-fluid"></a>
@@ -869,12 +869,12 @@
                     </div>
                     <div class="widget-categories">
                         <ul>
-                            <li>
-                                <a href="#">BreakFast
-                                    <span>25</span>
+                            <li *ngFor="let category of categoryList">
+                                <a href="#">{{category.name}}
+                                    <span>{{category.amountRecipes}}</span>
                                 </a>
                             </li>
-                            <li>
+                            <!-- <li>
                                 <a href="#">Lunch
                                     <span>15</span>
                                 </a>
@@ -903,7 +903,7 @@
                                 <a href="#">Fruits
                                     <span>05</span>
                                 </a>
-                            </li>
+                            </li> -->
                         </ul>
                     </div>
                 </div>

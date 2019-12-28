@@ -212,6 +212,14 @@ input.file
 .upload-image li.select-thumb{
 	border: 1px solid #ff4a52;
 }
+
+.upload-image li img{
+	height: 130px !important;
+	width: 130px !important;
+	/* background: red !important;  */
+}
+
+
 /*=====  End Upload image preview  ======*/
 
 

@@ -7,17 +7,31 @@ import { Observable } from 'rxjs';
 })
 export class CategoryService {
   //*Variables declaration
-  url:string = 'http://localhost:8080/api/';
+  url:string = 'http://localhost:8080/api/categories/';
   constructor(private http: HttpClient) { }
 
-  getCategoriesCard():Observable<CategoryCard[]>{
-    return this.http.get<CategoryCard[]>(this.url+'categories/cards')
+  public getCategoriesCard():Observable<CategoryCard[]>
+  {
+    return this.http.get<CategoryCard[]>(this.url+'cards')
+  }
+
+  public getCategoriesList():Observable<CategoryCard[]>
+  {
+    return this.http.get<CategoryCard[]>(this.url+'list');
   }
 }
 
-export interface CategoryCard{
+export interface CategoryCard
+{
   id : number,
   name : string,
-  thumbRoute: string,
+  thumbRoute?: string,
   amountRecipes: number
 }
+
+/*export interface CategoryList
+{
+  id: number;
+  name: string;
+  amountRecipes: number;
+}*/

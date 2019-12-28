@@ -9,9 +9,9 @@ import { RecipeLatest, RecipeFeatured, RecipesService } from 'src/app/services/r
   styleUrls: ['./userprofile.component.css']
 })
 export class UserprofileComponent implements OnInit {
-  //*Variable declaration
+  //*Variables declaration
   private id: number;
-  
+  private isFollowing: boolean = false;
   //*Objects declaration
   private publicUser: PublicUser;
   private recipeFeatured: RecipeFeatured[];
@@ -46,6 +46,14 @@ export class UserprofileComponent implements OnInit {
       });
   }
 
+  public startFollowing():void
+  {
+    this.isFollowing = !this.isFollowing;
+  }
 
+  private stopFollowing():void
+  {
+    this.isFollowing = !this.isFollowing;
+  }
 
 }

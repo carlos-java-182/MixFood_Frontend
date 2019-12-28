@@ -7,8 +7,10 @@
         <div class="row gutters-40">
             <div class="col-lg-4 sidebar-widget-area sidebar-break-md">
                 <div class="widget ranna-box-padding">
-                    <div class="section-heading heading-dark">
+                    <div class="section-heading heading-dark ">
                         <h3 class="item-heading">{{publicUser.name +' '+publicUser.lastname}}</h3>
+                        <button class="btn-fil btn-red" *ngIf="!isFollowing" (click)="startFollowing()">Follow</button>
+                        <button class="btn-fil btn-red" *ngIf="isFollowing" (click)="stopFollowing()">Unfollow</button>
                     </div>
                     <div class="widget-about">
                         <figure class="author-figure"><img src="assets/img/figure/about.jpg" alt="about"></figure>

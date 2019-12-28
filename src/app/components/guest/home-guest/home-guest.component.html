@@ -78,6 +78,7 @@
                             class="form-control input-search"
                             placeholder="Type the recipe name" 
                             (clickOutside)="hiddeDropDown()" 
+                            (focusout)="hiddeDropDown()" 
                             (keyup)="searchRecipe(searchTermForm.value.searchTerm)" 
                             required>                  
                             <!-- List results term Start Here -->
@@ -146,6 +147,10 @@
                     <h2 class="item-heading">Resulsts </h2>
                 </div>
                 <div class="row">
+                    <!-- <div class="alert alert-primary" role="alert">
+                        Results not found!
+                    </div> -->
+
                     <div *ngFor="let recipe of recipesRes | paginate: {id: 'pagination-nav', itemsPerPage: 12, currentPage: p, totalItems: totalItems}" 
                     class="card-item col-lg-3 col-md-3 col-sm-12" (click)="showRecipe(recipe)">
                         <div class="product-box-layout1">
@@ -220,7 +225,7 @@
                                     <ul class="entry-meta">
                                         <li><a href="#"><i class="fas fa-eye"></i> {{recipe.views}}</a></li>
                                         <li><a href="#"><i class="fas fa-clock"></i> {{recipe.createAt | timeAgo}}</a></li>
-                                        <li><a href="#"><i class="fas fa-user"></i>by <span>{{recipe.user.name }} {{recipe.user.lastname }}</span></a></li>
+                                        <li><a href="#"><i class="fas fa-user"></i><span>{{recipe.user.name }} {{recipe.user.lastname }}</span></a></li>
                                         <li>
                                             <ul class="card-tags">
                                                 <li *ngFor="let tag of recipe.tags"><a >#{{tag.name}}</a></li>
