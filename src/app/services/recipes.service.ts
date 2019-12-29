@@ -1,8 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpClient,HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, throwError } from 'rxjs';
 import { TestBed } from '@angular/core/testing';
-
+import { catchError,map } from 'rxjs/operators';
+import  Swal  from 'sweetalert2';
+import { error } from 'protractor';
 @Injectable({
   providedIn: 'root'
 })
@@ -16,7 +18,15 @@ export class RecipesService {
  
   createRecipe(recipe: NewRecipe):Observable<NewRecipe>
   {
-    return this.http.post<NewRecipe>(this.url+'recipes',JSON.stringify(recipe),{headers: this.headers})
+    return this.http.post<any>(this.url+'recipes',JSON.stringify(recipe),{headers: this.headers}).pipe(
+      map((response: any) => response.recipe as NewRecipe),
+      catchError( e =>
+      {
+        Swal.fire('An error occurred while creating the recipe',e.error.message,'error');
+        return throwError(e);
+      })
+    )
+
   }
 
 
