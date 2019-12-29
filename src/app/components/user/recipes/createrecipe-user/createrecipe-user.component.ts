@@ -7,6 +7,9 @@ import { stringify } from 'querystring';
 import { ProfileService } from 'src/app/services/profile.service';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { RecipesService, NewRecipe } from 'src/app/services/recipes.service';
+
+import  Swal  from 'sweetalert2';
+
 @Component({
   selector: 'app-createrecipe-user',
   templateUrl: './createrecipe-user.component.html',
@@ -229,12 +232,13 @@ export class CreaterecipeUserComponent implements OnInit {
         id: this.userId
       }
     }
-    console.log(JSON.stringify(newRecipe));
 
-    this._recipeService.createRecipe(newRecipe).subscribe(response => 
-      {
-        console.log(response);
-      });
+    this._recipeService.createRecipe(newRecipe).subscribe(
+      response =>{
+        Swal.fire('Success!','The recipe: '+response+' was created.','success');
+      },
+    
+      );
  //   console.log(newRecipe);
   }
 
