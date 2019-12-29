@@ -56,6 +56,8 @@ import { PaginatorResultsComponent } from './components/shared/paginator-results
 import { NgxPaginationModule } from 'ngx-pagination';
 import { BarRatingModule } from "ngx-bar-rating";
 import { UserprofileComponent } from './components/shared/userprofile/userprofile.component';
+import { QuillModule } from 'ngx-quill';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -113,7 +115,8 @@ import { UserprofileComponent } from './components/shared/userprofile/userprofil
     //NgbModule,
     CarouselModule ,
     NgxPaginationModule,
-    BarRatingModule
+    BarRatingModule,
+    QuillModule.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent]

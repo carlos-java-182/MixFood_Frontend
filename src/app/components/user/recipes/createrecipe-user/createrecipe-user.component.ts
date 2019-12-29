@@ -5,12 +5,14 @@ import { CategoryService, CategoryCard } from 'src/app/services/category.service
 import { element } from 'protractor';
 import { stringify } from 'querystring';
 import { ProfileService } from 'src/app/services/profile.service';
-
+import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
+import { RecipesService, NewRecipe } from 'src/app/services/recipes.service';
 @Component({
   selector: 'app-createrecipe-user',
   templateUrl: './createrecipe-user.component.html',
   styleUrls: ['./createrecipe-user.component.css']
 })
+
 export class CreaterecipeUserComponent implements OnInit {
 
   @ViewChild('attachments', {static: false}) 
@@ -18,45 +20,85 @@ export class CreaterecipeUserComponent implements OnInit {
 
   //*Variables declaration */
   //Index of ingredient list
+  userId: number = 1;
   indexList: number = 0;
   imagesCount: number = 0;
   indexThumb: number = 0; 
   isEditIngredient: boolean = false;
   selectedFile: File = null;
+  thumbRoute: any
+ // recipeStatus: RecipeStatus.public;
+
   
   //*Objects declaration*//
-  //*Ingredients list for select
+  //Ingredients list for select
   ingredients: IngredientList[];
-  //*Categories list for select
+  //Categories list for select
   categories: CategoryCard[];
+  
   ingredientsList: any[] = [];
   ingredientsRecipe: any[] = [];
   imagesURL: any[] = [];
-  //*Ingredients model
-  ingredientModel = {id: -1, amountIngredient: 'papa'}
-
+  
+  //*Modes 
+  //Ingredients model
+  ingredientModel = {id: null, amountIngredient: 'papa'}
+  //Recipe model
+  recipeModel = {
+    name: '', 
+    categoryId: null,
+    description: '',
+    videFrame: '',
+    prepHours: '',
+    preMinutes: '',
+    preparationSteps: ''
+  }
+  
+  //*Array images 
   fileList: File[] = [];
+
+  //*Editor toolbar config
+  editorConfig = {
+    toolbar: [
+      ['bold','italic','underline','strike'],
+      [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+      [{ 'size': ['small', false, 'large', 'huge'] }],  // custom dropdown
+      [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
+      [{ 'font': [] }],
+      [{ 'align': [] }],            
+    ]
+
+  };
+
   constructor(
     private _ingredientService: IngredientService,
-    private _categoryService: CategoryService) 
+    private _categoryService: CategoryService,
+    private _recipeService: RecipesService,
+    private formBuilder: FormBuilder) 
        { }
 
-  ngOnInit() {
+  ngOnInit() 
+  {
+   
+
+    this.getCategoriesList();    
+    this.getIngredientsList();
+  }
+
+  public getCategoriesList():void
+  {
     this._categoryService.getCategoriesCard().subscribe(data => 
       {
         this.categories = data;
     });
-
-    this._ingredientService.getIngredientsList().subscribe(data =>
-      {
-        this.ingredients = data;
-      });
-    this.getIngredientsList();
   }
 
   public getIngredientsList():void
   {
-   
+    this._ingredientService.getIngredientsList().subscribe(data =>
+      {
+        this.ingredients = data;
+    });     
   }
 
   /**
@@ -162,6 +204,47 @@ export class CreaterecipeUserComponent implements OnInit {
   public removeImage(index: number): void
   {
     this.imagesURL.splice(index, 1);
-    console.log(this.test);
+   
+  }
+
+  public createRecipe():void
+  {
+    //*Create object
+    let newRecipe: NewRecipe =
+    {
+      name: this.recipeModel.name,
+      preparationTime: this.recipeModel.prepHours +' '+ this.recipeModel.preMinutes,
+      description: this.recipeModel.description,
+      thumbRoute: 'route',
+      preparationSteps: this.recipeModel.preparationSteps,
+      difficulty: '',
+      status: '',
+      videFrame: this.recipeModel.videFrame,
+      category: 
+      {
+        id: this.recipeModel.categoryId
+      },
+      user:
+      {
+        id: this.userId
+      }
+    }
+    console.log(JSON.stringify(newRecipe));
+
+    this._recipeService.createRecipe(newRecipe).subscribe(response => 
+      {
+        console.log(response);
+      });
+ //   console.log(newRecipe);
+  }
+
+  public createIngredientsRecipe(): void
+  {
+
+  }
+
+  public createImagesRecipe(): void{
+
   }
 }
+ 
