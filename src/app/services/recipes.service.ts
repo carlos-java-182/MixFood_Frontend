@@ -3,16 +3,23 @@ import { HttpClient,HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { TestBed } from '@angular/core/testing';
 
-
 @Injectable({
   providedIn: 'root'
 })
 export class RecipesService {
   //*Variables declaration
   url:string = 'http://localhost:8080/api/';
-  
+  //*Create http headers
+  headers = new HttpHeaders({'Content-type': 'application/json'});
+
   constructor(private http: HttpClient) { }
-  
+ 
+  createRecipe(recipe: NewRecipe):Observable<NewRecipe>
+  {
+    return this.http.post<NewRecipe>(this.url+'recipes',JSON.stringify(recipe),{headers: this.headers})
+  }
+
+
   //*This function get the recipes cards for home
   getRecipeCard():Observable<Recipe[]>{
     return this.http.get<Recipe[]>(this.url+'recipes/cards');
@@ -105,6 +112,29 @@ export interface RecipeFeatured{
 export class Test{
 
 }
+
+
+export interface NewRecipe
+{
+  name: string;
+  preparationTime: string;
+	description: string;
+	thumbRoute: string;
+  preparationSteps: any;
+  difficulty: string;
+  status: any;
+  videFrame?: string,
+	category: 
+	{
+		id: number
+	};
+	user:
+	{
+		id: number
+	};
+}
+
+
 
 export interface Recipe{
   id : number,
