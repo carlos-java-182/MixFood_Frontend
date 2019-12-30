@@ -5,10 +5,13 @@ import { CategoryService, CategoryCard } from 'src/app/services/category.service
 import { element } from 'protractor';
 import { stringify } from 'querystring';
 import { ProfileService } from 'src/app/services/profile.service';
-import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
-import { RecipesService, NewRecipe } from 'src/app/services/recipes.service';
+import { FormGroup, FormControl, Validators, FormBuilder, RangeValueAccessor } from '@angular/forms';
+import { RecipesService, NewRecipe, RecipeIngredient } from 'src/app/services/recipes.service';
 
 import  Swal  from 'sweetalert2';
+import { TagService, TagShort } from 'src/app/services/tag.service';
+import { ImageService } from 'src/app/services/image.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-createrecipe-user',
@@ -29,7 +32,7 @@ export class CreaterecipeUserComponent implements OnInit {
   indexThumb: number = 0; 
   isEditIngredient: boolean = false;
   selectedFile: File = null;
-  thumbRoute: any
+  thumbSelectedRoute: string;
  // recipeStatus: RecipeStatus.public;
 
   
@@ -38,6 +41,8 @@ export class CreaterecipeUserComponent implements OnInit {
   ingredients: IngredientList[];
   //Categories list for select
   categories: CategoryCard[];
+  //Tags list for multiple select
+  tags: TagShort[];
   
   ingredientsList: any[] = [];
   ingredientsRecipe: any[] = [];
@@ -45,7 +50,9 @@ export class CreaterecipeUserComponent implements OnInit {
   
   //*Modes 
   //Ingredients model
-  ingredientModel = {id: null, amountIngredient: 'papa'}
+  ingredientModel = {id: null, amountIngredient: ''}
+  tagsModel = [];
+  imagesModel: any[] = [];
   //Recipe model
   recipeModel = {
     name: '', 
@@ -54,11 +61,26 @@ export class CreaterecipeUserComponent implements OnInit {
     videFrame: '',
     prepHours: '',
     preMinutes: '',
-    preparationSteps: ''
+    preparationSteps: '',
+    status: ''
   }
+
+  //Recipe status model
+  recipeStatus = [
+    {
+      id: 'option1',
+      name: 'Public',
+      value: 'public'
+    },
+    {
+      id: 'option2',
+      name: 'Private',
+      value: 'private'
+    }
+  ]
   
   //*Array images 
-  fileList: File[] = [];
+  imagesList: FileList;
 
   //*Editor toolbar config
   editorConfig = {
@@ -70,24 +92,29 @@ export class CreaterecipeUserComponent implements OnInit {
       [{ 'font': [] }],
       [{ 'align': [] }],            
     ]
-
   };
 
   constructor(
     private _ingredientService: IngredientService,
     private _categoryService: CategoryService,
+    private _tagService: TagService,
     private _recipeService: RecipesService,
+    private _imageService: ImageService,
+    private router: Router,
     private formBuilder: FormBuilder) 
        { }
 
   ngOnInit() 
   {
-   
 
     this.getCategoriesList();    
     this.getIngredientsList();
+    this.getTagList();
   }
 
+  /**
+   * 
+   */
   public getCategoriesList():void
   {
     this._categoryService.getCategoriesCard().subscribe(data => 
@@ -102,6 +129,14 @@ export class CreaterecipeUserComponent implements OnInit {
       {
         this.ingredients = data;
     });     
+  }
+
+  public getTagList():void
+  {
+    this._tagService.getTagsShort().subscribe(data =>
+      {
+        this.tags = data;
+      })
   }
 
   /**
@@ -171,12 +206,14 @@ export class CreaterecipeUserComponent implements OnInit {
    */
   public clearIngredients():void
   {
-    this.ingredientModel.id = 0;
+    this.ingredientModel.id = null;
     this.ingredientModel.amountIngredient = '';
   }
 
   public onFileSelected(event: any): void
   {
+    this.imagesURL = [];
+    this.imagesModel = [];
     //*Get images length
     let elements = event.target.files.length;
     //*Validate max images 
@@ -186,42 +223,62 @@ export class CreaterecipeUserComponent implements OnInit {
     }
     else
     {
+      //*Get images and add to arrray for show thumbs
       for(let i = 0; i < elements; i++)
       {
+        this.imagesModel.push(event.target.files[i]);
         const reader = new FileReader();
         reader.readAsDataURL(event.target.files[i]);
         reader.onload = (event: any) =>
         {
           this.imagesURL.push(event.target.result);
-          console.log(event.target.result);
         }
       }
+    
+     // console.log(this.imagesModel);
+      //this.imagesList = event.target.files;
     }
   }
 
   public selecAsThumb(index: number): void
   {
     this.indexThumb = index;
+    this.thumbSelectedRoute = this.imagesModel[index].name;
   }
 
+  /**
+   *This function remote image from array
+   * @param index: index of image to remove
+   */
   public removeImage(index: number): void
   {
-    this.imagesURL.splice(index, 1);
-   
+    this.imagesURL.splice(index, 1); 
+    this.imagesModel.splice(index, 1);
+    console.log(this.imagesModel);
   }
 
   public createRecipe():void
   {
-    //*Create object
+    //*Variable declaration
+   
+    //*Create object tags
+    let tags = [];
+    for(let i = 0; i < this.tagsModel.length; i++)
+    {
+      let tag = {id: this.tagsModel[i]}
+      tags.push(tag);
+    }
+
+    //*Create object recipe
     let newRecipe: NewRecipe =
     {
       name: this.recipeModel.name,
       preparationTime: this.recipeModel.prepHours +' '+ this.recipeModel.preMinutes,
       description: this.recipeModel.description,
-      thumbRoute: 'route',
+      thumbRoute: 'kaka',
       preparationSteps: this.recipeModel.preparationSteps,
       difficulty: '',
-      status: '',
+      status: this.recipeModel.status,
       videFrame: this.recipeModel.videFrame,
       category: 
       {
@@ -230,25 +287,70 @@ export class CreaterecipeUserComponent implements OnInit {
       user:
       {
         id: this.userId
-      }
+      },
+      tags: tags  
     }
 
-    this._recipeService.createRecipe(newRecipe).subscribe(
-      response =>{
-        Swal.fire('Success!','The recipe: '+response+' was created.','success');
-      },
-    
+    //*Send recipe to api for save
+    this._recipeService.createRecipe(newRecipe).subscribe(response =>
+      {
+        let id: number = response.id;
+        //*Create ingredients recipe 
+        this.createIngredientsRecipe(id);
+        this.createImagesRecipe(id);
+        this.router.navigate(['/user/createrecipe']);
+        Swal.fire('Success!','The recipe: '+response.recipeName+' was created.','success');       
+     
+      }
       );
- //   console.log(newRecipe);
   }
 
-  public createIngredientsRecipe(): void
+  /**
+   **This function creates the recipe ingredients
+   * @param id: id recipe
+   */
+  public createIngredientsRecipe(id: number): void
   {
+    //*Array declaration
+    let recipeIngredient = [];
+    
+    //*Get all ingredients in array
+    for(let i = 0; i < this.ingredientsList.length; i++ )
+    {
+      //*Create object with ingredient data
+      let list: RecipeIngredient =
+      {
+        quantity: this.ingredientsList[i].amount,
+        recipe:
+        {
+          id: id
+        },
+        ingredient:
+        {
+          id: this.ingredientsList[i].id
+        }
+      }
+      //*Add object to list
+      recipeIngredient.push(list);
+    }
 
+    //*Send ingredients to apii
+    this._recipeService.createRecipeIngredient(recipeIngredient).subscribe(response =>
+      {
+        console.log(response);
+      });
   }
 
-  public createImagesRecipe(): void{
+  public createImagesRecipe(id: number): void{
+    
+    this._imageService.uploadImage(this.imagesModel,id,'principal').subscribe(response=>
+      {
+        console.log(response);
+      })
+  }
 
+  tester():void{
+    this.router.navigate(['/home']);
   }
 }
  

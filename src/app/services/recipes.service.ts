@@ -16,12 +16,15 @@ export class RecipesService {
 
   constructor(private http: HttpClient) { }
  
-  createRecipe(recipe: NewRecipe):Observable<NewRecipe>
+  createRecipe(recipe: NewRecipe):Observable<ResponseCreate>
   {
-    return this.http.post<any>(this.url+'recipes',JSON.stringify(recipe),{headers: this.headers}).pipe(
-      map((response: any) => response.recipe as NewRecipe),
+    return this.http.post<any>(this.url+'recipes',recipe,{headers: this.headers}).pipe(
+      map((response: any) => response as ResponseCreate),
       catchError( e =>
       {
+        //*Get http response status
+        let status = e.status;
+        console.log(status);
         Swal.fire('An error occurred while creating the recipe',e.error.message,'error');
         return throwError(e);
       })
@@ -29,6 +32,10 @@ export class RecipesService {
 
   }
 
+  createRecipeIngredient(ingredients: RecipeIngredient[]):Observable<RecipeIngredient[]>
+  {
+    return this.http.post<RecipeIngredient[]>(this.url+'recipes/ingredients',JSON.stringify(ingredients),{headers: this.headers});
+  }
 
   //*This function get the recipes cards for home
   getRecipeCard():Observable<Recipe[]>{
@@ -86,6 +93,13 @@ export class RecipesService {
  * Interfaces
  */
 
+export interface ResponseCreate
+{
+  recipeName: string;
+  message: string;
+  id: number;
+}
+
 export interface RecipeLatest{
   id: number,
   name: string,
@@ -119,8 +133,16 @@ export interface RecipeFeatured{
   }
 }
 
-export class Test{
-
+export class RecipeIngredient{
+  quantity: string;
+	recipe:
+	{
+		id: number
+	};
+	ingredient:
+	{
+		id: number
+	};
 }
 
 
@@ -141,9 +163,19 @@ export interface NewRecipe
 	user:
 	{
 		id: number
-	};
+  };
+  tags: Tags[]
 }
 
+export interface Tags
+{
+  id: number;
+}
+
+export interface Images
+{
+  routeImage: string
+}
 
 
 export interface Recipe{
