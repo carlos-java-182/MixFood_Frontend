@@ -54,7 +54,6 @@ const routes: Routes = [
   {component: CreateComponent, path: 'crud/create'},
  
   //*User routes
-  {component: NavbarUserComponent, path: 'user/navbar-user'},
   {component: ProfileUserComponent, path: 'user/profile-user'},
   {component: EditprofileUserComponent, path: 'user/editprofile-user'},
   {component: CreaterecipeUserComponent, path: 'user/createrecipe'},
