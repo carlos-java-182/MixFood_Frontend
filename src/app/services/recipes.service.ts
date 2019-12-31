@@ -108,6 +108,11 @@ export class RecipesService {
    return this.http.get<any>(this.url+'cards/search/'+term+'/'+idCategory+'/page/'+page);
   }
 
+  /**
+   * 
+   * @param term 
+   * @param page 
+   */
   public getRecipeCardsByName(term: string, page: number):Observable<any>
   {
     return this.http.get(`${this.url}cards/search/${term}/page/${page}`).pipe(
@@ -115,18 +120,37 @@ export class RecipesService {
       {
         (response.content as Recipe[]).map( recipe =>
         {
-            recipe.category.name = recipe.category.name.toUpperCase();
-            return recipe;
+          recipe.category.name = recipe.category.name.toUpperCase();
+          return recipe;
         });
         return response;
       })
+    );
+  }
 
+  /**
+   **This function 
+   * @param id 
+   * @param page 
+   */
+  public getRecipeCardsByCategory(id: number, page: number):Observable<any>
+  {
+    return this.http.get(`${this.url}cards/category/${id}/page/${page}`).pipe(
+      map((response:any) =>
+      {
+        (response.content as Recipe[]).map( recipe =>
+        {
+          recipe.category.name = recipe.category.name.toUpperCase();
+          return recipe;
+        });
+        return response;
+      })
     );
   }
 }
 
 /**
- **Interfaces
+ **Inter faces
  */
 
 export interface ResponseCreate
