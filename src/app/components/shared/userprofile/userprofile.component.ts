@@ -1,8 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ProfileService, PublicUser } from 'src/app/services/profile.service';
-import { RecipeLatest, RecipeFeatured, RecipesService } from 'src/app/services/recipes.service';
-
+import { RecipeLatest, RecipeFeatured, RecipesService, RecipeLatestUser } from 'src/app/services/recipes.service';
+import { typeWithParameters } from '@angular/compiler/src/render3/util';
+import { catchError,map } from 'rxjs/operators';
+import { concat } from 'rxjs';
+import { CategoryService, CategoryListUser } from 'src/app/services/category.service';
 @Component({
   selector: 'app-userprofile',
   templateUrl: './userprofile.component.html',
@@ -12,14 +15,20 @@ export class UserprofileComponent implements OnInit {
   //*Variables declaration
   private id: number;
   private isFollowing: boolean = false;
+  private userName: string;
+  private aboutMe: string;
   //*Objects declaration
   private publicUser: PublicUser;
   private recipeFeatured: RecipeFeatured[];
-  private recipeTrending: RecipeFeatured;
+  private recipeLatests: RecipeLatestUser[];
+  private categoriesList: CategoryListUser[];
+  recipeTrending: any[] = [];
+  socialNetworks;
  
   constructor(private activatedRouter: ActivatedRoute,
               private _profileService: ProfileService,
-              private _recipeService: RecipesService) { }
+              private _recipeService: RecipesService,
+              private _categorySerive: CategoryService) { }
   ngOnInit() 
   {
     this.activatedRouter.params.subscribe(params =>{
@@ -27,25 +36,47 @@ export class UserprofileComponent implements OnInit {
       this.getProfileById(this.id);
     })
     this.getFeaturedRecipes(this.id);
+    this.getLatestsRecipes();
+    this.getCategoriesListUser();
   }
 
   public getProfileById(id: number): void
   {
-    this._profileService.getPublicPorfile(id).subscribe(data =>{
+    this._profileService.getPublicPorfile(id).subscribe(data =>
+    {
       this.publicUser = data;
+      this.userName = data.name +' '+data.lastname;
+      this.aboutMe = data.description;
+      this.socialNetworks = data.socialNetworks;
+
     });
   }
 
-  public getFeaturedRecipes(id: number): void{
-    this._recipeService.getRecipesCardsFeatured(id).subscribe(data =>
+  public getFeaturedRecipes(id: number){
+    this._recipeService.getRecipesCardsFeatured(id,4).subscribe(data =>
       {
         //*Sort recipes by ranking
         data.sort((a)=> a.averangeRanking);
         this.recipeFeatured = data;
-        this.recipeTrending = data[0];
+        this.recipeTrending.push(data[0]);
+       });      
+  }
+
+  public getCategoriesListUser():void
+  {
+    this._categorySerive.getCategoriesListUser(this.id,10).subscribe(data =>
+      {
+        this.categoriesList = data;
       });
   }
 
+  public getLatestsRecipes():void
+  {
+    this._recipeService.getRecipesLatestsByUser(this.id,5).subscribe(data=>
+      {
+        this.recipeLatests = data;
+      })
+  }
   public startFollowing():void
   {
     this.isFollowing = !this.isFollowing;
@@ -55,5 +86,9 @@ export class UserprofileComponent implements OnInit {
   {
     this.isFollowing = !this.isFollowing;
   }
+
+  goToLink(url: string){
+    window.open(url, "_blank");
+}
 
 }

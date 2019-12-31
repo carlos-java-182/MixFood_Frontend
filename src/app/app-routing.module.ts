@@ -69,9 +69,9 @@ const routes: Routes = [
   {component: CategoriesGuestComponent, path: 'categories'},
   {component: LoginComponent, path: 'guest/login-guest'},
   {component: SignupGuestComponent, path: 'guest/signup-guest'},
-  {component: ForgotpasswordGuestComponent, path: 'guest/forgotpassword-guest'},
+  {component: ForgotpasswordGuestComponent, path: 'forgotpassword'},
   {component: RecipeComponent, path: 'recipe/:id'},
-  {component: SearchresultsComponent, path: 'search/:term/:idcategory/:page'},
+  {component: SearchresultsComponent, path: 'search/:term/page/:page'},
   {component: SearchresultsComponent, path: 'search/:ingredients/:idcategory'},
   //*Admin routes
   {component: HomeAdminComponent, path: 'admin/home-admin'},

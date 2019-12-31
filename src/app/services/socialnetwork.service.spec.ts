@@ -1,12 +1,12 @@
 import { TestBed } from '@angular/core/testing';
 
-import { CategoryService } from './category.service';
+import { SocialnetworkService } from './socialnetwork.service';
 
-describe('CategoryService', () => {
+describe('SocialnetworkService', () => {
   beforeEach(() => TestBed.configureTestingModule({}));
 
   it('should be created', () => {
-    const service: CategoryService = TestBed.get(CategoryService);
+    const service: SocialnetworkService = TestBed.get(SocialnetworkService);
     expect(service).toBeTruthy();
   });
 });

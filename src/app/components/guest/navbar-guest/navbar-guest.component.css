@@ -7,3 +7,30 @@
     transition:all .26s ease-in-out !important;
     display: block !important;
 }
+
+.form-container
+{
+    position: relative;
+    top: 5px;
+    /* background-color: blanchedalmond; */
+}
+
+.form-input
+{
+    height: 35px !important;
+    font-size: 2rem;
+    font-style: italic;
+    /* border-right: none; */
+}
+
+.form-input :focus
+{
+    border-color: none;
+}
+
+.btn-search
+{
+    height: 35px;
+    font-size: 2rem;
+    background-color: #fff;
+}
