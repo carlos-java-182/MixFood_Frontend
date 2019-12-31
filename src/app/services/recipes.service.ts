@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient,HttpHeaders } from '@angular/common/http';
-import { Observable, throwError } from 'rxjs';
+import { Observable, throwError, pipe } from 'rxjs';
 import { TestBed } from '@angular/core/testing';
 import { catchError,map } from 'rxjs/operators';
 import  Swal  from 'sweetalert2';
@@ -10,7 +10,7 @@ import { error } from 'protractor';
 })
 export class RecipesService {
   //*Variables declaration
-  url:string = 'http://localhost:8080/api/';
+  url:string = 'http://localhost:8080/api/recipes/';
   //*Create http headers
   headers = new HttpHeaders({'Content-type': 'application/json'});
 
@@ -18,7 +18,7 @@ export class RecipesService {
  
   createRecipe(recipe: NewRecipe):Observable<ResponseCreate>
   {
-    return this.http.post<any>(this.url+'recipes',recipe,{headers: this.headers}).pipe(
+    return this.http.post<any>(this.url,recipe,{headers: this.headers}).pipe(
       map((response: any) => response as ResponseCreate),
       catchError( e =>
       {
@@ -34,34 +34,54 @@ export class RecipesService {
 
   createRecipeIngredient(ingredients: RecipeIngredient[]):Observable<RecipeIngredient[]>
   {
-    return this.http.post<RecipeIngredient[]>(this.url+'recipes/ingredients',JSON.stringify(ingredients),{headers: this.headers});
+    return this.http.post<RecipeIngredient[]>(this.url+'ingredients',JSON.stringify(ingredients),{headers: this.headers});
   }
 
   //*This function get the recipes cards for home
   getRecipeCard():Observable<Recipe[]>{
-    return this.http.get<Recipe[]>(this.url+'recipes/cards');
+    return this.http.get<Recipe[]>(this.url+'cards');
   }
   
   //*This function find the recipes names by search term
   getSearchForName(term: string){
-    return this.http.get(this.url+'recipes/search/'+term);
+    return this.http.get(this.url+'search/'+term);
   }
   
   //*
   getById(id: number):Observable<Recipe>{
-    return this.http.get<Recipe>(this.url+'recipes/'+id);
+    return this.http.get<Recipe>(this.url+id);
   }
 
   //*
-  getRecipesLatests(id: number):Observable<RecipeLatest[]>
+  getRecipesLatests(id: number, size: number):Observable<RecipeLatest[]>
   {
-    return this.http.get<RecipeLatest[]>(this.url+'recipes/latests/'+id);
+    return this.http.get<RecipeLatest[]>(this.url+'latests/'+id+'/items/'+size).pipe(
+      catchError(e =>
+        {
+          console.log("ERRORS")
+          console.log(e.message);
+          return throwError(e);
+        })
+    );
   }
 
-  //*
-  getRecipesCardsFeatured(id: number):Observable<RecipeFeatured[]>
+  public getRecipesLatestsByUser(id: number, size: number):Observable<RecipeLatestUser[]>
   {
-    return this.http.get<RecipeFeatured[]>(this.url+'recipes/cards/featured/'+id);
+    return this.http.get<RecipeLatestUser[]>(this.url+'users/latests/'+id+'/items/'+size);
+  }
+  //*
+  getRecipesCardsFeatured(id: number, size: number):Observable<RecipeFeatured[]>
+  {
+    return this.http.get<RecipeFeatured[]>(this.url+'recipes/cards/featured/'+id+'/items/'+size).pipe(
+      map((response: any) => response as RecipeFeatured[]),
+      catchError(e =>
+        {
+          console.log("ERRORS")
+          console.log(e.message);
+          return throwError(e);
+        })
+    );
+
   }
 
 /**
@@ -85,12 +105,28 @@ export class RecipesService {
         })
       })
     )*/
-   return this.http.get<any>(this.url+'recipes/cards/search/'+term+'/'+idCategory+'/page/'+page);
+   return this.http.get<any>(this.url+'cards/search/'+term+'/'+idCategory+'/page/'+page);
+  }
+
+  public getRecipeCardsByName(term: string, page: number):Observable<any>
+  {
+    return this.http.get(`${this.url}cards/search/${term}/page/${page}`).pipe(
+      map((response:any) =>
+      {
+        (response.content as Recipe[]).map( recipe =>
+        {
+            recipe.category.name = recipe.category.name.toUpperCase();
+            return recipe;
+        });
+        return response;
+      })
+
+    );
   }
 }
 
 /**
- * Interfaces
+ **Interfaces
  */
 
 export interface ResponseCreate
@@ -101,35 +137,49 @@ export interface ResponseCreate
 }
 
 export interface RecipeLatest{
-  id: number,
-  name: string,
-  thumbRoute: string,
-  averangeRanking: number,
+  id: number;
+  name: string;
+  thumbRoute: string;
+  averangeRanking: number;
+  totalLikes: number;
   user: {
-    id: number,
-    name: string,
-    lastname: string
+    id: number;
+    name: string;
+    lastname: string;
   }
   category: {
-    id: number,
-    name: string
+    id: number;
+    name: string;
+  }
+}
+
+export interface RecipeLatestUser{
+  id: number;
+  name: string;
+  thumbRoute: string;
+  averangeRanking: number;
+  category: {
+    id: number;
+    name: string;
   }
 }
 
 export interface RecipeFeatured{
-  id: number,
-  name: string,
-  thumbRoute: string,
-  averangeRanking: number,
-  description: string,
+  id: number;
+  name: string;
+  thumbRoute: string;
+  averangeRanking: number;
+  totalLikes: number;
+  description: string;
+  createAt: string;
   user: {
-    id: number,
-    name: string,
-    lastname: string
+    id: number;
+    name: string;
+    lastname: string;
   }
   category: {
-    id: number,
-    name: string
+    id: number;
+    name: string;
   }
 }
 
@@ -177,22 +227,22 @@ export interface Images
   routeImage: string
 }
 
-
 export interface Recipe{
-  id : number,
-  name : string,
-  views: number,
-  thumbRoute : string,
-  createAt : string,
-  averangeRanking : number,
+  id : number;
+  name : string;
+  views: number;
+  thumbRoute : string;
+  createAt : string;
+  averangeRanking : number;
+  totalLikes: number;
   category: {
-    id: number,
-    name: string
+    id: number;
+    name: string;
   },
   user: {
-    id: number,
-    name: string,
-    lastname: string
+    id: number;
+    name: string;
+    lastname: string;
   },
-  tags: []
+  tags: [];
 }

@@ -8,30 +8,33 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./searchresults.component.css']
 })
 export class SearchresultsComponent implements OnInit {
-  recipes: any;
+  private recipes: any;
+  private page: number;
+  private term: string;
+  
   constructor(private _recipeservice: RecipesService,
               private activateroute: ActivatedRoute) { }
 
   ngOnInit() 
   {
-    this.activateroute.paramMap.subscribe( params => {
+    this.activateroute.paramMap.subscribe( params => 
+    {
       let page:number = +params.get('page');
-      if(!page)
-      {
-        page = 0;
-      }
-      this.getRecipsCardsResults('al',1,0);
-    }
-    );
+      this.term = params.get('term');
+      this.page = Number(params.get('page'));
+      this.getRecipeCardsByName();
+    });
     
   }
 
-  getRecipsCardsResults(term: string, idCategory: number,page: number)
+
+
+  getRecipeCardsByName()
   {
-    this._recipeservice.getRecipsCardsResults(term,idCategory, page).subscribe(data =>
+    this._recipeservice.getRecipeCardsByName(this.term,this.page).subscribe(data =>
       {
-        this.recipes = data;
-       console.table(this.recipes);
+        
+       console.log(data);
       });
   }
 

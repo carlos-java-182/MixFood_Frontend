@@ -19,6 +19,11 @@ export class CategoryService {
   {
     return this.http.get<CategoryCard[]>(this.url+'list');
   }
+
+  public getCategoriesListUser(id: number, size: number):Observable<CategoryListUser[]>
+  {
+    return this.http.get<CategoryListUser[]>(`${this.url}user/list/${id}/items/${size}`);
+  }
 }
 
 export interface CategoryCard
@@ -29,9 +34,8 @@ export interface CategoryCard
   amountRecipes: number
 }
 
-/*export interface CategoryList
+export interface CategoryListUser
 {
   id: number;
   name: string;
-  amountRecipes: number;
-}*/
+}

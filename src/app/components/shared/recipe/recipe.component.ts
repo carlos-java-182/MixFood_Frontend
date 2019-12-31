@@ -71,7 +71,7 @@ export class RecipeComponent implements OnInit {
   //*Get Latests recipes by id and create object with data response
   getRecipesLatests(id: number):void
   {
-    this._recipeService.getRecipesLatests(id).subscribe(data =>
+    this._recipeService.getRecipesLatests(id,5).subscribe(data =>
     {
       this.recipesLatests = data;
     });
@@ -80,7 +80,7 @@ export class RecipeComponent implements OnInit {
   //*Get Featured recipeds and create object with data response
   getRecipesCardsFeatured(id: number):void
   {
-    this._recipeService.getRecipesCardsFeatured(id).subscribe(data =>
+    this._recipeService.getRecipesCardsFeatured(id,5).subscribe(data =>
     {
         this.recipesFeatured = data;
         console.log(this.recipesFeatured);

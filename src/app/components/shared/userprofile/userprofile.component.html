@@ -1,14 +1,14 @@
 <!-- Header Area Start Here -->
 <app-navbar-guest></app-navbar-guest>
 <!-- Header Area End Here -->
-
 <section class="padding-bottom-45">
     <div class="container">
         <div class="row gutters-40">
             <div class="col-lg-4 sidebar-widget-area sidebar-break-md">
+                <!-- User Info Start Here -->
                 <div class="widget ranna-box-padding">
                     <div class="section-heading heading-dark ">
-                        <h3 class="item-heading">{{publicUser.name +' '+publicUser.lastname}}</h3>
+                            <h3 class="item-heading">{{userName}}</h3>
                         <button class="btn-fil btn-red" *ngIf="!isFollowing" (click)="startFollowing()">Follow</button>
                         <button class="btn-fil btn-red" *ngIf="isFollowing" (click)="stopFollowing()">Unfollow</button>
                     </div>
@@ -16,44 +16,54 @@
                         <figure class="author-figure"><img src="assets/img/figure/about.jpg" alt="about"></figure>
                         <!-- <figure class="author-signature"><img src="assets/img/figure/signature.png" alt="about"></figure> -->
                         <h3 class="item-heading">About me</h3>
-                        <p>{{publicUser.description}}</p>
+                        <p>{{aboutMe}}</p>
                     </div>
                 </div>
+                <!-- User Info End Here -->
+                <!-- Social Networks Start Here -->
                 <div class="widget ranna-box-padding">
                     <div class="section-heading heading-dark">
-                        <h3 class="item-heading">SUBSCRIBE &amp; FOLLOW</h3>
+                        <h3 class="item-heading">SOCIAL NETWORKS</h3>
                     </div>
                     <div class="widget-follow-us">
                         <ul>
-                            <li class="single-item"><a href="#"><i class="fab fa-facebook-f"></i>LIKE ME ON</a></li>
-                            <li class="single-item"><a href="#"><i class="fab fa-twitter"></i>LIKE ME</a></li>
-                            <li class="single-item"><a href="#"><i class="fab fa-linkedin-in"></i>LIKE ME</a></li>
-                            <li class="single-item"><a href="#"><i class="fab fa-pinterest-p"></i>LIKE ME</a></li>
-                            <li class="single-item"><a href="#"><i class="fab fa-instagram"></i>LIKE ME</a></li>
-                            <li class="single-item"><a href="#"><i class="fab fa-youtube"></i>Subscribe</a></li>
+                            <li class="single-item" *ngFor="let social of socialNetworks">
+                                <a (click)="goToLink(social.link)">
+                                    <i class="fab fa-facebook-f" *ngIf="social.network == 'FACEBOOK'"></i>
+                                    <i class="fab fa-instagram" *ngIf="social.network == 'INSTAGRAM'"></i>
+                                    <i class="fab fa-twitter" *ngIf="social.network == 'TWITTER'"></i>
+                                    <i class="fab fa-linkedin-in" *ngIf="social.network == 'LINKEDIN'"></i>
+                                    <i class="fab fa-youtube" *ngIf="social.network == 'YOUTUBE'"></i>
+                                    <i class="fab fa-pinterest-p" *ngIf="social.network == 'PRINTEREST'"></i>
+                                    <span *ngIf="social.network == 'YOUTUBE'">SUBSCRIBE</span>
+                                    <span *ngIf="social.network != 'YOUTUBE'">LIKE ME</span>            
+                                </a>
+                            </li>
                         </ul>
                     </div>
                 </div>
+                <!-- Social Networks End Here -->
                 <div class="widget ranna-box-padding">
                     <div class="section-heading heading-dark">
                         <h3 class="item-heading">LATEST RECIPES</h3>
                     </div>
                     <div class="widget-latest">
                         <ul class="block-list remove-5th-child-lg">
-                            <li class="single-item">
+                            <li class="single-item" *ngFor="let recipe of recipeLatests; let i = index">
                                 <div class="item-img">
-                                    <a href="#"><img src="img/product/latest1.jpg" alt="Post"></a>
-                                    <div class="count-number">1</div>
+                                    <a href="#"><img [src]="recipe.thumbRoute" alt="Post"></a>
+                                    <div class="count-number">{{i+1}}</div>
                                 </div>
                                 <div class="item-content">
-                                    <div class="item-ctg">DESERT</div>
-                                    <h4 class="item-title"><a href="#">Salami Oven Roasted are
-                                            Mozzarella Oelette</a></h4>
-                                    <div class="item-post-by"><a href="single-blog.html"><i class="fas fa-user"></i><span>by</span>
-                                            John Martin</a></div>
+                                    <div class="item-ctg">{{recipe.category.name}}</div>
+                                    <h4 class="item-title">
+                                        <a>{{recipe.name}}</a>
+                                    </h4>
+                                    <!-- <div class="item-post-by"><a href="single-blog.html"><i class="fas fa-user"></i><span>by</span>
+                                            John Martin</a></div> -->
                                 </div>
                             </li>
-                            <li class="single-item">
+                            <!-- <li class="single-item">
                                 <div class="item-img">
                                     <a href="#"><img src="img/product/latest2.jpg" alt="Post"></a>
                                     <div class="count-number">2</div>
@@ -104,7 +114,7 @@
                                     <div class="item-post-by"><a href="single-blog.html"><i class="fas fa-user"></i><span>by</span>
                                             John Martin</a></div>
                                 </div>
-                            </li>
+                            </li> -->
                         </ul>
                     </div>
                 </div>
@@ -119,76 +129,51 @@
                     </div>
                     <div class="widget-categories">
                         <ul>
-                            <li>
-                                <a href="#">BreakFast
-                                    <span>25</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">Lunch
-                                    <span>15</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">Pasta
-                                    <span>22</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">Dinner
-                                    <span>18</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">Dessert
-                                    <span>36</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">Drinks
-                                    <span>12</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">Fruits
-                                    <span>05</span>
-                                </a>
+                            <li *ngFor="let category of categoriesList">
+                                <a href="#">{{category.name}}</a>
                             </li>
                         </ul>
                     </div>
                 </div>
             </div>
+       
             <div class="col-lg-8">
                 <div class="row gutters-40">
-                    <div class="col-12">
-                        <div class="product-box-layout4">
+                    <!-- Recipe Trending Start Here -->
+                    <div class="col-12">    
+                        <div class="product-box-layout4" *ngFor="let trending of recipeTrending">
                             <div class="section-heading heading-dark">
                                 <h2 class="item-heading">TRENDING RECIPE</h2>
                             </div>
                             <div class="item-figure">
-                                <img [src]="recipeTrending.thumbRoute" alt="Product">
-                                <a href="single-recipe1.html" class="item-dot">
+                                <img [src]="trending.thumbRoute" alt="Product">
+                                <a class="item-dot">
                                     <span></span>
                                     <span></span>
                                     <span></span>
                                 </a>
                             </div>
-                            <div class="item-content">
-                              
-                                <h2 class="item-title"><a href="single-recipe1.html">{{recipeTrending.name}}</a></h2>
-                                <span class="sub-title">{{recipeTrending.category.name.toUpperCase()}}</span>
+                            <div class="item-content">    
+                                <h2 class="item-title"><a href="single-recipe1.html">{{trending.name}}</a></h2>
+                                <span class="sub-title">{{trending.category.name.toUpperCase()}}</span>
                                 <ul class="item-rating">
-                                    <bar-rating [(rate)]="recipeTrending.averangeRanking" [max]="5" ></bar-rating>
+                                    <bar-rating [(rate)]="trending.averangeRanking" [max]="5" ></bar-rating>
                                 </ul>
-                                <p>{{recipeTrending.description}}</p>
+                                <p>{{trending.description}}</p>
                                 <ul class="entry-meta">
-                                    <li><a href="#"><i class="fas fa-clock"></i>15 Mins</a></li>
-                                    <!-- <li><a href="#"><i class="fas fa-user"></i>by <span>John Martin</span></a></li> -->
-                                    <li><a href="#"><i class="fas fa-heart"></i><span>02</span> Likes</a></li>
+                                    <li><a href="#"><i class="fas fa-clock"></i>{{trending.createAt  | timeAgo}}</a></li>
+                                    <li>
+                                        <a href="#"><i class="fas fa-heart"></i>
+                                            <span>{{trending.totalLikes}}</span> 
+                                            <span *ngIf="trending.totalLikes > 1 || trending.totalLikes == 0"> Likes</span>
+                                            <span *ngIf="trending.totalLikes == 1"> Like</span>
+                                        </a>
+                                    </li>
                                 </ul>
                             </div>
-                        </div>
+                        </div> 
                     </div>
+                    <!-- Recipe Trending End Here -->
                     <!-- <div class="col-md-6 col-sm-6 col-12">
                         <div class="product-box-layout4">
                             <div class="item-figure">
@@ -394,9 +379,15 @@
                                             </ul>
                                             <p>{{recipe.description}}</p>
                                             <ul class="entry-meta remove-3rd-child-lg">
-                                                <li><a href="#"><i class="fas fa-clock"></i>15 Mins</a></li>
-                                                <!-- <li><a href="#"><i class="fas fa-user"></i>by <span>John Martin</span></a></li> -->
-                                                <li><a href="#"><i class="fas fa-heart"></i><span>02</span> Likes</a></li>
+                                                <li><a href="#"><i class="fas fa-clock"></i>{{recipe.createAt | timeAgo}}</a></li>
+                                                
+                                                <li>
+                                                    <a href="#"><i class="fas fa-heart">
+                                                        </i><span>{{recipe.totalLikes}}</span>
+                                                        <span *ngIf="recipe.totalLikes > 1 || recipe.totalLikes == 0"> Likes</span>
+                                                        <span *ngIf="recipe.totalLikes == 1"> Like</span>
+                                                    </a>
+                                                </li>
                                             </ul>
                                         </div>
                                     </div>

@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient,HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 @Injectable({
   providedIn: 'root'
 })
@@ -24,4 +25,12 @@ export interface PublicUser
   porfileImageRoute: string;
   description: string;
   createAt: string;
+  socialNetworks: SocialNetwork[];
+}
+
+export interface SocialNetwork
+{
+  id: number;
+  network: string;
+  link: string;
 }
