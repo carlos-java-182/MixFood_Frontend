@@ -154,15 +154,10 @@ export class HomeGuestComponent implements OnInit {
     return this.recipeForm.value.search;
   }
 
-  
-  
-
-
   searchRecipeByIngredients():void
   {
     this.isSearch = true;
   }
-
 
   showRecipe(recipe)
   {
@@ -231,5 +226,11 @@ export class HomeGuestComponent implements OnInit {
   getPage(page: number):void
   {
     this.getRecipsCardsResults('a',1,page-1);
+  }
+
+  public goToRecipesByCategory(id: number):void
+  {
+    let route = `search/category/${id}/page/0`;
+    this.router.navigate([route]);
   }
 }

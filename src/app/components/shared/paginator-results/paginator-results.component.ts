@@ -8,7 +8,7 @@ import { Component, OnInit, Input, OnChanges} from '@angular/core';
 export class PaginatorResultsComponent implements OnInit {
   //*Declare object input
   @Input() public paginator: any;
-  @Input() public test: string;
+  @Input() public term: string;
  
   //*Variables declaration
   from: number;

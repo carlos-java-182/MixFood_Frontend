@@ -28,6 +28,9 @@ export class NavbarGuestComponent implements OnInit {
 
   public goToPage(term)
   {
-    this.router.navigate(['search/'+term+'/page/1']);
+    if(term != '')
+    {
+      this.router.navigate(['search/'+term+'/page/1']);
+    }
   }
 }

@@ -265,7 +265,11 @@
             <h2 class="item-heading">Categories </h2>
         </div>
         <div class="row">      
-            <div class="col-lg-2 col-md-6 col-sm-6 col-12" *ngFor="let category of categories">
+            <div 
+            class="col-lg-2 col-md-6 col-sm-6 col-12" 
+            *ngFor="let category of categories"
+            (click)="goToRecipesByCategory(category.id)"
+            >
                 <div class="category-box-layout1">
                     <figure class="item-figure">
                         <a href="single-recipe1.html">

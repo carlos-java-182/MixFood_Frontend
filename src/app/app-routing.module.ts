@@ -71,7 +71,10 @@ const routes: Routes = [
   {component: SignupGuestComponent, path: 'guest/signup-guest'},
   {component: ForgotpasswordGuestComponent, path: 'forgotpassword'},
   {component: RecipeComponent, path: 'recipe/:id'},
+  //*Search components
   {component: SearchresultsComponent, path: 'search/:term/page/:page'},
+  {component: SearchresultsComponent, path: 'search/category/:idCategory/page/:page'},
+  {component: SearchresultsComponent, path: 'search/tag/:idTag/page/:page'},
   {component: SearchresultsComponent, path: 'search/:ingredients/:idcategory'},
   //*Admin routes
   {component: HomeAdminComponent, path: 'admin/home-admin'},
