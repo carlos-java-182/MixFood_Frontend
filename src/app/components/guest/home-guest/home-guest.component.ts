@@ -93,7 +93,6 @@ export class HomeGuestComponent implements OnInit {
       idCategory: ['',Validators.required]
     });
 
-
     this._recipeService.getRecipeCard().subscribe(data => 
     {
       this.recipes = data;
@@ -223,14 +222,20 @@ export class HomeGuestComponent implements OnInit {
    * 
    * @param page 
    */
-  getPage(page: number):void
+  public getPage(page: number):void
   {
     this.getRecipsCardsResults('a',1,page-1);
   }
 
   public goToRecipesByCategory(id: number):void
   {
-    let route = `search/category/${id}/page/0`;
+    let route = `search/category/${id}/page/1`;
+    this.router.navigate([route]);
+  }
+
+  public goToRecipesByTag(id: number): void
+  {
+    let route = `search/tag/${id}/page/1`;
     this.router.navigate([route]);
   }
 }

@@ -642,3 +642,55 @@ input.file
 }
 /*=====  End of Section pagination nav block  ======*/
 
+
+
+/*=============================================
+=            Section Input Select block            =
+=============================================*/
+.input-select
+{
+	height: 50px;
+	border-radius: 4px;
+	border: 1px solid #cccccc;
+	margin-bottom: 15px;
+	color: #111111;
+	font-weight: 500;
+	font-size: 15px;
+	width: 100%;
+	padding: 5px 15px;
+}
+
+.input-select:focus
+{
+	outline: none !important;
+	box-shadow: none;
+	border-color: #111;
+}
+
+.input-select .input-option{
+	font-weight: 500;
+	font-size: 15px;
+	padding: 5px 15px;
+	border-radius: 4px;
+}
+
+.input-ngselect .ng-select-container
+{
+	height: 50px;
+	color: #111111;
+	font-weight: 500;
+	font-size: 15px;
+	width: 100%;
+	padding: 5px 15px;
+}
+.input-ngselect.ng-select.ng-select-focused:not(.ng-select-opend) > .ng-select-container
+{
+	border-color: #111 !important;
+	box-shadow: none;
+}
+
+
+
+/*=====  End of Section Input Select block  ======*/
+
+

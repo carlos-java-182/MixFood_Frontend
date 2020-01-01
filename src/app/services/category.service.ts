@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient,HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, throwError } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -23,6 +24,16 @@ export class CategoryService {
   public getCategoriesListUser(id: number, size: number):Observable<CategoryListUser[]>
   {
     return this.http.get<CategoryListUser[]>(`${this.url}user/list/${id}/items/${size}`);
+  }
+
+  public getCategoyNameById(id: number):Observable<any>
+  {
+    return this.http.get(`${this.url}/name/${id}`).pipe(
+      catchError(e => 
+        {
+          return throwError(e);
+        })
+    );
   }
 }
 

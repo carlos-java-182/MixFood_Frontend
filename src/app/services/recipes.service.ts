@@ -147,6 +147,27 @@ export class RecipesService {
       })
     );
   }
+
+  /**
+   **This function 
+   * @param id 
+   * @param page 
+   */
+  public getRecipeCardsByTag(id: number, page: number):Observable<any>
+  {
+    return this.http.get(`${this.url}cards/tag/${id}/page/${page}`).pipe(
+      map((response:any) =>
+      {
+        //console.log(response.content[0].recipes);
+        (response.content[0].recipes as Recipe[]).map( recipe =>
+        {
+          recipe.category.name = recipe.category.name.toUpperCase();
+          return recipe;
+        });
+        return response;
+      })
+    );
+  }
 }
 
 /**
