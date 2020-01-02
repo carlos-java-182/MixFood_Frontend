@@ -25,6 +25,7 @@
     "bootstrap": "^4.4.1",
     "i18n-iso-countries": "^4.3.1",
     "jquery": "^3.4.1",
+    "ng-recaptcha": "^5.0.0",
     "ng-select2": "^1.2.2",
     "ng2-ckeditor": "^1.2.6",
     "ngx-bar-rating": "^1.1.0",

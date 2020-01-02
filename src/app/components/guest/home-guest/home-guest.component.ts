@@ -7,11 +7,13 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 
 import * as $ from 'jquery';
-
 //*Import services
 import { RecipesService,Recipe } from 'src/app/services/recipes.service';
 import { CategoryService,CategoryCard } from 'src/app/services/category.service';
 import { TagService, TagShort } from 'src/app/services/tag.service';
+import { CountryService,Country } from 'src/app/services/country.service';
+
+//import * as data from '../countries.json';
 
 
 @Component({
@@ -40,6 +42,7 @@ export class HomeGuestComponent implements OnInit {
   categories: CategoryCard[];
   searchModel: any;
   recipesNames: any;
+  //countries: Country[];
   tags: TagShort[];
   
   //*Create FormGroups
@@ -78,20 +81,23 @@ export class HomeGuestComponent implements OnInit {
     private _recipeService: RecipesService,
     private _categoryService: CategoryService,
     private _tagService: TagService,
+    private _countryService: CountryService,
     private router: Router,
     private activateRoute: ActivatedRoute,
-    private formBuilder: FormBuilder) 
+    private formBuilder: FormBuilder,
+    ) 
   {
     this.initForm();
   }
 
   ngOnInit() {
-
     //*Create form grup for search by term
     this.searchTermForm = this.formBuilder.group({
       searchTerm: ['', Validators.required],
       idCategory: ['',Validators.required]
     });
+
+   // this.countries = this._countryService.getountries();
 
     this._recipeService.getRecipeCard().subscribe(data => 
     {
@@ -237,5 +243,10 @@ export class HomeGuestComponent implements OnInit {
   {
     let route = `search/tag/${id}/page/1`;
     this.router.navigate([route]);
+  }
+
+  public setCountries(): void
+  {
+    
   }
 }
