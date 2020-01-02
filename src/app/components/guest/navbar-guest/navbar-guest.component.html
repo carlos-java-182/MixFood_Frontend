@@ -277,3 +277,132 @@
     </div>
 </header>
 <!-- Header Area End Here -->
+
+
+<!-- Modal Login Start Here-->
+<div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="title-default-bold mb-none">Login</div>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form class="login-form">
+                    <label for="">Email</label>
+                    <input class="main-input-box" type="text" placeholder="" />
+                    <label for="">Password</label>
+                    <input class="main-input-box" type="password" placeholder="" />
+                    <div class="inline-box mb-5 mt-4">
+                        <div class="checkbox checkbox-primary">
+                            <input id="modal-checkbox" type="checkbox">
+                            <label for="modal-checkbox">Remember Me</label>
+                        </div>
+                        <label class="lost-password"><a href="#">Lost your password?</a></label>
+                    </div>
+                    <div class="inline-box mb-5 mt-4">
+                        <button class="btn-login btn-fill" type="submit" value="Login">Login</button>     
+                        <!-- <a href="#" class="btn-register"><i class="fas fa-user"></i>Register Here!</a> -->
+                    </div>
+                    <h4 class="text-center">You do not have an account?</h4>
+                    <div class="inline-box mb-5 mt-4">
+                        <button class="btn-signup btn-fill" type="submit" value="Login">Sign up</button>     
+                        <!-- <a href="#" class="btn-register"><i class="fas fa-user"></i>Register Here!</a> -->
+                    </div>
+                </form>
+                <!-- <label>Login connect with your Social Network</label>
+                <div class="login-box-social">
+                    <ul>
+                        <li><a href="#" class="facebook"><i class="fab fa-facebook-f"></i></a></li>
+                        <li><a href="#" class="twitter"><i class="fab fa-twitter"></i></a></li>
+                        <li><a href="#" class="linkedin"><i class="fab fa-linkedin-in"></i></a></li>
+                        <li><a href="#" class="google"><i class="fab fa-google-plus-g"></i></a></li>
+                    </ul>
+                </div> -->
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal Login End Here-->
+<!-- Modal Signup Start Here-->
+<div class="modal fade" id="myModal2" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="title-default-bold mb-none">Sign up</div>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form class="login-form">
+                    <div class="row">
+                        <div class="col-lg-6">   
+                            <label for="">Name</label>
+                            <input class="main-input-box" type="text" placeholder="" />
+                        </div>
+                        <div class="col-lg-6">   
+                            <label for="">Lastname</label>
+                            <input class="main-input-box" type="text" placeholder="" />
+                        </div>
+                        <div class="col-lg-6">   
+                            <label for="">Gender</label>
+                            <select class="input-select custom-select" name="" id="">
+                                <option selected>Choose...</option>
+                                <option class="input-option" value="M">M</option>
+                                <option value="F">F</option>
+                            </select>
+                            <!-- <input class="main-input-box" type="text" placeholder="" /> -->
+                        </div>
+                        <div class="col-lg-6">   
+                            <label for="">Date birth</label>
+                            <input class="main-input-box" type="date" placeholder="" />
+                        </div>
+                        <div class="col-lg-12">   
+                            <label for="">Country</label>
+                            <ng-select
+                            class="input-ngselect"
+                            name="categoryId"
+                            [items]="countries"
+                            bindLabel="name"
+                            bindValue="id"                       
+                            [multiple]="false"
+                            placeholder ="Select a Country"
+                            notFoundText = "Result not found"
+                            required>
+                            </ng-select>
+                        </div>
+                        <div class="col-lg-12">   
+                            <label for="">Email</label>
+                            <input class="main-input-box" type="email" placeholder="" />
+                        </div>
+                        <div class="col-lg-12">   
+                            <label for="">Password</label>
+                            <input class="main-input-box" type="password" placeholder="" />
+                        </div>
+                        <div class="col-lg-12">   
+                            <label for="">Repeat password</label>
+                            <input class="main-input-box" type="password" placeholder="" />
+                        </div>
+                    </div>
+                    <div class="inline-box mb-5 mt-4">
+                        <button class="btn-login btn-fill" type="submit" value="Login">Sign up</button>     
+                        <!-- <a href="#" class="btn-register"><i class="fas fa-user"></i>Register Here!</a> -->
+                    </div>
+                    <h4 class="text-center">You do have an account?</h4>
+                    <div class="inline-box mb-5 mt-4">
+                        <button class="btn-signup btn-fill" type="submit" value="Login">Login</button>     
+                    </div>
+                </form>
+                <!-- <label>Login connect with your Social Network</label>
+                <div class="login-box-social">
+                    <ul>
+                        <li><a href="#" class="facebook"><i class="fab fa-facebook-f"></i></a></li>
+                        <li><a href="#" class="twitter"><i class="fab fa-twitter"></i></a></li>
+                        <li><a href="#" class="linkedin"><i class="fab fa-linkedin-in"></i></a></li>
+                        <li><a href="#" class="google"><i class="fab fa-google-plus-g"></i></a></li>
+                    </ul>
+                </div> -->
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal Signup End Here-->
