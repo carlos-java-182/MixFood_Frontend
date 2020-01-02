@@ -8,9 +8,9 @@
                 <!-- User Info Start Here -->
                 <div class="widget ranna-box-padding">
                     <div class="section-heading heading-dark ">
-                            <h3 class="item-heading">{{userName}}</h3>
-                        <button class="btn-fil btn-red" *ngIf="!isFollowing" (click)="startFollowing()">Follow</button>
-                        <button class="btn-fil btn-red" *ngIf="isFollowing" (click)="stopFollowing()">Unfollow</button>
+                            <h2 class="item-heading profile-name">{{userName}}</h2>
+                        <button (click)="StartFollowing()" class="btn-fil btn-red" *ngIf="!isFollowing && isLoggedin">Follow</button>
+                        <button (click)="StopFollowing()" class="btn-fil btn-red" *ngIf="isFollowing && isLoggedin">Unfollow</button>
                     </div>
                     <div class="widget-about">
                         <figure class="author-figure"><img src="assets/img/figure/about.jpg" alt="about"></figure>

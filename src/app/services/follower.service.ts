@@ -18,11 +18,26 @@ export class FollowerService {
     return this.http.post<NewFollower>(this.url,follower,{headers: this.headers});
   }
 
+  public validateFollowing(idUser: number, idFollower: number):Observable<FollowerId>
+  {
+    return this.http.get<FollowerId>(`${this.url}/validate/user/${idUser}/follower/${idFollower}`);
+  }
+
+  public deleteFollowing(id: number)
+  {
+    return this.http.delete(`${this.url}/${id}`);
+  }
+
 }
 
+export interface FollowerId
+{
+  id: number;
+}
 
 export interface NewFollower
 {
+  id?: number;
   follower:
   {
     id: number;

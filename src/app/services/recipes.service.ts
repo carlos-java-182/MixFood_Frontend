@@ -72,7 +72,7 @@ export class RecipesService {
   //*
   getRecipesCardsFeatured(id: number, size: number):Observable<RecipeFeatured[]>
   {
-    return this.http.get<RecipeFeatured[]>(this.url+'recipes/cards/featured/'+id+'/items/'+size).pipe(
+    return this.http.get<RecipeFeatured[]>(this.url+'cards/featured/'+id+'/items/'+size).pipe(
       map((response: any) => response as RecipeFeatured[]),
       catchError(e =>
         {

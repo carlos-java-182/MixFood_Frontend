@@ -288,11 +288,50 @@
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
             <div class="modal-body">
-                <form class="login-form">
-                    <label for="">Email</label>
-                    <input class="main-input-box" type="text" placeholder="" />
-                    <label for="">Password</label>
-                    <input class="main-input-box" type="password" placeholder="" />
+                <form [formGroup]="loginForm" (ngSubmit)="login()" class="login-form">
+                    <div class="row">
+                        <div class="col-lg-12" 
+                        [ngClass]="{'has-error': loginForm.get('email').errors && loginForm.get('email').touched || loginForm.get('email').dirty}">
+                            <label for="">Email</label>
+                            <input formControlName="email" 
+                            class="main-input-box" 
+                            type="email" 
+                            placeholder="example@email.com"
+                            data-error="Subject field is required"
+                            required 
+                            />
+                            <!-- <div 
+                            *ngIf="(loginForm.get('email').errors && loginForm.get('email').touched) || loginForm.get('email').dirty"
+                            class="has-error-message">
+                                <span  *ngIf="loginForm.get('email').errors.required">
+                                    The email is required.
+                                </span>
+                                <span  *ngIf="loginForm.get('email').errors.email">
+                                    The email is not valid.
+                                </span>     
+                            </div> -->
+                        </div>
+                        <div class="col-lg-12"
+                        [ngClass]="{'has-error': loginForm.get('password').errors && loginForm.get('password').touched || loginForm.get('password').dirty}">
+                            <label for="">Password</label>
+                            <input 
+                            formControlName="password" 
+                            class="main-input-box"
+                            placeholder="******"
+                            type="password"/>
+                            <div 
+                            *ngIf="loginForm.get('password').errors && loginForm.get('password').touched || loginForm.get('password').dirty"
+                            class="has-error-message">
+                                <span *ngIf="loginForm.get('password').errors.required">
+                                    The password is required.
+                                </span>
+                                <span *ngIf="loginForm.get('password').errors.minLength">
+                                    The password must be greater than 6 characters.
+                                </span>      
+                            </div>
+                        </div>
+                    </div>
+            
                     <div class="inline-box mb-5 mt-4">
                         <div class="checkbox checkbox-primary">
                             <input id="modal-checkbox" type="checkbox">
@@ -333,65 +372,7 @@
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
             <div class="modal-body">
-                <form class="login-form">
-                    <div class="row">
-                        <div class="col-lg-6">   
-                            <label for="">Name</label>
-                            <input class="main-input-box" type="text" placeholder="" />
-                        </div>
-                        <div class="col-lg-6">   
-                            <label for="">Lastname</label>
-                            <input class="main-input-box" type="text" placeholder="" />
-                        </div>
-                        <div class="col-lg-6">   
-                            <label for="">Gender</label>
-                            <select class="input-select custom-select" name="" id="">
-                                <option selected>Choose...</option>
-                                <option class="input-option" value="M">M</option>
-                                <option value="F">F</option>
-                            </select>
-                            <!-- <input class="main-input-box" type="text" placeholder="" /> -->
-                        </div>
-                        <div class="col-lg-6">   
-                            <label for="">Date birth</label>
-                            <input class="main-input-box" type="date" placeholder="" />
-                        </div>
-                        <div class="col-lg-12">   
-                            <label for="">Country</label>
-                            <ng-select
-                            class="input-ngselect"
-                            name="categoryId"
-                            [items]="countries"
-                            bindLabel="name"
-                            bindValue="id"                       
-                            [multiple]="false"
-                            placeholder ="Select a Country"
-                            notFoundText = "Result not found"
-                            required>
-                            </ng-select>
-                        </div>
-                        <div class="col-lg-12">   
-                            <label for="">Email</label>
-                            <input class="main-input-box" type="email" placeholder="" />
-                        </div>
-                        <div class="col-lg-12">   
-                            <label for="">Password</label>
-                            <input class="main-input-box" type="password" placeholder="" />
-                        </div>
-                        <div class="col-lg-12">   
-                            <label for="">Repeat password</label>
-                            <input class="main-input-box" type="password" placeholder="" />
-                        </div>
-                    </div>
-                    <div class="inline-box mb-5 mt-4">
-                        <button class="btn-login btn-fill" type="submit" value="Login">Sign up</button>     
-                        <!-- <a href="#" class="btn-register"><i class="fas fa-user"></i>Register Here!</a> -->
-                    </div>
-                    <h4 class="text-center">You do have an account?</h4>
-                    <div class="inline-box mb-5 mt-4">
-                        <button class="btn-signup btn-fill" type="submit" value="Login">Login</button>     
-                    </div>
-                </form>
+                <app-signup-form></app-signup-form>
                 <!-- <label>Login connect with your Social Network</label>
                 <div class="login-box-social">
                     <ul>
