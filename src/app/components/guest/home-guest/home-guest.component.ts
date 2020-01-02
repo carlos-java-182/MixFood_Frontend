@@ -97,11 +97,10 @@ export class HomeGuestComponent implements OnInit {
       idCategory: ['',Validators.required]
     });
 
-   // this.countries = this._countryService.getountries();
-
     this._recipeService.getRecipeCard().subscribe(data => 
     {
       this.recipes = data;
+      console.log(this.recipes);
     });
   
     this._categoryService.getCategoriesCard().subscribe(data => 

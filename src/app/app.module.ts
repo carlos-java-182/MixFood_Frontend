@@ -57,6 +57,8 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { BarRatingModule } from "ngx-bar-rating";
 import { UserprofileComponent } from './components/shared/userprofile/userprofile.component';
 import { QuillModule } from 'ngx-quill';
+import { SignupFormComponent } from './components/guest/shared/signup-form/signup-form.component';
+import { ComparePasswordsValidatorDirective } from './directives/compare-passwords-validator.directive';
 
 @NgModule({
   declarations: [
@@ -99,7 +101,9 @@ import { QuillModule } from 'ngx-quill';
     ShowComponent,
     SearchresultsComponent,
     PaginatorResultsComponent,
-    UserprofileComponent
+    UserprofileComponent,
+    SignupFormComponent,
+    ComparePasswordsValidatorDirective
 
     
     

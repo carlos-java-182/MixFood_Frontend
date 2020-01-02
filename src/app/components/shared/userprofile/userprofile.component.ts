@@ -6,6 +6,7 @@ import { typeWithParameters } from '@angular/compiler/src/render3/util';
 import { catchError,map } from 'rxjs/operators';
 import { concat } from 'rxjs';
 import { CategoryService, CategoryListUser } from 'src/app/services/category.service';
+import { FollowerService, NewFollower } from 'src/app/services/follower.service';
 @Component({
   selector: 'app-userprofile',
   templateUrl: './userprofile.component.html',
@@ -14,9 +15,13 @@ import { CategoryService, CategoryListUser } from 'src/app/services/category.ser
 export class UserprofileComponent implements OnInit {
   //*Variables declaration
   private id: number;
+  private idFollower: number;
   private isFollowing: boolean = false;
+  private isLoggedin: boolean = true;
   private userName: string;
   private aboutMe: string;
+
+
   //*Objects declaration
   private publicUser: PublicUser;
   private recipeFeatured: RecipeFeatured[];
@@ -28,13 +33,21 @@ export class UserprofileComponent implements OnInit {
   constructor(private activatedRouter: ActivatedRoute,
               private _profileService: ProfileService,
               private _recipeService: RecipesService,
-              private _categorySerive: CategoryService) { }
+              private _followerService: FollowerService,
+              private _categorySerive: CategoryService) 
+              { }
   ngOnInit() 
   {
     this.activatedRouter.params.subscribe(params =>{
       this.id = Number.parseInt(params['id']);
       this.getProfileById(this.id);
-    })
+    });
+
+    if(this.isLoggedin)
+    {
+      this.validateFollowing();
+    }
+    
     this.getFeaturedRecipes(this.id);
     this.getLatestsRecipes();
     this.getCategoriesListUser();
@@ -48,7 +61,6 @@ export class UserprofileComponent implements OnInit {
       this.userName = data.name +' '+data.lastname;
       this.aboutMe = data.description;
       this.socialNetworks = data.socialNetworks;
-
     });
   }
 
@@ -59,36 +71,84 @@ export class UserprofileComponent implements OnInit {
         data.sort((a)=> a.averangeRanking);
         this.recipeFeatured = data;
         this.recipeTrending.push(data[0]);
-       });      
+      });      
   }
 
   public getCategoriesListUser():void
   {
     this._categorySerive.getCategoriesListUser(this.id,10).subscribe(data =>
-      {
+    {
         this.categoriesList = data;
-      });
+    });
   }
 
   public getLatestsRecipes():void
   {
     this._recipeService.getRecipesLatestsByUser(this.id,5).subscribe(data=>
-      {
-        this.recipeLatests = data;
-      })
-  }
-  public startFollowing():void
-  {
-    this.isFollowing = !this.isFollowing;
+    {
+      this.recipeLatests = data;
+    });
   }
 
-  private stopFollowing():void
+  goToLink(url: string): void
   {
-    this.isFollowing = !this.isFollowing;
-  }
-
-  goToLink(url: string){
     window.open(url, "_blank");
-}
+  }
 
+  private validateFollowing(): void
+  {
+    let idFollower: number = 2;
+    this._followerService.validateFollowing(this.id,idFollower).subscribe(response=>
+    {
+      if(response == null)
+      {
+        this.isFollowing = false;
+      }
+      else
+      {
+        this.idFollower = response.id;
+        console.log(idFollower);
+        this.isFollowing = true;
+      }
+    });
+  }
+
+  private StartFollowing(): void
+  {
+    let idFollower = 2;
+    //*Create follower
+    let follower: NewFollower = 
+    {
+      follower: 
+      {
+        id: idFollower
+      },
+      user:
+      {
+        id: this.id
+      }
+    };
+
+    this._followerService.createFollow(follower).subscribe(response =>
+    {
+      console.log(response);
+      this.idFollower = response.id;
+      this.isFollowing = true; 
+    },
+    err =>
+    {
+
+    }
+    );
+  }
+
+  private StopFollowing(): void
+  {
+    let idFollow = 5;
+    this._followerService.deleteFollowing(this.idFollower).subscribe(response =>
+    {
+        console.log(response);
+    });
+    this.isFollowing = false;
+  }
 }
