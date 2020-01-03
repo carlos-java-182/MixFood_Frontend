@@ -1,27 +1,38 @@
 <app-navbar-guest></app-navbar-guest>
-
 <!-- Content Start Here -->
 <!-- Single Recipe With Sidebar Area Start Here -->
 <section class="single-recipe-wrap-layout1 padding-top-74 padding-bottom-50">
     <div class="container">
         <div class="row gutters-60">
             <div class="col-lg-8">
-                <div class="single-recipe-layout1">
-                    <h2 class="item-title">{{recipe.name}}</h2>
-                    <div class="ctg-name">{{recipe.category.name}}</div>
+                <div class="single-recipe-layout1">   
+                    <div class="section-heading heading-dark">
+                        <h2 class="item-title">{{recipeName}}</h2>
+                    </div>
+                    <div class="ctg-name">{{recipeCategoryName}}</div>
                     <div class="row mb-4">
                         <div class="col-xl-9 col-12">
                             <ul class="entry-meta">
-                                <li class="single-meta"><a><i class="far fa-calendar-alt"></i>{{recipe.createAt | date: 'yyyy-MM-dd'}}</a></li>
-                                <li class="single-meta"><a href="#"><i class="fas fa-user"></i><span>{{recipe.user.name }} {{recipe.user.lastname}}</span></a></li>
+                                <li class="single-meta"><a><i class="far fa-calendar-alt"></i>{{recipeCreateAt | date: 'yyyy-MM-dd'}}</a></li>
+                                <li class="single-meta">
+                                    <a (click)="goToProfile(idUser)">
+                                        <i class="fas fa-user"></i><span>{{userName}}</span>
+                                    </a>
+                                </li>
                                 <li class="single-meta">
                                     <ul class="item-rating">
-                                        <li><bar-rating [(rate)]="recipe.averangeRanking" [max]="5" [readOnly]="true"></bar-rating></li>
-                                  
+                                        <li><bar-rating [(rate)]="recipeAverangeRanking" [max]="5" [readOnly]="true"></bar-rating></li>                                 
                                     </ul>
                                 </li>
-                                <li class="single-meta"><a href="#"><i class="fas fa-heart"></i><span>02</span>
-                                        Likes</a></li>
+                                <li class="single-meta">
+                                    <a (click)="StartaLike()">
+                                        <i class="fas fa-heart"></i>
+                                        <span *ngIf="isLiked && totalLikes > 0">You and {{totalLikes}} others likes</span>
+                                        <span *ngIf="!isLiked && totalLikes > 0">{{totalLikes}} likes</span>
+                                        <span *ngIf="!isLiked && totalLikes == 0" >Be the first to like</span>
+                                        <span *ngIf="isLiked && totalLikes == 0">You like this</span>
+                                    </a>
+                                </li>
                             </ul>
                         </div>
                         <div class="col-xl-3 col-12">
@@ -32,27 +43,46 @@
                                 <li *ngIf="isLogged">
                                     <button><i class="far fa-heart"></i></button>
                                 </li>
-                                <!-- <li class="action-share-hover"><button><i class="fas fa-share-alt"></i></button>
-                                    <div class="action-share-wrap">
-                                        <a href="#" title="facebook"><i class="fab fa-facebook-f"></i></a>
-                                        <a href="#" title="twitter"><i class="fab fa-twitter"></i></a>
-                                        <a href="#" title="linkedin"><i class="fab fa-linkedin-in"></i></a>
-                                        <a href="#" title="pinterest"><i class="fab fa-pinterest-p"></i></a>
-                                        <a href="#" title="skype"><i class="fab fa-skype"></i></a>
-                                        <a href="#" title="rss"><i class="fas fa-rss"></i></a>
-                                    </div>
-                                </li> -->
                             </ul>
                         </div>
                     </div>
                     <div class="item-figure">
                         <div id="recipe-carousel" class="owl-carousel owl-theme">
-                            <div *ngFor="let image of recipe.images">
+                            <div *ngFor="let image of images">
                                 <img [src]="image.routeImage" alt="Product">
                             </div>
                         </div>
                     </div>
                     <div class="item-feature">
+                        <!-- <div class="row mb-4">
+                        <div class="col-xl-9 col-12">
+                            <ul class="entry-meta">
+                                <li class="single-meta"><a><i class="far fa-calendar-alt"></i>{{recipeCreateAt | date: 'yyyy-MM-dd'}}</a></li>
+                                <li class="single-meta"><a href="#"><i class="fas fa-user"></i><span>{{userName}}</span></a></li>
+                                <li class="single-meta">
+                                    <ul class="item-rating">
+                                        <li><bar-rating [(rate)]="recipeAverangeRanking" [max]="5" [readOnly]="true"></bar-rating></li>                                 
+                                    </ul>
+                                </li>
+                                <li class="single-meta">
+                                    <a href="#">
+                                        <i class="fas fa-heart"></i><span> You and {{totalLikes}}</span> 
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="col-xl-3 col-12">
+                            <ul class="action-item">
+                                <li *ngIf="isLogged">
+                                    <button><i class="fas fa-heart"></i></button>
+                                </li>
+                                <li *ngIf="isLogged">
+                                    <button><i class="far fa-heart"></i></button>
+                                </li>
+                            </ul>
+                        </div>
+                    </div> -->
+                       
                         <ul>
                             <li>
                                 <div class="feature-wrap">
@@ -62,7 +92,7 @@
                                         </div>
                                         <div class="media-body space-sm">
                                             <div class="feature-title">PREP TIME</div>
-                                            <div class="feature-sub-title">{{recipe.preparationTime}}</div>
+                                            <div class="feature-sub-title">{{preparationTime}}</div>
                                         </div>
                                     </div>
                                 </div>
@@ -101,7 +131,7 @@
                                         </div>
                                         <div class="media-body space-sm">
                                             <div class="feature-title">VIEWS</div>
-                                            <div class="feature-sub-title">{{recipe.views}}</div>
+                                            <div class="feature-sub-title">{{views}}</div>
                                         </div>
                                     </div>
                                 </div>
@@ -114,7 +144,7 @@
                                         </div>
                                         <div class="media-body space-sm">
                                             <div class="feature-title">Difficulty</div>
-                                            <div class="feature-sub-title">{{recipe.difficulty}}</div>
+                                            <div class="feature-sub-title">{{difficulty}}</div>
                                         </div>
                                     </div>
                                 </div>
@@ -125,18 +155,8 @@
                         <h2 class="item-heading">Description</h2>
                     </div>
                     <p class="item-description">
-                        {{recipe.description}}
+                        {{recipeDescription}}
                     </p>
-                    <p class="item-description">
-                        More off this less hello salamander lied porpoise much over
-                        tightly circa horse taped so
-                        innocuously side crudey mightily rigorous plot life. New homes in particular are
-                        subject.All recipes created with FoodiePress have suport for Micoformats and Google
-                        Recipe View. Schema.org is a collaboration byo improve the web by creatinegaera
-                        structured data markup.More off this less hello salamander lied porpoise much over
-                        tightly circa horse tapedey innocuously side crudey mightily rigorous plot life.
-                    </p>
-
                     <div class="making-elements-wrap">
                         <div class="row">
                             <div class="col-xl-6 col-12">
@@ -161,35 +181,9 @@
                                     </div> -->
 
                                     
-                                    <div class="checkbox checkbox-primary" *ngFor="let ingredient of recipe.recipeIngredients">
-                                        <input id="checkbox1" type="checkbox" checked>
-                                        <label for="checkbox1">{{ingredient.quantity}} of {{ingredient.ingredient.name}}</label>
-                                    </div>
-
-
-                                    <div class="checkbox checkbox-primary">
-                                        <input id="checkbox1" type="checkbox">
-                                        <label for="checkbox1">1 cup sifted all purpose flour</label>
-                                    </div>
-                                    <div class="checkbox checkbox-primary">
-                                        <input id="checkbox2" type="checkbox">
-                                        <label for="checkbox2">4 cup roasted macadamia nuts</label>
-                                    </div>
-                                    <div class="checkbox checkbox-primary">
-                                        <input id="checkbox3" type="checkbox">
-                                        <label for="checkbox3">4 large eggs</label>
-                                    </div>
-                                    <div class="checkbox checkbox-primary">
-                                        <input id="checkbox4" type="checkbox">
-                                        <label for="checkbox4">4 cup roasted macadamia nuts</label>
-                                    </div>
-                                    <div class="checkbox checkbox-primary">
-                                        <input id="checkbox5" type="checkbox">
-                                        <label for="checkbox5">5 cup sifted all purpose flour</label>
-                                    </div>
-                                    <div class="checkbox checkbox-primary">
-                                        <input id="checkbox6" type="checkbox">
-                                        <label for="checkbox6">8 cup roasted macadamia nuts</label>
+                                    <div class="checkbox checkbox-primary" *ngFor="let ingredient of ingredients; let i = index">              
+                                        <input id="checkbox{{i}}" type="checkbox" checked>
+                                        <label for="checkbox{{i}}">{{ingredient.quantity}} of {{ingredient.ingredient.name}}</label>
                                     </div>
                                 </div>
                             </div>
@@ -412,7 +406,7 @@
                         <div class="section-heading heading-dark">
                             <h2 class="item-heading">STEPS</h2>
                         </div>
-                        <p class="section-paragraph">{{recipe.steps}}</p>
+                        <!-- <p class="section-paragraph">{{recipe.steps}}</p> -->
                         <!-- <div class="direction-box-layout1">
                             <div class="item-figure">
                                 <img src="img/figure/direction1.jpg" alt="DIRECTIONS">
@@ -462,6 +456,7 @@
                             </div>
                         </div> -->
                     </div>
+                    <!-- Recipe Tags Start Here -->
                     <div class="section-heading heading-dark row">
                         <h2 class="item-heading">Tags</h2>
                     </div>
@@ -469,61 +464,21 @@
                         <ul>
                             <li>
                                 <ul class="inner-tag">
-                                    <li *ngFor="let tag of recipe.tags">
-                                        <a href="#">{{tag.name}}</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Burger</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Dinner</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Pizza</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Salad</a>
+                                    <li *ngFor="let tag of tags">
+                                        <a (click)="goToRecipesByTag(tag.id)">{{tag.name}}</a>
                                     </li>
                                 </ul>
                             </li>
-                            <!-- <li>
-                                <ul class="inner-share">
-                                    <li>
-                                        <a href="#">
-                                            <i class="fab fa-facebook-f"></i>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">
-                                            <i class="fab fa-twitter"></i>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">
-                                            <i class="fab fa-linkedin-in"></i>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">
-                                            <i class="fab fa-google-plus-g"></i>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">
-                                            <i class="fab fa-pinterest"></i>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </li> -->
                         </ul>
                     </div>  
+                    <!-- Recipe Tags End Here -->
                     <div class="recipe-author">
                         <div class="media media-none--xs">
                             <img src="assets/img/blog/author9.jpg" alt="Blog Author" class="rounded-circle media-img-auto">
                             <div class="media-body">
-                                <h4 class="author-title">{{recipe.user.name + ' '+ recipe.user.lastname}}</h4>
+                                <h4 class="author-title">{{userName}}</h4>
                                 <h5 class="author-sub-title">Written by</h5>
-                                <p>{{recipe.user.description}}</p>
+                                <!-- <p>{{recipe.user.description}}</p> -->
                                 <ul class="author-social">
                                     <li>
                                         <a href="#"><i class="fab fa-facebook-f"></i></a>
@@ -590,6 +545,8 @@
                             </div>
                         </div>             
                     </div>
+                    
+                    <!-- Recipe Reviews Start Here -->
                     <div class="recipe-reviews">
                         <div class="section-heading heading-dark">
                             <h2 class="item-heading">RECIPE REVIEWS</h2>
@@ -597,19 +554,14 @@
                         <div class="avarage-rating-wrap">
                             <div class="avarage-rating">Avarage Rating: 
                                 <span class="rating-icon-wrap">
-                                    <bar-rating [(rate)]="recipe.averangeRanking" [max]="5" [readOnly]="true"></bar-rating>
-                                    <!-- <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i> -->
+                                    <bar-rating [(rate)]="recipeAverangeRanking" [max]="5" [readOnly]="true"></bar-rating>
                                 </span>
-                                <!-- <span class="rating-number"></span>                                         -->
+                                <span class="rating-number"></span>                                         
                             </div>
-                            <div class="total-reviews">Total Reviews:<span class="review-number">(({{recipe.rankings.length}})</span></div>
+                            <div class="total-reviews">Total Reviews:<span class="review-number">({{totalRankings}})</span></div>
                         </div>
                         <ul>
-                            <li class="reviews-single-item" *ngFor="let ranking of recipe.rankings">
+                            <li class="reviews-single-item" *ngFor="let ranking of rankings">
                                 <div class="media media-none--xs">
                                     <img src="assets/img/blog/comment1.jpg" alt="Comment" class="media-img-auto">
                                     <div class="media-body">
@@ -618,98 +570,75 @@
                                         <p>{{ranking.comment}}</p>
                                         <ul class="item-rating">
                                             <bar-rating [(rate)]="ranking.punctuation" [max]="5" [readOnly]="true"></bar-rating>
-                                            <!-- <li class="single-item star-fill"><i class="fas fa-star"></i></li>
-                                            <li class="single-item star-fill"><i class="fas fa-star"></i></li>
-                                            <li class="single-item star-fill"><i class="fas fa-star"></i></li>
-                                            <li class="single-item star-fill"><i class="fas fa-star"></i></li>
-                                            <li class="single-item star-empty"><i class="fas fa-star"></i></li> -->
-                                            <!-- <li class="single-item"><span>9<span> / 10</span></span> </li> -->
                                         </ul>
                                         <a href="#" class="item-btn">REPLY<i class="fas fa-long-arrow-alt-right"></i></a>
                                     </div>
                                 </div>
                             </li>
-                            <!-- <li class="reviews-single-item">
-                                <div class="media media-none--xs">
-                                    <img src="assets/img/blog/comment2.jpg" alt="Comment" class="media-img-auto">
-                                    <div class="media-body">
-                                        <h4 class="comment-title">John Martin</h4>
-                                        <span class="post-date">September 12, 2018</span>
-                                        <p>Absolutely great recipe. I cooked it for my kids and they loved it, even 
-                                                asked for more, can you believe it?</p>
-                                        <ul class="item-rating">
-                                            <li class="single-item star-fill"><i class="fas fa-star"></i></li>
-                                            <li class="single-item star-fill"><i class="fas fa-star"></i></li>
-                                            <li class="single-item star-fill"><i class="fas fa-star"></i></li>
-                                            <li class="single-item star-fill"><i class="fas fa-star"></i></li>
-                                            <li class="single-item star-empty"><i class="fas fa-star"></i></li>
-                                            <li class="single-item"><span>7<span> / 10</span></span> </li>
-                                        </ul>
-                                        <a href="#" class="item-btn">REPLY<i class="fas fa-long-arrow-alt-right"></i></a>
-                                    </div>
-                                </div>
-                            </li> -->
                         </ul>
                     </div>
+                    <!-- Recipe Reviews End Here -->
+
+                    <!-- Form Review Start Here -->
                     <div class="leave-review">
                         <form class="leave-form-box" 
                         [formGroup]="commentForm" 
                         (ngSubmit)="createComment(commentForm.value)"
                         novalidate>
-                        <div class="section-heading heading-dark">
-                            <h2 class="item-heading">LEAVE A REVIEW</h2>
-                        </div>
-                        <div class="rate-wrapper">
-                            <div class="rate-label">Rating</div>
-                            <div class="rate">
-                                <bar-rating
-                                formControlName="rating"
-                                [max]="5" >
-                                </bar-rating>
+                            <div class="section-heading heading-dark">
+                                <h2 class="item-heading">LEAVE A REVIEW</h2>
                             </div>
-                        </div>
-                
-                        <div class="row">
-                            <div class="col-12 form-group">
-                                <label>Comment :</label>
-                                <textarea 
-                                formControlName="comment"
-                                placeholder="" 
-                                class="textarea form-control" 
-                                name="message" 
-                                rows="7"
-                                cols="20" 
-                                data-error="Message field is required"
-                                required>
-                                </textarea>
-                                <div class="help-block with-errors"></div>
-                            </div>
-                            <!-- <div class="col-lg-4 form-group">
-                                <label>Name :</label>
-                                <input type="text" placeholder="" class="form-control" name="name"
-                                    data-error="Name field is required" required>
-                                <div class="help-block with-errors"></div>
-                            </div>
-                            <div class="col-lg-4 form-group">
-                                <label>E-mail :</label>
-                                <input type="email" placeholder="" class="form-control" name="email"
-                                    data-error="E-mail field is required" required>
-                                <div class="help-block with-errors"></div>
-                            </div>
-                            <div class="col-lg-4 form-group">
-                                <label>Website :</label>
-                                <input type="email" placeholder="" class="form-control" name="email"
-                                    data-error="E-mail field is required" required>
-                                <div class="help-block with-errors"></div>
-                            </div> -->
-                            <div class="col-12 form-group mb-0">
+                            <div class="rate-wrapper">
+                                <div class="rate-label">Rating</div>
+                                <div class="rate">
+                                    <bar-rating
+                                    formControlName="rating"
+                                    [max]="5" >
+                                    </bar-rating>
+                                </div>
+                            </div>   
+                            <div class="row">
+                                <div class="col-12 form-group">
+                                    <label>Comment :</label>
+                                    <textarea 
+                                    formControlName="comment"
+                                    placeholder="" 
+                                    class="textarea form-control" 
+                                    name="message" 
+                                    rows="7"
+                                    cols="20" 
+                                    data-error="Message field is required"
+                                    required>
+                                    </textarea>
+                                    <div class="help-block with-errors"></div>
+                                </div>
+                                <!-- <div class="col-lg-4 form-group">
+                                    <label>Name :</label>
+                                    <input type="text" placeholder="" class="form-control" name="name"
+                                        data-error="Name field is required" required>
+                                    <div class="help-block with-errors"></div>
+                                </div>
+                                <div class="col-lg-4 form-group">
+                                    <label>E-mail :</label>
+                                    <input type="email" placeholder="" class="form-control" name="email"
+                                        data-error="E-mail field is required" required>
+                                    <div class="help-block with-errors"></div>
+                                </div>
+                                <div class="col-lg-4 form-group">
+                                    <label>Website :</label>
+                                    <input type="email" placeholder="" class="form-control" name="email"
+                                        data-error="E-mail field is required" required>
+                                    <div class="help-block with-errors"></div>
+                                </div> -->
+                                <div class="col-12 form-group mb-0">
 
-                                <button type="submit" class="item-btn">POST REVIEW</button>
+                                    <button type="submit" class="item-btn">POST REVIEW</button>
+                                </div>
                             </div>
-                        </div>
                             <!-- <div class="form-response"></div> -->
                         </form>
                     </div>
+                    <!-- Form Review End Here -->
                 </div>
             </div>
             <div class="col-lg-4 sidebar-widget-area sidebar-break-md">
@@ -719,7 +648,7 @@
                     </div>
                     <div class="widget-latest">
                         <ul class="block-list">
-                            <li class="single-item" *ngFor="let latest of recipesLatests let i = index" (click)="showRecipe(latest.id)">
+                            <li  class="single-item" *ngFor="let latest of recipesLatests let i = index" (click)="goToRecipe(latest.id)">
                                 <div class="item-img">
                                     <a><img  class="img-thumbnail recipe-thumb" [src]="latest.thumbRoute" alt="Post"></a>
                                     <div class="count-number">{{i+1}}</div>
@@ -730,7 +659,7 @@
                                     <div class="item-post-by"><a href="single-blog.html"><i class="fas fa-user"></i>
                                             {{latest.user.name +' '+latest.user.lastname}}</a></div>
                                 </div>
-                            </li>
+                            </li >
                             <!-- <li class="single-item">
                                 <div class="item-img">
                                     <a href="#"><img src="assets/img/product/latest2.jpg" alt="Post"></a>
@@ -795,7 +724,7 @@
                 </div>
                 <div class="widget">
                     <div class="section-heading heading-dark">
-                        <h3 class="item-heading">FEATURED ARTICLE</h3>
+                        <h3 class="item-heading">FEATURED RECIPES</h3>
                     </div>
                     <div class="widget-featured-feed">
                         <div class="rc-carousel nav-control-layout1" data-loop="true" data-items="3"
@@ -807,7 +736,7 @@
                             data-r-medium-nav="true" data-r-medium-dots="false" data-r-large="1"
                             data-r-large-nav="true" data-r-large-dots="false" data-r-extra-large="1"
                             data-r-extra-large-nav="true" data-r-extra-large-dots="false">
-                            <div class="featured-box-layout1" *ngFor="let featured of recipesFeatured">
+                            <div (click)="goToRecipe(featured.id)" class="featured-box-layout1" *ngFor="let featured of recipesFeatured">
                                 <div class="item-img">
                                     <img [src]="featured.thumbRoute" alt="Brand" class="img-fluid">
                                 </div>

@@ -1,6 +1,7 @@
 <!-- Header Area Start Here -->
 <app-navbar-guest></app-navbar-guest>
 <!-- Header Area End Here -->
+<!-- Content Start Here -->
 <section class="padding-bottom-45">
     <div class="container">
         <div class="row gutters-40">
@@ -12,18 +13,21 @@
                         <button (click)="StartFollowing()" class="btn-fil btn-red" *ngIf="!isFollowing && isLoggedin">Follow</button>
                         <button (click)="StopFollowing()" class="btn-fil btn-red" *ngIf="isFollowing && isLoggedin">Unfollow</button>
                     </div>
-                    <div class="widget-about">
-                        <figure class="author-figure"><img src="assets/img/figure/about.jpg" alt="about"></figure>
+                    <div class="widget-about">            
+                        <figure class="author-figure">
+                            <i class="fas fa-pencil-alt"></i>
+                            <img src="assets/img/figure/about.jpg" alt="about">
+                        </figure>
                         <!-- <figure class="author-signature"><img src="assets/img/figure/signature.png" alt="about"></figure> -->
-                        <h3 class="item-heading">About me</h3>
-                        <p>{{aboutMe}}</p>
+                        <h3 class="item-heading">About me <i class="fas fa-pencil-alt"></i></h3>
+                        <p>{{aboutMe}}</p>   
                     </div>
                 </div>
                 <!-- User Info End Here -->
                 <!-- Social Networks Start Here -->
                 <div class="widget ranna-box-padding">
                     <div class="section-heading heading-dark">
-                        <h3 class="item-heading">SOCIAL NETWORKS</h3>
+                        <h3 class="item-heading">SOCIAL NETWORKS <i class="fas fa-pencil-alt"></i></h3>
                     </div>
                     <div class="widget-follow-us">
                         <ul>
@@ -43,86 +47,39 @@
                     </div>
                 </div>
                 <!-- Social Networks End Here -->
+                <!-- Latest Recipes Start Here -->
                 <div class="widget ranna-box-padding">
                     <div class="section-heading heading-dark">
                         <h3 class="item-heading">LATEST RECIPES</h3>
                     </div>
                     <div class="widget-latest">
-                        <ul class="block-list remove-5th-child-lg">
-                            <li class="single-item" *ngFor="let recipe of recipeLatests; let i = index">
+                        <ul class="block-list remove-5th-child-lg">       
+                            <!-- <li  class="single-item" *ngFor="let recipe of recipeLatests; let i = index">
+                                <app-recipe-card-latest [recipe]="recipe"></app-recipe-card-latest>
+                            </li> -->
+                            <li  class="single-item" *ngFor="let recipe of recipeLatests; let i = index">
                                 <div class="item-img">
-                                    <a href="#"><img [src]="recipe.thumbRoute" alt="Post"></a>
+                                    <a (click)="goToRecipe(recipe.id)"><img [src]="recipe.thumbRoute" alt="Post"></a>
                                     <div class="count-number">{{i+1}}</div>
                                 </div>
                                 <div class="item-content">
-                                    <div class="item-ctg">{{recipe.category.name}}</div>
+                                    <div (click)="goToRecipesByCategory(recipe.category.id)" class="item-ctg">{{recipe.category.name}}</div>
                                     <h4 class="item-title">
-                                        <a>{{recipe.name}}</a>
+                                        <a (click)="goToRecipe(recipe.id)">{{recipe.name}}</a>
                                     </h4>
-                                    <!-- <div class="item-post-by"><a href="single-blog.html"><i class="fas fa-user"></i><span>by</span>
-                                            John Martin</a></div> -->
+    
                                 </div>
                             </li>
-                            <!-- <li class="single-item">
-                                <div class="item-img">
-                                    <a href="#"><img src="img/product/latest2.jpg" alt="Post"></a>
-                                    <div class="count-number">2</div>
-                                </div>
-                                <div class="item-content">
-                                    <div class="item-ctg">DESERT</div>
-                                    <h4 class="item-title"><a href="#">Salami Oven Roasted are
-                                            Mozzarella Oelette</a></h4>
-                                    <div class="item-post-by"><a href="single-blog.html"><i class="fas fa-user"></i><span>by</span>
-                                            John Martin</a></div>
-                                </div>
-                            </li>
-                            <li class="single-item">
-                                <div class="item-img">
-                                    <a href="#"><img src="img/product/latest3.jpg" alt="Post"></a>
-                                    <div class="count-number">3</div>
-                                </div>
-                                <div class="item-content">
-                                    <div class="item-ctg">DESERT</div>
-                                    <h4 class="item-title"><a href="#">Salami Oven Roasted are
-                                            Mozzarella Oelette</a></h4>
-                                    <div class="item-post-by"><a href="single-blog.html"><i class="fas fa-user"></i><span>by</span>
-                                            John Martin</a></div>
-                                </div>
-                            </li>
-                            <li class="single-item">
-                                <div class="item-img">
-                                    <a href="#"><img src="img/product/latest4.jpg" alt="Post"></a>
-                                    <div class="count-number">4</div>
-                                </div>
-                                <div class="item-content">
-                                    <div class="item-ctg">DESERT</div>
-                                    <h4 class="item-title"><a href="#">Salami Oven Roasted are
-                                            Mozzarella Oelette</a></h4>
-                                    <div class="item-post-by"><a href="single-blog.html"><i class="fas fa-user"></i><span>by</span>
-                                            John Martin</a></div>
-                                </div>
-                            </li>
-                            <li class="single-item">
-                                <div class="item-img">
-                                    <a href="#"><img src="img/product/latest2.jpg" alt="Post"></a>
-                                    <div class="count-number">3</div>
-                                </div>
-                                <div class="item-content">
-                                    <div class="item-ctg">DESERT</div>
-                                    <h4 class="item-title"><a href="#">Salami Oven Roasted are
-                                            Mozzarella Oelette</a></h4>
-                                    <div class="item-post-by"><a href="single-blog.html"><i class="fas fa-user"></i><span>by</span>
-                                            John Martin</a></div>
-                                </div>
-                            </li> -->
                         </ul>
                     </div>
                 </div>
+                <!--Latest Recipes End Here -->
                 <!-- <div class="widget ranna-box-padding">
                     <div class="widget-ad">
                         <a href="#"><img src="img/figure/figure3.jpg" alt="Ad" class="img-fluid"></a>
                     </div>
                 </div> -->
+                <!-- Categories User Start Here -->
                 <div class="widget ranna-box-padding">
                     <div class="section-heading heading-dark">
                         <h3 class="item-heading">CATEGORIES</h3>
@@ -135,6 +92,7 @@
                         </ul>
                     </div>
                 </div>
+                <!-- Categories User End Here -->
             </div>
        
             <div class="col-lg-8">
@@ -154,345 +112,58 @@
                                 </a>
                             </div>
                             <div class="item-content">    
-                                <h2 class="item-title"><a href="single-recipe1.html">{{trending.name}}</a></h2>
-                                <span class="sub-title">{{trending.category.name.toUpperCase()}}</span>
+                                <h2 class="item-title">
+                                    <a (click)="goToRecipe(trending.id)">{{trending.name}}</a>
+                                </h2>
+                                <span class="sub-title" (click)="goToRecipesByCategory(trending.category.id)">
+                                    {{trending.category.name.toUpperCase()}}
+                                </span>
                                 <ul class="item-rating">
                                     <bar-rating [(rate)]="trending.averangeRanking" [max]="5" ></bar-rating>
                                 </ul>
                                 <p>{{trending.description}}</p>
                                 <ul class="entry-meta">
-                                    <li><a href="#"><i class="fas fa-clock"></i>{{trending.createAt  | timeAgo}}</a></li>
                                     <li>
-                                        <a href="#"><i class="fas fa-heart"></i>
-                                            <span>{{trending.totalLikes}}</span> 
-                                            <span *ngIf="trending.totalLikes > 1 || trending.totalLikes == 0"> Likes</span>
-                                            <span *ngIf="trending.totalLikes == 1"> Like</span>
+                                        <a><i class="fas fa-clock"></i>{{trending.createAt | timeAgo}}</a>
+                                    </li>
+                                    <li>
+                                        <a (click)="StartaLike(trending.id)">
+                                            <i class="fas fa-heart"></i>
+                                            <span *ngIf="isLiked && trending.totalLikes > 0">You and {{totalLikes}} others likes</span>
+                                            <span *ngIf="!isLiked && trending.totalLikes > 0">{{trending.totalLikes}} likes</span>
+                                            <span *ngIf="!isLiked && trending.totalLikes == 0" >Be the first to like</span>
+                                            <span *ngIf="isLiked && trending.otalLikes == 0">You like this</span>
                                         </a>
                                     </li>
+                                    <li>
+                                        <a (click)="addToFavorite(trending.id)" *ngIf="!isFavorite && isLoggedin">
+                                            <i class="far fa-heart"></i>
+                                            <span>Add to favorites</span> 
+                                        </a>
+                                        <a  (click)="removeFavorite(trending.id)" *ngIf="isFavorite && isLoggedin">
+                                            <i class="fas fa-heart"></i>
+                                            <span>Remove favorites</span> 
+                                        </a>
+                                    </li>            
                                 </ul>
                             </div>
                         </div> 
                     </div>
                     <!-- Recipe Trending End Here -->
-                    <!-- <div class="col-md-6 col-sm-6 col-12">
-                        <div class="product-box-layout4">
-                            <div class="item-figure">
-                                <img src="img/product/product20.jpg" alt="Product">
-                                <a href="single-recipe1.html" class="item-dot">
-                                    <span></span>
-                                    <span></span>
-                                    <span></span>
-                                </a>
-                            </div>
-                            <div class="item-content">
-                                <span class="sub-title">CHICKEN</span>
-                                <h3 class="item-title"><a href="single-recipe1.html">Tomatoes Stuffed with Foie
-                                        and Chanterelles</a></h3>
-                                <ul class="item-rating">
-                                    <li class="star-fill"><i class="fas fa-star"></i></li>
-                                    <li class="star-fill"><i class="fas fa-star"></i></li>
-                                    <li class="star-fill"><i class="fas fa-star"></i></li>
-                                    <li class="star-fill"><i class="fas fa-star"></i></li>
-                                    <li class="star-empty"><i class="fas fa-star"></i></li>
-                                    <li><span>9<span> / 10</span></span> </li>
-                                </ul>
-                                <ul class="entry-meta">
-                                    <li><a href="#"><i class="fas fa-clock"></i>15 Mins</a></li>
-                                    <li><a href="#"><i class="fas fa-user"></i>by <span>John Martin</span></a></li>
-                                    <li><a href="#"><i class="fas fa-heart"></i><span>02</span> Likes</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-sm-6 col-12">
-                        <div class="product-box-layout4">
-                            <div class="item-figure">
-                                <img src="img/product/product21.jpg" alt="Product">
-                                <a href="single-recipe1.html" class="item-dot">
-                                    <span></span>
-                                    <span></span>
-                                    <span></span>
-                                </a>
-                            </div>
-                            <div class="item-content">
-                                <span class="sub-title">SALAD</span>
-                                <h3 class="item-title"><a href="single-recipe1.html">Tomatoes Stuffed with Foie
-                                        and Chanterelles</a></h3>
-                                <ul class="item-rating">
-                                    <li class="star-fill"><i class="fas fa-star"></i></li>
-                                    <li class="star-fill"><i class="fas fa-star"></i></li>
-                                    <li class="star-fill"><i class="fas fa-star"></i></li>
-                                    <li class="star-fill"><i class="fas fa-star"></i></li>
-                                    <li class="star-empty"><i class="fas fa-star"></i></li>
-                                    <li><span>9<span> / 10</span></span> </li>
-                                </ul>
-                                <ul class="entry-meta">
-                                    <li><a href="#"><i class="fas fa-clock"></i>15 Mins</a></li>
-                                    <li><a href="#"><i class="fas fa-user"></i>by <span>John Martin</span></a></li>
-                                    <li><a href="#"><i class="fas fa-heart"></i><span>02</span> Likes</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-sm-6 col-12">
-                        <div class="product-box-layout4">
-                            <div class="item-figure">
-                                <img src="img/product/product22.jpg" alt="Product">
-                                <a href="single-recipe1.html" class="item-dot">
-                                    <span></span>
-                                    <span></span>
-                                    <span></span>
-                                </a>
-                            </div>
-                            <div class="item-content">
-                                <span class="sub-title">DINNER</span>
-                                <h3 class="item-title"><a href="single-recipe1.html">Tomatoes Stuffed with Foie
-                                        and Chanterelles</a></h3>
-                                <ul class="item-rating">
-                                    <li class="star-fill"><i class="fas fa-star"></i></li>
-                                    <li class="star-fill"><i class="fas fa-star"></i></li>
-                                    <li class="star-fill"><i class="fas fa-star"></i></li>
-                                    <li class="star-fill"><i class="fas fa-star"></i></li>
-                                    <li class="star-empty"><i class="fas fa-star"></i></li>
-                                    <li><span>9<span> / 10</span></span> </li>
-                                </ul>
-                                <ul class="entry-meta">
-                                    <li><a href="#"><i class="fas fa-clock"></i>15 Mins</a></li>
-                                    <li><a href="#"><i class="fas fa-user"></i>by <span>John Martin</span></a></li>
-                                    <li><a href="#"><i class="fas fa-heart"></i><span>02</span> Likes</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-sm-6 col-12">
-                        <div class="product-box-layout4">
-                            <div class="item-figure">
-                                <img src="img/product/product23.jpg" alt="Product">
-                                <a href="single-recipe1.html" class="item-dot">
-                                    <span></span>
-                                    <span></span>
-                                    <span></span>
-                                </a>
-                            </div>
-                            <div class="item-content">
-                                <span class="sub-title">JUICE</span>
-                                <h3 class="item-title"><a href="single-recipe1.html">Tomatoes Stuffed with Foie
-                                        and Chanterelles</a></h3>
-                                <ul class="item-rating">
-                                    <li class="star-fill"><i class="fas fa-star"></i></li>
-                                    <li class="star-fill"><i class="fas fa-star"></i></li>
-                                    <li class="star-fill"><i class="fas fa-star"></i></li>
-                                    <li class="star-fill"><i class="fas fa-star"></i></li>
-                                    <li class="star-empty"><i class="fas fa-star"></i></li>
-                                    <li><span>9<span> / 10</span></span> </li>
-                                </ul>
-                                <ul class="entry-meta">
-                                    <li><a href="#"><i class="fas fa-clock"></i>15 Mins</a></li>
-                                    <li><a href="#"><i class="fas fa-user"></i>by <span>John Martin</span></a></li>
-                                    <li><a href="#"><i class="fas fa-heart"></i><span>02</span> Likes</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-sm-6 col-12">
-                        <div class="product-box-layout4">
-                            <div class="item-figure">
-                                <img src="img/product/product24.jpg" alt="Product">
-                                <a href="single-recipe1.html" class="item-dot">
-                                    <span></span>
-                                    <span></span>
-                                    <span></span>
-                                </a>
-                            </div>
-                            <div class="item-content">
-                                <span class="sub-title">BREAKFAST</span>
-                                <h3 class="item-title"><a href="single-recipe1.html">Tomatoes Stuffed with Foie
-                                        and Chanterelles</a></h3>
-                                <ul class="item-rating">
-                                    <li class="star-fill"><i class="fas fa-star"></i></li>
-                                    <li class="star-fill"><i class="fas fa-star"></i></li>
-                                    <li class="star-fill"><i class="fas fa-star"></i></li>
-                                    <li class="star-fill"><i class="fas fa-star"></i></li>
-                                    <li class="star-empty"><i class="fas fa-star"></i></li>
-                                    <li><span>9<span> / 10</span></span> </li>
-                                </ul>
-                                <ul class="entry-meta">
-                                    <li><a href="#"><i class="fas fa-clock"></i>15 Mins</a></li>
-                                    <li><a href="#"><i class="fas fa-user"></i>by <span>John Martin</span></a></li>
-                                    <li><a href="#"><i class="fas fa-heart"></i><span>02</span> Likes</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-sm-6 col-12">
-                        <div class="product-box-layout4">
-                            <div class="item-figure">
-                                <img src="img/product/product25.jpg" alt="Product">
-                                <a href="single-recipe1.html" class="item-dot">
-                                    <span></span>
-                                    <span></span>
-                                    <span></span>
-                                </a>
-                            </div>
-                            <div class="item-content">
-                                <span class="sub-title">DINNER</span>
-                                <h3 class="item-title"><a href="single-recipe1.html">Tomatoes Stuffed with Foie
-                                        and Chanterelles</a></h3>
-                                <ul class="item-rating">
-                                    <li class="star-fill"><i class="fas fa-star"></i></li>
-                                    <li class="star-fill"><i class="fas fa-star"></i></li>
-                                    <li class="star-fill"><i class="fas fa-star"></i></li>
-                                    <li class="star-fill"><i class="fas fa-star"></i></li>
-                                    <li class="star-empty"><i class="fas fa-star"></i></li>
-                                    <li><span>9<span> / 10</span></span> </li>
-                                </ul>
-                                <ul class="entry-meta">
-                                    <li><a href="#"><i class="fas fa-clock"></i>15 Mins</a></li>
-                                    <li><a href="#"><i class="fas fa-user"></i>by <span>John Martin</span></a></li>
-                                    <li><a href="#"><i class="fas fa-heart"></i><span>02</span> Likes</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div> -->
-                
                     <div class="col-lg-12">
                         <div class="ranna-box-style">
                             <div class="section-heading heading-dark">
                                 <h2 class="item-heading">POPULAR RECIPES</h2>
                             </div>
+                            <!-- Popular Recipes Start Here -->
                             <div class="row gutters-40">
                                 <div *ngFor="let recipe of recipeFeatured | slice: 1" class="col-xl-12 col-lg-6 col-md-6 col-sm-6 col-12">
-                                    <div class="product-box-layout6">
-                                        <div class="item-figure">
-                                            <img [src]="recipe.thumbRoute" alt="Product">
-                                            <a href="single-recipe1.html" class="item-dot">
-                                                <span></span>
-                                                <span></span>
-                                                <span></span>
-                                            </a>
-                                        </div>
-                                        <div class="item-content">                              
-                                            <h3 class="item-title"><a href="single-recipe1.html">{{recipe.name}}s</a></h3>
-                                            <span class="sub-title">{{recipe.category.name.toUpperCase()}}</span>
-                                            <ul class="item-rating">
-                                                <bar-rating [(rate)]="recipe.averangeRanking" [max]="5"  [readOnly]="true"></bar-rating>
-                                            </ul>
-                                            <p>{{recipe.description}}</p>
-                                            <ul class="entry-meta remove-3rd-child-lg">
-                                                <li><a href="#"><i class="fas fa-clock"></i>{{recipe.createAt | timeAgo}}</a></li>
-                                                
-                                                <li>
-                                                    <a href="#"><i class="fas fa-heart">
-                                                        </i><span>{{recipe.totalLikes}}</span>
-                                                        <span *ngIf="recipe.totalLikes > 1 || recipe.totalLikes == 0"> Likes</span>
-                                                        <span *ngIf="recipe.totalLikes == 1"> Like</span>
-                                                    </a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
+                                    <app-recipe-card-popular [recipe]="recipe"></app-recipe-card-popular>
                                 </div>
-                                <!-- <div class="col-xl-12 col-lg-6 col-md-6 col-sm-6 col-12">
-                                    <div class="product-box-layout6">
-                                        <div class="item-figure">
-                                            <img src="img/product/product15.jpg" alt="Product">
-                                            <a href="single-recipe1.html" class="item-dot">
-                                                <span></span>
-                                                <span></span>
-                                                <span></span>
-                                            </a>
-                                        </div>
-                                        <div class="item-content">
-                                            <span class="sub-title">SEA FOOD</span>
-                                            <h3 class="item-title"><a href="single-recipe1.html">Italiano Salad Mixed</a></h3>
-                                            <ul class="item-rating">
-                                                <li class="star-fill"><i class="fas fa-star"></i></li>
-                                                <li class="star-fill"><i class="fas fa-star"></i></li>
-                                                <li class="star-fill"><i class="fas fa-star"></i></li>
-                                                <li class="star-fill"><i class="fas fa-star"></i></li>
-                                                <li class="star-empty"><i class="fas fa-star"></i></li>
-                                                <li><span>9<span> / 10</span></span> </li>
-                                            </ul>
-                                            <p>Pro sint falli definitiones noel ei verear civibus
-                                                consequat efficiantue.Vestibulum ante ipsum primis in fau
-                                                cibus.</p>
-                                            <ul class="entry-meta remove-3rd-child-lg">
-                                                <li><a href="#"><i class="fas fa-clock"></i>15 Mins</a></li>
-                                                <li><a href="#"><i class="fas fa-user"></i>by <span>John Martin</span></a></li>
-                                                <li><a href="#"><i class="fas fa-heart"></i><span>02</span> Likes</a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-xl-12 col-lg-6 col-md-6 col-sm-6 col-12">
-                                    <div class="product-box-layout6">
-                                        <div class="item-figure">
-                                            <img src="img/product/product16.jpg" alt="Product">
-                                            <a href="single-recipe1.html" class="item-dot">
-                                                <span></span>
-                                                <span></span>
-                                                <span></span>
-                                            </a>
-                                        </div>
-                                        <div class="item-content">
-                                            <span class="sub-title">SALAD</span>
-                                            <h3 class="item-title"><a href="single-recipe1.html">Maxican Dessert</a></h3>
-                                            <ul class="item-rating">
-                                                <li class="star-fill"><i class="fas fa-star"></i></li>
-                                                <li class="star-fill"><i class="fas fa-star"></i></li>
-                                                <li class="star-fill"><i class="fas fa-star"></i></li>
-                                                <li class="star-fill"><i class="fas fa-star"></i></li>
-                                                <li class="star-empty"><i class="fas fa-star"></i></li>
-                                                <li><span>9<span> / 10</span></span> </li>
-                                            </ul>
-                                            <p>Pro sint falli definitiones noel ei verear civibus
-                                                consequat efficiantue.Vestibulum ante ipsum primis in fau
-                                                cibus.</p>
-                                            <ul class="entry-meta remove-3rd-child-lg">
-                                                <li><a href="#"><i class="fas fa-clock"></i>15 Mins</a></li>
-                                                <li><a href="#"><i class="fas fa-user"></i>by <span>John Martin</span></a></li>
-                                                <li><a href="#"><i class="fas fa-heart"></i><span>02</span> Likes</a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="d-lg-block d-xl-none col-lg-6 col-md-6 col-sm-6 col-12">
-                                    <div class="product-box-layout6">
-                                        <div class="item-figure">
-                                            <img src="img/product/product14.jpg" alt="Product">
-                                            <a href="single-recipe1.html" class="item-dot">
-                                                <span></span>
-                                                <span></span>
-                                                <span></span>
-                                            </a>
-                                        </div>
-                                        <div class="item-content">
-                                            <span class="sub-title">BREAKFAST</span>
-                                            <h3 class="item-title"><a href="single-recipe1.html">Asian Chicken Noodles</a></h3>
-                                            <ul class="item-rating">
-                                                <li class="star-fill"><i class="fas fa-star"></i></li>
-                                                <li class="star-fill"><i class="fas fa-star"></i></li>
-                                                <li class="star-fill"><i class="fas fa-star"></i></li>
-                                                <li class="star-fill"><i class="fas fa-star"></i></li>
-                                                <li class="star-empty"><i class="fas fa-star"></i></li>
-                                                <li><span>9<span> / 10</span></span> </li>
-                                            </ul>
-                                            <p>Pro sint falli definitiones noel ei verear civibus
-                                                consequat efficiantue.Vestibulum ante ipsum primis in fau
-                                                cibus.</p>
-                                            <ul class="entry-meta remove-3rd-child-lg">
-                                                <li><a href="#"><i class="fas fa-clock"></i>15 Mins</a></li>
-                                                <li><a href="#"><i class="fas fa-user"></i>by <span>John Martin</span></a></li>
-                                                <li><a href="#"><i class="fas fa-heart"></i><span>02</span> Likes</a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div> -->
                             </div>
+                            <!-- Popular Recipes End Here -->
                         </div>
                     </div>
-                
-                
                 </div>
             </div>                  
         </div>
