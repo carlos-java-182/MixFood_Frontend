@@ -59,6 +59,9 @@ import { UserprofileComponent } from './components/shared/userprofile/userprofil
 import { QuillModule } from 'ngx-quill';
 import { SignupFormComponent } from './components/guest/shared/signup-form/signup-form.component';
 import { ComparePasswordsValidatorDirective } from './directives/compare-passwords-validator.directive';
+import { RecipeCardPopularComponent } from './components/shared/recipe-card-popular/recipe-card-popular.component';
+import { RecipeCardLatestComponent } from './components/shared/recipe-card-latest/recipe-card-latest.component';
+import { SettingsUserComponent } from './components/user/settings-user/settings-user.component';
 
 @NgModule({
   declarations: [
@@ -103,7 +106,10 @@ import { ComparePasswordsValidatorDirective } from './directives/compare-passwor
     PaginatorResultsComponent,
     UserprofileComponent,
     SignupFormComponent,
-    ComparePasswordsValidatorDirective
+    ComparePasswordsValidatorDirective,
+    RecipeCardPopularComponent,
+    RecipeCardLatestComponent,
+    SettingsUserComponent
 
     
     

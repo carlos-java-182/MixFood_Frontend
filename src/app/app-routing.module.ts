@@ -40,7 +40,7 @@ import { CreateComponent } from './components/admin/crud/create/create.component
 import { ShowComponent } from './components/admin/crud/show/show.component';
 import { SearchresultsComponent } from './components/shared/searchresults/searchresults.component';
 import { UserprofileComponent } from './components/shared/userprofile/userprofile.component';
-
+import { SettingsUserComponent } from './components/user/settings-user/settings-user.component';
 
 //*Crud example imports
 
@@ -59,6 +59,7 @@ const routes: Routes = [
   {component: CreaterecipeUserComponent, path: 'user/createrecipe'},
   {component: EditrecipeUserComponent, path: 'user/editrecipe-user'},
   {component: HomeUserComponent, path: 'user/home'},
+  {component: SettingsUserComponent, path: 'user/settings'},
  
   //*Guest routes
   {component: NavbarGuestComponent, path: 'guest/navbar-guest'},

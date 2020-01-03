@@ -16,7 +16,7 @@ export class RecipesService {
 
   constructor(private http: HttpClient) { }
  
-  createRecipe(recipe: NewRecipe):Observable<ResponseCreate>
+  public createRecipe(recipe: NewRecipe):Observable<ResponseCreate>
   {
     return this.http.post<any>(this.url,recipe,{headers: this.headers}).pipe(
       map((response: any) => response as ResponseCreate),
@@ -32,28 +32,44 @@ export class RecipesService {
 
   }
 
-  createRecipeIngredient(ingredients: RecipeIngredient[]):Observable<RecipeIngredient[]>
+  public createRecipeIngredient(ingredients: RecipeIngredient[]):Observable<RecipeIngredient[]>
   {
     return this.http.post<RecipeIngredient[]>(this.url+'ingredients',JSON.stringify(ingredients),{headers: this.headers});
   }
 
   //*This function get the recipes cards for home
-  getRecipeCard():Observable<Recipe[]>{
+  public getRecipeCard():Observable<Recipe[]>{
     return this.http.get<Recipe[]>(this.url+'cards');
   }
   
   //*This function find the recipes names by search term
-  getSearchForName(term: string){
+  public getSearchForName(term: string){
     return this.http.get(this.url+'search/'+term);
   }
   
-  //*
+  /**
+   * 
+   * @param id 
+   */
   getById(id: number):Observable<Recipe>{
     return this.http.get<Recipe>(this.url+id);
   }
 
-  //*
-  getRecipesLatests(id: number, size: number):Observable<RecipeLatest[]>
+  /**
+   * 
+   * @param id 
+   */
+  public getProfile(id: number): Observable<RecipeProfile>
+  {
+    return this.http.get<RecipeProfile>(`${this.url}${id}/profile`);
+  }
+
+  /**
+   * 
+   * @param id 
+   * @param size 
+   */
+  public getRecipesLatests(id: number, size: number):Observable<RecipeLatest[]>
   {
     return this.http.get<RecipeLatest[]>(this.url+'latests/'+id+'/items/'+size).pipe(
       catchError(e =>
@@ -65,12 +81,21 @@ export class RecipesService {
     );
   }
 
+  /**
+   * 
+   * @param id 
+   * @param size 
+   */
   public getRecipesLatestsByUser(id: number, size: number):Observable<RecipeLatestUser[]>
   {
     return this.http.get<RecipeLatestUser[]>(this.url+'users/latests/'+id+'/items/'+size);
   }
-  //*
-  getRecipesCardsFeatured(id: number, size: number):Observable<RecipeFeatured[]>
+  /**
+   * 
+   * @param id 
+   * @param size 
+   */
+  public getRecipesCardsFeatured(id: number, size: number):Observable<RecipeFeatured[]>
   {
     return this.http.get<RecipeFeatured[]>(this.url+'cards/featured/'+id+'/items/'+size).pipe(
       map((response: any) => response as RecipeFeatured[]),
@@ -90,7 +115,7 @@ export class RecipesService {
  * @param idCategory:  category of recipe 
  * @param page: page number shown
  */
-  getRecipsCardsResults(term: string, idCategory: number,page: number):Observable<any>
+  public getRecipsCardsResults(term: string, idCategory: number,page: number):Observable<any>
   {
   /*  return this.http.get(this.url+'recipes/cards/search/'+term+'/'+idCategory+'/page/'+page).pipe(
       tap((response: any) =>{
@@ -168,8 +193,64 @@ export class RecipesService {
       })
     );
   }
-}
+  /**
+   * 
+   * @param idRecipe 
+   * @param idUser 
+   */
+  public startLike(idRecipe, idUser)
+  {
+    let formData = new FormData();
+    
+    formData.append('idRecipe',idRecipe);
+    formData.append('idUser',idUser);
 
+    return this.http.post(`${this.url}/like`,formData).pipe(
+      catchError( e =>
+      {
+        //*Get http response status
+        let status = e.status;
+        console.log(status);
+        return throwError(e);
+      })
+    );
+  }
+
+  /**
+   * 
+   * @param idRecipe 
+   * @param idUser 
+   */
+  public stopLike(idRecipe: number, idUser: number)
+  {
+    return this.http.delete(`${this.url}/${idRecipe}/like/${idUser}`).pipe(
+      catchError( e =>
+      {
+        //*Get http response status
+        let status = e.status;
+        console.log(status);
+        return throwError(e);
+      })
+    );
+  }
+  /**
+   * 
+   * @param idRecipe 
+   * @param idUser 
+   */
+  public validateLike(idRecipe: number, idUser: number)
+  {
+    return this.http.get(`${this.url}/${idRecipe}/like/${idUser}`).pipe(
+      catchError( e =>
+      {
+        //*Get http response status
+        let status = e.status;
+        //console.log(status);
+        return throwError(e);
+      })
+    );
+  }
+}
 /**
  **Inter faces
  */
@@ -291,3 +372,66 @@ export interface Recipe{
   },
   tags: [];
 }
+
+export interface RecipeProfile{
+  id : number;
+  name : string;
+  views: number;
+  thumbRoute : string;
+  createAt : string;
+  description: string;
+  averangeRanking : number;
+  difficulty: string;
+  preparationTime: string;
+  totalLikes: number;
+  category: {
+    id: number;
+    name: string;
+  },
+  user: {
+    id: number;
+    name: string;
+    lastname: string;
+    description: string;
+  },
+  rankings: Rankings[];
+  tags: Tag[];
+  images: Images[];
+  recipeIngredients: Ingredients[];
+}
+
+export interface Ingredients
+{
+  quantity: string;
+  ingredient: 
+  {
+    name: string;
+  }
+}
+
+export interface Tag
+{
+  id: number;
+  name: string;
+}
+
+export interface Images 
+{
+  id: number;
+  routeImage: string;
+}
+
+export interface Rankings
+{
+  id: number;
+  puntuation: number;
+  comment: string;
+  createAt: string;
+  user:
+  {
+    id: number;
+    name: string;
+    lastname: string;
+  }
+}
+

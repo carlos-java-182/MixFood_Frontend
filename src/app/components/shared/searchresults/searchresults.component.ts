@@ -5,6 +5,7 @@ import { identifierModuleUrl } from '@angular/compiler';
 import { Message } from '@angular/compiler/src/i18n/i18n_ast';
 import { CategoryService } from 'src/app/services/category.service';
 import { TagService } from 'src/app/services/tag.service';
+import { NgbAlertModule } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-searchresults',
@@ -197,5 +198,10 @@ export class SearchresultsComponent implements OnInit {
 
     //*Navigate to new page results with params
     this.router.navigate([route]);
+  }
+
+  private showRecipe(recipe): void
+  {
+    this.router.navigate(['/recipe/',recipe.id]);
   }
 }

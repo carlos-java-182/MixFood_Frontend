@@ -11,10 +11,12 @@
                     <h2 *ngIf="isSearchByTag" class="item-heading">{{tagName}}</h2>
                 </div>
                 <div class="row">
+                    <!-- Alert Not Found Start Here -->
                     <div *ngIf="isResultEmpty" class="col-lg-12 alert alert-info" role="alert">
                         <h4 class="alert-heading"><i class="fas fa-info-circle"></i> Results not found!</h4>
                         <p>{{message}} <b>{{term}}</b></p>
                     </div>
+                    <!-- Alert Not Found Stop Here -->
                     <!-- Recipe Results Start Here -->
                     <div *ngFor="let recipe of recipes | paginate: {id: 'pagination-nav', itemsPerPage: 12, currentPage: currentPage, totalItems: totalItems}" 
                     class="card-item col-lg-3 col-md-3 col-sm-12" (click)="showRecipe(recipe)">

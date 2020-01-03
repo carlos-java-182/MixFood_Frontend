@@ -1,6 +1,6 @@
 import { Component, OnInit,OnChanges } from '@angular/core';
 import * as $ from 'jquery';
-import { RecipesService,RecipeLatest,Recipe,RecipeFeatured } from 'src/app/services/recipes.service';
+import { RecipesService,RecipeLatest,Recipe,RecipeFeatured,RecipeProfile, Images, Ingredients, Tag, Rankings } from 'src/app/services/recipes.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { RankingService, NewRanking } from 'src/app/services/ranking.service';
@@ -12,15 +12,38 @@ import { CategoryService, CategoryCard } from 'src/app/services/category.service
 })
 export class RecipeComponent implements OnInit {
   //*Variables declaration
-  id: number;
-  ///ratingComment: number = 0;
-  isLogged: boolean = false;
+  private id: number;
+  private idUser: number;
+  private recipeName: string;
+  private recipeCategoryName: string;
+  private userName: string;
+  private recipeCreateAt: string;
+  private recipeDescription: string;
+  private preparationTime: string;
+  private difficulty: string;
+  private totalLikes: number;
+  private recipeAverangeRanking: number;
+  private views: number;
+  private rating: number = 0;
+  private totalRankings = 0;
+  private isLiked = false;
 
   //*Objects declaration
-  recipe: any
+  private images: Images[];
+  private ingredients: Ingredients[];
+  private tags: Tag[];
+  private rankings: Rankings[];
+  ///ratingComment: number = 0;
+  isLogged: boolean = false;
+  private arr = [];
+
+
+  //*Objects declaration
+ 
   recipesLatests: RecipeLatest[];
   recipesFeatured: RecipeFeatured[];
   categoryList: CategoryCard[];
+  recipe: any;
   commentForm: FormGroup;
 
   constructor(private _recipeService: RecipesService,
@@ -38,34 +61,52 @@ export class RecipeComponent implements OnInit {
       rating: ['',Validators.required]
     });
 
+    //this.getRecipeById(1);
     this.activatedRoute.paramMap.subscribe(params =>
       {
         this.id = Number.parseInt(params.get('id'));
         this.getRecipeById(this.id);
-      /*  this.activatedRoute.params.subscribe(param => 
-          {
-            this.id = param['id'];
-          });*/
-         
-      })
-
-  
-    //*Call functions for get data
- //   this.getRecipeById();
-    this.getRecipesLatests(1);
-    this.getRecipesCardsFeatured(1);
-    this.getCategoriesList();
-
+        this.getCategoriesList();
+        this._recipeService.validateLike(1,1).subscribe(response =>
+        {
+          this.isLiked = false;
+        },
+        err =>
+        {
+          this.isLiked = true;  
+        }
+        );
+      });
   }
 
   //*Get recipe by id param get in rotute
   getRecipeById(id: number):void
   {
-    this._recipeService.getById(id).subscribe(data =>
+    this._recipeService.getProfile(id).subscribe(data =>
     {
-      this.recipe = data;
-      console.log(this.recipe);
-    });  
+      this.recipe;
+      this.recipeName = data.name;
+      this.recipeCategoryName = data.category.name;
+      this.recipeAverangeRanking = data.averangeRanking;
+      this.userName = data.user.name+' '+data.user.lastname;
+      this.recipeCreateAt = data.createAt;
+      this.recipeDescription = data.description;
+      this.views = data.views;
+      this.difficulty = data.difficulty;
+      this.preparationTime = data.preparationTime;
+      this.totalLikes = data.totalLikes;
+      this.images = data.images;
+      this.ingredients = data.recipeIngredients;
+      this.tags = data.tags;
+      this.rankings = data.rankings;
+      this.totalRankings = this.rankings.length;
+      this.idUser = data.user.id;
+
+      this.arr.push(1);
+      this.getRecipesLatests(this.idUser);
+      this.getRecipesCardsFeatured(this.idUser);
+    });
+    console.log(this.arr);  
   } 
 
   //*Get Latests recipes by id and create object with data response
@@ -83,7 +124,7 @@ export class RecipeComponent implements OnInit {
     this._recipeService.getRecipesCardsFeatured(id,5).subscribe(data =>
     {
         this.recipesFeatured = data;
-        console.log(this.recipesFeatured);
+      //  console.log(this.recipesFeatured);
     });
   }
 
@@ -92,7 +133,7 @@ export class RecipeComponent implements OnInit {
     this._categoryService.getCategoriesList().subscribe(data =>
     {
       this.categoryList = data;  
-      console.log("data: "+data);
+    //  console.log("data: "+data);
     });
   }
 
@@ -117,7 +158,7 @@ export class RecipeComponent implements OnInit {
     };
     
     this._rankingService.createRanking(newRanking).subscribe(response => {
-        console.log(response);
+    //    console.log(response);
     });
   }
 
@@ -126,5 +167,52 @@ export class RecipeComponent implements OnInit {
     this.router.navigate(['/recipe/',id]);
   }
 
+  private StartaLike(): void
+  {
+    if(this.isLiked)
+    {
+      this._recipeService.stopLike(this.id ,1).subscribe(response =>
+      {
+        console.log(response);
+        this.isLiked = false;
+        if(this.totalLikes > 0)
+        {
+          this.totalLikes--;
+        }
+      });
+    }
+    else
+    {
+      this._recipeService.startLike(this.id,1).subscribe(response =>
+      {
+        console.log(response);
+        this.totalRankings++;
+        this.isLiked = true;
+      });
+    }
+    
+  }
 
+  private goToRecipe(id: number): void
+  {
+    this.router.navigate(['recipe/',id])
+  }
+
+  private goToRecipesByTag(id: number): void
+  {
+    let route = `/search/category/${id}/page/1`;
+    this.router.navigate([route]);
+  }
+
+  public goToRecipesByCategory(id: number):void
+  {
+    let route = `/search/category/${id}/page/1`;
+    this.router.navigate([route]);
+  }
+  
+  public goToProfile(id: number): void
+  {
+    this.router.navigate(['profile/',id]);
+  }
 }
+
