@@ -7,41 +7,49 @@
             <div class="col-lg-8">
                 <div class="author-box-layout1">
                     <div class="adv-search-wrap row">
-                        <div class="input-group col-lg-8">
-                            <input type="text" class="form-control" placeholder="Recipe name. . ." />
-                            <div class="btn-group">
-                                <div class="input-group-btn">
-                                    <button type="submit" class="btn-search"><i class="flaticon-search"></i></button>
+                        <form (ngSubmit)="searchRecipes(searchTerm.value) && searchTerm.value != ''" class="col-lg-8" novalidate>
+                            <div class="input-group col-lg-12">
+                                <input #searchTerm type="text" class="form-control" placeholder="Recipe name. . ." required>
+                                <div class="btn-group">
+                                    <div class="input-group-btn">
+                                        <button type="submit" class="btn-search"><i class="flaticon-search"></i></button>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                        </form>
+    
                         <div class="input-group col-lg-2">
-                            <select [(ngModel)]="status" (change)="getByStatus()" class="form-control"  name="" id="">
+                            <select [(ngModel)]="status" (change)="getByStatus()" class="custom-select"  name="" id="">
                                 <option value="private">Private</option>
-                                <option value="public">Public</option>
+                                <option selected value="public">Public</option>
                             </select>
                         </div>
                         <div class="input-group col-lg-2">
-                            <select class="form-control"  name="" id="">
+                            <select class="custom-select"  name="" id="">
                                 <option value="ASC">ASC</option>
                                 <option value="DESC">DESC</option>
                             </select>
                          </div>
                     </div>
 
-                    <div class="adv-search-wrap">
-                       
-                        
+                    <div class="adv-search-wrap">      
                     </div>
 
-                    <h3 class="author-section-title">Total 1,050 recipes</h3>
+                    <h3 *ngIf="totalItems > 0" class="author-section-title">Total {{totalItems}} recipes</h3>
                     <div class="table-responsive">
+                        <!-- Alert Not Found Start Here -->
+                        <div *ngIf="isResultEmpty" class="col-lg-12 alert alert-info" role="alert">
+                            <h4 class="alert-heading"><i class="fas fa-info-circle"></i> Results not found!</h4>
+                            <p *ngIf="term != ''">No results were found with the term: <b>{{term}}</b></p>
+                            <p *ngIf="term == '' ">No results were found!</p>
+                        </div>
+                        <!-- Alert Not Found Stop Here -->
                         <table class="table table-striped">
                             <tbody>
-                                <tr *ngFor="let recipe of recipes">
+                                <tr *ngFor="let recipe of recipes | paginate: {id: 'pagination-nav', itemsPerPage: itemsPerPage, currentPage: currentPage, totalItems: totalItems}; let i = index">
                                     <th>
                                         <div class="author-personal-info">
-                                            <a href="#" class="item-figure"><img [src]="recipe.thumbRoute" alt="Author"></a>
+                                            <a href="#" class="item-figure"><img [src]="recipe.thumbRoute" alt="Recipe"></a>
                                             <div class="item-content">
                                                 <div class="item-title"><a href="#">{{recipe.name}}</a></div>
                                                 <div class="item-designation">{{recipe.category.name}}</div>
@@ -74,43 +82,32 @@
                                                         <h4 class="item-title">Ranking</h4>
                                                         <span class="item-number">{{recipe.averangeRanking}}</span>
                                                     </div>
-                                                </li>
-                                                <!-- <li>
-                                                    <div>
-                                                        <h4 class="item-title">Status</h4>
-                                                        <span class="item-number">Public</span>
-                                                    </div>
-                                                </li> -->
-                                                <!-- <li>
-                                                    <button>edit</button>
-                                                </li>
-                                                <li>
-                                                    <button>Remove</button>
-                                                </li> -->
-                                            </ul>
+                                                </li>               
+                                            </ul>                                                                 
                                         </div>
+                                        <ul class="nav-actions"> 
+                                            <li class="btn-table btn btn-table-edit"><a (click)="goToEdit(recipe.id)"><i class="fas fa-pencil-alt"></i></a></li>
+                                            <li class="btn-table btn btn-table-remove"><a (click)="removeRecipe(recipe.id,i)"><i class="fas fa-trash"></i></a></li>
+                                        </ul>
                                     </td>
                                 </tr>             
                             </tbody>
                         </table>
                     </div>
-                    <ul class="pagination-layout1">
-                        <li class="active">
-                            <a href="#">1</a>
-                        </li>
-                        <li>
-                            <a href="#">2</a>
-                        </li>
-                        <li>
-                            <a href="#">3</a>
-                        </li>
-                        <li>
-                            <a href="#">4</a>
-                        </li>
-                    </ul>
+                    <!-- Pagination Start Here -->
+                    <pagination-controls 
+                    *ngIf="totalPages > 1"
+                    id="pagination-nav"
+                    (pageChange)="getPage($event)"
+                    previousLabel=""
+                    nextLabel=""
+                    responsive="true"
+                    screenReaderPaginationLabel="Pagination">
+                    </pagination-controls>
+                    <!-- Pagination End Here -->
                 </div>
             </div>
-            <div class="col-lg-4 sidebar-widget-area sidebar-break-md">
+            <!-- <div class="col-lg-4 sidebar-widget-area sidebar-break-md">
                 <div class="widget">
                     <div class="section-heading heading-dark">
                         <h3 class="item-heading">ABOUT ME</h3>
@@ -185,7 +182,7 @@
                         </ul>
                     </div>
                 </div>
-            </div>
+            </div> -->
         </div>
     </div>
 </section>
