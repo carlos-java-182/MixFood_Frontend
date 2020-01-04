@@ -193,6 +193,23 @@ export class RecipesService {
       })
     );
   }
+
+  public getRecipesCardsTable(id: number,status: string,page: number,size: number):Observable<any>
+  {
+    return this.http.get(`${this.url}user/${id}/${status}/page/${page}/items/${size}`).pipe(
+      map((response: any)=> 
+      {
+        (response.content as RecipeCardTable[]).map(
+          recipe =>
+          {
+            recipe.category.name = recipe.category.name.toLocaleUpperCase();
+            return recipe;
+          });
+          return response;
+      })
+    );
+  }
+
   /**
    * 
    * @param idRecipe 
@@ -250,6 +267,8 @@ export class RecipesService {
       })
     );
   }
+
+
 }
 /**
  **Inter faces
@@ -432,6 +451,22 @@ export interface Rankings
     id: number;
     name: string;
     lastname: string;
+  }
+}
+
+export interface RecipeCardTable
+{
+  id: number;
+  name: string;
+  averangeRanking: number;
+  totalLikes: number;
+  totalReviews: number;
+  views: number;
+  thumbRoute: string;
+  category:
+  {
+    id: number;
+    name: string;
   }
 }
 

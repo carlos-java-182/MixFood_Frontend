@@ -1,1 +1,192 @@
-<p>recipes-user works!</p>
+<app-navbar-user></app-navbar-user>
+
+<!-- Author Area Start Here -->
+<section class="author-page-wrap padding-top-80 padding-bottom-50">
+    <div class="container">
+        <div class="row gutters-60">
+            <div class="col-lg-8">
+                <div class="author-box-layout1">
+                    <div class="adv-search-wrap row">
+                        <div class="input-group col-lg-8">
+                            <input type="text" class="form-control" placeholder="Recipe name. . ." />
+                            <div class="btn-group">
+                                <div class="input-group-btn">
+                                    <button type="submit" class="btn-search"><i class="flaticon-search"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="input-group col-lg-2">
+                            <select [(ngModel)]="status" (change)="getByStatus()" class="form-control"  name="" id="">
+                                <option value="private">Private</option>
+                                <option value="public">Public</option>
+                            </select>
+                        </div>
+                        <div class="input-group col-lg-2">
+                            <select class="form-control"  name="" id="">
+                                <option value="ASC">ASC</option>
+                                <option value="DESC">DESC</option>
+                            </select>
+                         </div>
+                    </div>
+
+                    <div class="adv-search-wrap">
+                       
+                        
+                    </div>
+
+                    <h3 class="author-section-title">Total 1,050 recipes</h3>
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <tbody>
+                                <tr *ngFor="let recipe of recipes">
+                                    <th>
+                                        <div class="author-personal-info">
+                                            <a href="#" class="item-figure"><img [src]="recipe.thumbRoute" alt="Author"></a>
+                                            <div class="item-content">
+                                                <div class="item-title"><a href="#">{{recipe.name}}</a></div>
+                                                <div class="item-designation">{{recipe.category.name}}</div>
+                                            </div>
+                                        </div>
+                                    </th>
+                                    <td>
+                                        <div class="author-social-info">
+                                            <ul>
+                                                <li>
+                                                    <div>
+                                                        <h4 class="item-title">Likes</h4>
+                                                        <span class="item-number">{{recipe.totalLikes}}</span>
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <div>
+                                                        <h4 class="item-title">Reviews</h4>
+                                                        <span class="item-number">{{recipe.totalReviews}}</span>
+                                                    </div>
+                                                </li>
+                                                <!-- <li>
+                                                    <div>
+                                                        <h4 class="item-title">Favourites</h4>
+                                                        <span class="item-number">35+</span>
+                                                    </div>
+                                                </li> -->
+                                                <li>
+                                                    <div>
+                                                        <h4 class="item-title">Ranking</h4>
+                                                        <span class="item-number">{{recipe.averangeRanking}}</span>
+                                                    </div>
+                                                </li>
+                                                <!-- <li>
+                                                    <div>
+                                                        <h4 class="item-title">Status</h4>
+                                                        <span class="item-number">Public</span>
+                                                    </div>
+                                                </li> -->
+                                                <!-- <li>
+                                                    <button>edit</button>
+                                                </li>
+                                                <li>
+                                                    <button>Remove</button>
+                                                </li> -->
+                                            </ul>
+                                        </div>
+                                    </td>
+                                </tr>             
+                            </tbody>
+                        </table>
+                    </div>
+                    <ul class="pagination-layout1">
+                        <li class="active">
+                            <a href="#">1</a>
+                        </li>
+                        <li>
+                            <a href="#">2</a>
+                        </li>
+                        <li>
+                            <a href="#">3</a>
+                        </li>
+                        <li>
+                            <a href="#">4</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-lg-4 sidebar-widget-area sidebar-break-md">
+                <div class="widget">
+                    <div class="section-heading heading-dark">
+                        <h3 class="item-heading">ABOUT ME</h3>
+                    </div>
+                    <div class="widget-about">
+                        <figure class="author-figure"><img src="img/figure/about.jpg" alt="about"></figure>
+                        <figure class="author-signature"><img src="img/figure/signature.png" alt="about"></figure>
+                        <p>Fusce mauris auctor ollicituder teary iner hendrerit risusey aeenean rauctor pibus
+                            doloer.</p>
+                    </div>
+                </div>
+                <div class="widget">
+                    <div class="section-heading heading-dark">
+                        <h3 class="item-heading">SUBSCRIBE &amp; FOLLOW</h3>
+                    </div>
+                    <div class="widget-follow-us">
+                        <ul>
+                            <li class="single-item"><a href="#"><i class="fab fa-facebook-f"></i>LIKE ME ON</a></li>
+                            <li class="single-item"><a href="#"><i class="fab fa-twitter"></i>LIKE ME</a></li>
+                            <li class="single-item"><a href="#"><i class="fab fa-linkedin-in"></i>LIKE ME</a></li>
+                            <li class="single-item"><a href="#"><i class="fab fa-pinterest-p"></i>LIKE ME</a></li>
+                            <li class="single-item"><a href="#"><i class="fab fa-instagram"></i>LIKE ME</a></li>
+                            <li class="single-item"><a href="#"><i class="fab fa-youtube"></i>Subscribe</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="widget">
+                    <div class="section-heading heading-dark">
+                        <h3 class="item-heading">LATEST RECIPES</h3>
+                    </div>
+                    <div class="widget-latest">
+                        <ul class="block-list">
+                            <li class="single-item">
+                                <div class="item-img">
+                                    <a href="#"><img src="img/product/latest1.jpg" alt="Post"></a>
+                                    <div class="count-number">1</div>
+                                </div>
+                                <div class="item-content">
+                                    <div class="item-ctg">DESERT</div>
+                                    <h4 class="item-title"><a href="#">Salami Oven Roasted are
+                                            Mozzarella Oelette</a></h4>
+                                    <div class="item-post-by"><a href="single-blog.html"><i class="fas fa-user"></i><span>by</span>
+                                            John Martin</a></div>
+                                </div>
+                            </li>
+                            <li class="single-item">
+                                <div class="item-img">
+                                    <a href="#"><img src="img/product/latest2.jpg" alt="Post"></a>
+                                    <div class="count-number">2</div>
+                                </div>
+                                <div class="item-content">
+                                    <div class="item-ctg">DESERT</div>
+                                    <h4 class="item-title"><a href="#">Salami Oven Roasted are
+                                            Mozzarella Oelette</a></h4>
+                                    <div class="item-post-by"><a href="single-blog.html"><i class="fas fa-user"></i><span>by</span>
+                                            John Martin</a></div>
+                                </div>
+                            </li>
+                            <li class="single-item">
+                                <div class="item-img">
+                                    <a href="#"><img src="img/product/latest3.jpg" alt="Post"></a>
+                                    <div class="count-number">3</div>
+                                </div>
+                                <div class="item-content">
+                                    <div class="item-ctg">DESERT</div>
+                                    <h4 class="item-title"><a href="#">Salami Oven Roasted are
+                                            Mozzarella Oelette</a></h4>
+                                    <div class="item-post-by"><a href="single-blog.html"><i class="fas fa-user"></i><span>by</span>
+                                            John Martin</a></div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Author Area End Here -->
