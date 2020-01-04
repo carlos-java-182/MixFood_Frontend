@@ -3,3 +3,47 @@
     width: 100px;
     height: 100px;
 }
+
+td
+{
+    position: relative;
+   /* right: 50px; */
+}
+
+.author-social-info ul 
+{
+    position: relative;
+    right: 80px;
+}
+
+.nav-actions
+{
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+.btn-table
+{
+    font-size: 2rem;
+    margin-left: 5px;
+}
+.btn-table-remove :hover
+{
+    color: #c82333;
+}
+
+.btn-table-edit :hover
+{
+    color: #e0a800;
+}
+
+.custom-select
+{
+    height: 100%;
+    font-size: 1.8rem;
+}
+
+.item-designation
+{
+    color: #ff4a52;
+}

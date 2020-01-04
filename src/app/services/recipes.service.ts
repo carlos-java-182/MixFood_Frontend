@@ -8,6 +8,9 @@ import { error } from 'protractor';
 @Injectable({
   providedIn: 'root'
 })
+
+
+
 export class RecipesService {
   //*Variables declaration
   url:string = 'http://localhost:8080/api/recipes/';
@@ -15,6 +18,7 @@ export class RecipesService {
   headers = new HttpHeaders({'Content-type': 'application/json'});
 
   constructor(private http: HttpClient) { }
+
  
   public createRecipe(recipe: NewRecipe):Observable<ResponseCreate>
   {
@@ -194,9 +198,25 @@ export class RecipesService {
     );
   }
 
-  public getRecipesCardsTable(id: number,status: string,page: number,size: number):Observable<any>
+  public getRecipesCardsTable(id: number,status: any,page: number,size: number):Observable<any>
   {
     return this.http.get(`${this.url}user/${id}/${status}/page/${page}/items/${size}`).pipe(
+      map((response: any)=> 
+      {
+        (response.content as RecipeCardTable[]).map(
+          recipe =>
+          {
+            recipe.category.name = recipe.category.name.toLocaleUpperCase();
+            return recipe;
+          });
+          return response;
+      })
+    );
+  }
+
+  public getRecipesCardsTableByName(id: number,status: any,name: string,page: number,size: number):Observable<any>
+  {
+    return this.http.get(`${this.url}user/${id}/${status}/name/${name}/page/${page}/items/${size}`).pipe(
       map((response: any)=> 
       {
         (response.content as RecipeCardTable[]).map(
@@ -263,6 +283,18 @@ export class RecipesService {
         //*Get http response status
         let status = e.status;
         //console.log(status);
+        return throwError(e);
+      })
+    );
+  }
+
+  public removeRecipe(id: number)
+  {
+    return this.http.delete(`${this.url}${id}`).pipe(
+      catchError( e =>
+      {
+        //*Get http response status
+        let status = e.status;
         return throwError(e);
       })
     );
@@ -468,5 +500,11 @@ export interface RecipeCardTable
     id: number;
     name: string;
   }
+}
+
+export enum Status
+{
+  private,
+  public
 }
 

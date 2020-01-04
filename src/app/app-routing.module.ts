@@ -57,11 +57,15 @@ const routes: Routes = [
   //*User routes
   {component: ProfileUserComponent, path: 'user/profile-user'},
   {component: EditprofileUserComponent, path: 'user/editprofile-user'},
-  {component: CreaterecipeUserComponent, path: 'user/createrecipe'},
+  
   {component: EditrecipeUserComponent, path: 'user/editrecipe-user'},
   {component: HomeUserComponent, path: 'user/home'},
   {component: SettingsUserComponent, path: 'user/settings'},
   {component: RecipesUserComponent, path: 'user/recipes'},
+  {component: CreaterecipeUserComponent, path: 'user/recipes/createrecipe'},
+  {component: EditrecipeUserComponent, path: 'user/recipes/edit/:id'},
+  {component: RecipesUserComponent, path: 'user/recipes/page/:page/status/:status'},
+  {component: RecipesUserComponent, path: 'user/recipes/page/:page/term/:term/status/:status'},
  
   //*Guest routes
   {component: HomeGuestComponent, path: 'home'},
