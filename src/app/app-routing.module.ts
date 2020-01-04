@@ -41,6 +41,7 @@ import { ShowComponent } from './components/admin/crud/show/show.component';
 import { SearchresultsComponent } from './components/shared/searchresults/searchresults.component';
 import { UserprofileComponent } from './components/shared/userprofile/userprofile.component';
 import { SettingsUserComponent } from './components/user/settings-user/settings-user.component';
+import { RecipesUserComponent } from './components/user/recipes/recipes-user/recipes-user.component';
 
 //*Crud example imports
 
@@ -60,9 +61,9 @@ const routes: Routes = [
   {component: EditrecipeUserComponent, path: 'user/editrecipe-user'},
   {component: HomeUserComponent, path: 'user/home'},
   {component: SettingsUserComponent, path: 'user/settings'},
+  {component: RecipesUserComponent, path: 'user/recipes'},
  
   //*Guest routes
-  {component: NavbarGuestComponent, path: 'guest/navbar-guest'},
   {component: HomeGuestComponent, path: 'home'},
   {component: HomeGuestComponent, path: 'home/:id'},
   {component: SearchrecipeGuestComponent, path: 'searchrecipe-guest'},
@@ -72,6 +73,7 @@ const routes: Routes = [
   {component: SignupGuestComponent, path: 'guest/signup-guest'},
   {component: ForgotpasswordGuestComponent, path: 'forgotpassword'},
   {component: RecipeComponent, path: 'recipe/:id'},
+
   //*Search components
   {component: SearchresultsComponent, path: 'search/:term/page/:page'},
   {component: SearchresultsComponent, path: 'search/category/:idCategory/page/:page'},
