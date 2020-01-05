@@ -14,6 +14,12 @@ export class ImageService {
 
   constructor(private http: HttpClient) { }
 
+  /**
+   * 
+   * @param images 
+   * @param id 
+   * @param principalImage 
+   */
   public uploadImage(images:any, id, principalImage: string)
   {
     //*Create object FormData 

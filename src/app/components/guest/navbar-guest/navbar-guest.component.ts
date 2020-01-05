@@ -13,12 +13,15 @@ export class NavbarGuestComponent implements OnInit {
   @Input('term') term?: string;
  
   //*
-  isMobile: boolean = false;
-
+  private isMobile: boolean = false;
+  private searchModel = {searchTerm: '',
+  categoryId: null,
+  ingredientsId: null
+  };
 
 
   //*Create forms group
-  loginForm: FormGroup;
+  private loginForm: FormGroup;
   
   constructor(private router: Router,
               private _countryService: CountryService,
@@ -50,6 +53,7 @@ export class NavbarGuestComponent implements OnInit {
 
   public goToPage(term)
   {
+    console.log(term);
     if(term != '')
     {
       this.router.navigate(['search/'+term+'/page/1']);

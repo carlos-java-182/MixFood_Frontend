@@ -13,7 +13,7 @@
         <div class="col-lg-6"
         [ngClass]="{'has-error': signupForm.get('lastName').errors && signupForm.get('lastName').touched}">   
             <label for="">Lastname</label>
-            <input formControlName="lastname" class="main-input-box" type="text" placeholder="" required/>
+            <input formControlName="lastName" class="main-input-box" type="text" placeholder="" required/>
         </div>
         <div class="col-lg-6"
         [ngClass]="{'has-error': signupForm.get('gender').errors && signupForm.get('gender').touched || signupForm.get('gender').dirty}">   

@@ -42,6 +42,7 @@ import { SearchresultsComponent } from './components/shared/searchresults/search
 import { UserprofileComponent } from './components/shared/userprofile/userprofile.component';
 import { SettingsUserComponent } from './components/user/settings-user/settings-user.component';
 import { RecipesUserComponent } from './components/user/recipes/recipes-user/recipes-user.component';
+import { FavoritesComponent } from './components/user/favorites/favorites.component';
 
 //*Crud example imports
 
@@ -56,12 +57,11 @@ const routes: Routes = [
  
   //*User routes
   {component: ProfileUserComponent, path: 'user/profile-user'},
-  {component: EditprofileUserComponent, path: 'user/editprofile-user'},
-  
-  {component: EditrecipeUserComponent, path: 'user/editrecipe-user'},
+  {component: EditprofileUserComponent, path: 'user/profile/editprofile-user'},
   {component: HomeUserComponent, path: 'user/home'},
   {component: SettingsUserComponent, path: 'user/settings'},
   {component: RecipesUserComponent, path: 'user/recipes'},
+  {component:FavoritesComponent, path: 'user/favorites'},
   {component: CreaterecipeUserComponent, path: 'user/recipes/createrecipe'},
   {component: EditrecipeUserComponent, path: 'user/recipes/edit/:id'},
   {component: RecipesUserComponent, path: 'user/recipes/page/:page/status/:status'},

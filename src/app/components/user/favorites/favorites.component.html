@@ -1,0 +1,168 @@
+<!-- User Navabar Start Here -->
+<app-navbar-user></app-navbar-user>
+<!-- User Navabar End Here -->
+<!-- Inne Page Banner Area Start Here -->
+<section class="section-header inner-page-banner bg-common" data-bg-image="https://radiustheme.com/demo/html/ranna/ranna/img/figure/inner-page-banner1.jpg">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="breadcrumbs-area">
+                    <h1>Favorites</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Inne Page Banner Area End Here -->
+<!-- Recipes Area Start Here -->
+<section class="author-page-wrap padding-top-80 padding-bottom-50">
+    <div class="container">
+        <div class="row gutters-60">
+            <div class="col-lg-8">
+                <div class="author-box-layout1">
+                    <div *ngIf="totalItems > 0" class="section-heading heading-dark ">
+                        <h2  class="item-heading profile-name">Total {{totalItems}} favorites</h2>
+                    </div>     
+                    <div class="table-responsive">
+                        <!-- Alert Not Found Start Here -->
+                        <div *ngIf="isResultEmpty" class="col-lg-12 alert alert-info" role="alert">
+                            <h4 class="alert-heading"><i class="fas fa-info-circle"></i> You don't have favorites on your list !</h4>
+                        </div>
+                        <!-- Alert Not Found Stop Here -->
+                        <table class="table table-striped">
+                            <tbody>
+                                <tr *ngFor="let favorite of favorites | paginate: {id: 'pagination-nav', itemsPerPage: itemsPerPage, currentPage: currentPage, totalItems: totalItems}; let i = index">
+                                    <th>
+                                        <div class="author-personal-info">
+                                            <a href="#" class="item-figure"><img [src]="favorite.recipe.thumbRoute" alt="Recipe"></a>
+                                            <div class="item-content">
+                                                <div class="item-title"><a href="#">{{favorite.recipe.name}}</a></div>
+                                                <div class="item-designation item-subtitle">{{favorite.recipe.category.name}}</div>
+                                                <div class="item-designation">
+
+                                                    <bar-rating  class="bar-rating-container" [(rate)]="favorite.recipe.averangeRanking" [max]="5" ></bar-rating>
+                                                </div>
+                                                <div class="item-designation"> 
+                                                    <ul class="entry-meta">
+                                                        <li class="single-meta">
+                                                            <a>
+                                                                <i class="fas fa-user icon-heart"></i> <span> {{favorite.user.name}} {{favorite.user.lastname}}</span>
+                                                            </a>
+                                                        </li>
+                                                        <li class="single-meta">
+                                                            <a>
+                                                                <i  class="fas fa-heart icon-heart"></i>
+                                                                <span> {{favorite.recipe.totalLikes}}</span>
+                                                            </a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </th>
+                                    <td>
+                                        <ul class="nav-actions"> 
+                                            <li class="btn-table btn">
+                                                <a class="icon-heart-table" (click)="removeFavorite(favorite.recipe.id, i)">
+                                                    <i  class="fas fa-heart"></i>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </td>
+                                </tr>             
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- Pagination Start Here -->
+                    <pagination-controls 
+                    *ngIf="totalPages > 1"
+                    id="pagination-nav"
+                    (pageChange)="getPage($event)"
+                    previousLabel=""
+                    nextLabel=""
+                    responsive="true"
+                    screenReaderPaginationLabel="Pagination">
+                    </pagination-controls>
+                    <!-- Pagination End Here -->
+                </div>
+            </div>
+            <!-- <div class="col-lg-4 sidebar-widget-area sidebar-break-md">
+                <div class="widget">
+                    <div class="section-heading heading-dark">
+                        <h3 class="item-heading">ABOUT ME</h3>
+                    </div>
+                    <div class="widget-about">
+                        <figure class="author-figure"><img src="img/figure/about.jpg" alt="about"></figure>
+                        <figure class="author-signature"><img src="img/figure/signature.png" alt="about"></figure>
+                        <p>Fusce mauris auctor ollicituder teary iner hendrerit risusey aeenean rauctor pibus
+                            doloer.</p>
+                    </div>
+                </div>
+                <div class="widget">
+                    <div class="section-heading heading-dark">
+                        <h3 class="item-heading">SUBSCRIBE &amp; FOLLOW</h3>
+                    </div>
+                    <div class="widget-follow-us">
+                        <ul>
+                            <li class="single-item"><a href="#"><i class="fab fa-facebook-f"></i>LIKE ME ON</a></li>
+                            <li class="single-item"><a href="#"><i class="fab fa-twitter"></i>LIKE ME</a></li>
+                            <li class="single-item"><a href="#"><i class="fab fa-linkedin-in"></i>LIKE ME</a></li>
+                            <li class="single-item"><a href="#"><i class="fab fa-pinterest-p"></i>LIKE ME</a></li>
+                            <li class="single-item"><a href="#"><i class="fab fa-instagram"></i>LIKE ME</a></li>
+                            <li class="single-item"><a href="#"><i class="fab fa-youtube"></i>Subscribe</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="widget">
+                    <div class="section-heading heading-dark">
+                        <h3 class="item-heading">LATEST RECIPES</h3>
+                    </div>
+                    <div class="widget-latest">
+                        <ul class="block-list">
+                            <li class="single-item">
+                                <div class="item-img">
+                                    <a href="#"><img src="img/product/latest1.jpg" alt="Post"></a>
+                                    <div class="count-number">1</div>
+                                </div>
+                                <div class="item-content">
+                                    <div class="item-ctg">DESERT</div>
+                                    <h4 class="item-title"><a href="#">Salami Oven Roasted are
+                                            Mozzarella Oelette</a></h4>
+                                    <div class="item-post-by"><a href="single-blog.html"><i class="fas fa-user"></i><span>by</span>
+                                            John Martin</a></div>
+                                </div>
+                            </li>
+                            <li class="single-item">
+                                <div class="item-img">
+                                    <a href="#"><img src="img/product/latest2.jpg" alt="Post"></a>
+                                    <div class="count-number">2</div>
+                                </div>
+                                <div class="item-content">
+                                    <div class="item-ctg">DESERT</div>
+                                    <h4 class="item-title"><a href="#">Salami Oven Roasted are
+                                            Mozzarella Oelette</a></h4>
+                                    <div class="item-post-by"><a href="single-blog.html"><i class="fas fa-user"></i><span>by</span>
+                                            John Martin</a></div>
+                                </div>
+                            </li>
+                            <li class="single-item">
+                                <div class="item-img">
+                                    <a href="#"><img src="img/product/latest3.jpg" alt="Post"></a>
+                                    <div class="count-number">3</div>
+                                </div>
+                                <div class="item-content">
+                                    <div class="item-ctg">DESERT</div>
+                                    <h4 class="item-title"><a href="#">Salami Oven Roasted are
+                                            Mozzarella Oelette</a></h4>
+                                    <div class="item-post-by"><a href="single-blog.html"><i class="fas fa-user"></i><span>by</span>
+                                            John Martin</a></div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div> -->
+        </div>
+    </div>
+</section>
+<!-- Recipes Area End Here -->

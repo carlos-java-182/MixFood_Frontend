@@ -40,7 +40,10 @@ export class HomeGuestComponent implements OnInit {
   recipes: Recipe[];
   recipesRes: Recipe[];
   categories: CategoryCard[];
-  searchModel: any;
+  searchModel = {searchTerm: '',
+  categoryId: null,
+  ingredientsId: null
+  };
   recipesNames: any;
   //countries: Country[];
   tags: TagShort[];
@@ -87,15 +90,15 @@ export class HomeGuestComponent implements OnInit {
     private formBuilder: FormBuilder,
     ) 
   {
-    this.initForm();
+    
   }
 
   ngOnInit() {
     //*Create form grup for search by term
-    this.searchTermForm = this.formBuilder.group({
-      searchTerm: ['', Validators.required],
-      idCategory: ['',Validators.required]
-    });
+    // this.searchTermForm = this.formBuilder.group({
+    //   searchTerm: ['', Validators.required],
+    //   idCategory: ['',Validators.required]
+    // });
 
     this._recipeService.getRecipeCard().subscribe(data => 
     {
@@ -124,12 +127,12 @@ export class HomeGuestComponent implements OnInit {
     };
   }
 
-  //*Initialize Form
-  initForm(): FormGroup {
-    return this.recipeForm = this.fb.group({
-      search: [null]
-    })
-  }
+  //!Initialize Form
+  // initForm(): FormGroup {
+  //   return this.recipeForm = this.fb.group({
+  //     search: [null]
+  //   })
+  // }
 
   //*This function hidde or show the drop down list of search
   toggleDropDown(){
@@ -232,20 +235,64 @@ export class HomeGuestComponent implements OnInit {
     this.getRecipsCardsResults('a',1,page-1);
   }
 
-  public goToRecipesByCategory(id: number):void
+  private goToRecipesByCategory(id: number):void
   {
     let route = `search/category/${id}/page/1`;
     this.router.navigate([route]);
   }
 
-  public goToRecipesByTag(id: number): void
+  private goToRecipesByTag(id: number): void
   {
     let route = `search/tag/${id}/page/1`;
     this.router.navigate([route]);
   }
 
-  public setCountries(): void
+  private Search(): void
   {
+    console.log(this.searchModel);
     
+    //*Search by term, category and ingredients
+    if(this.searchModel.searchTerm != '' && this.searchModel.categoryId != null && this.searchModel.ingredientsId != null)
+    {
+      console.log('search all');
+    }
+    
+    //*Search by term
+    else if(this.searchModel.searchTerm != '' && this.searchModel.categoryId == null && this.searchModel.ingredientsId == null)
+    {
+      console.log('kaka')
+      this._recipeService.getSearchForName(this.searchModel.searchTerm).subscribe(data =>
+        {
+          this.recipesNames = data
+          console.log(data)
+        },
+        err =>
+        {
+          console.log(err);
+        }
+        );
+    }
+    //*Search by category 
+    else if(this.searchModel.searchTerm == '' && this.searchModel.categoryId != null && this.searchModel.ingredientsId == null)
+    {
+      console.log('search by category');
+    }
+    //*Search by ingredients 
+    else if(this.searchModel.searchTerm == '' && this.searchModel.categoryId == null && this.searchModel.ingredientsId != null)
+    {
+      console.log('search by ingredients');
+    }
+    //*Search by ingredients and term
+    else if(this.searchModel.searchTerm != '' && this.searchModel.categoryId == null && this.searchModel.ingredientsId != null)
+    {
+      console.log('search by term and ingredients');
+    }
+    //*Search by category and term
+    else if(this.searchModel.searchTerm != '' && this.searchModel.categoryId != null && this.searchModel.ingredientsId == null)
+    {
+      console.log('search by term and ingredients');
+    }
   }
+
+ 
 }

@@ -3,7 +3,7 @@ import * as $ from 'jquery';
 import { RecipesService,RecipeLatest,Recipe,RecipeFeatured,RecipeProfile, Images, Ingredients, Tag, Rankings } from 'src/app/services/recipes.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { RankingService, NewRanking } from 'src/app/services/ranking.service';
+import { RankingService, NewRanking, RankingComment } from 'src/app/services/ranking.service';
 import { CategoryService, CategoryCard } from 'src/app/services/category.service';
 @Component({
   selector: 'app-recipe',
@@ -27,14 +27,18 @@ export class RecipeComponent implements OnInit {
   private rating: number = 0;
   private totalRankings = 0;
   private isLiked = false;
+  private currentPageRankings: number = 0;
+  private totalPagesRankings: number;
+  private isAlreadyComent: boolean = false;
 
   //*Objects declaration
   private images: Images[];
   private ingredients: Ingredients[];
   private tags: Tag[];
-  private rankings: Rankings[];
+  private rankings: RankingComment[];
   ///ratingComment: number = 0;
-  isLogged: boolean = false;
+  isLoggedIn: boolean = false;
+  private showMoreRankigns: boolean = false;
   private arr = [];
 
 
@@ -67,6 +71,7 @@ export class RecipeComponent implements OnInit {
         this.id = Number.parseInt(params.get('id'));
         this.getRecipeById(this.id);
         this.getCategoriesList();
+        this.getRankingComments(this.id);
         this._recipeService.validateLike(1,1).subscribe(response =>
         {
           this.isLiked = false;
@@ -98,7 +103,7 @@ export class RecipeComponent implements OnInit {
       this.images = data.images;
       this.ingredients = data.recipeIngredients;
       this.tags = data.tags;
-      this.rankings = data.rankings;
+      //this.rankings = data.rankings;
       this.totalRankings = this.rankings.length;
       this.idUser = data.user.id;
 
@@ -143,23 +148,38 @@ export class RecipeComponent implements OnInit {
    */
   private createComment(values):void
   {
-    let newRanking: NewRanking;
-    newRanking =
+    console.log(values['comment']);
+    if(values['comment'] != '' && values['ranking'] != '')
     {
-      comment: values.comment,
-      punctuation: values.rating,
-      user:
+      let newRanking: any;
+      newRanking =
       {
-        id: 1
+        comment: values.comment,
+        punctuation: values.rating,
+        user:
+        {
+          id: 1,
+          name: 'york',
+          lastname: 'glez'
+        },
+        recipe: {
+          id: 1
+        }
+      };
+      
+      this._rankingService.createRanking(newRanking).subscribe(response => 
+      {
+        console.log(response);
+        this.rankings.push(response.ranking as RankingComment);
+        this.commentForm.reset();
+        
       },
-      recipe: {
-        id: 1
-      }
-    };
-    
-    this._rankingService.createRanking(newRanking).subscribe(response => {
-    //    console.log(response);
-    });
+      err =>
+      {
+        console.log(err);
+      });
+      this.isAlreadyComent = true;
+    }
   }
 
   private showRecipe(id):void
@@ -213,6 +233,59 @@ export class RecipeComponent implements OnInit {
   public goToProfile(id: number): void
   {
     this.router.navigate(['profile/',id]);
+  }
+
+
+  private getRankingComments(id: number)
+  {
+    this._rankingService.getRankingComments(id,this.currentPageRankings,10).subscribe(response=>
+    {
+      this.rankings = response.content as RankingComment[];
+      this.totalPagesRankings = response.totalPages;
+      this._rankingService.getRankingComments(this.id,this.currentPageRankings,1).subscribe(response=>
+        {
+          for(let i = 0; i< response.numberOfElements; i++)
+          {
+            this.rankings.push(response.content[i] as RankingComment);
+          }
+          console.log(response)
+        },
+        err =>
+        {
+          console.log(err);
+        });;
+      console.log(response)
+    },
+    err =>
+    {
+      console.log(err);
+    });
+  }
+  
+  private showMoreRankings()
+  {
+    this.currentPageRankings++;
+    if(this.currentPageRankings < this.totalPagesRankings)
+    {
+      this._rankingService.getRankingComments(this.id,this.currentPageRankings,10).subscribe(response=>
+        {
+          for(let i = 0; i< response.numberOfElements; i++)
+          {
+            this.rankings.push(response.content[i] as RankingComment);
+          }
+          console.log(response)
+        },
+        err =>
+        {
+          console.log(err);
+        });
+    }
+    else
+    {
+      this.showMoreRankigns = true;
+    }
+    
+
   }
 }
 
