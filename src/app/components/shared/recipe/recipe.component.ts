@@ -5,6 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { RankingService, NewRanking, RankingComment } from 'src/app/services/ranking.service';
 import { CategoryService, CategoryCard } from 'src/app/services/category.service';
+import { DomSanitizer } from '@angular/platform-browser';
 @Component({
   selector: 'app-recipe',
   templateUrl: './recipe.component.html',
@@ -30,7 +31,7 @@ export class RecipeComponent implements OnInit {
   private currentPageRankings: number = 0;
   private totalPagesRankings: number;
   private isAlreadyComent: boolean = false;
-
+  private videoFrame: string;
   //*Objects declaration
   private images: Images[];
   private ingredients: Ingredients[];
@@ -40,7 +41,7 @@ export class RecipeComponent implements OnInit {
   isLoggedIn: boolean = false;
   private showMoreRankigns: boolean = false;
   private arr = [];
-
+  safeURL;
 
   //*Objects declaration
  
@@ -55,10 +56,15 @@ export class RecipeComponent implements OnInit {
               private _categoryService: CategoryService,
               private activatedRoute: ActivatedRoute,
               private router: Router,
-              private formBuilder: FormBuilder) { }
+              private formBuilder: FormBuilder,
+              private _sanitizer: DomSanitizer
+              ) { }
 
   ngOnInit() 
   {
+    let url = 'https://www.youtube.com/watch?v=p6by15VJ-f8';
+    this.safeURL = this._sanitizer.bypassSecurityTrustResourceUrl(url);
+
     //*Create form group for new comment
     this.commentForm = this.formBuilder.group({
       comment: ['',Validators.required],
@@ -90,6 +96,7 @@ export class RecipeComponent implements OnInit {
     this._recipeService.getProfile(id).subscribe(data =>
     {
       this.recipe;
+      console.log(data);
       this.recipeName = data.name;
       this.recipeCategoryName = data.category.name;
       this.recipeAverangeRanking = data.averangeRanking;
@@ -103,7 +110,8 @@ export class RecipeComponent implements OnInit {
       this.images = data.images;
       this.ingredients = data.recipeIngredients;
       this.tags = data.tags;
-      //this.rankings = data.rankings;
+     
+
       this.totalRankings = this.rankings.length;
       this.idUser = data.user.id;
 

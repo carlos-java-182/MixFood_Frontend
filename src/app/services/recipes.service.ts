@@ -435,6 +435,7 @@ export interface RecipeProfile{
   difficulty: string;
   preparationTime: string;
   totalLikes: number;
+  videoFrame: string;
   category: {
     id: number;
     name: string;
