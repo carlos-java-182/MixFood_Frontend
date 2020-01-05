@@ -34,3 +34,46 @@
     font-size: 2rem;
     background-color: #fff;
 }
+
+.search-container
+{
+    position: relative !important;
+}
+
+.adv-search-wrap
+{
+    position: absolute !important;
+    z-index:  1000 !important;
+    width: 800px !important;
+   
+    /* background-color: red !important; */
+}
+
+.adv-search-wrap input
+{
+    top: 10px;
+    height: 45px !important;
+}
+.adv-search-wrap .btn-group
+{
+    top: 10px !important;
+    background-color: #fff;
+    height: 45px !important;
+    padding: 0 !important;
+}
+.adv-search-wrap .btn-group .input-group-btn button
+{
+    top: 10px !important;
+    /* background-color: #fff; */
+    height: 45px !important;
+}
+.adv-search-wrap .btn-group .input-group-btn .btn-search
+{
+  background-color: #ff4a52 !important;
+}
+
+.adv-li
+{
+    width: 400px !important;
+    background-color: red !important;
+}

@@ -8,12 +8,6 @@
             <div class="col-12">
                 <div class="breadcrumbs-area">
                     <h1>New Recipe</h1>
-                    <!-- <ul>
-                        <li>
-                            <a href="index.html">Home</a>
-                        </li>
-                        <li>Recipe Post</li>
-                    </ul> -->
                 </div>
             </div>
         </div>
@@ -82,14 +76,17 @@
                     <!-- Tags Select End Here -->
                     <!-- Input Description Start Here -->
                     <div class="form-group">
-                        <label>Description</label>
+                        <label>Description <span> ({{descriptionLength}} characters left)</span></label>
                         <textarea 
+                        #description
                         name="description" 
                         [(ngModel)]="recipeModel.description"
                         class="form-control" 
                         cols="30" 
-                        rows="5"
+                        rows="4"
+                        maxlength="200"
                         placeholder="This is a small description"
+                        (keyup)="countCharacters(description.value)"
                         required>
                         </textarea>
                         <div class="help-block with-errors"></div>
@@ -136,8 +133,7 @@
                                 data-multiple-caption="{count} files selected" 
                                 multiple 
                                 required/>
-                                <button class="btn">Choose images...</button>
-                              
+                                <button class="btn">Choose images...</button>       
                         </div>
                     </div>
                     <!-- Upload Photos End Here -->
@@ -155,7 +151,8 @@
                                     type="number"
                                     min="0"
                                     max="10"
-                                    class="form-control">                                           
+                                    class="form-control"
+                                    required>                                           
                                 </div>
                             </div>
                             <div class="col-lg-6">
@@ -168,7 +165,8 @@
                                     type="number"
                                     min="0"
                                     max="60"
-                                    class="form-control">
+                                    class="form-control"
+                                    required>
                                 </div> 
                             </div>
                         </div>       
@@ -196,7 +194,7 @@
                                 </div>
                             </div>
                 
-                            <div class="col-6">
+                            <div class="col-3">
                                 <div class="form-group additional-input-box ">
                                     <input 
                                     name="amountIngredient"
@@ -207,10 +205,23 @@
                                     class="form-control">
                                 </div>
                             </div>
+                            <div class="col-3">
+                                <div class="form-group additional-input-box ">
+                                   <select 
+                                   #unit="ngModel" 
+                                   [(ngModel)]="ingredientModel.unit" class="form-control custom-select" name="unit" id="">
+                                       <option value="null"
+                                         selected>Choose a Unit</option>
+                                        <option value="kg">Kg</option>
+                                   </select>
+                                </div>
+                            </div>
                             <div class="col-12">
-                                <button [disabled]="ingredientModel.amountIngredient == '' && ingredientModel.id == 0"
+                                <button 
+                                type="button"
+                                [disabled]="ingredientModel.id == null && ingredientModel.amountIngredient == '' && ingredientModel.unit == null"
                                 *ngIf="!isEditIngredient"
-                                (click)="addIngredient(ingredient.value, amountIngredient.value)"
+                                (click)="addIngredient(ingredient.value, amountIngredient.value, unit.value)"
                                 class="btn-upload">
                                     <i class="flaticon-add-plus-button"></i>Add
                                 </button>
@@ -219,11 +230,7 @@
                                     class="btn-upload">
                                     <i class="flaticon-add-plus-button"></i>Update
                                 </button>
-                            </div>
-                            
-
-                            
-                
+                            </div>                       
                         </div>           
                     </div> 
                     <!-- Input Ingredients End Here -->
@@ -238,10 +245,19 @@
                                     
                                 </div>
                             </div>
-                            <div class="col-6">
+                            <div class="col-3">
                                 <div class="form-group additional-input-box2 icon-right">
                                     <div class="ingredient-item">
                                         <p>{{ingredient.amount}}</p>
+                                    </div>
+                                    <!-- <a (click)="editIngredient(i)"><i class="fas fa-pen icon-edit"></i></a> -->
+                                    <!-- <a (click)="removeIngredient(i)"> <i class="fas fa-times icon-remove"></i></a> -->
+                                </div>
+                            </div>
+                            <div class="col-3">
+                                <div class="form-group additional-input-box2 icon-right">
+                                    <div class="ingredient-item">
+                                        <p>{{ingredient.unit}}</p>
                                     </div>
                                     <a (click)="editIngredient(i)"><i class="fas fa-pen icon-edit"></i></a>
                                     <a (click)="removeIngredient(i)"> <i class="fas fa-times icon-remove"></i></a>
@@ -264,23 +280,36 @@
                     <div class="form-group">
                         <label>Recipe status</label>
                         <div class="row">
-                            <div class="custom-control custom-radio custom-control-inline" *ngFor="let status of recipeStatus">
+                            <div class="custom-control custom-radio custom-control-inline">
                                 <div class="custom-control custom-radio">
                                     <input 
                                     [(ngModel)]="recipeModel.status"
-                                    [value]="status.value"
+                                    value="public"
                                     type="radio" 
-                                    id="{{status.id}}" 
-                                    name="customRadio" 
+                                    id="option1" 
+                                    name="statusRadio" 
+                                    class="custom-control-input"
+                                    checked
+                                    required>
+                                    <label class="custom-control-label" for="option1">Public</label> 
+                                </div>    
+                            </div>
+                            <div class="custom-control custom-radio custom-control-inline">
+                                <div class="custom-control custom-radio">
+                                    <input 
+                                    [(ngModel)]="recipeModel.status"
+                                    value="private"
+                                    type="radio" 
+                                    id="option2" 
+                                    name="statusRadio" 
                                     class="custom-control-input">
-                                    <label class="custom-control-label" for="{{status.id}}">{{status.name}}</label> 
+                                    <label class="custom-control-label" for="option2">Private</label> 
                                 </div>    
                             </div>
                         </div>
                     </div>
                     <!-- Radio Recipe Status End Here -->
                     <button type="submit" class="btn-submit">CREATE</button>
-                    <!-- <button type="submit" class="btn-submit">PUBLICAR</button> -->
                 </form>
             </div>
             <div class="col-lg-4 sidebar-widget-area sidebar-break-md">

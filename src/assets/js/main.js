@@ -1,42 +1,39 @@
 (function ($) {
     "use strict";
-
+    
 
 
     $(document).ready(function(){
+        
       
-        $('#recipe-cards-carousel').owlCarousel({
-            loop:true,
-            margin:10,
-            nav:true,
-            responsive:{
-                0:{
-                    items:1
-                },
-                600:{
-                    items:3
-                },
-                1000:{
-                    items:4
-                }
-            }
-         })
-        $('#recipe-carousel').owlCarousel({
-            loop:true,
-            margin:10,
-            nav:true,
-            responsive:{
-                0:{
-                    items:1
-                },
-                600:{
-                    items:1
-                },
-                1000:{
-                    items:1
-                }
-            }
-         })
+
+             /*-------------------------------------
+    Jquery Serch Box
+    -------------------------------------*/
+    $('a[href="#search"]').on("click", function (event) {
+        event.preventDefault();
+        var target = $("#search");
+        target.addClass("open");
+        setTimeout(function () {
+            target.find('input').focus();
+        }, 600);
+        return false;
+    });
+
+    $("#search, #search button.close").on("click keyup", function (event) {
+        if (
+            event.target === this ||
+            event.target.className === "close" ||
+            event.keyCode === 27
+        ) {
+            $(this).removeClass("open");
+        }
+    });
+
+    /*-------------------------------------
+    Jquery Advance Serch Box
+    -------------------------------------*/
+    
       });
 
     /*-------------------------------------
@@ -71,38 +68,7 @@
         });
     }*/
 
-    /*-------------------------------------
-    Jquery Serch Box
-    -------------------------------------*/
-    $('a[href="#search"]').on("click", function (event) {
-        event.preventDefault();
-        var target = $("#search");
-        target.addClass("open");
-        setTimeout(function () {
-            target.find('input').focus();
-        }, 600);
-        return false;
-    });
 
-    $("#search, #search button.close").on("click keyup", function (event) {
-        if (
-            event.target === this ||
-            event.target.className === "close" ||
-            event.keyCode === 27
-        ) {
-            $(this).removeClass("open");
-        }
-    });
-
-    /*-------------------------------------
-    Jquery Advance Serch Box
-    -------------------------------------*/
-    $("#adv-serch").on('click', function () {
-        var _self = $(this);
-        _self.parents('.adv-search-wrap').find(".advance-search-form").slideToggle();
-        _self.toggleClass('icon-alter');
-
-    });
 
 
 

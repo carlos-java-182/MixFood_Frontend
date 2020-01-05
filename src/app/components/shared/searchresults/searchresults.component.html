@@ -1,15 +1,28 @@
 <!-- Header Area Start Here -->
 <app-navbar-guest [term]="term"></app-navbar-guest>
 <!-- Header Area End Here -->
+<!-- Inne Page Banner Area Start Here -->
+<section class="section-header inner-page-banner bg-common" data-bg-image="https://radiustheme.com/demo/html/ranna/ranna/img/figure/inner-page-banner1.jpg">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="breadcrumbs-area">
+                    <h1>Results</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Inne Page Banner Area End Here -->
 <!-- Results Recipe Start Here -->
-<section class="padding-bottom-45">
+<section class="padding-top-74 padding-bottom-50">
     <div class="container">
         <div class="row gutters-60">
             <div class="col-lg-10">
-                <div class="section-heading heading-dark row">
+                <!-- <div class="section-heading heading-dark row">
                     <h2 *ngIf="isSearchByCategory" class="item-heading">{{categoryName}}</h2>
                     <h2 *ngIf="isSearchByTag" class="item-heading">{{tagName}}</h2>
-                </div>
+                </div> -->
                 <div class="row">
                     <!-- Alert Not Found Start Here -->
                     <div *ngIf="isResultEmpty" class="col-lg-12 alert alert-info" role="alert">

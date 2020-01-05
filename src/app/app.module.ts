@@ -62,6 +62,7 @@ import { ComparePasswordsValidatorDirective } from './directives/compare-passwor
 import { RecipeCardPopularComponent } from './components/shared/recipe-card-popular/recipe-card-popular.component';
 import { RecipeCardLatestComponent } from './components/shared/recipe-card-latest/recipe-card-latest.component';
 import { SettingsUserComponent } from './components/user/settings-user/settings-user.component';
+import { FavoritesComponent } from './components/user/favorites/favorites.component';
 
 @NgModule({
   declarations: [
@@ -109,7 +110,8 @@ import { SettingsUserComponent } from './components/user/settings-user/settings-
     ComparePasswordsValidatorDirective,
     RecipeCardPopularComponent,
     RecipeCardLatestComponent,
-    SettingsUserComponent
+    SettingsUserComponent,
+    FavoritesComponent
 
     
     

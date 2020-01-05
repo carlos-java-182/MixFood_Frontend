@@ -13,9 +13,71 @@
                             <li>
                                 <a routerLink="/home" routerLinkActive="router-link-active" ><i class="fas fa-home"></i> Home</a>
                             </li>
-                            <li>
-                                <a href="category.html"><i class="fas fa-search"></i> Search</a>
+                            <li class="adv-search-wrap">
+                                <div class="input-group">
+                                    <input 
+                                    #searchTerm
+                                    type="text" 
+                                    [(ngModel)]="searchModel.searchTerm"
+                                    class="form-control" 
+                                    placeholder="Recipe Search . . ." />
+                                    <div class="btn-group">
+                                        <div class="input-group-btn">
+                                            <button 
+                                                
+                                                type="button" 
+                                                id="adv-serch" 
+                                                class="btn-adv-serch">
+                                                <i class="icon-plus flaticon-add-plus-button"></i>
+                                                <i class="icon-minus fas fa-minus"></i>
+                                                Advanced Search</button>
+                                        </div>
+                                        <div class="input-group-btn">
+                                            <button (click)="goToPage(searchTerm.value)" class="btn-search"><i class="flaticon-search"></i></button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="advance-search-form " >
+                                    <div class="row">
+                                        <div class="col-lg-6">
+                                            <h3 class="item-title">BY CATEGORIES</h3>
+                                            <div class="form-group select2-multiple col-lg-10">
+                                                <ng-select
+                                                [(ngModel)]="searchModel.categoryId"
+                                                [items]="categories"
+                                                bindLabel="name"
+                                                bindValue="id"         
+                                                [multiple]="false"
+                                                placeholder ="Select a category"
+                                                notFoundText = "Sin resultados"
+                                                required>
+                                                </ng-select>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <h3 class="item-title">BY INGREDIENTS</h3>      
+                                            <div class="form-group select2-multiple col-lg-12">
+                                                <ng-select
+                                                [(ngModel)]="searchModel.ingredientsId"
+                                                class="select-multiple"
+                                                [items]="items"
+                                                bindLabel="name"
+                                                bindValue="id"                          
+                                                [multiple]="true"
+                                                placeholder ="Select your ingredients"
+                                                notFoundText = "Sin resultados"
+                                               
+                                                name="ingredients"
+                                                required>
+                                                </ng-select>
+                                            </div>
+                                        </div>
+                                    </div>            
+                                </div> 
                             </li>
+                            <!-- <li>
+                                <a href="category.html"><i class="fas fa-search"></i> Search</a>
+                            </li> -->
                             <!-- <li class="hide-on-desktop-menu">
                                 <a href="#">Pages</a>
                                 <ul class="dropdown-menu-col-1">
@@ -39,17 +101,20 @@
                                     </li>
                                 </ul>
                             </li> -->
-                            <li>
+                            <!-- <li>
                                 <a href="#"><i class="fas fa-utensils"></i> Categories </a>
-                            </li>
-                            <li>
+                            </li> -->
+                            <!-- <li>
                                 <a href="contact.html">About</a>
-                            </li>
+                            </li> -->
           
                         </ul>
                         
+                        
+
                         <form class="form-container form-inline my-2 my-lg-0">
-                            <div class="input-group mb-3">
+                   
+                            <!-- <div class="input-group mb-3">
                                 <input type="text" 
                                 class="form-input form-control" 
                                 placeholder="Search"
@@ -60,13 +125,11 @@
                                     <i class="fas fa-search"></i>
                                   </button>
                                 </div>
-                            </div>
-                            <!-- <input class="form-input form-control" type="search" placeholder="Search" aria-label="Search">
-                            <div class="input-group-append">
-                                <button class="btn btn-outline-secondary" type="button" id="button-addon2">Button</button>
-                              </div> -->
-                            <!-- <button class="btn-search btn btn-outline-danger my-2 my-sm-0" type="submit">Search</button> -->
-                          </form>
+                            </div> -->
+
+
+                            
+                        </form>
                     </nav>
                 </div>
                 <div class="col-lg-4 col-md-9 col-sm-8 col-8 d-flex align-items-center justify-content-end">
@@ -164,113 +227,6 @@
                         <span class="bar"></span>
                         <span class="bar"></span>
                     </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="header-bottom d-none d-lg-block">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-4 d-none d-lg-block">
-                    <div class="nav-action-elements-layout2">
-                        <!-- <ul class="nav-social">
-                            <li><a href="#" title="facebook"><i class="fab fa-facebook-f"></i></a></li>
-                            <li><a href="#" title="twitter"><i class="fab fa-twitter"></i></a></li>
-                            <li><a href="#" title="linkedin"><i class="fab fa-linkedin-in"></i></a></li>
-                            <li><a href="#" title="pinterest"><i class="fab fa-pinterest-p"></i></a></li>
-                            <li><a href="#" title="skype"><i class="fab fa-skype"></i></a></li>
-                            <li><a href="#" title="rss"><i class="fas fa-rss"></i></a></li>
-                            <li><a href="#" title="google-plus"><i class="fab fa-google-plus-g"></i></a></li>
-                        </ul> -->
-                    </div>
-                </div>
-                <div class="col-lg-4 d-none d-lg-block">
-                    <div class="site-logo-desktop">
-                        <a href="index.html" class="main-logo"><img src="assets/img/logo-dark.png" alt="Site Logo"></a>
-                    </div>
-                </div>
-                <div class="col-lg-4">
-                    <!-- <div class="nav-action-elements-layout3">
-                        <ul>
-                            <li>
-                                <div class="header-search-box">
-                                    <a href="#search" title="Search" class="search-button">
-                                        <i class="flaticon-search"></i>
-                                    </a> 
-                                </div>
-                            </li>
-                            <li>
-                                <div class="cart-wrap d-none d-lg-block">                                            
-                                    <div class="cart-info">
-                                        <i class="flaticon-shopping-bag"></i>
-                                        <div class="cart-amount"><span class="item-currency">$</span>00</div>     
-                                    </div>                                   
-                                    <div class="cart-items">
-                                        <div class="cart-item">
-                                            <div class="cart-img">
-                                                <a href="#">
-                                                    <img src="img/product/top-product1.jpg" alt="product" class="img-fluid">
-                                                </a>
-                                            </div>
-                                            <div class="cart-title">
-                                                <a href="#">Pressure</a>
-                                                <span>Code: STPT601</span>
-                                            </div>
-                                            <div class="cart-quantity">X 1</div>
-                                            <div class="cart-price">$249</div>
-                                            <div class="cart-trash">
-                                                <a href="#">
-                                                    <i class="far fa-trash-alt"></i>
-                                                </a>
-                                            </div>
-                                        </div>
-                                        <div class="cart-item">
-                                            <div class="cart-img">
-                                                <a href="#">
-                                                    <img src="img/product/top-product2.jpg" alt="product" class="img-fluid">
-                                                </a>
-                                            </div>
-                                            <div class="cart-title">
-                                                <a href="#">Stethoscope</a>
-                                                <span>Code: STPT602</span>
-                                            </div>
-                                            <div class="cart-quantity">X 1</div>
-                                            <div class="cart-price">$189</div>
-                                            <div class="cart-trash">
-                                                <a href="#">
-                                                    <i class="far fa-trash-alt"></i>
-                                                </a>
-                                            </div>
-                                        </div>
-                                        <div class="cart-item">
-                                            <div class="cart-img">
-                                                <a href="#">
-                                                    <img src="img/product/top-product3.jpg" alt="product" class="img-fluid">
-                                                </a>
-                                            </div>
-                                            <div class="cart-title">
-                                                <a href="#">Microscope</a>
-                                                <span>Code: STPT603</span>
-                                            </div>
-                                            <div class="cart-quantity">X 2</div>
-                                            <div class="cart-price">$379</div>
-                                            <div class="cart-trash">
-                                                <a href="#">
-                                                    <i class="far fa-trash-alt"></i>
-                                                </a>
-                                            </div>
-                                        </div>
-                                        <div class="cart-item">
-                                            <div class="cart-btn">
-                                                <a href="#" class="item-btn">View Cart</a>
-                                                <a href="#" class="item-btn">Checkout</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </li>
-                        </ul>
-                    </div> -->
                 </div>
             </div>
         </div>

@@ -1,0 +1,123 @@
+
+.entry-meta
+{
+    display: flex !important;
+    flex-direction: row !important;
+    left: 0 !important;
+    padding: 0 !important ;
+    margin: 0 !important;
+}
+
+
+.item-figure img
+{
+    width: 100px;
+    height: 100px;
+}
+
+.icon-heart
+{
+    color: #ff4a52 !important;
+} 
+
+
+
+.icon-heart-table
+{
+    color: #ff4a52 !important;
+}
+
+.icon-heart-table:hover
+{   
+    color: #c82333 !important;
+}
+
+.single-meta
+{
+    margin-left: 10px;
+}
+
+.single-meta span
+{
+    color: #646464 !important;
+}
+
+
+
+/*=============================================
+=            Section bar rating            =
+=============================================*/
+.br-default
+{
+    background-color: red !important;
+}
+
+
+/*=====  End of Section bar rating  ======*/
+
+/* .br-fontawesome .br-units{align-items:center}.br-fontawesome .br-unit{font:normal normal normal 20px/1 FontAwesome;margin-right:2px}.br-fontawesome .br-unit:after{content:'\f005';color:#d2d2d2}.br-fontawesome .br-selected:after{color:#EDB867}.br-fontawesome .br-active:after{color:#EDB867} */
+
+
+.section-header
+{
+    /* position: relative !important; */
+    /* top: 62px !important; */
+    /* height: 10px !important; */
+    padding: 4rem 0 !important;
+    background-image: url(/assets/img/figure/inner-page-banner1.jpg) !important;
+   
+    /* width: 50px !important; */
+    /* background: none !important; */
+}
+
+.section-header .container
+{
+    position: relative !important;
+    top: 30px;
+    /* background-color: yellow; */
+}
+
+
+
+
+/*=============================================
+=            Section Cards table            =
+=============================================*/
+
+.item-figure img
+{
+    width: 100px;
+    height: 100px;
+}
+
+td
+{
+    position: relative;
+}
+
+.author-social-info ul 
+{
+    position: relative;
+    right: 80px;
+}
+
+.nav-actions
+{
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+.btn-table
+{
+    font-size: 2rem;
+    margin-left: 5px;
+}
+
+.item-subtitle
+{
+    color: #ff4a52;
+}
+
+/*=====  End of Section Cards table  ======*/
+
+

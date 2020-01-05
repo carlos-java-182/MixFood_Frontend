@@ -7,3 +7,46 @@
 	max-width: 110px;
 	max-height: 125px;
 }
+
+.show-more-container
+{
+	display: flex;
+	justify-content: center;
+}
+
+.btn-show-more
+{
+	background: #fff;
+	border: none;
+	color: #000;
+	width:100%;
+	height: 30px;
+	margin: 0 10px;
+}
+
+.btn-show-more:hover
+{
+	background-color: #ff4a52;
+	color: #fff;
+	transition: all 0.3s ease-out;
+}
+
+
+.icon-heart
+{
+    color: #ff4a52 !important;
+} 
+
+.icon-heart:hover
+{
+    color: #c82333 !important;
+} 
+
+.btn-group-favorite a
+{
+	font-size: 1.6rem;
+}
+.btn-group-favorite span
+{
+	color: #909090;
+}

@@ -751,3 +751,15 @@ input.file
 
 /*=====  End of Section input errors block  ======*/
 
+
+.section-header
+{
+    padding: 4rem 0 !important;
+    background-image: url(/assets/img/figure/inner-page-banner1.jpg) !important;
+}
+
+.section-header .container
+{
+    position: relative !important;
+    top: 30px;
+}

@@ -1,4 +1,9 @@
+<!-- Header Navbar Start Here -->
 <app-navbar-guest></app-navbar-guest>
+<!-- Header Navbar End Here -->
+
+
+
 <!-- Content Start Here -->
 <!-- Single Recipe With Sidebar Area Start Here -->
 <section class="single-recipe-wrap-layout1 padding-top-74 padding-bottom-50">
@@ -24,7 +29,7 @@
                                         <li><bar-rating [(rate)]="recipeAverangeRanking" [max]="5" [readOnly]="true"></bar-rating></li>                                 
                                     </ul>
                                 </li>
-                                <li class="single-meta">
+                                <li class="single-meta" *ngIf="isLoggedIn">
                                     <a (click)="StartaLike()">
                                         <i class="fas fa-heart"></i>
                                         <span *ngIf="isLiked && totalLikes > 0">You and {{totalLikes}} others likes</span>
@@ -33,15 +38,21 @@
                                         <span *ngIf="isLiked && totalLikes == 0">You like this</span>
                                     </a>
                                 </li>
+                                <li class="single-meta" *ngIf="!isLoggedIn">
+                                    <a>
+                                        <i class="fas fa-heart"></i>
+                                        <span *ngIf="totalLikes > 0"> {{totalLikes}} Likes</span>
+                                    </a>
+                                </li>
                             </ul>
                         </div>
                         <div class="col-xl-3 col-12">
-                            <ul class="action-item">
-                                <li *ngIf="isLogged">
-                                    <button><i class="fas fa-heart"></i></button>
+                            <ul class="entry-meta" *ngIf="isLoggedIn">
+                                <li class="btn-group-favorite">
+                                    <a class="icon-heart"><i class="fas fa-heart"></i>  <span> Remove favorite</span></a>
                                 </li>
-                                <li *ngIf="isLogged">
-                                    <button><i class="far fa-heart"></i></button>
+                                <li class="btn-group-favorite">
+                                    <a class="icon-heart"><i class="far fa-heart"></i> <span>Add to favorites</span></a>
                                 </li>
                             </ul>
                         </div>
@@ -477,7 +488,7 @@
                             <img src="assets/img/blog/author9.jpg" alt="Blog Author" class="rounded-circle media-img-auto">
                             <div class="media-body">
                                 <h4 class="author-title">{{userName}}</h4>
-                                <h5 class="author-sub-title">Written by</h5>
+                                <h5 class="author-sub-title">Author</h5>
                                 <!-- <p>{{recipe.user.description}}</p> -->
                                 <ul class="author-social">
                                     <li>
@@ -499,7 +510,7 @@
                             </div>
                         </div>
                     </div>            
-                    <div class="also-like-wrap">
+                    <!-- <div class="also-like-wrap">
                         <h4 class="also-like-title">YOU MAY ALSO LIKE</h4>
                         <div class="row">
                             <div class="col-xl-4 col-lg-6 col-md-6 col-12">
@@ -544,7 +555,7 @@
                                 </div>
                             </div>
                         </div>             
-                    </div>
+                    </div> -->
                     
                     <!-- Recipe Reviews Start Here -->
                     <div class="recipe-reviews">
@@ -563,27 +574,30 @@
                         <ul>
                             <li class="reviews-single-item" *ngFor="let ranking of rankings">
                                 <div class="media media-none--xs">
-                                    <img src="assets/img/blog/comment1.jpg" alt="Comment" class="media-img-auto">
+                                    <img [src]="ranking.user.porfileimageRoute" alt="userimage" class="media-img-auto">
                                     <div class="media-body">
                                         <h4 class="comment-title">{{ranking.user.name+' '+ranking.user.lastname}}</h4>
-                                        <span class="post-date">{{ranking.createAt}}</span>
+                                        <span class="post-date">{{ranking.createAt | timeAgo}}</span>
                                         <p>{{ranking.comment}}</p>
                                         <ul class="item-rating">
                                             <bar-rating [(rate)]="ranking.punctuation" [max]="5" [readOnly]="true"></bar-rating>
                                         </ul>
-                                        <a href="#" class="item-btn">REPLY<i class="fas fa-long-arrow-alt-right"></i></a>
+                                        <!-- <a href="#" class="item-btn">REPLY<i class="fas fa-long-arrow-alt-right"></i></a> -->
                                     </div>
                                 </div>
+                            </li>
+                            <li class="show-more-container">
+                                <button class="btn-show-more" *ngIf="!showMoreRankigns" (click)="showMoreRankings()">Show more...</button>
                             </li>
                         </ul>
                     </div>
                     <!-- Recipe Reviews End Here -->
 
                     <!-- Form Review Start Here -->
-                    <div class="leave-review">
+                    <div *ngIf="isLoggedIn" class="leave-review">
                         <form class="leave-form-box" 
                         [formGroup]="commentForm" 
-                        (ngSubmit)="createComment(commentForm.value)"
+                        (ngSubmit)="createComment(commentForm.value) && commentForm.valid"
                         novalidate>
                             <div class="section-heading heading-dark">
                                 <h2 class="item-heading">LEAVE A REVIEW</h2>
@@ -612,26 +626,7 @@
                                     </textarea>
                                     <div class="help-block with-errors"></div>
                                 </div>
-                                <!-- <div class="col-lg-4 form-group">
-                                    <label>Name :</label>
-                                    <input type="text" placeholder="" class="form-control" name="name"
-                                        data-error="Name field is required" required>
-                                    <div class="help-block with-errors"></div>
-                                </div>
-                                <div class="col-lg-4 form-group">
-                                    <label>E-mail :</label>
-                                    <input type="email" placeholder="" class="form-control" name="email"
-                                        data-error="E-mail field is required" required>
-                                    <div class="help-block with-errors"></div>
-                                </div>
-                                <div class="col-lg-4 form-group">
-                                    <label>Website :</label>
-                                    <input type="email" placeholder="" class="form-control" name="email"
-                                        data-error="E-mail field is required" required>
-                                    <div class="help-block with-errors"></div>
-                                </div> -->
                                 <div class="col-12 form-group mb-0">
-
                                     <button type="submit" class="item-btn">POST REVIEW</button>
                                 </div>
                             </div>
@@ -660,45 +655,6 @@
                                             {{latest.user.name +' '+latest.user.lastname}}</a></div>
                                 </div>
                             </li >
-                            <!-- <li class="single-item">
-                                <div class="item-img">
-                                    <a href="#"><img src="assets/img/product/latest2.jpg" alt="Post"></a>
-                                    <div class="count-number">2</div>
-                                </div>
-                                <div class="item-content">
-                                    <div class="item-ctg">DESERT</div>
-                                    <h4 class="item-title"><a href="#">Salami Oven Roasted are
-                                            Mozzarella Oelette</a></h4>
-                                    <div class="item-post-by"><a href="single-blog.html"><i class="fas fa-user"></i><span>by</span>
-                                            John Martin</a></div>
-                                </div>
-                            </li> -->
-                            <!-- <li class="single-item">
-                                <div class="item-img">
-                                    <a href="#"><img src="assets/img/product/latest3.jpg" alt="Post"></a>
-                                    <div class="count-number">3</div>
-                                </div>
-                                <div class="item-content">
-                                    <div class="item-ctg">DESERT</div>
-                                    <h4 class="item-title"><a href="#">Salami Oven Roasted are
-                                            Mozzarella Oelette</a></h4>
-                                    <div class="item-post-by"><a href="single-blog.html"><i class="fas fa-user"></i><span>by</span>
-                                            John Martin</a></div>
-                                </div>
-                            </li>
-                            <li class="single-item">
-                                <div class="item-img">
-                                    <a href="#"><img src="assets/img/product/latest4.jpg" alt="Post"></a>
-                                    <div class="count-number">4</div>
-                                </div>
-                                <div class="item-content">
-                                    <div class="item-ctg">DESERT</div>
-                                    <h4 class="item-title"><a href="#">Salami Oven Roasted are
-                                            Mozzarella Oelette</a></h4>
-                                    <div class="item-post-by"><a href="single-blog.html"><i class="fas fa-user"></i><span>by</span>
-                                            John Martin</a></div>
-                                </div>
-                            </li> -->
                         </ul>
                     </div>
                 </div>
@@ -802,37 +758,7 @@
                                 <a href="#">{{category.name}}
                                     <span>{{category.amountRecipes}}</span>
                                 </a>
-                            </li>
-                            <!-- <li>
-                                <a href="#">Lunch
-                                    <span>15</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">Pasta
-                                    <span>22</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">Dinner
-                                    <span>18</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">Dessert
-                                    <span>36</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">Drinks
-                                    <span>12</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">Fruits
-                                    <span>05</span>
-                                </a>
-                            </li> -->
+                            </li>                     
                         </ul>
                     </div>
                 </div>

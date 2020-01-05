@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef,OnChanges } from '@angular/core';
 
 import { IngredientService, IngredientList } from 'src/app/services/ingredient.service';
 import { CategoryService, CategoryCard } from 'src/app/services/category.service';
@@ -26,35 +26,36 @@ export class CreaterecipeUserComponent implements OnInit {
 
   //*Variables declaration */
   //Index of ingredient list
-  userId: number = 1;
-  indexList: number = 0;
-  imagesCount: number = 0;
-  indexThumb: number = 0; 
-  isEditIngredient: boolean = false;
-  selectedFile: File = null;
-  thumbSelectedRoute: string;
+  private userId: number = 1;
+  private indexList: number = 0;
+  private imagesCount: number = 0;
+  private indexThumb: number = 0; 
+  private descriptionLength = 200;
+  private isEditIngredient: boolean = false;
+  private selectedFile: File = null;
+  private thumbSelectedRoute: string;
  // recipeStatus: RecipeStatus.public;
 
   
   //*Objects declaration*//
   //Ingredients list for select
-  ingredients: IngredientList[];
+  private ingredients: IngredientList[];
   //Categories list for select
-  categories: CategoryCard[];
+  private categories: CategoryCard[];
   //Tags list for multiple select
-  tags: TagShort[];
+  private tags: TagShort[];
   
-  ingredientsList: any[] = [];
-  ingredientsRecipe: any[] = [];
-  imagesURL: any[] = [];
+  private ingredientsList: any[] = [];
+  private ingredientsRecipe: any[] = [];
+  private imagesURL: any[] = [];
   
   //*Modes 
   //Ingredients model
-  ingredientModel = {id: null, amountIngredient: ''}
-  tagsModel = [];
-  imagesModel: any[] = [];
+  private ingredientModel = {id: null, amountIngredient: '',unit: null}
+  private tagsModel = [];
+  private imagesModel: any[] = [];
   //Recipe model
-  recipeModel = {
+  private recipeModel = {
     name: '', 
     categoryId: null,
     description: '',
@@ -62,11 +63,11 @@ export class CreaterecipeUserComponent implements OnInit {
     prepHours: '',
     preMinutes: '',
     preparationSteps: '',
-    status: ''
+    status: 'public'
   }
 
   //Recipe status model
-  recipeStatus = [
+  private recipeStatus = [
     {
       id: 'option1',
       name: 'Public',
@@ -80,10 +81,10 @@ export class CreaterecipeUserComponent implements OnInit {
   ]
   
   //*Array images 
-  imagesList: FileList;
+  private imagesList: FileList;
 
   //*Editor toolbar config
-  editorConfig = {
+  private editorConfig = {
     toolbar: [
       ['bold','italic','underline','strike'],
       [{ 'list': 'ordered'}, { 'list': 'bullet' }],
@@ -106,16 +107,20 @@ export class CreaterecipeUserComponent implements OnInit {
 
   ngOnInit() 
   {
-
     this.getCategoriesList();    
     this.getIngredientsList();
     this.getTagList();
   }
 
+  
+  OnChanges()
+  {
+    alert();
+  }
   /**
    * 
    */
-  public getCategoriesList():void
+  private getCategoriesList():void
   {
     this._categoryService.getCategoriesCard().subscribe(data => 
       {
@@ -123,7 +128,7 @@ export class CreaterecipeUserComponent implements OnInit {
     });
   }
 
-  public getIngredientsList():void
+  private getIngredientsList():void
   {
     this._ingredientService.getIngredientsList().subscribe(data =>
       {
@@ -131,7 +136,7 @@ export class CreaterecipeUserComponent implements OnInit {
     });     
   }
 
-  public getTagList():void
+  private getTagList():void
   {
     this._tagService.getTagsShort().subscribe(data =>
       {
@@ -144,16 +149,18 @@ export class CreaterecipeUserComponent implements OnInit {
    * @param ingredientId: id ingredient
    * @param amount: amount of ingredient
    */
-  public addIngredient(ingredientId: number, amount: string):void
+  private addIngredient(ingredientId: number, amount: string, unit: string):void
   {
     //*Create ingredient and find the name by id
     let ingredient =
     {
       id: ingredientId,
       name: this.ingredients.find(element => element.id === ingredientId).name,
-      amount: amount
+      amount: amount,
+      unit: unit
     }
 
+    console.log(ingredient);
     //*Add ingredient to list for show in the front
     this.ingredientsList.push(ingredient);
 
@@ -165,12 +172,12 @@ export class CreaterecipeUserComponent implements OnInit {
    * 
    * @param index 
    */
-  public removeIngredient(index: number):void
+  private removeIngredient(index: number):void
   {
     this.ingredientsList.splice(index, 1);
   }
 
-  public editIngredient(index: number):void 
+  private editIngredient(index: number):void 
   {
     this.indexList = index;
 
@@ -180,12 +187,13 @@ export class CreaterecipeUserComponent implements OnInit {
     //*Set ingredient model
     this.ingredientModel.id = ingredient.id;
     this.ingredientModel.amountIngredient = ingredient.amount; 
+    this.ingredientModel.unit = ingredient.unit;
 
     //*Shot update button
     this.isEditIngredient = true;
   }
 
-  public updateIngredient():void
+  private updateIngredient():void
   {
     //*Find name ingredient by id
     let name = this.ingredients.find(element => element.id === this.ingredientModel.id).name;
@@ -193,6 +201,7 @@ export class CreaterecipeUserComponent implements OnInit {
     //*Add changes to list
     this.ingredientsList[this.indexList].name = name;
     this.ingredientsList[this.indexList].amount = this.ingredientModel.amountIngredient;
+
     
     //*Show add button
     this.isEditIngredient = false;
@@ -204,13 +213,18 @@ export class CreaterecipeUserComponent implements OnInit {
   /**
    * This function cleans the ingredient model
    */
-  public clearIngredients():void
+  private clearIngredients():void
   {
     this.ingredientModel.id = null;
     this.ingredientModel.amountIngredient = '';
+    this.ingredientModel.unit = null;
   }
 
-  public onFileSelected(event: any): void
+  /**
+   * 
+   * @param event 
+   */
+  private onFileSelected(event: any): void
   {
     this.imagesURL = [];
     this.imagesModel = [];
@@ -234,13 +248,14 @@ export class CreaterecipeUserComponent implements OnInit {
           this.imagesURL.push(event.target.result);
         }
       }
-    
-     // console.log(this.imagesModel);
-      //this.imagesList = event.target.files;
     }
   }
 
-  public selecAsThumb(index: number): void
+  /**
+   * 
+   * @param index 
+   */
+  private selecAsThumb(index: number): void
   {
     this.indexThumb = index;
     this.thumbSelectedRoute = this.imagesModel[index].name;
@@ -259,50 +274,62 @@ export class CreaterecipeUserComponent implements OnInit {
 
   public createRecipe():void
   {
-    //*Variable declaration
-   
-    //*Create object tags
-    let tags = [];
-    for(let i = 0; i < this.tagsModel.length; i++)
+    console.log('HERE!');
+    if(this.recipeModel.preparationSteps != '')
     {
-      let tag = {id: this.tagsModel[i]}
-      tags.push(tag);
-    }
-
-    //*Create object recipe
-    let newRecipe: NewRecipe =
-    {
-      name: this.recipeModel.name,
-      preparationTime: this.recipeModel.prepHours +' '+ this.recipeModel.preMinutes,
-      description: this.recipeModel.description,
-      thumbRoute: 'kaka',
-      preparationSteps: this.recipeModel.preparationSteps,
-      difficulty: '',
-      status: this.recipeModel.status,
-      videFrame: this.recipeModel.videFrame,
-      category: 
+      //*Variable declaration
+    
+      //*Create object tags
+      let tags = [];
+      for(let i = 0; i < this.tagsModel.length; i++)
       {
-        id: this.recipeModel.categoryId
-      },
-      user:
-      {
-        id: this.userId
-      },
-      tags: tags  
-    }
+        let tag = {id: this.tagsModel[i]}
+        tags.push(tag);
+      }
 
-    //*Send recipe to api for save
-    this._recipeService.createRecipe(newRecipe).subscribe(response =>
+      //*Create object recipe
+      let newRecipe: NewRecipe =
+      {
+        name: this.recipeModel.name,
+        preparationTime: this.recipeModel.prepHours +' '+ this.recipeModel.preMinutes,
+        description: this.recipeModel.description,
+        thumbRoute: 'null',
+        preparationSteps: this.recipeModel.preparationSteps,
+        difficulty: '',
+        status: this.recipeModel.status,
+        videFrame: this.recipeModel.videFrame,
+        category: 
+        {
+          id: this.recipeModel.categoryId
+        },
+        user:
+        {
+          id: this.userId
+        },
+        tags: tags  
+      }
+
+      //*Send recipe to api for save
+      this._recipeService.createRecipe(newRecipe).subscribe(response =>
       {
         let id: number = response.id;
         //*Create ingredients recipe 
         this.createIngredientsRecipe(id);
         this.createImagesRecipe(id);
-        this.router.navigate(['/user/createrecipe']);
-        Swal.fire('Success!','The recipe: '+response.recipeName+' was created.','success');       
-     
+        
+        //*Clear model
+        
+        Swal.fire('Success!','The recipe: '+response.recipeName+' was created.','success');  
+       
+        this.router.navigate(['/user/recipes/createrecipe']);
+      },
+      err =>
+      {
+        console.log(err);
       }
       );
+    }
+
   }
 
   /**
@@ -320,7 +347,7 @@ export class CreaterecipeUserComponent implements OnInit {
       //*Create object with ingredient data
       let list: RecipeIngredient =
       {
-        quantity: this.ingredientsList[i].amount,
+        quantity: this.ingredientsList[i].amount+' '+this.ingredientsList[i].unit,
         recipe:
         {
           id: id
@@ -341,16 +368,27 @@ export class CreaterecipeUserComponent implements OnInit {
       });
   }
 
+  /**
+   * 
+   * @param id 
+   */
   public createImagesRecipe(id: number): void{
     
-    this._imageService.uploadImage(this.imagesModel,id,'principal').subscribe(response=>
-      {
+    this._imageService.uploadImage(this.imagesModel,id,this.thumbSelectedRoute).subscribe(response=>
+    {
         console.log(response);
-      })
+    });
   }
 
   tester():void{
     this.router.navigate(['/home']);
+  }
+
+  private countCharacters(value)
+  {
+    let count = 200 - value.length;
+    this.descriptionLength = count;
+    // console.log(count);
   }
 }
  
