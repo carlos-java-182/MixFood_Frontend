@@ -1,0 +1,13 @@
+.section-heading
+{
+    display: flex;
+}
+.section-heading button
+{
+    margin-left: 10px !important;
+}
+
+.entry-meta
+{
+    display: block !important;
+}

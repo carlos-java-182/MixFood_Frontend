@@ -1,1 +1,198 @@
-<p>home-guest works!</p>
+<!-- Header Area Start Here -->
+<app-navbar-guest></app-navbar-guest>
+<!-- Header Area End Here -->
+<!-- Content Area Start Here -->
+<section class="padding-bottom-45">
+    <div class="container">
+        <div class="row gutters-60">
+            <!-- Search Start Here -->
+            <!-- {{searchModel | json}} -->
+            <div class="col-lg-8">
+                <div class="adv-search-wrap">
+                    <div class="input-group">
+                        <input 
+                        type="text" 
+                        [(ngModel)]="searchModel.searchTerm"
+                        class="form-control" 
+                        placeholder="Recipe Search . . ." />
+                        <div class="btn-group">
+                            <div class="input-group-btn">
+                                <button 
+                                    type="button" 
+                                    id="adv-serch" 
+                                    class="btn-adv-serch">
+                                    <i class="icon-plus flaticon-add-plus-button"></i>
+                                    <i class="icon-minus fas fa-minus"></i>
+                                    Advanced Search</button>
+                            </div>
+                            <div class="input-group-btn">
+                                <button (click)="Search()" class="btn-search"><i class="flaticon-search"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- <div class="advance-search-form " >
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <h3 class="item-title">BY CATEGORIES</h3>
+                                <div class="form-group select2-multiple col-lg-10">
+                                    <ng-select
+                                    [(ngModel)]="searchModel.categoryId"
+                                    [items]="categories"
+                                    bindLabel="name"
+                                    bindValue="id"         
+                                    [multiple]="false"
+                                    placeholder ="Select a category"
+                                    notFoundText = "Sin resultados"
+                                    required>
+                                    </ng-select>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <h3 class="item-title">BY INGREDIENTS</h3>      
+                                <div class="form-group select2-multiple col-lg-12">
+                                    <ng-select
+                                    [(ngModel)]="searchModel.ingredientsId"
+                                    class="select-multiple"
+                                    [items]="items"
+                                    bindLabel="name"
+                                    bindValue="id"                          
+                                    [multiple]="true"
+                                    placeholder ="Select your ingredients"
+                                    notFoundText = "Sin resultados"
+                                   
+                                    name="ingredients"
+                                    required>
+                                    </ng-select>
+                                </div>
+                            </div>
+                        </div>            
+                    </div> -->
+                </div>
+            </div>
+            <!-- Search End Here -->
+            <!-- Results Recipe Start Here -->
+            <div class="col-lg-10" *ngIf="isSearch">
+                <div class="section-heading heading-dark row">
+                    <h2 class="item-heading">Resulsts </h2>
+                </div>
+                <div class="row">
+                    <!-- <div class="alert alert-primary" role="alert">
+                        Results not found!
+                    </div> -->
+
+                    <div *ngFor="let recipe of recipesRes | paginate: {id: 'pagination-nav', itemsPerPage: 12, currentPage: p, totalItems: totalItems}" 
+                    class="card-item col-lg-3 col-md-3 col-sm-12" (click)="showRecipe(recipe)">
+                        <div class="product-box-layout1">
+                            <figure class="item-figure">
+                                <a>
+                                    <img  src="assets/img/product/product5.jpg"  
+                                        alt="Product">
+                                </a>
+                            </figure>
+                            <div class="item-content">
+                                <h3 class="item-title"><a (click)="showRecipe(recipe)" >{{recipe.name}}</a></h3>
+                                <span class="sub-title">{{recipe.category.name}}</span>
+                                <ul class="item-rating">
+                                        <li class="star-fill"><i class="fas fa-star"></i></li>
+                                        <li class="star-fill"><i class="fas fa-star"></i></li>
+                                        <li class="star-fill"><i class="fas fa-star"></i></li>
+                                        <li class="star-fill"><i class="fas fa-star"></i></li>
+                                        <li class="star-empty"><i class="fas fa-star"></i></li>
+                                </ul>
+                                <ul class="entry-meta">
+                                    <li><a href="#"><i class="fas fa-clock"></i>{{recipe.createAt | timeAgo}}</a></li>
+                                    <li><a href="#"><i class="fas fa-user"></i><span>{{recipe.user.name +' '+ recipe.user.lastname}}</span></a></li>
+                                    <li>
+                                        <ul class="card-tags">
+                                            <!-- <li *ngFor="let tag of recipe.tags"><a >#tag</a></li> -->
+                                        </ul>
+                                    </li>
+                                
+                                </ul>
+                            </div>
+                        </div>
+                    </div>                                      
+                       
+                </div>    
+                <!-- Pagination Start Here -->
+                <pagination-controls 
+                *ngIf="isSearch"
+                id="pagination-nav"
+                (pageChange)="getPage($event)"
+                previousLabel="Prev"
+                nextLabel="Next"
+                responsive="true"
+                screenReaderPaginationLabel="Pagination"
+                ></pagination-controls>
+                <!-- Pagination End Here -->                        
+            </div>
+            <!-- Results Recipe End Here -->
+           
+            <!-- Recent Recipe Start Here -->
+            <div class="col-lg-10" *ngIf="!isSearch">
+                <div class="section-heading heading-dark row">
+                    <h2 class="item-heading">Recent recipes </h2>
+                </div>
+                <div id="recipe-cards-carousel" class="owl-carousel owl-theme">             
+                    <div class="item"  *ngFor="let recipe of recipes">                  
+                         <app-recipe-card-principal [recipe]="recipe"></app-recipe-card-principal>
+                    </div>
+                  </div>
+            </div>
+            <!-- Recent Recipe End Here -->
+ 
+            <!-- Popular tags start here -->
+            <div class="col-lg-2 sidebar-widget-area sidebar-break-md">
+                <div class="widget">
+                    <div class="section-heading heading-dark">
+                        <h3 class="item-heading">Popular tags</h3>
+                    </div>
+                    <div class="widget-tag">
+                        <ul>
+                            <li *ngFor="let tag of tags">
+                                <a (click)="goToRecipesByTag(tag.id)">
+                                    {{tag.name.toUpperCase()}}
+                                </a>
+                            </li>
+                        </ul>            
+                    </div>
+                </div>                    
+            </div>
+            <!-- Popular tags end here -->
+        </div>
+    </div>
+</section>
+<!-- Results Recipe Start Here -->
+<!-- <app-searchresults *ngIf="isSearch"></app-searchresults> -->
+
+<!-- Results Recipe End Here -->
+
+<!-- Category Area Start Here -->
+<section class="category-page-wrap padding-top-80 padding-bottom-50">
+    <div class="container">
+        <div class="section-heading heading-dark row">
+            <h2 class="item-heading">Categories </h2>
+        </div>
+        <div class="row">      
+            <div 
+            class="col-lg-2 col-md-6 col-sm-6 col-12" 
+            *ngFor="let category of categories"
+            (click)="goToRecipesByCategory(category.id)"
+            >
+                <div class="category-box-layout1">
+                    <figure class="item-figure">
+                        <a href="single-recipe1.html">
+                            <img [src]="category.thumbRoute" alt="Category">
+                        </a>
+                    </figure>
+                    <div class="item-content">
+                        <h3 class="item-title"><a href="single-recipe1.html">{{category.name}}</a></h3>
+                        <span class="sub-title"> {{category.amountRecipes}} Recipes</span>
+                    </div>
+                </div>
+            </div>    
+        </div>
+    </div>
+</section>
+<!-- Category Area End Here -->
+<!-- Content Area End Here -->

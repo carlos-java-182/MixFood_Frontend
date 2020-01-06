@@ -1,2 +1,67 @@
-<p>Este es el navbar!</p>
-<p>otro</p>
+<!-- Header Area Start Here -->
+<header class="header-one">
+    <div id="header-main-menu" class="header-main-menu header-sticky">
+        <div class="container">                    
+            <div class="row">
+                <div class="col-lg-8 col-md-3 col-sm-4 col-4 possition-static">
+                    <div class="site-logo-mobile">
+                        <a href="index.html" class="sticky-logo-light"><img src="assets/img/logo-light.png" alt="Site Logo"></a>
+                        <a href="index.html" class="sticky-logo-dark"><img src="assets/img/logo-dark.png" alt="Site Logo"></a>
+                    </div>
+                    <nav class="site-nav">
+                        <ul id="site-menu" class="site-menu" [ngClass]="{'menu-mobile': isMobile}">
+                            <a class="navbar-brand" href="#">
+                                <img src="/docs/4.3/assets/brand/bootstrap-solid.svg" width="30" height="30" alt="Logo">
+                            </a>
+                            <li>
+                                <a [routerLink]="['/home']"><i class="fas fa-home"></i> Home</a>
+                            </li>
+                            <!-- <li>
+                                <a href="category.html"><i class="fas fa-search"></i> Search</a>
+                            </li> -->
+                            <!-- <li>
+                                <a href="#"><i class="fas fa-utensils"></i> Categories </a>
+                            </li> -->
+                            <li>
+                                <a [routerLink]="['/user/recipes/createrecipe']" routerLinkActive="router-link-active" ><i class="fas fa-utensils"></i> Create recipe</a>
+                            </li>
+                            <!-- <li>
+                                <a href="contact.html">About</a>
+                            </li> -->
+                        </ul>
+                    </nav>
+                </div>
+                <div class="col-lg-4 col-md-9 col-sm-8 col-8 d-flex align-items-center justify-content-end">
+                    <div class="nav-action-elements-layout1">
+                        <ul id="site-menu" class="site-menu" [ngClass]="{'menu-mobile': isMobile}">
+                            <li>
+                                <a><i class="fas fa-user"></i> {{username}}</a>
+                                <ul class="dropdown-menu-col-1">
+                                    <li>
+                                        <a>Profile</a>
+                                    </li>                                 
+                                    <li>
+                                        <a>Recipes</a>
+                                    </li>
+                                    <li>
+                                        <a [routerLink]="['/user/favorites']">Favorites</a>
+                                    </li>
+                                    <li>
+                                        <a>Logout</a>
+                                    </li>       
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="mob-menu-open toggle-menu" (click)="showMobileMenu()">
+                        <span class="bar"></span>
+                        <span class="bar"></span>
+                        <span class="bar"></span>
+                        <span class="bar"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+<!-- Header Area End Here -->

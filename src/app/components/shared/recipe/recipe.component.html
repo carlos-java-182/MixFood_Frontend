@@ -1,0 +1,612 @@
+<!-- Header Navbar Start Here -->
+<app-navbar-guest></app-navbar-guest>
+<!-- Header Navbar End Here -->
+
+<!-- Content Start Here -->
+<!-- Single Recipe With Sidebar Area Start Here -->
+<section class="single-recipe-wrap-layout1 padding-top-74 padding-bottom-50">
+    <div class="container">
+        <div class="row gutters-60">
+            <div class="col-lg-8">
+                <div class="single-recipe-layout1">   
+                    <div class="section-heading heading-dark">
+                        <h2 class="item-title">{{recipeName}}</h2>
+                    </div>
+                    <div class="ctg-name">{{recipeCategoryName}}</div>
+                    <div class="row mb-4">
+                        <div class="col-xl-9 col-12">
+                            <ul class="entry-meta">
+                                <li class="single-meta"><a><i class="far fa-calendar-alt"></i>{{recipeCreateAt | date: 'yyyy-MM-dd'}}</a></li>
+                                <li class="single-meta">
+                                    <a (click)="goToProfile(idUser)">
+                                        <i class="fas fa-user"></i><span>{{userName}}</span>
+                                    </a>
+                                </li>
+                                <li class="list-ranking">
+                                    <bar-rating [(rate)]="recipeAverangeRanking" [max]="5" [readOnly]="true"></bar-rating>                             
+                                </li>
+                                <li class="single-meta" *ngIf="isLoggedIn">
+                                    <a (click)="StartaLike()">
+                                        <i class="fas fa-heart"></i>
+                                        <span *ngIf="isLiked && totalLikes > 0">You and {{totalLikes}} others likes</span>
+                                        <span *ngIf="!isLiked && totalLikes > 0">{{totalLikes}} likes</span>
+                                        <span *ngIf="!isLiked && totalLikes == 0" >Be the first to like</span>
+                                        <span *ngIf="isLiked && totalLikes == 0">You like this</span>
+                                    </a>
+                                </li>
+                                <li class="single-meta" *ngIf="!isLoggedIn">
+                                    <a>
+                                        <i class="fas fa-heart"></i>
+                                        <span *ngIf="totalLikes > 0"> {{totalLikes}} Likes</span>
+                                    </a>
+                                </li>
+                            </ul>
+                            
+                        </div>
+                        <div class="col-lg-1">
+                            
+                        </div>
+                        <div class="col-xl-3 col-12">
+                            <ul class="entry-meta" *ngIf="isLoggedIn">
+                                <li class="btn-group-favorite">
+                                    <a class="icon-heart"><i class="fas fa-heart"></i>  <span> Remove favorite</span></a>
+                                </li>
+                                <li class="btn-group-favorite">
+                                    <a class="icon-heart"><i class="far fa-heart"></i> <span>Add to favorites</span></a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="item-figure">
+                        <div id="recipe-carousel" class="owl-carousel owl-theme">
+                            <div *ngFor="let image of images">
+                                <img [src]="image.routeImage" alt="Product">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="item-feature">
+                        <!-- <div class="row mb-4">
+                        <div class="col-xl-9 col-12">
+                            <ul class="entry-meta">
+                                <li class="single-meta"><a><i class="far fa-calendar-alt"></i>{{recipeCreateAt | date: 'yyyy-MM-dd'}}</a></li>
+                                <li class="single-meta"><a href="#"><i class="fas fa-user"></i><span>{{userName}}</span></a></li>
+                                <li class="single-meta">
+                                    <ul class="item-rating">
+                                        <li><bar-rating [(rate)]="recipeAverangeRanking" [max]="5" [readOnly]="true"></bar-rating></li>                                 
+                                    </ul>
+                                </li>
+                                <li class="single-meta">
+                                    <a href="#">
+                                        <i class="fas fa-heart"></i><span> You and {{totalLikes}}</span> 
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="col-xl-3 col-12">
+                            <ul class="action-item">
+                                <li *ngIf="isLogged">
+                                    <button><i class="fas fa-heart"></i></button>
+                                </li>
+                                <li *ngIf="isLogged">
+                                    <button><i class="far fa-heart"></i></button>
+                                </li>
+                            </ul>
+                        </div>
+                    </div> -->
+                       
+                        <ul>
+                            <li>
+                                <div class="feature-wrap">
+                                    <div class="media">
+                                        <div class="feature-icon">
+                                            <i class="far fa-clock"></i>
+                                        </div>
+                                        <div class="media-body space-sm">
+                                            <div class="feature-title">PREP TIME</div>
+                                            <div class="feature-sub-title">{{preparationTime}}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                            <!-- <li>
+                                <div class="feature-wrap">
+                                    <div class="media">
+                                        <div class="feature-icon">
+                                            <i class="fas fa-utensils"></i>
+                                        </div>
+                                        <div class="media-body space-sm">
+                                            <div class="feature-title">COOK TIME</div>
+                                            <div class="feature-sub-title">45 Mins</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li> -->
+                            <!-- <li>
+                                <div class="feature-wrap">
+                                    <div class="media">
+                                        <div class="feature-icon">
+                                            <i class="fas fa-users"></i>
+                                        </div>
+                                        <div class="media-body space-sm">
+                                            <div class="feature-title">SERVING</div>
+                                            <div class="feature-sub-title">10 People</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li> -->
+                            <li>
+                                <div class="feature-wrap">
+                                    <div class="media">
+                                        <div class="feature-icon">
+                                            <i class="far fa-eye"></i>
+                                        </div>
+                                        <div class="media-body space-sm">
+                                            <div class="feature-title">VIEWS</div>
+                                            <div class="feature-sub-title">{{views}}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="feature-wrap">
+                                    <div class="media">
+                                        <div class="feature-icon">
+                                            <i class="fas fa-utensils"></i>
+                                        </div>
+                                        <div class="media-body space-sm">
+                                            <div class="feature-title">Difficulty</div>
+                                            <div class="feature-sub-title">{{difficulty}}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="section-heading heading-dark row">
+                        <h2 class="item-heading">Description</h2>
+                    </div>
+                    <!-- <p class="item-description">
+                        {{recipeDescription}}
+                    </p> -->
+                    <div class="making-elements-wrap">
+                        <div class="row">
+                            <div class="col-xl-6 col-12">
+                                <div class="ingridients-wrap">
+                                    <h3 class="item-title"><i class="fas fa-list-ul"></i>Ingridients</h3>
+                                    <!-- <div class="adjust-servings">
+                                        <div class="servings-title">Adjust Servings</div>
+                                        <form class="servings-quantity">
+                                            <div class="input-group quantity-holder" id="quantity-holder">
+                                                <input type="text" name='quantity' class="form-control quantity-input"
+                                                    value="1" placeholder="1">
+                                                <div class="btn-quantity-select">
+                                                    <button class="quantity-plus" type="button">
+                                                        <i class="fas fa-plus"></i>
+                                                    </button>
+                                                    <button class="quantity-minus" type="button">
+                                                        <i class="fas fa-minus"></i>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div> -->
+
+                                    
+                                    <div class="checkbox checkbox-primary" *ngFor="let ingredient of ingredients; let i = index">              
+                                        <input id="checkbox{{i}}" type="checkbox" checked>
+                                        <label for="checkbox{{i}}">{{ingredient.quantity}} of {{ingredient.ingredient.name}}</label>
+                                    </div>
+                                </div>
+                            </div>
+                          
+                        </div>
+                    </div>
+                    <!-- <iframe width="560" height="315" [src]='videoFrame' frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe> -->
+                    <div class="direction-wrap-layout1">
+                        <div class="section-heading heading-dark">
+                            <h2 class="item-heading">STEPS</h2>
+                        </div>
+                        <!-- <p class="section-paragraph">{{recipe.steps}}</p> -->
+                        <!-- <div class="direction-box-layout1">
+                            <div class="item-figure">
+                                <img src="img/figure/direction1.jpg" alt="DIRECTIONS">
+                            </div>
+                            <div class="item-content">
+                                <div class="serial-number">01 Step</div>
+                                <p>Recipe View<span class="item-time"><i class="far fa-clock"></i>5 Minutes</span> chemaorg is a
+                                    collaboration improve
+                                    the web by creat inegaera structured markupinn ocuously
+                                    side crudey mightily rigorous plot life.</p>
+                            </div>
+                        </div>
+                        <div class="direction-box-layout1">
+                            <div class="item-figure">
+                                <img src="img/figure/direction2.jpg" alt="DIRECTIONS">
+                            </div>
+                            <div class="item-content">
+                                <div class="serial-number">02 Step</div>
+                                <p>Recipe View<span class="item-time"><i class="far fa-clock"></i>5 Minutes</span> chemaorg is a
+                                    collaboration improve
+                                    the web by creat inegaera structured markupinn ocuously
+                                    side crudey mightily rigorous plot life.</p>
+                            </div>
+                        </div>
+                        <div class="direction-box-layout1">
+                            <div class="item-figure">
+                                <img src="img/figure/direction3.jpg" alt="DIRECTIONS">
+                            </div>
+                            <div class="item-content">
+                                <div class="serial-number">03 Step</div>
+                                <p>Recipe View<span class="item-time"><i class="far fa-clock"></i>5 Minutes</span> chemaorg is a
+                                    collaboration improve
+                                    the web by creat inegaera structured markupinn ocuously
+                                    side crudey mightily rigorous plot life.</p>
+                            </div>
+                        </div>
+                        <div class="direction-box-layout1">
+                            <div class="item-figure">
+                                <img src="img/figure/direction4.jpg" alt="DIRECTIONS">
+                            </div>
+                            <div class="item-content">
+                                <div class="serial-number">04 Step</div>
+                                <p>Recipe View<span class="item-time"><i class="far fa-clock"></i>5 Minutes</span> chemaorg is a
+                                    collaboration improve
+                                    the web by creat inegaera structured markupinn ocuously
+                                    side crudey mightily rigorous plot life.</p>
+                            </div>
+                        </div> -->
+                    </div>
+                    <!-- Recipe Tags Start Here -->
+                    <div class="section-heading heading-dark row">
+                        <h2 class="item-heading">Tags</h2>
+                    </div>
+                    <div class="tag-share">
+                        <ul>
+                            <li>
+                                <ul class="inner-tag">
+                                    <li *ngFor="let tag of tags">
+                                        <a (click)="goToRecipesByTag(tag.id)">{{tag.name}}</a>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>  
+                    <!-- Recipe Tags End Here -->
+                    <div class="recipe-author">
+                        <div class="media media-none--xs">
+                            <img src="assets/img/blog/author9.jpg" alt="Blog Author" class="rounded-circle media-img-auto">
+                            <div class="media-body">
+                                <h4 class="author-title">{{userName}}</h4>
+                                <h5 class="author-sub-title">Author</h5>
+                                <!-- <p>{{recipe.user.description}}</p> -->
+                                <ul class="author-social">
+                                    <li>
+                                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                                    </li>
+                                    <li>
+                                        <a href="#"><i class="fab fa-twitter"></i></a>
+                                    </li>
+                                    <li>
+                                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                                    </li>
+                                    <li>
+                                        <a href="#"><i class="fab fa-pinterest-p"></i></a>
+                                    </li>
+                                    <li>
+                                        <a href="#"><i class="fab fa-skype"></i></a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>            
+                    <!-- <div class="also-like-wrap">
+                        <h4 class="also-like-title">YOU MAY ALSO LIKE</h4>
+                        <div class="row">
+                            <div class="col-xl-4 col-lg-6 col-md-6 col-12">
+                                <div class="product-box-layout2">
+                                    <figure class="item-figure"><img src="assets/img/product/product11.jpg"
+                                                alt="Product"></figure>
+                                    <div class="item-content">
+                                        <span class="sub-title">BREAKFAST</span>
+                                        <h3 class="item-title"><a href="single-recipe1.html">Tomatoes Stuffed with Foie and
+                                                Chanterelles</a></h3>
+                                        <ul class="entry-meta">
+                                            <li><a href="#"><i class="fas fa-user"></i>by <span>John Martin</span></a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-4 col-lg-6 col-md-6 col-12">
+                                <div class="product-box-layout2">
+                                    <figure class="item-figure"><img src="assets/img/product/product12.jpg"
+                                                alt="Product"></figure>
+                                    <div class="item-content">
+                                        <span class="sub-title">DESERT</span>
+                                        <h3 class="item-title"><a href="single-recipe1.html">Pumpkin Cheesecake With
+                                                GingersnapCrust</a></h3>
+                                        <ul class="entry-meta">
+                                            <li><a href="#"><i class="fas fa-user"></i>by <span>John Martin</span></a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-4 d-block d-md-none d-xl-block col-12">
+                                <div class="product-box-layout2">
+                                    <figure class="item-figure"><img src="assets/img/product/product13.jpg"
+                                                alt="Product"></figure>
+                                    <div class="item-content">
+                                        <span class="sub-title">JUICE</span>
+                                        <h3 class="item-title"><a href="single-recipe1.html">Blueberry Juice with Lemon Crema</a></h3>
+                                        <ul class="entry-meta">
+                                            <li><a href="#"><i class="fas fa-user"></i>by <span>John Martin</span></a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>             
+                    </div> -->
+                    
+                    <!-- Recipe Reviews Start Here -->
+                    <div class="recipe-reviews">
+                        <div class="section-heading heading-dark">
+                            <h2 class="item-heading">RECIPE REVIEWS</h2>
+                        </div>
+                        <div class="avarage-rating-wrap">
+                            <div class="avarage-rating">Avarage Rating: 
+                                <span class="rating-icon-wrap">
+                                    <bar-rating [(rate)]="recipeAverangeRanking" [max]="5" [readOnly]="true"></bar-rating>
+                                </span>
+                                <span class="rating-number"></span>                                         
+                            </div>
+                            <div class="total-reviews">Total Reviews:<span class="review-number">({{totalRankings}})</span></div>
+                        </div>
+                        <ul>
+                            <li class="reviews-single-item" *ngFor="let ranking of rankings">
+                                <div class="media media-none--xs">
+                                    <img [src]="ranking.user.porfileimageRoute" alt="userimage" class="media-img-auto">
+                                    <div class="media-body">
+                                        <h4 class="comment-title">{{ranking.user.name+' '+ranking.user.lastname}}</h4>
+                                        <span class="post-date">{{ranking.createAt | timeAgo}}</span>
+                                        <p>{{ranking.comment}}</p>
+                                        <ul class="item-rating">
+                                            <bar-rating [(rate)]="ranking.punctuation" [max]="5" [readOnly]="true"></bar-rating>
+                                        </ul>
+                                        <!-- <a href="#" class="item-btn">REPLY<i class="fas fa-long-arrow-alt-right"></i></a> -->
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="show-more-container">
+                                <button class="btn-show-more" *ngIf="!showMoreRankigns" (click)="showMoreRankings()">Show more...</button>
+                            </li>
+                        </ul>
+                    </div>
+                    <!-- Recipe Reviews End Here -->
+
+                    <!-- Form Review Start Here -->
+                    <div *ngIf="isLoggedIn" class="leave-review">
+                        <form class="leave-form-box" 
+                        [formGroup]="commentForm" 
+                        (ngSubmit)="createComment(commentForm.value) && commentForm.valid"
+                        novalidate>
+                            <div class="section-heading heading-dark">
+                                <h2 class="item-heading">LEAVE A REVIEW</h2>
+                            </div>
+                            <div class="rate-wrapper">
+                                <div class="rate-label">Rating</div>
+                                <div class="rate">
+                                    <bar-rating
+                                    formControlName="rating"
+                                    [max]="5" >
+                                    </bar-rating>
+                                </div>
+                            </div>   
+                            <div class="row">
+                                <div class="col-12 form-group">
+                                    <label>Comment :</label>
+                                    <textarea 
+                                    formControlName="comment"
+                                    placeholder="" 
+                                    class="textarea form-control" 
+                                    name="message" 
+                                    rows="7"
+                                    cols="20" 
+                                    data-error="Message field is required"
+                                    required>
+                                    </textarea>
+                                    <div class="help-block with-errors"></div>
+                                </div>
+                                <div class="col-12 form-group mb-0">
+                                    <button type="submit" class="item-btn">POST REVIEW</button>
+                                </div>
+                            </div>
+                            <!-- <div class="form-response"></div> -->
+                        </form>
+                    </div>
+                    <!-- Form Review End Here -->
+                </div>
+            </div>
+            <div class="col-lg-4 sidebar-widget-area sidebar-break-md">
+                <div class="widget">
+                    <div class="section-heading heading-dark">
+                        <h3 class="item-heading">LATEST RECIPES</h3>
+                    </div>
+                    <div class="widget-latest">
+                        <ul class="block-list">
+                            <li  class="single-item" *ngFor="let latest of recipesLatests let i = index" (click)="goToRecipe(latest.id)">
+                                <div class="item-img">
+                                    <a><img  class="img-thumbnail recipe-thumb" [src]="latest.thumbRoute" alt="Post"></a>
+                                    <div class="count-number">{{i+1}}</div>
+                                </div>
+                                <div class="item-content">
+                                    <div class="item-ctg">{{latest.category.name.toUpperCase()}}</div>
+                                    <h4 class="item-title"><a (click)="showRecipe(latest.id)">{{latest.name}}</a></h4>
+                                    <div class="item-post-by"><a href="single-blog.html"><i class="fas fa-user"></i>
+                                            {{latest.user.name +' '+latest.user.lastname}}</a></div>
+                                </div>
+                            </li >
+                        </ul>
+                    </div>
+                </div>
+                <!-- <div class="widget">
+                    <div class="section-heading heading-dark">
+                        <h3 class="item-heading">SUBSCRIBE &amp; FOLLOW</h3>
+                    </div>
+                    <div class="widget-follow-us">
+                        <ul>
+                            <li class="single-item"><a href="#"><i class="fab fa-facebook-f"></i>LIKE ME ON</a></li>
+                            <li class="single-item"><a href="#"><i class="fab fa-twitter"></i>LIKE ME</a></li>
+                            <li class="single-item"><a href="#"><i class="fab fa-linkedin-in"></i>LIKE ME</a></li>
+                            <li class="single-item"><a href="#"><i class="fab fa-pinterest-p"></i>LIKE ME</a></li>
+                            <li class="single-item"><a href="#"><i class="fab fa-instagram"></i>LIKE ME</a></li>
+                            <li class="single-item"><a href="#"><i class="fab fa-youtube"></i>Subscribe</a></li>
+                        </ul>
+                    </div>
+                </div> -->
+                <div class="widget">
+                    <div class="widget-ad">
+                        <a href="#"><img src="assets/img/figure/figure4.jpg" alt="Ad" class="img-fluid"></a>
+                    </div>
+                </div>
+                <div class="widget">
+                    <div class="section-heading heading-dark">
+                        <h3 class="item-heading">FEATURED RECIPES</h3>
+                    </div>
+                    <div class="widget-featured-feed">
+                        <div class="rc-carousel nav-control-layout1" data-loop="true" data-items="3"
+                            data-margin="5" data-autoplay="true" data-autoplay-timeout="5000" data-smart-speed="700"
+                            data-dots="false" data-nav="true" data-nav-speed="false" data-r-x-small="1"
+                            data-r-x-small-nav="true" data-r-x-small-dots="false" data-r-x-medium="1"
+                            data-r-x-medium-nav="true" data-r-x-medium-dots="false" data-r-small="1"
+                            data-r-small-nav="true" data-r-small-dots="false" data-r-medium="1"
+                            data-r-medium-nav="true" data-r-medium-dots="false" data-r-large="1"
+                            data-r-large-nav="true" data-r-large-dots="false" data-r-extra-large="1"
+                            data-r-extra-large-nav="true" data-r-extra-large-dots="false">
+                            <div (click)="goToRecipe(featured.id)" class="featured-box-layout1" *ngFor="let featured of recipesFeatured">
+                                <div class="item-img">
+                                    <img [src]="featured.thumbRoute" alt="Brand" class="img-fluid">
+                                </div>
+                                <div class="item-content">    
+                                    <h4 class="item-title"><a href="single-recipe1.html">{{featured.name}}</a></h4>
+                                    <span class="ctg-name">{{featured.category.name.toUpperCase()}}</span>
+                                    <p class="text-center">
+                                        <bar-rating [(rate)]="featured.averangeRanking" [max]="5" ></bar-rating>
+                                    </p>
+                                    <p>{{featured.description}}</p>
+                                </div>
+                            </div>
+                            <!-- <div class="featured-box-layout1">
+                                <div class="item-img">
+                                    <img src="assets/img/product/product18.jpg" alt="Brand" class="img-fluid">
+                                </div>
+                                <div class="item-content">
+                                    <span class="ctg-name">DINNER</span>
+                                    <h4 class="item-title"><a href="single-recipe1.html">Baked Garlic Prawn</a></h4>
+                                    <p>Definitiones noel ei verear intelle
+                                        gatpri civibus consequat area
+                                        refund efficiantue.</p>
+                                </div>
+                            </div>
+                            <div class="featured-box-layout1">
+                                <div class="item-img">
+                                    <img src="assets/img/product/product19.jpg" alt="Brand" class="img-fluid">
+                                </div>
+                                <div class="item-content">
+                                    <span class="ctg-name">SALAD</span>
+                                    <h4 class="item-title"><a href="single-recipe1.html">Baked Garlic Prawn</a></h4>
+                                    <p>Definitiones noel ei verear intelle
+                                        gatpri civibus consequat area
+                                        refund efficiantue.</p>
+                                </div>
+                            </div> -->
+                        </div>
+                    </div>
+                </div>
+                <div class="widget">
+                    <div class="section-heading heading-dark">
+                        <h3 class="item-heading">CATEGORIES</h3>
+                    </div>
+                    <div class="widget-categories">
+                        <ul>
+                            <li *ngFor="let category of categoryList">
+                                <a href="#">{{category.name}}
+                                    <span>{{category.amountRecipes}}</span>
+                                </a>
+                            </li>                     
+                        </ul>
+                    </div>
+                </div>
+                <div class="widget">
+                    <div class="section-heading heading-dark">
+                        <h3 class="item-heading">POPULAR TAGS</h3>
+                    </div>
+                    <div class="widget-tag">
+                        <ul>
+                            <li>
+                                <a href="#">DESERT</a>
+                            </li>
+                            <li>
+                                <a href="#">CAKE</a>
+                            </li>
+                            <li>
+                                <a href="#">BREAKFAST</a>
+                            </li>
+                            <li>
+                                <a href="#">BURGER</a>
+                            </li>
+                            <li>
+                                <a href="#">DINNER</a>
+                            </li>
+                            <li>
+                                <a href="#">PIZZA</a>
+                            </li>
+                            <li>
+                                <a href="#">SEA FOOD</a>
+                            </li>
+                            <li>
+                                <a href="#">SALAD</a>
+                            </li>
+                            <li>
+                                <a href="#">JUICE</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Single Recipe With Sidebar Area End Here -->
+<!-- Instagram Start Here -->
+<section class="instagram-feed-wrap">
+    <div class="instagram-feed-title"><a href="#"><i class="fab fa-instagram"></i>Follow On Instagram</a></div>
+    <ul class="instagram-feed-figure">
+        <li>
+            <a href="single-recipe1.html"><img src="img/social-figure/social-figure1.jpg" alt="Social"></a>
+        </li>
+        <li>
+            <a href="single-recipe1.html"><img src="img/social-figure/social-figure2.jpg" alt="Social"></a>
+        </li>
+        <li>
+            <a href="single-recipe1.html"><img src="img/social-figure/social-figure3.jpg" alt="Social"></a>
+        </li>
+        <li>
+            <a href="single-recipe1.html"><img src="img/social-figure/social-figure4.jpg" alt="Social"></a>
+        </li>
+        <li>
+            <a href="single-recipe1.html"><img src="img/social-figure/social-figure5.jpg" alt="Social"></a>
+        </li>
+        <li>
+            <a href="single-recipe1.html"><img src="img/social-figure/social-figure6.jpg" alt="Social"></a>
+        </li>
+        <li>
+            <a href="single-recipe1.html"><img src="img/social-figure/social-figure7.jpg" alt="Social"></a>
+        </li>
+        <li>
+            <a href="single-recipe1.html"><img src="img/social-figure/social-figure8.jpg" alt="Social"></a>
+        </li>
+    </ul>
+</section>
+<!-- Instagram End Here -->
+
+<!-- Content End Here -->
+

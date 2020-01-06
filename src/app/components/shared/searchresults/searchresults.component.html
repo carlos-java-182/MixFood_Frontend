@@ -1,0 +1,138 @@
+<!-- Header Area Start Here -->
+<app-navbar-guest [term]="term"></app-navbar-guest>
+<!-- Header Area End Here -->
+<!-- Inne Page Banner Area Start Here -->
+<section class="section-header inner-page-banner bg-common" data-bg-image="https://radiustheme.com/demo/html/ranna/ranna/img/figure/inner-page-banner1.jpg">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="breadcrumbs-area">
+                    <h1>Results</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Inne Page Banner Area End Here -->
+<!-- Results Recipe Start Here -->
+<section class="padding-top-74 padding-bottom-50">
+    <div class="container">
+        <div class="row gutters-60">
+            <div class="col-lg-10">
+                <!-- <div class="section-heading heading-dark row">
+                    <h2 *ngIf="isSearchByCategory" class="item-heading">{{categoryName}}</h2>
+                    <h2 *ngIf="isSearchByTag" class="item-heading">{{tagName}}</h2>
+                </div> -->
+                <div class="row">
+                    <!-- Alert Not Found Start Here -->
+                    <div *ngIf="isResultEmpty" class="col-lg-12 alert alert-info" role="alert">
+                        <h4 class="alert-heading"><i class="fas fa-info-circle"></i> Results not found!</h4>
+                        <p>{{message}} <b>{{term}}</b></p>
+                    </div>
+                    <!-- Alert Not Found Stop Here -->
+                    <!-- Recipe Results Start Here -->
+                    <div *ngFor="let recipe of recipes | paginate: {id: 'pagination-nav', itemsPerPage: 12, currentPage: currentPage, totalItems: totalItems}" 
+                    class="card-item col-lg-3 col-md-3 col-sm-12" (click)="showRecipe(recipe)">
+                    <app-recipe-card-principal [recipe]='recipe'></app-recipe-card-principal>                           
+                    <!-- <div class="product-box-layout1">
+                            <figure class="item-figure">
+                                <a>
+                                    <img  src="assets/img/product/product5.jpg"  
+                                        alt="Product">
+                                </a>
+                            </figure>
+                            <div class="item-content">
+                                <h3 class="item-title"><a (click)="showRecipe(recipe)" >{{recipe.name}}</a></h3>
+                                <span class="sub-title">{{recipe.category.name}}</span>
+                                <ul class="item-rating">
+                                    <li> 
+                                        <bar-rating [(rate)]="recipe.averangeRanking" [max]="5"  [readOnly]="true"></bar-rating>
+                                    </li>
+                                </ul>
+                                <ul class="entry-meta">
+                                    <li><a><i class="fas fa-clock"></i>{{recipe.createAt | timeAgo}}</a></li>
+                                    <li>
+                                        <span>{{recipe.totalLikes}}</span> 
+                                        <span *ngIf="recipe.totalLikes > 1 || recipe.totalLikes == 0"> Likes</span>
+                                        <span *ngIf="recipe.totalLikes == 1"> Like</span>
+                                    </li>
+                                    <li><a><i class="fas fa-user"></i><span>{{recipe.user.name +' '+ recipe.user.lastname}}</span></a></li>
+                                    <li>
+                                        <ul class="card-tags">
+                                            <li *ngFor="let tag of recipe.tags"><a >#tag</a></li>
+                                        </ul>
+                                    </li>
+                                
+                                </ul>
+                            </div>
+                        </div>-->
+                    </div>    
+                    <!-- Recipe Results End Here -->
+                </div>
+            </div>
+            <!-- Popular tags start here -->
+            <div class="col-lg-2 sidebar-widget-area sidebar-break-md">
+                <div class="widget">
+                    <div class="section-heading heading-dark">
+                        <h3 class="item-heading">Popular tags</h3>
+                    </div>
+
+                    <div class="widget-tag">
+                        <ul>
+                            <li *ngFor="let tag of tags">
+                                <a href="#">
+                                    <!-- {{tag.name.toUpperCase()}} -->
+                                </a>
+                            </li>
+                        </ul>
+                       
+                    </div>
+                    <div class="widget-tag">
+                        <ul>
+                            <li>
+                                <a href="#">DESERT</a>
+                            </li>
+                            <li>
+                                <a href="#">CAKE</a>
+                            </li>
+                            <li>
+                                <a href="#">BREAKFAST</a>
+                            </li>
+                            <li>
+                                <a href="#">BURGER</a>
+                            </li>
+                            <li>
+                                <a href="#">DINNER</a>
+                            </li>
+                            <li>
+                                <a href="#">PIZZA</a>
+                            </li>
+                            <li>
+                                <a href="#">SEA FOOD</a>
+                            </li>
+                            <li>
+                                <a href="#">SALAD</a>
+                            </li>
+                            <li>
+                                <a href="#">JUICE</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>                    
+            </div>
+            <!-- Popular tags end here -->
+        </div>
+        <!-- Pagination Start Here -->
+        <pagination-controls 
+        *ngIf="totalPages > 1"
+        id="pagination-nav"
+        (pageChange)="getPage($event)"
+        previousLabel=""
+        nextLabel=""
+        responsive="true"
+        screenReaderPaginationLabel="Pagination">
+        </pagination-controls>
+        <!-- Pagination End Here -->
+    </div>
+</section>
+<!-- Results Recipe End Here -->

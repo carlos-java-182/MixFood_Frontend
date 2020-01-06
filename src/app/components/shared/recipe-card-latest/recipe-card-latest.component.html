@@ -1,0 +1,10 @@
+<div class="item-img">
+    <a (click)="goToRecipe(recipe.id)"><img [src]="recipe.thumbRoute" alt="Post"></a>
+    <div class="count-number">{{index+1}}</div>
+</div>
+<div class="item-content">
+    <div (click)="goToRecipesByCategory(recipe.category.id)" class="item-ctg">{{recipe.category.name}}</div>
+    <h4 class="item-title">
+        <a (click)="goToRecipe(recipe.id)">{{recipe.name}}</a>
+    </h4>
+</div>

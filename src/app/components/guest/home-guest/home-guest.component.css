@@ -1,0 +1,211 @@
+/* @import '../../../node_modules/ngx-owl-carousel-o/lib/styles/scss/owl.carousel'; */
+/* @import '~ngx-owl-carousel-o/lib/styles/scss/owl.theme.default'; */
+
+/* @import "~@ng-select/ng-select/themes/default.theme.css"; */
+.input-search{
+    width: 100%;
+    height: 60px !important;
+    padding-left: 4rem !important;
+    border-radius: 4px !important;
+}
+
+.recipe-container-dropdown{
+    position: absolute;
+    z-index: 200;
+    width: 100%;
+    height: 400px;
+    background: #fff;
+    box-sizing: border-box;
+    border: 1px solid rgba(128,128,128,0.3);
+    border-top: none;
+    border-radius: 0 0 4px 4px;
+    overflow-y: auto;
+}
+.recipe-container-dropdown .result-container:hover{
+    background-color: #ff4a52;
+    color: #fff !important;
+    cursor: pointer;
+}
+.recipe-container-dropdown .result-container .result-item{
+    box-sizing: border-box;
+    font-size: 18px;
+}
+
+.recipe-container-dropdown .result-container{
+    padding: 5px;
+}
+/* .recipe-container-dropdown .result-item:hover{
+   
+    color: #fff !important;
+    cursor: pointer;
+} */
+
+.recipe{
+    padding: 10px;
+    color: black;
+}
+
+.recipe:hover{
+    color: red;
+}
+
+.form-control-feedback {
+    position: absolute;
+    z-index: 20;
+    display: block;
+    width: 4rem;
+    height: 4rem;
+    line-height: 6rem;
+    text-align: center;
+    pointer-events: none;
+    color: #aaa;
+}
+
+.btn-clear{
+    position: absolute;
+    background: none;
+    color: #ff4a52;
+    border: none;
+    right: 20px;
+    z-index: 20;
+    display: block;
+    width: 4rem;
+    height: 4rem;
+    line-height: 6rem;
+    text-align: center;
+}
+.btn-clear:hover{
+    cursor: pointer;
+    color: #e92731;
+}
+
+.search-sticky
+{
+    position: fixed;
+    z-index: 100;
+    top: 60px;
+    width: 100%;
+    /* height: 50px; */
+    padding: 0;
+    margin: 0;
+    
+    /* background-color: red !important; */
+}
+
+/*Search sticky Start Here*/
+.search-sticky .container-search
+{
+    width: 100% !important;
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
+.search-sticky .input-search{
+    /* background-color: pink; */
+}
+
+.search-sticky .tabs{
+    display: none;
+}
+.search-sticky .search-byrecipes{
+    padding: 20px  10px 0px 10px !important;
+    /* padding-top: 20px !important; */
+    /* margin: 0 !important; */
+    width: 100 !important;
+}
+
+.search-sticky h2
+{
+    display: none;
+}
+/*Sarch Sticky End Here*/
+
+.searchs{
+    background-color:#fff;
+}
+.searchs .back-image{
+    position: absolute;
+    z-index: 5;
+    width: 500px;
+    height: 500px;
+}
+
+.searchs .back-image img{
+    width: 100%;
+}
+
+
+.container-search{
+    /* position: relative; */
+  position: relative;
+  z-index: 10;
+}
+
+.tabs{
+
+}
+
+.by-ingredients,
+.by-recipes{
+  width: 50%;
+  background: #ff4a52;
+  color: #fff;
+  float: left;
+  height: 60px;
+  line-height: 60px;
+  text-align: center;
+  cursor: pointer;
+  text-transform: uppercase;
+}
+
+.by-ingredients, .by-recipes:hover{
+    background-color: #ff4a52;
+    color: #fff;
+}
+
+
+.search-byingredients,
+.search-byrecipes{
+  background: #fff;
+  padding: 40px;
+  clear: both;
+  width: 100%;
+  box-sizing: border-box;
+  box-shadow: 2px 2px 5px rgba(128,128,128,0.4); 
+}
+
+.search-active{
+    background-color: #fff;
+    color: #000;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.flex-bottom {
+    display: flex;
+    align-items: flex-end;
+  }
+
+.btn-sub{
+    height: 60px !important;
+    font-weight: bold;
+    padding: 20px 40px !important;
+}
+/*=============================================
+=            Section Slider cards block            =
+=============================================*/
+
+.carousel-inner{
+    background-color: red;
+}
+
+
+
+
+/*=====  End of Section Slider cards block  ======*/
+
+.card-tags li a{
+    font-weight: bold;
+    /* color: #ff4a52; */
+}
+
+

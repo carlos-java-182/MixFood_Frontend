@@ -1,1 +1,50 @@
 /* You can add global styles to this file, and also import other style files */
+@import "~@ng-select/ng-select/themes/default.theme.css";
+
+/* @import '~ngx-bar-rating/themes/br-fontawesome-theme'; */
+
+
+/*=============================================
+=            Bar rating            =
+=============================================*/
+
+.bar-rating-container
+{
+    /* background-color: yellow !important; */
+}
+
+.br-default
+{
+    /* background-color: red; */
+    position: relative !important;
+    margin-top: 0 !important;
+    padding: 0 !important;
+    /* padding: 0 !important; */
+}
+.br-default .br-units
+{
+    /* position: relative !important; */
+    margin: 0 !important;
+    padding: 0 !important;
+    top: -4px !important;
+    align-items:center;
+}
+.br-default .br-unit
+{
+    margin-right:5px;
+    font-size:23px;height:18px;
+    width:18px;
+}.br-default .br-unit:after
+{
+    content:"\2605";
+    color:#d2d2d2;
+}.br-default .br-selected:after
+{
+    color:#EDB867;
+}.br-default .br-active:after
+{
+    color:#EDB867;
+}
+/*=====  End of Bar rating  ======*/
+
+

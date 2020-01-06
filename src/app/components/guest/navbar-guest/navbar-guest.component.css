@@ -1,0 +1,79 @@
+.menu-mobile{
+   
+    -webkit-transition:all .26s ease-in-out !important;
+    -moz-transition:all .26s ease-in-out !important;
+    -ms-transition:all .26s ease-in-out !important;
+    -o-transition:all .26s ease-in-out !important;
+    transition:all .26s ease-in-out !important;
+    display: block !important;
+}
+
+.form-container
+{
+    position: relative;
+    top: 5px;
+    /* background-color: blanchedalmond; */
+}
+
+.form-input
+{
+    height: 35px !important;
+    font-size: 2rem;
+    font-style: italic;
+    /* border-right: none; */
+}
+
+.form-input :focus
+{
+    border-color: none;
+}
+
+.btn-search
+{
+    height: 35px;
+    font-size: 2rem;
+    background-color: #fff;
+}
+
+.search-container
+{
+    position: relative !important;
+}
+
+.adv-search-wrap
+{
+    position: absolute !important;
+    z-index:  1000 !important;
+    width: 800px !important;
+   
+    /* background-color: red !important; */
+}
+
+.adv-search-wrap input
+{
+    top: 10px;
+    height: 45px !important;
+}
+.adv-search-wrap .btn-group
+{
+    top: 10px !important;
+    background-color: #fff;
+    height: 45px !important;
+    padding: 0 !important;
+}
+.adv-search-wrap .btn-group .input-group-btn button
+{
+    top: 10px !important;
+    /* background-color: #fff; */
+    height: 45px !important;
+}
+.adv-search-wrap .btn-group .input-group-btn .btn-search
+{
+  background-color: #ff4a52 !important;
+}
+
+.adv-li
+{
+    width: 400px !important;
+    background-color: red !important;
+}

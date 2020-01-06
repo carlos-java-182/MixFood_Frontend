@@ -645,7 +645,7 @@ ul {
 }
 
 #preloader {
-	background: #ffffff url('img/preloader.gif') no-repeat scroll center center;
+	background: #ffffff url('src/assets/img/preloader.gif') no-repeat scroll center center;
 	height: 100%;
 	left: 0;
 	overflow: visible;
@@ -5222,7 +5222,7 @@ ul {
 	left: 0;
 	height: 100%;
 	width: 100%;
-	background-color: rgba(255, 74, 82, 0.8);
+	/* background-color: rgba(255, 74, 82, 0.8); */
 	z-index: 0;
 	opacity: 0;
 	visibility: hidden;
@@ -7631,7 +7631,7 @@ ul {
 	margin-bottom: -100px;
 	z-index: 8;
 	position: relative;
-	background-image: url(img/figure/box-shadow.png);
+	background-image: url(src/assets/img/figure/box-shadow.png);
 	background-size: contain;
 	background-repeat: no-repeat;
 }

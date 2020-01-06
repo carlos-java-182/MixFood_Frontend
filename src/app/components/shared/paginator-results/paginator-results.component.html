@@ -1,0 +1,24 @@
+<!-- Pagination Start Here -->
+<ul class="pagination-layout1" >
+    <li *ngIf="paginator.number > 0">
+        <a (click)="goToPage(page-1)" >&laquo;</a>
+    </li>
+   
+    <li [ngClass]="{'disabled': paginator.first}">
+        <a (click)="goToPage(0)">First</a>
+    </li> 
+
+    <li *ngFor="let page of pages">
+        <a >{{page}}</a>
+    </li>
+ 
+
+     <li *ngIf="paginator.number < paginator.totalPages-1">
+        <a (click)="goToPage(page+1)" >&raquo;</a>
+    </li>
+
+    <li [ngClass]="{'disabled': paginator.last}">
+        <a (click)="goToPage(paginator.totalPages-1)">Last</a>
+    </li> 
+</ul> 
+<!-- Pagination End Here -->
