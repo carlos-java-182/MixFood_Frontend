@@ -74,6 +74,17 @@
                         </ng-select>
                     </div>
                     <!-- Tags Select End Here -->
+                    <!-- Difficulty Select Start Here -->
+                    <div class="form-group">
+                        <label for="difficulty">Difficulty</label>
+                        <select name=difficulty [(ngModel)]="recipeModel.difficulty" class="form-control custom-select">
+                            <option selected value="null">Chosse one...</option>
+                            <option value="EASY">Easy</option>
+                            <option value="MEDIUM">Medium</option>
+                            <option value="HARD">HARD</option>
+                        </select>
+                    </div>
+                    <!-- Difficulty Select End Here -->
                     <!-- Input Description Start Here -->
                     <div class="form-group">
                         <label>Description <span> ({{descriptionLength}} characters left)</span></label>
@@ -94,14 +105,8 @@
                     <!-- Input Description End Here -->         
                     <!-- Input Video Frame Start Here -->
                     <div class="form-group">
-                        <label>Insert frame video here</label>
-                        <textarea  
-                        name="videoFrame" 
-                        [(ngModel)]="recipeModel.videFrame" 
-                        class="form-control" 
-                        placeholder="<frame></frame>"
-                        name="videoFraME">
-                        </textarea>
+                        <label>URL YouTube Video</label>
+                        <input  [(ngModel)]="recipeModel.videFrame" class="form-control"  name="videoFrame"  type="text">
                     </div>
                     <div>
                     </div>
@@ -176,10 +181,12 @@
                     <!-- Input Ingredients Start Here -->
                     <div class="additional-input-wrap">
                         <label>Ingredientes</label>
-                        <div class="row no-gutters">
-                            <div class="col-6">
-                                <div class="form-group  additional-input-box ">
+                        <div class="row gutters-5">
+                            <div class="col-lg-4">
+                                <div class="form-group additional-input-box icon-left">
+                                    <i class="fas fa-egg"></i>
                                     <ng-select 
+                                    class="submit-select"
                                     #ingredient="ngModel"
                                     name="ingredient"
                                     [(ngModel)]="ingredientModel.id"
@@ -188,32 +195,33 @@
                                     bindValue="id"                       
                                     [multiple]="false"
                                     placeholder ="Select a ingredient"
-                                    notFoundText = "Result not found"
-                                    >
+                                    notFoundText = "Result not found">
                                     </ng-select>
                                 </div>
                             </div>
                 
-                            <div class="col-3">
-                                <div class="form-group additional-input-box ">
+                            <div class="col-lg-5">
+                                <div class="form-group additional-input-box icon-left">
+                                    <i class="fas fa-shopping-bag"></i>
                                     <input 
                                     name="amountIngredient"
                                     #amountIngredient="ngModel"  
                                     [(ngModel)]="ingredientModel.amountIngredient"
                                     type="text" 
-                                    placeholder="Cantidad: 1/2 kg, piezas, litros, kilos, gramos" 
+                                    placeholder="Cantidad: 1/2 kg" 
                                     class="form-control">
                                 </div>
                             </div>
-                            <div class="col-3">
-                                <div class="form-group additional-input-box ">
-                                   <select 
-                                   #unit="ngModel" 
-                                   [(ngModel)]="ingredientModel.unit" class="form-control custom-select" name="unit" id="">
+                            <div class="col-lg-3">
+                                <div class="form-group additional-input-box incon-left">
+                                    <i class="fas fa-balance-scale"></i>
+                                    <select 
+                                    #unit="ngModel" 
+                                    [(ngModel)]="ingredientModel.unit" class="form-control custom-select" name="unit" id="">
                                        <option value="null"
                                          selected>Choose a Unit</option>
                                         <option value="kg">Kg</option>
-                                   </select>
+                                    </select>
                                 </div>
                             </div>
                             <div class="col-12">

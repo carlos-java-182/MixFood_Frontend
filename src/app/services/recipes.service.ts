@@ -300,6 +300,11 @@ export class RecipesService {
     );
   }
 
+  public updateViews(idRecipe: number, idUser: number):Observable<any>
+  {
+    return this.http.put(`${this.url}views/${idRecipe}/user/${idUser}`,{},{headers: this.headers});
+  }
+
 
 }
 /**
@@ -435,6 +440,7 @@ export interface RecipeProfile{
   difficulty: string;
   preparationTime: string;
   totalLikes: number;
+  videoFrame: string;
   category: {
     id: number;
     name: string;

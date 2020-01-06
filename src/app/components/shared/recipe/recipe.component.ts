@@ -5,6 +5,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { RankingService, NewRanking, RankingComment } from 'src/app/services/ranking.service';
 import { CategoryService, CategoryCard } from 'src/app/services/category.service';
+import { DomSanitizer } from '@angular/platform-browser';
+import { isDate } from 'util';
 @Component({
   selector: 'app-recipe',
   templateUrl: './recipe.component.html',
@@ -30,7 +32,7 @@ export class RecipeComponent implements OnInit {
   private currentPageRankings: number = 0;
   private totalPagesRankings: number;
   private isAlreadyComent: boolean = false;
-
+  //private videoFrame: string;
   //*Objects declaration
   private images: Images[];
   private ingredients: Ingredients[];
@@ -40,8 +42,7 @@ export class RecipeComponent implements OnInit {
   isLoggedIn: boolean = false;
   private showMoreRankigns: boolean = false;
   private arr = [];
-
-
+  private videoFrame: any;
   //*Objects declaration
  
   recipesLatests: RecipeLatest[];
@@ -55,10 +56,14 @@ export class RecipeComponent implements OnInit {
               private _categoryService: CategoryService,
               private activatedRoute: ActivatedRoute,
               private router: Router,
-              private formBuilder: FormBuilder) { }
+              private formBuilder: FormBuilder,
+              private _sanitizer: DomSanitizer
+              ) { }
 
   ngOnInit() 
   {
+    this.videoFrame = this._sanitizer.bypassSecurityTrustResourceUrl('https://www.youtube.com/watch?v=SLZDNUdQmJ8');
+
     //*Create form group for new comment
     this.commentForm = this.formBuilder.group({
       comment: ['',Validators.required],
@@ -68,7 +73,23 @@ export class RecipeComponent implements OnInit {
     //this.getRecipeById(1);
     this.activatedRoute.paramMap.subscribe(params =>
       {
+        let idUser = 1;
         this.id = Number.parseInt(params.get('id'));
+
+        this._recipeService.updateViews(200,idUser).subscribe(response =>
+          {
+            console.log(response);
+          },
+          err =>
+          {
+            if(err.status == 404)
+            {
+              console.log(err.error.message);
+            }
+            
+          });
+
+
         this.getRecipeById(this.id);
         this.getCategoriesList();
         this.getRankingComments(this.id);
@@ -84,12 +105,16 @@ export class RecipeComponent implements OnInit {
       });
   }
 
+
+
+
   //*Get recipe by id param get in rotute
   getRecipeById(id: number):void
   {
     this._recipeService.getProfile(id).subscribe(data =>
     {
       this.recipe;
+      console.log(data);
       this.recipeName = data.name;
       this.recipeCategoryName = data.category.name;
       this.recipeAverangeRanking = data.averangeRanking;
@@ -103,7 +128,8 @@ export class RecipeComponent implements OnInit {
       this.images = data.images;
       this.ingredients = data.recipeIngredients;
       this.tags = data.tags;
-      //this.rankings = data.rankings;
+     
+
       this.totalRankings = this.rankings.length;
       this.idUser = data.user.id;
 

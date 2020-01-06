@@ -63,6 +63,8 @@ import { RecipeCardPopularComponent } from './components/shared/recipe-card-popu
 import { RecipeCardLatestComponent } from './components/shared/recipe-card-latest/recipe-card-latest.component';
 import { SettingsUserComponent } from './components/user/settings-user/settings-user.component';
 import { FavoritesComponent } from './components/user/favorites/favorites.component';
+import { AuthComponent } from './services/auth/auth.component';
+import { RecipeCardPrincipalComponent } from './components/shared/recipe-card-principal/recipe-card-principal.component';
 
 @NgModule({
   declarations: [
@@ -111,7 +113,9 @@ import { FavoritesComponent } from './components/user/favorites/favorites.compon
     RecipeCardPopularComponent,
     RecipeCardLatestComponent,
     SettingsUserComponent,
-    FavoritesComponent
+    FavoritesComponent,
+    AuthComponent,
+    RecipeCardPrincipalComponent
 
     
     

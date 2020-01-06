@@ -63,7 +63,8 @@ export class CreaterecipeUserComponent implements OnInit {
     prepHours: '',
     preMinutes: '',
     preparationSteps: '',
-    status: 'public'
+    status: 'public',
+    difficulty: 'null'
   }
 
   //Recipe status model

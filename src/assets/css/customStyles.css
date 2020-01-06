@@ -502,7 +502,9 @@ input.file
  }
 .owl-theme .owl-nav{
 	position: absolute;
-	top: 45%;
+	/* background-color: red ; */
+	z-index: -1;
+	top: 30%;
 	transform: translateY(-50%);
 	width: 100%;
 	display: flex !important;
@@ -523,16 +525,25 @@ input.file
 	background:none !important;
 }
 
+
 .owl-theme .owl-nav .owl-prev span , 
 .owl-theme .owl-nav .owl-next span{
+	position: absolute ;
+	z-index: 1000;
 	color: rgba(255, 77, 85,0.2);
 	height: 20px !important;
 	width: 20px !important;
 	padding: 0px !important;
 	margin: 0 !important;
 	font-size: 12rem;
-	top: 0 !important;
+	top: -30px !important;
 }
+
+.owl-theme .owl-nav .owl-prev span
+{
+	left: -30px !important;
+}
+
 .owl-theme .owl-nav .owl-prev span:hover,
 .owl-theme .owl-nav .owl-next span:hover{
 	color: #e92731;
