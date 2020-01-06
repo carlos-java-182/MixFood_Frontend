@@ -50,3 +50,10 @@
 {
 	color: #909090;
 }
+
+.list-ranking
+{
+	position: relative !important;
+	top: -6px !important;
+	/* background-color: royalblue; */
+}

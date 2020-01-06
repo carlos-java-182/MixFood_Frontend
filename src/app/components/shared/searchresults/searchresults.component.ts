@@ -86,6 +86,7 @@ export class SearchresultsComponent implements OnInit {
         {
           //*Add results content to object
           this.recipes = response.content as Recipe[];
+          console.log(this.recipes);
           //*Get paginator
           this.paginator = response;
           //*Get total results

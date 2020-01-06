@@ -300,6 +300,11 @@ export class RecipesService {
     );
   }
 
+  public updateViews(idRecipe: number, idUser: number):Observable<any>
+  {
+    return this.http.put(`${this.url}views/${idRecipe}/user/${idUser}`,{},{headers: this.headers});
+  }
+
 
 }
 /**

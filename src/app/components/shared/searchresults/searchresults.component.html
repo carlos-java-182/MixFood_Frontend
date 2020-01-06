@@ -44,11 +44,9 @@
                                 <h3 class="item-title"><a (click)="showRecipe(recipe)" >{{recipe.name}}</a></h3>
                                 <span class="sub-title">{{recipe.category.name}}</span>
                                 <ul class="item-rating">
-                                        <li class="star-fill"><i class="fas fa-star"></i></li>
-                                        <li class="star-fill"><i class="fas fa-star"></i></li>
-                                        <li class="star-fill"><i class="fas fa-star"></i></li>
-                                        <li class="star-fill"><i class="fas fa-star"></i></li>
-                                        <li class="star-empty"><i class="fas fa-star"></i></li>
+                                    <li> 
+                                        <bar-rating [(rate)]="recipe.averangeRanking" [max]="5"  [readOnly]="true"></bar-rating>
+                                    </li>
                                 </ul>
                                 <ul class="entry-meta">
                                     <li><a><i class="fas fa-clock"></i>{{recipe.createAt | timeAgo}}</a></li>
