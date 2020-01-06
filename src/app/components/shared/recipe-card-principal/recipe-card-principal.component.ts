@@ -17,13 +17,13 @@ export class RecipeCardPrincipalComponent implements OnInit {
 
   private goToCategory(id: number): void 
   {
-    let path = `search/category/${id}/page/0`;
+    let path = `search/category/${id}/page/1`;
     this.router.navigate([path]);
   }
 
   private goToTag(id: number): void 
   {
-    let path = `search/tag/${id}/page/0`;
+    let path = `search/tag/${id}/page/1`;
     this.router.navigate([path]);
   }
 

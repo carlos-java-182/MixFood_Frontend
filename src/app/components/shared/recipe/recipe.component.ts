@@ -34,6 +34,7 @@ export class RecipeComponent implements OnInit {
   private isAlreadyComent: boolean = false;
   //private videoFrame: string;
   //*Objects declaration
+  private recipe: RecipeProfile;
   private images: Images[];
   private ingredients: Ingredients[];
   private tags: Tag[];
@@ -48,7 +49,7 @@ export class RecipeComponent implements OnInit {
   recipesLatests: RecipeLatest[];
   recipesFeatured: RecipeFeatured[];
   categoryList: CategoryCard[];
-  recipe: any;
+  //recipe: any;
   commentForm: FormGroup;
 
   constructor(private _recipeService: RecipesService,
@@ -76,7 +77,7 @@ export class RecipeComponent implements OnInit {
         let idUser = 1;
         this.id = Number.parseInt(params.get('id'));
 
-        this._recipeService.updateViews(200,idUser).subscribe(response =>
+        this._recipeService.updateViews(this.id,idUser).subscribe(response =>
           {
             console.log(response);
           },
@@ -85,12 +86,9 @@ export class RecipeComponent implements OnInit {
             if(err.status == 404)
             {
               console.log(err.error.message);
-            }
-            
+            }      
           });
-
-
-        this.getRecipeById(this.id);
+       this.getRecipeById(this.id);
         this.getCategoriesList();
         this.getRankingComments(this.id);
         this._recipeService.validateLike(1,1).subscribe(response =>
@@ -103,6 +101,8 @@ export class RecipeComponent implements OnInit {
         }
         );
       });
+
+     // this.getRecipeById(1);
   }
 
 
@@ -113,8 +113,9 @@ export class RecipeComponent implements OnInit {
   {
     this._recipeService.getProfile(id).subscribe(data =>
     {
-      this.recipe;
-      console.log(data);
+      this.recipe = data;
+      console.log(this.recipe);
+      
       this.recipeName = data.name;
       this.recipeCategoryName = data.category.name;
       this.recipeAverangeRanking = data.averangeRanking;
@@ -137,7 +138,7 @@ export class RecipeComponent implements OnInit {
       this.getRecipesLatests(this.idUser);
       this.getRecipesCardsFeatured(this.idUser);
     });
-    console.log(this.arr);  
+    //console.log(this.arr);  
   } 
 
   //*Get Latests recipes by id and create object with data response
@@ -174,7 +175,7 @@ export class RecipeComponent implements OnInit {
    */
   private createComment(values):void
   {
-    console.log(values['comment']);
+   // console.log(values['comment']);
     if(values['comment'] != '' && values['ranking'] != '')
     {
       let newRanking: any;
