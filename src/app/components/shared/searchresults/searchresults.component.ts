@@ -23,11 +23,13 @@ export class SearchresultsComponent implements OnInit {
   private message: string;
   private categoryName: string;
   private tagName: string;
-  private paginator: any;
+
   private isResultEmpty: boolean = false;
   private isSearchByCategory: boolean = false;
   private isSearchByTerm: boolean = false;
   private isSearchByTag: boolean = false;
+
+  private paginator: any;
 
   //*Objects declaration
   private recipes: Recipe[];
@@ -121,6 +123,10 @@ export class SearchresultsComponent implements OnInit {
         //*Get total pages
         this.totalPages = this.paginator.totalPages;
       }
+    },
+    err =>
+    {
+      console.log(err);
     });
   }
 

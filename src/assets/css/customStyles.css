@@ -553,7 +553,7 @@ input.file
 
 
 /*=============================================
-=            Section pagination nav block            =
+=            Pagination nav block            =
 =============================================*/
 #pagination-nav .ngx-pagination
 {
@@ -606,10 +606,11 @@ input.file
 	transition: all 0.5s ease-out;
 }
 
-#pagination-nav .ngx-pagination .current span
+#pagination-nav .ngx-pagination .current 
 {
-	background-color: #ff4a52 !important;
-	color: #ffffff !important;
+	background: none !important;
+	/* background-color: #ff4a52 !important; */
+	/* color: #ffffff !important; */
 }
 
 
@@ -622,10 +623,10 @@ input.file
 {
 	height: 4.6rem;
 	width: 5.2rem;
-	background-color: #e1e1e1;
+	background-color: #ff4a52;
 	font-size: 22px;
 	line-height: 1;
-	color: #111111;
+	color: #fff;
 	-webkit-box-pack: center;
 	-ms-flex-pack: center;
 	justify-content: center;

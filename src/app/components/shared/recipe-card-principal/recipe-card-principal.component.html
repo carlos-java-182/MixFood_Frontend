@@ -1,47 +1,45 @@
-<div class="card-item col-lg-12 col-md-12 col-sm-12">
-    <div class="product-box-layout1">
-        <figure class="item-figure">
-            <a [routerLink]="['/recipe',recipe.id]">
-                <img  src="assets/img/product/product5.jpg"  
-                alt="Product">
-            </a>
-        </figure>
-        <div class="item-content">
-            <h3 class="item-title"><a [routerLink]="['/recipe',recipe.id]">{{recipe.name}}</a></h3>
-            <a (click)="goToCategory(recipe.category.id)"><span class="sub-title">{{recipe.category.name.toUpperCase()}}</span></a>
-            <span class="sub-title"></span>                        
-            <ul class="item-rating">
-                <li> 
-                   <bar-rating [(rate)]="recipe.averangeRanking" [max]="5" [readOnly]="true"></bar-rating>
-                </li>
-            </ul>
-            <ul class="entry-meta">
-                <li>
-                    <a [routerLink]="['/profile',recipe.user.id]">
-                        <i class="fas fa-user"></i><span>{{recipe.user.name }} {{recipe.user.lastname }}</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="#"><i class="fas fa-heart"></i>
-                        <span>{{recipe.totalLikes}}</span> 
-                        <span *ngIf="recipe.totalLikes > 1 || recipe.totalLikes == 0"> Likes</span>
-                        <span *ngIf="recipe.totalLikes == 1"> Like</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="#"><i class="fas fa-eye"></i> {{recipe.views}}</a>
-                </li>
-                <li>
-                    <a href="#"><i class="fas fa-clock"></i> {{recipe.createAt | timeAgo}}</a>
-                </li>
-                <li>
-                    <ul class="card-tags">
-                        <li *ngFor="let tag of recipe.tags">
-                            <a (click)="goToTag(tag.id)">#{{tag.name}}</a>
-                        </li>
-                    </ul>
-                </li>           
-            </ul>
-        </div>
+<div class="product-box-layout1">
+    <figure class="item-figure">
+        <a [routerLink]="['/recipe',recipe.id]">
+            <img  src="assets/img/product/product5.jpg"  
+            alt="Product">
+        </a>
+    </figure>
+    <div class="item-content">
+        <h3 class="item-title"><a [routerLink]="['/recipe',recipe.id]">{{recipe.name}}</a></h3>
+        <a (click)="goToCategory(recipe.category.id)"><span class="sub-title">{{recipe.category.name.toUpperCase()}}</span></a>
+        <span class="sub-title"></span>                        
+        <ul class="item-rating">
+            <li> 
+                <bar-rating [(rate)]="recipe.averangeRanking" [max]="5" [readOnly]="true"></bar-rating>
+            </li>
+        </ul>
+        <ul class="entry-meta">
+            <li>
+                <a [routerLink]="['/profile',recipe.user.id]">
+                    <i class="fas fa-user"></i><span>{{recipe.user.name }} {{recipe.user.lastname }}</span>
+                </a>
+            </li>
+            <li>
+                <a href="#"><i class="fas fa-heart"></i>
+                    <span>{{recipe.totalLikes}}</span> 
+                    <span *ngIf="recipe.totalLikes > 1 || recipe.totalLikes == 0"> Likes</span>
+                    <span *ngIf="recipe.totalLikes == 1"> Like</span>
+                </a>
+            </li>
+            <li>
+                <a href="#"><i class="fas fa-eye"></i> {{recipe.views}}</a>
+            </li>
+            <li>
+                <a href="#"><i class="fas fa-clock"></i> {{recipe.createAt | timeAgo}}</a>
+            </li>
+            <li>
+                <ul class="card-tags">
+                    <li *ngFor="let tag of recipe.tags">
+                        <a (click)="goToTag(tag.id)">#{{tag.name}}</a>
+                    </li>
+                </ul>
+            </li>           
+        </ul>
     </div>
-</div>     
+</div>

@@ -431,16 +431,17 @@ export interface Recipe{
 
 export interface RecipeProfile{
   id : number;
-  name : string;
-  views: number;
-  thumbRoute : string;
-  createAt : string;
-  description: string;
   averangeRanking : number;
+  views: number;
+  totalLikes: number;
+  name : string;
+  preparationSteps: string;
   difficulty: string;
   preparationTime: string;
-  totalLikes: number;
   videoFrame: string;
+  description: string;
+  thumbRoute : string; 
+  createAt : string;
   category: {
     id: number;
     name: string;
@@ -459,6 +460,7 @@ export interface RecipeProfile{
 
 export interface Ingredients
 {
+  id: number;
   quantity: string;
   ingredient: 
   {
