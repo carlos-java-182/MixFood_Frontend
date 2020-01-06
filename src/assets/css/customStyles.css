@@ -151,7 +151,7 @@ input.file
 
 .submit-recipe-form .additional-input-box .form-control {
 	background-color: #ffffff;
-	border: none;
+	border: 1px solid #ccc;
 	border-radius: 4px;
 	height: 40px;
 	padding: 10px 15px;
@@ -746,12 +746,201 @@ input.file
 
 
 
+
+
+/*=============================================
+=            Section Input NgSelect Create block            =
+=============================================*/
+
+.submit-select
+{
+	height: 40px !important;
+}
+
+.input-ngselect-create
+{
+	height: 50px !important;
+	border-radius: 4px !important;
+	border: 1px solid #cccccc;
+	/* margin-bottom: 15px;
+	color: #111111;
+	font-weight: 500;
+	font-size: 15px; */
+	width: 100%;
+	padding: 0 !important;
+	margin: 0 !important;
+	/* padding: 5px 15px; */
+}
+.input-select-focus
+{
+	border-color: #111 !important;
+}
+
+.input-ngselect-create.ng-select-focused
+{
+	border-color: #111 !important;
+}
+
+.input-ngselect-create .ng-value
+{
+	background: none !important;
+}
+
+.input-ngselect-create .ng-value span
+{
+	color: #111 !important;
+}
+
+.input-ngselect-create .ng-input 
+{
+	/* padding: 0 !important; */
+	/* margin: 0 !important; */
+	height: 100% !important;
+}
+
+.input-ngselect-create .ng-input input
+{
+	height: 100% !important;
+}
+
+.input-ngselect-create .ng-select-container
+{
+	height: 100% !important;
+	border: none;
+	/* background-color: red !important; */
+}
+.input-ngselect-create .ng-select-container:focus
+{
+	outline: none !important;
+	box-shadow: none;
+	background-color: violet !important;
+	border-color: #111 !important;
+}
+
+.input-ngselect-create .input-option{
+	font-weight: 500;
+	font-size: 15px;
+	padding: 5px 15px;
+	border-radius: 4px;
+}
+
+.input-ngselect-create .ng-select-container
+{
+	height: 50px;
+	color: #111111;
+	font-weight: 500;
+	font-size: 15px;
+	width: 100%;
+	padding: 5px 15px;
+}
+.input-ngselect-create.ng-select.ng-select-focused:not(.ng-select-opend) > .ng-select-container
+{
+	border-color: #111 !important;
+	box-shadow: none;
+}
+
+
+/*=====  End of Section Input Select block  ======*/
+
+
+
+
+.input-ngselect-additional
+{
+	height: 50px !important;
+	border-radius: 4px !important;
+	border: 1px solid #cccccc;
+	/* margin-bottom: 15px;
+	color: #111111;
+	font-weight: 500;
+	font-size: 15px; */
+	width: 100%;
+	padding: 0 !important;
+	margin: 0 !important;
+	/* padding: 5px 15px; */
+}
+.input-select-additional
+{
+	border-color: #111 !important;
+}
+
+.input-ngselect-additional.ng-select-focused
+{
+	border-color: #111 !important;
+}
+
+.input-ngselect-additional .ng-value
+{
+	background: none !important;
+}
+
+.input-ngselect-additional .ng-value span
+{
+	color: #111 !important;
+}
+
+.input-ngselect-additional .ng-input 
+{
+	/* padding: 0 !important; */
+	/* margin: 0 !important; */
+	height: 100% !important;
+}
+
+.input-ngselect-additional .ng-input input
+{
+	height: 100% !important;
+}
+
+.input-ngselect-additional .ng-select-container
+{
+	height: 100% !important;
+	border: none;
+	/* background-color: red !important; */
+}
+.input-ngselect-additional .ng-select-container:focus
+{
+	outline: none !important;
+	box-shadow: none;
+	background-color: violet !important;
+	border-color: #111 !important;
+}
+
+.input-ngselect-additional .input-option{
+	font-weight: 500;
+	font-size: 15px;
+	padding: 5px 15px;
+	border-radius: 4px;
+}
+
+.input-ngselect-additional .ng-select-container
+{
+	height: 50px;
+	color: #111111;
+	font-weight: 500;
+	font-size: 15px;
+	width: 100%;
+	padding: 5px 15px;
+}
+.input-ngselect-additional.ng-select.ng-select-focused:not(.ng-select-opend) > .ng-select-container
+{
+	border-color: #111 !important;
+	box-shadow: none;
+}
+
+
+/*=====  End of Section Select additional block  ======*/
+
+
+
+
+
 /*=============================================
 =            Section input errors block            =
 =============================================*/
 
 .has-error input
 {
+	border: 1px solid black;
 	border-color: red !important;
 }
 
@@ -774,4 +963,16 @@ input.file
 {
     position: relative !important;
     top: 30px;
+}
+
+
+.select-multiple .ng-placeholder 
+{
+	transform: translateY(50%);
+	padding-left: 20px !important;
+}
+
+.ng-select.ng-select-focused:not(.ng-select-opened) > .ng-select-container{
+	border-color: none;
+	box-shadow: none;
 }

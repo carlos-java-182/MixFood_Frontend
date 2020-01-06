@@ -291,3 +291,24 @@
 
 /*=====  End of Section Input file  ======*/
 
+.form-control
+{
+    border-radius: 4px !important;
+}
+
+.form-control:focus
+{
+    border-color: #111;
+}
+
+
+.custom-select
+{
+    height: 100%;
+}
+
+.additional-input
+{
+    height: 40px !important; 
+}
+

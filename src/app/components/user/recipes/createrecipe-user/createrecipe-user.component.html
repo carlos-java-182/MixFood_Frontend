@@ -2,12 +2,12 @@
 <app-navbar-user></app-navbar-user>
 <!-- User Navabar End Here -->
 <!-- Inne Page Banner Area Start Here -->
-<section class="inner-page-banner bg-common" data-bg-image="img/figure/inner-page-banner1.jpg">
+<section class="section-header inner-page-banner bg-common" data-bg-image="https://radiustheme.com/demo/html/ranna/ranna/img/figure/inner-page-banner1.jpg">
     <div class="container">
         <div class="row">
             <div class="col-12">
                 <div class="breadcrumbs-area">
-                    <h1>New Recipe</h1>
+                    <h1>Create Recipe</h1>
                 </div>
             </div>
         </div>
@@ -15,7 +15,7 @@
 </section>
 <!-- Inne Page Banner Area End Here -->
 <!-- Submit Recipe Area Start Here -->
-<section class="submit-recipe-page-wrap padding-top-74 padding-bottom-50">
+<section class="submit-recipe-page-wrap padding-top-45 padding-bottom-50">
     <div class="container">
         <div class="row gutters-60">
             <div class="col-lg-8">
@@ -30,6 +30,7 @@
                     <div class="form-group">
                         <label>Name</label>
                         <input 
+                        #recipeName="ngModel"
                         name="recipeName"
                         [(ngModel)]="recipeModel.name"
                         type="text" 
@@ -37,6 +38,9 @@
                         class="form-control"                                
                         data-error="Subject field is required"
                         required>
+                        <div *ngIf="formRecipe.submitted && recipeName.invalid">
+                            errors
+                        </div  >
                         <div class="help-block with-errors"></div>
                     </div>
                     <!-- Input Name End Here -->
@@ -44,6 +48,7 @@
                     <div class="form-group">
                         <label>Choose a category</label>
                         <ng-select
+                        class="input-ngselect-create"
                         name="categoryId"
                         [(ngModel)]="recipeModel.categoryId"
                         [items]="categories"
@@ -186,7 +191,7 @@
                                 <div class="form-group additional-input-box icon-left">
                                     <i class="fas fa-egg"></i>
                                     <ng-select 
-                                    class="submit-select"
+                                    class="additional-input input-ngselect-additional"
                                     #ingredient="ngModel"
                                     name="ingredient"
                                     [(ngModel)]="ingredientModel.id"
@@ -209,7 +214,7 @@
                                     [(ngModel)]="ingredientModel.amountIngredient"
                                     type="text" 
                                     placeholder="Cantidad: 1/2 kg" 
-                                    class="form-control">
+                                    class="form-control additional-input">
                                 </div>
                             </div>
                             <div class="col-lg-3">

@@ -26,8 +26,9 @@
                 <!-- </div> -->
             </div>
             <!-- Edit Password Start Here -->
+            
             <div class="col-lg-10">
-                <div class="widget ranna-box-padding edit-container">
+                <div class="widget ranna-box-padding" [ngClass]="{'edit-container': isEditPassword}">
                     <div class="section-heading heading-dark ">
                         <h2 class="item-heading profile-name">Password 
                             <a (click)="togglePasswordEdit()"><i class="fas fa-pencil-alt"></i></a>
@@ -58,7 +59,7 @@
             <!-- Edit Password Stop Here -->
             <!-- Edit Email Start Here -->
             <div class="col-lg-10">
-                <div class="widget ranna-box-padding edit-container">
+                <div class="widget ranna-box-padding edit-container" [ngClass]="{'edit-container': isEditEmail}">
                     <div class="section-heading heading-dark ">
                         <h2 class="item-heading profile-name">
                             Email 
@@ -90,7 +91,7 @@
             <!-- Edit Email Stop Here -->
             <!-- Edit Personal Information Start Here -->
             <div class="col-lg-10">
-                <div class="widget ranna-box-padding edit-container">
+                <div class="widget ranna-box-padding edit-container" [ngClass]="{'edit-container': isEditInformation}">
                     <div class="section-heading heading-dark ">
                         <h2 class="item-heading profile-name">Personal information 
                             <a (click)="toggleInformationEdit()"><i class="fas fa-pencil-alt"></i></a></h2>  
@@ -147,7 +148,7 @@
             <!-- Edit Personal Information Stop Here -->
             <!-- Edit Social Networks Start Here -->
             <div class="col-lg-10">
-                <div class="widget ranna-box-padding edit-container">
+                <div class="widget ranna-box-padding edit-container" [ngClass]="{'edit-container': isEditSocial}">
                     <div class="section-heading heading-dark ">
                         <h2 class="item-heading profile-name">Social Networks
                             <a (click)="toggleSocialEdit()">
