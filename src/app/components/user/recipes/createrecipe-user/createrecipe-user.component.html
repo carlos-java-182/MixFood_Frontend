@@ -36,7 +36,7 @@
                         type="text" 
                         placeholder="Recipe Name" 
                         class="form-control is-invalid"    
-                        [ngClass]="{'is-invalid': formRecipe.submitted && recipeName.invalid && recipeName || recipeName.touched && recipeName.invalid}"                            
+                        [ngClass]="{'is-invalid': formRecipe.submitted && recipeName.invalid && recipeName || recipeName.touched && recipeName.invalid}"                          
                         data-error="Name field is required"
                         required>       
                     <div class="input-errors"                         
@@ -72,7 +72,6 @@
                     <!-- Select Category End Here -->
                     <!-- Tags Select Start Here -->
                     <div class="form-group select2-multiple">
-                        {{tagsId.value}}
                         <label>Tags (Max 5)</label>
                         <ng-select      
                         #tagsId="ngModel"
@@ -107,7 +106,7 @@
                             <option selected value="null">Chosse one...</option>
                             <option value="EASY">Easy</option>
                             <option value="MEDIUM">Medium</option>
-                            <option value="HARD">HARD</option>
+                            <option value="HARD">Hard</option>
                         </select>
                         <div class="input-errors" [ngClass]="{'is-invalid-input': formRecipe.submitted && difficulty.invalid}">
                             Please choose a difficulty.
@@ -208,26 +207,6 @@
                                     Please write the preparation time.
                                 </div>     
                             </div>                                                                  
-                            <!-- <div class="col-lg-6">
-                                <label for="">Minutes</label>
-                                <div class="form-group additional-input-box icon-left">
-                                    <i class="far fa-clock"></i>
-                                    <input 
-                                    #prepMinutes="ngModel"
-                                    [ngClass]="{'is-invalid': formRecipe.submitted && prepMinutes.invalid || prepMinutes.touched && prepMinutes.invalid}"   
-                                    name="prepMinutes"
-                                    [(ngModel)]="recipeModel.prepMinutes"
-                                    type="number"
-                                    min="0"
-                                    max="60"
-                                    placeholder="30"
-                                    class="form-control"
-                                    required>                                   
-                                </div>
-                                <div class="input-errors"  [ngClass]="{'is-invalid-input': formRecipe.submitted && prepMinutes.invalid || prepMinutes.touched && prepMinutes.invalid}" >
-                                    Please write the minutes.
-                                </div>
-                            </div>                                                                -->
                         </div>       
                     </div>
                     <!-- Input Preparation Time End Here -->

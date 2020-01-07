@@ -16,9 +16,9 @@ export class CategoryService {
     return this.http.get<CategoryCard[]>(this.url+'cards')
   }
 
-  public getCategoriesList():Observable<CategoryCard[]>
+  public getCategoriesList():Observable<any>
   {
-    return this.http.get<CategoryCard[]>(this.url+'list');
+    return this.http.get(this.url+'list');
   }
 
   public getCategoriesListUser(id: number, size: number):Observable<CategoryListUser[]>
@@ -46,6 +46,11 @@ export interface CategoryCard
 }
 
 export interface CategoryListUser
+{
+  id: number;
+  name: string;
+}
+export interface CategoryList
 {
   id: number;
   name: string;

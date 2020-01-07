@@ -35,13 +35,13 @@ export class ImageService {
     formData.append("id", id);
     formData.append("principalImage",principalImage);
     return this.http.post(`${this.url}/upload/`,formData).pipe(
-      catchError( e =>
-        {
-          //*Get http response status
-          let status = e.status;
-          console.log(status);
-          return throwError(e);
-        })
+    catchError( e =>
+      {
+        //*Get http response status
+        let status = e.status;
+        console.log(status);
+        return throwError(e);
+    })
     )
 
   }

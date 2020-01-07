@@ -40,8 +40,7 @@
                                         <span *ngIf="totalLikes > 0"> {{totalLikes}} Likes</span>
                                     </a>
                                 </li>
-                            </ul>
-                            
+                            </ul>            
                         </div>
                         <div class="col-lg-1">
                             
@@ -60,7 +59,7 @@
                     <div class="item-figure">
                         <div id="recipe-carousel" class="owl-carousel owl-theme">
                             <div *ngFor="let image of images">
-                                <img [src]="image.routeImage" alt="Product">
+                                <img src="http://localhost:8080/api/uploads/recipes/{{image.routeImage}}" alt="Product">
                             </div>
                         </div>
                     </div>
@@ -165,9 +164,9 @@
                     <div class="section-heading heading-dark row">
                         <h2 class="item-heading">Description</h2>
                     </div>
-                    <!-- <p class="item-description">
+                    <p class="item-description">
                         {{recipeDescription}}
-                    </p> -->
+                    </p>
                     <div class="making-elements-wrap">
                         <div class="row">
                             <div class="col-xl-6 col-12">
@@ -206,7 +205,7 @@
                         <div class="section-heading heading-dark">
                             <h2 class="item-heading">STEPS</h2>
                         </div>
-                        <!-- <p class="section-paragraph">{{recipe.steps}}</p> -->
+                        <div class="section-paragraph">{{preparationSteps}}</div>
                         <!-- <div class="direction-box-layout1">
                             <div class="item-figure">
                                 <img src="img/figure/direction1.jpg" alt="DIRECTIONS">
@@ -376,7 +375,7 @@
                                 </div>
                             </li>
                             <li class="show-more-container">
-                                <button class="btn-show-more" *ngIf="!showMoreRankigns" (click)="showMoreRankings()">Show more...</button>
+                                <button class="btn-show-more" *ngIf="showMoreRankigns" (click)="showMoreRankings()">Show more...</button>
                             </li>
                         </ul>
                     </div>
@@ -434,14 +433,26 @@
                         <ul class="block-list">
                             <li  class="single-item" *ngFor="let latest of recipesLatests let i = index" (click)="goToRecipe(latest.id)">
                                 <div class="item-img">
-                                    <a><img  class="img-thumbnail recipe-thumb" [src]="latest.thumbRoute" alt="Post"></a>
+                                    <a>
+                                        <img  class="img-thumbnail recipe-thumb" src="http://localhost:8080/api/uploads/recipes/{{latest.thumbRoute}}" alt="Recipe image">
+                                    </a>
                                     <div class="count-number">{{i+1}}</div>
                                 </div>
                                 <div class="item-content">
-                                    <div class="item-ctg">{{latest.category.name.toUpperCase()}}</div>
-                                    <h4 class="item-title"><a (click)="showRecipe(latest.id)">{{latest.name}}</a></h4>
-                                    <div class="item-post-by"><a href="single-blog.html"><i class="fas fa-user"></i>
-                                            {{latest.user.name +' '+latest.user.lastname}}</a></div>
+                                    <div class="item-ctg">
+                                        <a (click)="goToCategory(latest.category.id)">
+                                        {{latest.category.name.toUpperCase()}}
+                                        </a>
+                                    </div>
+                                    <h4 class="item-title">
+                                        <a [routerLink]="['/recipe',latest.id]">{{latest.name}}</a>
+                                    </h4>
+                                    <div class="item-post-by">
+                                        <a  [routerLink]="['/profile/',latest.user.id]">
+                                            <i class="fas fa-user"></i>
+                                            {{latest.user.name +' '+latest.user.lastname}}
+                                        </a>
+                                    </div>
                                 </div>
                             </li >
                         </ul>
@@ -463,11 +474,6 @@
                     </div>
                 </div> -->
                 <div class="widget">
-                    <div class="widget-ad">
-                        <a href="#"><img src="assets/img/figure/figure4.jpg" alt="Ad" class="img-fluid"></a>
-                    </div>
-                </div>
-                <div class="widget">
                     <div class="section-heading heading-dark">
                         <h3 class="item-heading">FEATURED RECIPES</h3>
                     </div>
@@ -483,7 +489,7 @@
                             data-r-extra-large-nav="true" data-r-extra-large-dots="false">
                             <div (click)="goToRecipe(featured.id)" class="featured-box-layout1" *ngFor="let featured of recipesFeatured">
                                 <div class="item-img">
-                                    <img [src]="featured.thumbRoute" alt="Brand" class="img-fluid">
+                                    <img src="http://localhost:8080/api/uploads/recipes/{{featured.thumbRoute}}" alt="Brand" class="img-fluid">
                                 </div>
                                 <div class="item-content">    
                                     <h4 class="item-title"><a href="single-recipe1.html">{{featured.name}}</a></h4>
@@ -528,10 +534,11 @@
                     <div class="widget-categories">
                         <ul>
                             <li *ngFor="let category of categoryList">
-                                <a href="#">{{category.name}}
-                                    <span>{{category.amountRecipes}}</span>
+                                <a (click)="goToCategory(category.id)">{{category.name}}
+                                    <!-- <span>{{category.amountRecipes}}</span> -->
                                 </a>
-                            </li>                     
+                            </li>  
+                            <li><a href="">Show More...</a></li>                  
                         </ul>
                     </div>
                 </div>
@@ -541,33 +548,9 @@
                     </div>
                     <div class="widget-tag">
                         <ul>
-                            <li>
-                                <a href="#">DESERT</a>
-                            </li>
-                            <li>
-                                <a href="#">CAKE</a>
-                            </li>
-                            <li>
-                                <a href="#">BREAKFAST</a>
-                            </li>
-                            <li>
-                                <a href="#">BURGER</a>
-                            </li>
-                            <li>
-                                <a href="#">DINNER</a>
-                            </li>
-                            <li>
-                                <a href="#">PIZZA</a>
-                            </li>
-                            <li>
-                                <a href="#">SEA FOOD</a>
-                            </li>
-                            <li>
-                                <a href="#">SALAD</a>
-                            </li>
-                            <li>
-                                <a href="#">JUICE</a>
-                            </li>
+                            <li *ngFor="let tag of tagsTrends">
+                                <a (click)="goToTag(tag.id)">{{tag.name}}</a>
+                            </li>                       
                         </ul>
                     </div>
                 </div>

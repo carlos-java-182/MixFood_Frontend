@@ -1,3 +1,4 @@
+import { CategoriesComponent } from './components/shared/categories/categories.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
@@ -68,8 +69,7 @@ const routes: Routes = [
   {component: RecipesUserComponent, path: 'user/recipes/page/:page/term/:term/status/:status'},
  
   //*Guest routes
-  {component: HomeGuestComponent, path: 'home'},
-  {component: HomeGuestComponent, path: 'home/:id'},
+  {component: HomeGuestComponent, path: ''},
   {component: SearchrecipeGuestComponent, path: 'searchrecipe-guest'},
   {component: SearchresultsGuestComponent, path: 'searchresults-guest'},
   {component: CategoriesGuestComponent, path: 'categories'},
@@ -77,6 +77,7 @@ const routes: Routes = [
   {component: SignupGuestComponent, path: 'guest/signup-guest'},
   {component: ForgotpasswordGuestComponent, path: 'forgotpassword'},
   {component: RecipeComponent, path: 'recipe/:id'},
+
 
   //*Search components
   {component: SearchresultsComponent, path: 'search/:term/page/:page'},

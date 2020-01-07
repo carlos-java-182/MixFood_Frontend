@@ -1,3 +1,4 @@
+import { TagShort } from 'src/app/services/tag.service';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
@@ -12,6 +13,10 @@ export class TagService {
   constructor(private http: HttpClient) { }
 
   
+  getTrends():Observable<any>
+  {
+    return this.http.get(`${this.url}trendings/page/0/items/10`);
+  }
   
   getTagsShort():Observable<TagShort[]>
   {

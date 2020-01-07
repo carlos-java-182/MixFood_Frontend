@@ -464,7 +464,7 @@ export interface RecipeProfile{
     lastname: string;
     description: string;
   },
-  rankings: Rankings[];
+  rankings?: Rankings[];
   tags: Tag[];
   images: Images[];
   recipeIngredients: Ingredients[];

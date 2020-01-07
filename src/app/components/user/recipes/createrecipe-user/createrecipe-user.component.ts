@@ -142,7 +142,7 @@ export class CreaterecipeUserComponent implements OnInit {
     this._tagService.getTagsShort().subscribe(data =>
       {
         this.tags = data;
-      })
+    });
   }
 
   /**
@@ -248,7 +248,10 @@ export class CreaterecipeUserComponent implements OnInit {
         {
           this.imagesURL.push(event.target.result);
         }
+        this.imagesCount++;
       }
+      console.log(this.imagesCount);
+      this.selecAsThumb(0);
       this.isImagesLimit = false;
     }
   }
@@ -271,6 +274,8 @@ export class CreaterecipeUserComponent implements OnInit {
   {
     this.imagesURL.splice(index, 1); 
     this.imagesModel.splice(index, 1);
+    this.imagesCount--;
+    console.log(this.imagesCount);
     console.log(this.imagesModel);
   }
 
@@ -320,10 +325,8 @@ export class CreaterecipeUserComponent implements OnInit {
         this.createImagesRecipe(id);
         
         //*Clear model
-        
         Swal.fire('Success!','The recipe: '+response.recipeName+' was created.','success');  
-       
-        this.router.navigate(['/user/recipes/createrecipe']);
+        this.router.navigate(['/recipe/',response.id]);
       },
       err =>
       {
@@ -331,7 +334,6 @@ export class CreaterecipeUserComponent implements OnInit {
       }
       );
     }
-
   }
 
   /**

@@ -1,3 +1,5 @@
+import { CategoryList } from './../../../services/category.service';
+import { TagService, TagShort } from 'src/app/services/tag.service';
 import { Component, OnInit,OnChanges } from '@angular/core';
 import * as $ from 'jquery';
 import { RecipesService,RecipeLatest,Recipe,RecipeFeatured,RecipeProfile, Images, Ingredients, Tag, Rankings } from 'src/app/services/recipes.service';
@@ -21,6 +23,7 @@ export class RecipeComponent implements OnInit {
   private userName: string;
   private recipeCreateAt: string;
   private recipeDescription: string;
+  private preparationSteps: string;
   private preparationTime: string;
   private difficulty: string;
   private totalLikes: number;
@@ -32,13 +35,15 @@ export class RecipeComponent implements OnInit {
   private currentPageRankings: number = 0;
   private totalPagesRankings: number;
   private isAlreadyComent: boolean = false;
+  isRankingsAvailable: boolean = false;
   //private videoFrame: string;
   //*Objects declaration
   private recipe: RecipeProfile;
   private images: Images[];
   private ingredients: Ingredients[];
   private tags: Tag[];
-  private rankings: RankingComment[];
+  private tagsTrends: TagShort[];
+  public rankings: RankingComment[] = [];
   ///ratingComment: number = 0;
   isLoggedIn: boolean = false;
   private showMoreRankigns: boolean = false;
@@ -48,12 +53,13 @@ export class RecipeComponent implements OnInit {
  
   recipesLatests: RecipeLatest[];
   recipesFeatured: RecipeFeatured[];
-  categoryList: CategoryCard[];
+  categoryList: CategoryList[];
   //recipe: any;
   commentForm: FormGroup;
 
   constructor(private _recipeService: RecipesService,
               private _rankingService: RankingService,
+              private _tagService: TagService,
               private _categoryService: CategoryService,
               private activatedRoute: ActivatedRoute,
               private router: Router,
@@ -79,7 +85,7 @@ export class RecipeComponent implements OnInit {
 
         this._recipeService.updateViews(this.id,idUser).subscribe(response =>
           {
-            console.log(response);
+         //   console.log(response);
           },
           err =>
           {
@@ -88,9 +94,10 @@ export class RecipeComponent implements OnInit {
               console.log(err.error.message);
             }      
           });
-       this.getRecipeById(this.id);
+        this.getRecipeById(this.id);
         this.getCategoriesList();
         this.getRankingComments(this.id);
+        this.getTrends();
         this._recipeService.validateLike(1,1).subscribe(response =>
         {
           this.isLiked = false;
@@ -105,7 +112,19 @@ export class RecipeComponent implements OnInit {
      // this.getRecipeById(1);
   }
 
-
+  private getTrends(): void
+  {
+    this._tagService.getTrends().subscribe(response =>
+      {
+        this.tagsTrends = response.content as TagShort[];
+       // console.log(this.tagsTrends);
+      },
+      err =>
+      {
+        console.log(err);
+      }
+      );
+  }
 
 
   //*Get recipe by id param get in rotute
@@ -114,7 +133,7 @@ export class RecipeComponent implements OnInit {
     this._recipeService.getProfile(id).subscribe(data =>
     {
       this.recipe = data;
-      console.log(this.recipe);
+    //  console.log(this.recipe);
       
       this.recipeName = data.name;
       this.recipeCategoryName = data.category.name;
@@ -125,12 +144,13 @@ export class RecipeComponent implements OnInit {
       this.views = data.views;
       this.difficulty = data.difficulty;
       this.preparationTime = data.preparationTime;
+      this.preparationSteps = data.preparationSteps;
       this.totalLikes = data.totalLikes;
       this.images = data.images;
       this.ingredients = data.recipeIngredients;
       this.tags = data.tags;
      
-
+    ///  console.log(this.images);
       this.totalRankings = this.rankings.length;
       this.idUser = data.user.id;
 
@@ -160,12 +180,24 @@ export class RecipeComponent implements OnInit {
     });
   }
 
+  private goToCategory(id: number): void 
+  {
+    let path = `search/category/${id}/page/1`;
+    this.router.navigate([path]);
+  }
+
+
   getCategoriesList(): void
   {
-    this._categoryService.getCategoriesList().subscribe(data =>
+    this._categoryService.getCategoriesList().subscribe(response =>
     {
-      this.categoryList = data;  
+   
+      this.categoryList = response.content as CategoryList[];  
     //  console.log("data: "+data);
+    },
+    err =>
+    {
+      console.log(err);
     });
   }
 
@@ -262,26 +294,21 @@ export class RecipeComponent implements OnInit {
     this.router.navigate(['profile/',id]);
   }
 
-
   private getRankingComments(id: number)
   {
     this._rankingService.getRankingComments(id,this.currentPageRankings,10).subscribe(response=>
     {
-      this.rankings = response.content as RankingComment[];
-      this.totalPagesRankings = response.totalPages;
-      this._rankingService.getRankingComments(this.id,this.currentPageRankings,1).subscribe(response=>
+      console.log("Elements: "+response.numberOfElements)
+      if(response.numberOfElements > 0)
+      {
+        this.rankings = response.content as RankingComment[];
+        this.totalPagesRankings = response.totalPages;
+        for(let i = 0; i< response.numberOfElements; i++)
         {
-          for(let i = 0; i< response.numberOfElements; i++)
-          {
-            this.rankings.push(response.content[i] as RankingComment);
-          }
-          console.log(response)
-        },
-        err =>
-        {
-          console.log(err);
-        });;
-      console.log(response)
+          this.rankings.push(response.content[i] as RankingComment);
+        }
+        this.showMoreRankigns = true;
+      }
     },
     err =>
     {
@@ -295,24 +322,43 @@ export class RecipeComponent implements OnInit {
     if(this.currentPageRankings < this.totalPagesRankings)
     {
       this._rankingService.getRankingComments(this.id,this.currentPageRankings,10).subscribe(response=>
+      {
+        for(let i = 0; i< response.numberOfElements; i++)
         {
-          for(let i = 0; i< response.numberOfElements; i++)
-          {
-            this.rankings.push(response.content[i] as RankingComment);
-          }
-          console.log(response)
-        },
-        err =>
-        {
-          console.log(err);
-        });
+          this.rankings.push(response.content[i] as RankingComment);
+        }
+        //console.log(response)
+      },
+      err =>
+      {
+        console.log(err);
+      });
     }
     else
     {
-      this.showMoreRankigns = true;
+      this.showMoreRankigns = false;
     }
     
 
+  }
+
+  private goToTag(id: number): void 
+  {
+    let path = `search/tag/${id}/page/1`;
+    this.router.navigate([path]);
+  }
+
+  private getTags(): void
+  {
+    this._tagService.getTagsShort().subscribe(data =>
+    {
+      this.tags = data;
+      console.log(data);
+    },
+    err =>
+    {
+      console.log(err);
+    });
   }
 }
 
