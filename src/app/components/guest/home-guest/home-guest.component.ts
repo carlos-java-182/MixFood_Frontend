@@ -1,3 +1,4 @@
+import { empty } from 'rxjs';
 import { Component, OnInit } from '@angular/core';
 
 import { Select2OptionData } from 'ng-select2';
@@ -107,9 +108,12 @@ export class HomeGuestComponent implements OnInit {
       console.log(this.recipes[0].thumbRoute);
     });
   
-    this._categoryService.getCategoriesCard().subscribe(data => 
+    this._categoryService.getCategoriesCard(0,5).subscribe(response => 
       {
-        this.categories = data;
+        if(!response.empty)
+        {
+          this.categories = response.content as CategoryCard
+        }
     });
 
     this.getTagsShort();
