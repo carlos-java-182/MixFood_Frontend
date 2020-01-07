@@ -1,9 +1,9 @@
 <div class="product-box-layout1">
     <figure class="item-figure">
-        <a [routerLink]="['/recipe',recipe.id]">
-            <img  src="assets/img/product/product5.jpg"  
-            alt="Product">
-        </a>
+        <a [routerLink]="['/recipe',recipe.id]">  
+            <img  src="http://localhost:8080/api/uploads/recipes/{{recipe.thumbRoute}}"  
+            alt="{{recipe.thumbRoute}}">  
+        </a> 
     </figure>
     <div class="item-content">
         <h3 class="item-title"><a [routerLink]="['/recipe',recipe.id]">{{recipe.name}}</a></h3>

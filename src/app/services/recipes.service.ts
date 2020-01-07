@@ -14,6 +14,7 @@ import { error } from 'protractor';
 export class RecipesService {
   //*Variables declaration
   url:string = 'http://localhost:8080/api/recipes/';
+  imageUrl: string = 'http://localhost:8080/api/uploads/recipes/';
   //*Create http headers
   headers = new HttpHeaders({'Content-type': 'application/json'});
 
@@ -42,8 +43,19 @@ export class RecipesService {
   }
 
   //*This function get the recipes cards for home
-  public getRecipeCard():Observable<Recipe[]>{
-    return this.http.get<Recipe[]>(this.url+'cards');
+  public getRecipeCard():Observable<Recipe[]>
+  {
+    return this.http.get<Recipe[]>(this.url+'cards')
+      map(response =>
+      {
+        let recipes = response as Recipe[];
+        return recipes.map( recipe =>
+        {
+          recipe.thumbRoute = 'kaka';
+          return recipe;
+        });
+      }
+    );
   }
   
   //*This function find the recipes names by search term
