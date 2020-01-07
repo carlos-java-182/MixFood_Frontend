@@ -47,7 +47,9 @@
                                 <tr *ngFor="let recipe of recipes | paginate: {id: 'pagination-nav', itemsPerPage: itemsPerPage, currentPage: currentPage, totalItems: totalItems}; let i = index">
                                     <th>
                                         <div class="author-personal-info">
-                                            <a href="#" class="item-figure"><img [src]="recipe.thumbRoute" alt="Recipe"></a>
+                                            <a href="#" class="item-figure">
+                                            <img src="http://localhost:8080/api/uploads/{{recipe.thumbRoute}}/type/RECIPE" alt="Recipe">
+                                            </a>
                                             <div class="item-content">
                                                 <div class="item-title"><a href="#">{{recipe.name}}</a></div>
                                                 <div class="item-designation">{{recipe.category.name}}</div>

@@ -23,7 +23,18 @@
                                 <a href="#"><i class="fas fa-utensils"></i> Categories </a>
                             </li> -->
                             <li>
-                                <a [routerLink]="['/user/recipes/createrecipe']" routerLinkActive="router-link-active" ><i class="fas fa-utensils"></i> Create recipe</a>
+                                <a  routerLinkActive="router-link-active" >
+                                    <i class="fas fa-utensils"></i>
+                                    Recipes
+                                </a>
+                                <ul class="dropdown-menu-col-1">
+                                    <li>
+                                        <a [routerLink]="['/user/recipes/createrecipe']"> Create</a>
+                                    </li>
+                                    <li>
+                                        <a href="recipe-without-sidebar.html"> Show</a>
+                                    </li>                                   
+                                </ul>
                             </li>
                             <!-- <li>
                                 <a href="contact.html">About</a>
@@ -33,7 +44,8 @@
                 </div>
                 <div class="col-lg-4 col-md-9 col-sm-8 col-8 d-flex align-items-center justify-content-end">
                     <div class="nav-action-elements-layout1">
-                        <ul id="site-menu" class="site-menu" [ngClass]="{'menu-mobile': isMobile}">
+                        <ul id="site-menu" 
+                        class="site-menu user-menu" [ngClass]="{'menu-mobile': isMobile}">
                             <li>
                                 <a>
                                     <i class="fas fa-user"></i> {{username}}
