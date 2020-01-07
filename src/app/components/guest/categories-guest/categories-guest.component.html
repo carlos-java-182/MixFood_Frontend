@@ -18,127 +18,34 @@
     <section class="category-page-wrap padding-top-80 padding-bottom-50">
         <div class="container">
             <div class="row">
-                <div class="col-lg-4 col-md-6 col-sm-6 col-12">
+                <div class="col-lg-4 col-md-6 col-sm-6 col-12"
+                 *ngFor="let category of categories | paginate: {id: 'pagination-nav', itemsPerPage: itemsPerPage, currentPage: currentPage, totalItems: totalItems}">
                     <div class="category-box-layout1">
-                        <figure class="item-figure"><a href="single-recipe1.html"><img src="img/product/product29.jpg"
-                                    alt="Product"></a></figure>
+                        <figure class="item-figure">
+                            <a href="single-recipe1.html">
+                                <img [src]="category.thumbRoute"
+                                    alt="Product">
+                            </a>
+                        </figure>
                         <div class="item-content">
-                            <h3 class="item-title"><a href="single-recipe1.html">Chicken</a></h3>
-                            <span class="sub-title"> 14 Recipes</span>
+                            <h3 class="item-title"><a (click)="goToCategory(category.id)">{{category.name}}</a></h3>
+                            <span class="sub-title">{{category.amountRecipes}} Recipes</span>
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-4 col-md-6 col-sm-6 col-12">
-                    <div class="category-box-layout1">
-                        <figure class="item-figure"><a href="single-recipe1.html"><img src="img/product/product30.jpg"
-                                    alt="Product"></a></figure>
-                        <div class="item-content">
-                            <h3 class="item-title"><a href="single-recipe1.html">Juice</a></h3>
-                            <span class="sub-title"> 14 Recipes</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 col-sm-6 col-12">
-                    <div class="category-box-layout1">
-                        <figure class="item-figure"><a href="single-recipe1.html"><img src="img/product/product31.jpg"
-                                    alt="Product"></a></figure>
-                        <div class="item-content">
-                            <h3 class="item-title"><a href="single-recipe1.html">BBQ</a></h3>
-                            <span class="sub-title"> 14 Recipes</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 col-sm-6 col-12">
-                    <div class="category-box-layout1">
-                        <figure class="item-figure"><a href="single-recipe1.html"><img src="img/product/product32.jpg"
-                                    alt="Product"></a></figure>
-                        <div class="item-content">
-                            <h3 class="item-title"><a href="single-recipe1.html">Dessert</a></h3>
-                            <span class="sub-title"> 14 Recipes</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 col-sm-6 col-12">
-                    <div class="category-box-layout1">
-                        <figure class="item-figure"><a href="single-recipe1.html"><img src="img/product/product33.jpg"
-                                    alt="Product"></a></figure>
-                        <div class="item-content">
-                            <h3 class="item-title"><a href="single-recipe1.html">Sushi</a></h3>
-                            <span class="sub-title"> 14 Recipes</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 col-sm-6 col-12">
-                    <div class="category-box-layout1">
-                        <figure class="item-figure"><a href="single-recipe1.html"><img src="img/product/product34.jpg"
-                                    alt="Product"></a></figure>
-                        <div class="item-content">
-                            <h3 class="item-title"><a href="single-recipe1.html">Coffee</a></h3>
-                            <span class="sub-title"> 14 Recipes</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 col-sm-6 col-12">
-                    <div class="category-box-layout1">
-                        <figure class="item-figure"><a href="single-recipe1.html"><img src="img/product/product35.jpg"
-                                    alt="Product"></a></figure>
-                        <div class="item-content">
-                            <h3 class="item-title"><a href="single-recipe1.html">Pizza</a></h3>
-                            <span class="sub-title"> 14 Recipes</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 col-sm-6 col-12">
-                    <div class="category-box-layout1">
-                        <figure class="item-figure"><a href="single-recipe1.html"><img src="img/product/product36.jpg"
-                                    alt="Product"></a></figure>
-                        <div class="item-content">
-                            <h3 class="item-title"><a href="single-recipe1.html">Vegan</a></h3>
-                            <span class="sub-title"> 14 Recipes</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 col-sm-6 col-12">
-                    <div class="category-box-layout1">
-                        <figure class="item-figure"><a href="single-recipe1.html"><img src="img/product/product37.jpg"
-                                    alt="Product"></a></figure>
-                        <div class="item-content">
-                            <h3 class="item-title"><a href="single-recipe1.html">Salad</a></h3>
-                            <span class="sub-title"> 14 Recipes</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 col-sm-6 col-12">
-                    <div class="category-box-layout1">
-                        <figure class="item-figure"><a href="single-recipe1.html"><img src="img/product/product33.jpg"
-                                    alt="Product"></a></figure>
-                        <div class="item-content">
-                            <h3 class="item-title"><a href="single-recipe1.html">Sushi</a></h3>
-                            <span class="sub-title"> 14 Recipes</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 col-sm-6 col-12">
-                    <div class="category-box-layout1">
-                        <figure class="item-figure"><a href="single-recipe1.html"><img src="img/product/product34.jpg"
-                                    alt="Product"></a></figure>
-                        <div class="item-content">
-                            <h3 class="item-title"><a href="single-recipe1.html">Coffee</a></h3>
-                            <span class="sub-title"> 14 Recipes</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 col-sm-6 col-12">
-                    <div class="category-box-layout1">
-                        <figure class="item-figure"><a href="single-recipe1.html"><img src="img/product/product35.jpg"
-                                    alt="Product"></a></figure>
-                        <div class="item-content">
-                            <h3 class="item-title"><a href="single-recipe1.html">Pizza</a></h3>
-                            <span class="sub-title"> 14 Recipes</span>
-                        </div>
-                    </div>
-                </div>
+              
             </div>
+                    <!-- Pagination Start Here -->
+        <pagination-controls
+        *ngIf="totalPages > 1"
+        id="pagination-nav"
+        (pageChange)="getPage($event)"
+        previousLabel=""
+        nextLabel=""
+        responsive="true"
+        screenReaderPaginationLabel="Pagination">
+        </pagination-controls>
+        <!-- Pagination End Here -->
         </div>
     </section>
     <!-- Category Area End Here -->

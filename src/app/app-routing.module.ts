@@ -73,6 +73,7 @@ const routes: Routes = [
   {component: SearchrecipeGuestComponent, path: 'searchrecipe-guest'},
   {component: SearchresultsGuestComponent, path: 'searchresults-guest'},
   {component: CategoriesGuestComponent, path: 'categories'},
+  {component: CategoriesGuestComponent, path: 'categories/page/:page'},
   {component: LoginComponent, path: 'guest/login-guest'},
   {component: SignupGuestComponent, path: 'guest/signup-guest'},
   {component: ForgotpasswordGuestComponent, path: 'forgotpassword'},

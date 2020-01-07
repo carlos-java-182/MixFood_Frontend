@@ -11,9 +11,9 @@ export class CategoryService {
   url:string = 'http://localhost:8080/api/categories/';
   constructor(private http: HttpClient) { }
 
-  public getCategoriesCard():Observable<CategoryCard[]>
+  public getCategoriesCard(page: number, items: number):Observable<any>
   {
-    return this.http.get<CategoryCard[]>(this.url+'cards')
+    return this.http.get(`${this.url}cards/page/${page}/items/${items}`)
   }
 
   public getCategoriesList():Observable<any>
@@ -35,6 +35,8 @@ export class CategoryService {
         })
     );
   }
+
+  
 }
 
 export interface CategoryCard
