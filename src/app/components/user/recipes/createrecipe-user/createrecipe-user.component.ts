@@ -32,10 +32,11 @@ export class CreaterecipeUserComponent implements OnInit {
   private indexThumb: number = 0; 
   private descriptionLength = 200;
   private isEditIngredient: boolean = false;
+  private isImagesLimit: boolean = false;
   private selectedFile: File = null;
   private thumbSelectedRoute: string;
  // recipeStatus: RecipeStatus.public;
-
+  private fileModel:string = null;
   
   //*Objects declaration*//
   //Ingredients list for select
@@ -60,8 +61,7 @@ export class CreaterecipeUserComponent implements OnInit {
     categoryId: null,
     description: '',
     videFrame: '',
-    prepHours: '',
-    preMinutes: '',
+    preparationTime: '',
     preparationSteps: '',
     status: 'public',
     difficulty: 'null'
@@ -234,7 +234,7 @@ export class CreaterecipeUserComponent implements OnInit {
     //*Validate max images 
     if(elements > 5)
     {
-      alert("STOP!!");
+      this.isImagesLimit = true;
     }
     else
     {
@@ -249,6 +249,7 @@ export class CreaterecipeUserComponent implements OnInit {
           this.imagesURL.push(event.target.result);
         }
       }
+      this.isImagesLimit = false;
     }
   }
 
@@ -292,7 +293,7 @@ export class CreaterecipeUserComponent implements OnInit {
       let newRecipe: NewRecipe =
       {
         name: this.recipeModel.name,
-        preparationTime: this.recipeModel.prepHours +' '+ this.recipeModel.preMinutes,
+        preparationTime: this.recipeModel.preparationTime,
         description: this.recipeModel.description,
         thumbRoute: 'null',
         preparationSteps: this.recipeModel.preparationSteps,

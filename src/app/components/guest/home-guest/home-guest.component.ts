@@ -103,7 +103,8 @@ export class HomeGuestComponent implements OnInit {
     this._recipeService.getRecipeCard().subscribe(data => 
     {
       this.recipes = data;
-      console.log(this.recipes);
+      // this.recipes[0].thumbRoute = 'http://localhost:8080/api/uploads/recipes/' + this.recipes[0].thumbRoute;
+      console.log(this.recipes[0].thumbRoute);
     });
   
     this._categoryService.getCategoriesCard().subscribe(data => 

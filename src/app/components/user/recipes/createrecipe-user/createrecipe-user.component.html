@@ -2,7 +2,7 @@
 <app-navbar-user></app-navbar-user>
 <!-- User Navabar End Here -->
 <!-- Inne Page Banner Area Start Here -->
-<section class="section-header inner-page-banner bg-common" data-bg-image="https://radiustheme.com/demo/html/ranna/ranna/img/figure/inner-page-banner1.jpg">
+<section class="section-header inner-page-banner bg-common">
     <div class="container">
         <div class="row">
             <div class="col-12">
@@ -35,13 +35,15 @@
                         [(ngModel)]="recipeModel.name"
                         type="text" 
                         placeholder="Recipe Name" 
-                        class="form-control"                                
-                        data-error="Subject field is required"
-                        required>
-                        <div *ngIf="formRecipe.submitted && recipeName.invalid">
-                            errors
-                        </div  >
-                        <div class="help-block with-errors"></div>
+                        class="form-control is-invalid"    
+                        [ngClass]="{'is-invalid': formRecipe.submitted && recipeName.invalid && recipeName || recipeName.touched && recipeName.invalid}"                            
+                        data-error="Name field is required"
+                        required>       
+                    <div class="input-errors"                         
+                    [ngClass]="{'is-invalid-input': formRecipe.submitted && recipeName.invalid && recipeName || recipeName.touched && recipeName.invalid}"                            
+                        >
+                            Please write a name.
+                        </div>
                     </div>
                     <!-- Input Name End Here -->
                     <!-- Select Category Start Here -->
@@ -49,6 +51,8 @@
                         <label>Choose a category</label>
                         <ng-select
                         class="input-ngselect-create"
+                        [ngClass]="{'is-invalid': formRecipe.submitted && categoryId.invalid || categoryId.touched && categoryId.value == null}"   
+                        #categoryId="ngModel"                 
                         name="categoryId"
                         [(ngModel)]="recipeModel.categoryId"
                         [items]="categories"
@@ -59,12 +63,20 @@
                         notFoundText = "Result not found"
                         required>
                         </ng-select>
+                        <div class="input-errors"
+                        [ngClass]="{'is-invalid-input': formRecipe.submitted && categoryId.invalid || categoryId.touched && categoryId.value == null}"   
+                        >
+                            Please choose a category.
+                        </div>
                     </div>
                     <!-- Select Category End Here -->
                     <!-- Tags Select Start Here -->
                     <div class="form-group select2-multiple">
+                        {{tagsId.value}}
                         <label>Tags (Max 5)</label>
                         <ng-select      
+                        #tagsId="ngModel"
+                        [ngClass]="{'is-invalid': formRecipe.submitted && tagsId.invalid || tagsId.touched && tagsId.value == ''}"                    
                         [(ngModel)]="tagsModel"            
                         class="select-multiple"
                         [items]="tags"
@@ -77,24 +89,37 @@
                         [maxSelectedItems]="5"
                         required>
                         </ng-select>
+                        <div class="input-errors"
+                        [ngClass]="{'is-invalid-input': formRecipe.submitted && tagsId.invalid || tagsId.touched && tagsId.value == ''}"                    
+                        >
+                            Please choose at least one tag.
+                        </div>
                     </div>
                     <!-- Tags Select End Here -->
                     <!-- Difficulty Select Start Here -->
                     <div class="form-group">
                         <label for="difficulty">Difficulty</label>
-                        <select name=difficulty [(ngModel)]="recipeModel.difficulty" class="form-control custom-select">
+                        <select #difficulty="ngModel"   
+                        [ngClass]="{'is-invalid': formRecipe.submitted && difficulty.invalid}"                      
+                        name=difficulty 
+                        [(ngModel)]="recipeModel.difficulty" 
+                        class="form-control custom-select">
                             <option selected value="null">Chosse one...</option>
                             <option value="EASY">Easy</option>
                             <option value="MEDIUM">Medium</option>
                             <option value="HARD">HARD</option>
                         </select>
+                        <div class="input-errors" [ngClass]="{'is-invalid-input': formRecipe.submitted && difficulty.invalid}">
+                            Please choose a difficulty.
+                        </div>
                     </div>
                     <!-- Difficulty Select End Here -->
                     <!-- Input Description Start Here -->
                     <div class="form-group">
                         <label>Description <span> ({{descriptionLength}} characters left)</span></label>
                         <textarea 
-                        #description
+                        #description="ngModel"
+                        [ngClass]="{'is-invalid': formRecipe.submitted && description.invalid || description.touched && description.value == ''}"        
                         name="description" 
                         [(ngModel)]="recipeModel.description"
                         class="form-control" 
@@ -105,13 +130,17 @@
                         (keyup)="countCharacters(description.value)"
                         required>
                         </textarea>
-                        <div class="help-block with-errors"></div>
+                        <div class="input-errors"
+                        [ngClass]="{'is-invalid-input': formRecipe.submitted && description.invalid || description.touched && description.value == ''}"        
+                        >
+                            Please write a description.
+                        </div>
                     </div>
                     <!-- Input Description End Here -->         
                     <!-- Input Video Frame Start Here -->
                     <div class="form-group">
                         <label>URL YouTube Video</label>
-                        <input  [(ngModel)]="recipeModel.videFrame" class="form-control"  name="videoFrame"  type="text">
+                        <input  [(ngModel)]="recipeModel.videFrame" class="form-control" placeholder="http://youtube.com/"  name="videoFrame"  type="text">
                     </div>
                     <div>
                     </div>
@@ -132,18 +161,27 @@
                             </ul>
                         </div>
                         <div class="upload-btn-wrapper">
-                                <input 
-                                [disabled]="imagesCount == 5"
-                                (change)="onFileSelected($event)"
-                                type="file" 
-                                name="file-1[]" 
-                                id="file-1" 
-                                class="inputfile inputfile-1" 
-                                accept="image/x-png,image/gif,image/jpeg"
-                                data-multiple-caption="{count} files selected" 
-                                multiple 
-                                required/>
-                                <button class="btn">Choose images...</button>       
+                            <input 
+                            #image="ngModel"
+                            [(ngModel)]="fileModel"
+                            [ngClass]="{'is-invalid': formRecipe.submitted && image.invalid}"        
+                            [disabled]="imagesCount == 5"
+                            (change)="onFileSelected($event)"
+                            type="file" 
+                            name="file-1[]" 
+                            id="file-1" 
+                            class="inputfile inputfile-1" 
+                            accept="image/x-png,image/gif,image/jpeg"
+                            data-multiple-caption="{count} files selected" 
+                            multiple 
+                            required/>
+                            <button class="btn">Choose images...</button>    
+                            <div class="input-errors" [ngClass]="{'is-invalid-input': formRecipe.submitted && formRecipe.invalid || image.value == ''}">
+                                Please choose at least one image.
+                            </div>
+                            <div class="input-errors" [ngClass]="{'is-invalid-input': isImagesLimit}">
+                                You can only select a maximum of 5 images.
+                            </div>   
                         </div>
                     </div>
                     <!-- Upload Photos End Here -->
@@ -151,34 +189,45 @@
                     <div class="additional-input-wrap">
                         <label>Preparation time</label>
                         <div class="row gutters-5">                        
-                            <div class="col-lg-6">
-                                <label for="">Hours</label>
+                            <div class="col-lg-12">
+                                <!-- <label for="">Hours</label> -->
                                 <div class="form-group additional-input-box icon-left">
                                     <i class="far fa-clock"></i>
                                     <input 
-                                    name="prepHours"
-                                    [(ngModel)]="recipeModel.prepHours"
-                                    type="number"
-                                    min="0"
-                                    max="10"
+                                    #preparationTime="ngModel"
+                                    [ngClass]="{'is-invalid': formRecipe.submitted && preparationTime.invalid || preparationTime.touched && preparationTime.invalid}"        
+                                    name="preparationTime"
+                                    [(ngModel)]="recipeModel.preparationTime"
+                                    type="text"
+                                    placeholder="15 minutes"
                                     class="form-control"
-                                    required>                                           
+                                    required>                                                                    
                                 </div>
-                            </div>
-                            <div class="col-lg-6">
+                                <div class="input-errors"  
+                                [ngClass]="{'is-invalid-input': formRecipe.submitted && preparationTime.invalid || preparationTime.touched && preparationTime.invalid}">
+                                    Please write the preparation time.
+                                </div>     
+                            </div>                                                                  
+                            <!-- <div class="col-lg-6">
                                 <label for="">Minutes</label>
                                 <div class="form-group additional-input-box icon-left">
                                     <i class="far fa-clock"></i>
                                     <input 
+                                    #prepMinutes="ngModel"
+                                    [ngClass]="{'is-invalid': formRecipe.submitted && prepMinutes.invalid || prepMinutes.touched && prepMinutes.invalid}"   
                                     name="prepMinutes"
                                     [(ngModel)]="recipeModel.prepMinutes"
                                     type="number"
                                     min="0"
                                     max="60"
+                                    placeholder="30"
                                     class="form-control"
-                                    required>
-                                </div> 
-                            </div>
+                                    required>                                   
+                                </div>
+                                <div class="input-errors"  [ngClass]="{'is-invalid-input': formRecipe.submitted && prepMinutes.invalid || prepMinutes.touched && prepMinutes.invalid}" >
+                                    Please write the minutes.
+                                </div>
+                            </div>                                                                -->
                         </div>       
                     </div>
                     <!-- Input Preparation Time End Here -->
@@ -202,9 +251,11 @@
                                     placeholder ="Select a ingredient"
                                     notFoundText = "Result not found">
                                     </ng-select>
+                                    <div class="invalid-feedback">
+                                        Please choose a ingredient.
+                                    </div>
                                 </div>
                             </div>
-                
                             <div class="col-lg-5">
                                 <div class="form-group additional-input-box icon-left">
                                     <i class="fas fa-shopping-bag"></i>
@@ -215,6 +266,9 @@
                                     type="text" 
                                     placeholder="Cantidad: 1/2 kg" 
                                     class="form-control additional-input">
+                                    <div class="invalid-feedback">
+                                        Please write a amount.
+                                    </div>
                                 </div>
                             </div>
                             <div class="col-lg-3">
@@ -225,9 +279,16 @@
                                     [(ngModel)]="ingredientModel.unit" class="form-control custom-select" name="unit" id="">
                                        <option value="null"
                                          selected>Choose a Unit</option>
-                                        <option value="kg">Kg</option>
-                                    </select>
+                                        <option value="Kg">Kg</option>
+                                        <option value="G">G</option>
+                                        <option value="Ml">L</option>
+                                        <option value="Oz">Oz</option>
+                                        <option value="Gr">Gr</option>
+                                    </select>                        
                                 </div>
+                            </div>
+                            <div class="invalid-feedback">
+                                Please choose a unit.
                             </div>
                             <div class="col-12">
                                 <button 
@@ -236,7 +297,7 @@
                                 *ngIf="!isEditIngredient"
                                 (click)="addIngredient(ingredient.value, amountIngredient.value, unit.value)"
                                 class="btn-upload">
-                                    <i class="flaticon-add-plus-button"></i>Add
+                                    <i class="flaticon-add-plus-button"></i>Add to list
                                 </button>
                                 <button *ngIf="isEditIngredient"
                                 (click)="updateIngredient()"
@@ -283,11 +344,16 @@
                     <div class="form-group">
                         <label>Preparation steps </label>
                         <quill-editor 
+                        #preparationSteps="ngModel"
                         name="preparationSteps"
                         [(ngModel)]="recipeModel.preparationSteps"
                         [styles]="{height: '200px'}" 
                         [modules]="editorConfig">
                         </quill-editor>
+                        <div class="input-errors" 
+                        [ngClass]="{'is-invalid-input': preparationSteps.value == '' && formRecipe.submitted }">
+                            Please write the preparation steps...
+                        </div>
                     </div>
                     <!-- Radio Recipe Status Start Here -->
                     <div class="form-group">
