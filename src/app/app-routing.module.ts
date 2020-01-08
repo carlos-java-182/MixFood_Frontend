@@ -44,6 +44,7 @@ import { UserprofileComponent } from './components/shared/userprofile/userprofil
 import { SettingsUserComponent } from './components/user/settings-user/settings-user.component';
 import { RecipesUserComponent } from './components/user/recipes/recipes-user/recipes-user.component';
 import { FavoritesComponent } from './components/user/favorites/favorites.component';
+import { AuthGuard } from './guards/auth.guard';
 
 //*Crud example imports
 
@@ -53,25 +54,24 @@ import { FavoritesComponent } from './components/user/favorites/favorites.compon
 const routes: Routes = [
   
   //*User routes
-  {component: ProfileUserComponent, path: 'user/profile-user'},
-  {component: EditprofileUserComponent, path: 'user/profile/editprofile-user'},
+  {component: ProfileUserComponent, path: 'user/profile-user', canActivate:[AuthGuard]},
+  {component: EditprofileUserComponent, path: 'user/profile/editprofile-user', canActivate:[AuthGuard]},
   {component: HomeUserComponent, path: 'user/home'},
-  {component: SettingsUserComponent, path: 'user/settings'},
-  {component: RecipesUserComponent, path: 'user/recipes'},
-  {component:FavoritesComponent, path: 'user/favorites'},
-  {component: CreaterecipeUserComponent, path: 'user/recipes/createrecipe'},
-  {component: EditrecipeUserComponent, path: 'user/recipes/edit/:id'},
-  {component: RecipesUserComponent, path: 'user/recipes/page/:page/status/:status'},
-  {component: RecipesUserComponent, path: 'user/recipes/page/:page/term/:term/status/:status'},
+  {component: SettingsUserComponent, path: 'user/settings', canActivate:[AuthGuard]},
+  {component: RecipesUserComponent, path: 'user/recipes', canActivate:[AuthGuard]},
+  {component:FavoritesComponent, path: 'user/favorites', canActivate:[AuthGuard]},
+  {component: CreaterecipeUserComponent, path: 'user/recipes/createrecipe', canActivate:[AuthGuard]},
+  {component: EditrecipeUserComponent, path: 'user/recipes/edit/:id', canActivate:[AuthGuard]},
+  {component: RecipesUserComponent, path: 'user/recipes/page/:page/status/:status', canActivate:[AuthGuard]},
+  {component: RecipesUserComponent, path: 'user/recipes/page/:page/term/:term/status/:status', canActivate:[AuthGuard]},
  
   //*Guest routes
   {component: HomeGuestComponent, path: ''},
-
   {component: CategoriesGuestComponent, path: 'categories'},
   {component: CategoriesGuestComponent, path: 'categories/page/:page'},
-  {component: LoginComponent, path: '/login'},
-  {component: SignupGuestComponent, path: '/signup'},
-  {component: ForgotpasswordGuestComponent, path: 'f/orgotpassword'},
+  {component: LoginComponent, path: 'login'},
+  {component: SignupGuestComponent, path: 'signup'},
+  {component: ForgotpasswordGuestComponent, path: 'forgotpassword'},
   {component: RecipeComponent, path: 'recipe/:id'},
 
   //*Search components
@@ -82,18 +82,19 @@ const routes: Routes = [
   {component: SearchresultsComponent, path: 'search/ingredient/:ingredient/page/:page'},
 
   //*Admin routes
-  {component: HomeAdminComponent, path: 'admin/home'},
-  {component: IngredientsAdminComponent, path: 'admin/ingredients'},
-  {component: CreateingredientsAdminComponent, path: 'admin/ingredients/create'},
-  {component: EditingredientsAdminComponent, path: 'admin/ingredients/ediit/:id'},
+  {component: HomeAdminComponent, path: 'admin/home', canActivate:[AuthGuard]},
+  {component: IngredientsAdminComponent, path: 'admin/ingredients', canActivate:[AuthGuard]},
+  {component: CreateingredientsAdminComponent, path: 'admin/ingredients/create', canActivate:[AuthGuard]},
+  {component: EditingredientsAdminComponent, path: 'admin/ingredients/ediit/:id', canActivate:[AuthGuard]},
   {component: CategoriesAdminComponent, path: 'admin/categories'},
-  {component: CreatecategoriesAdminComponent, path: 'admin/categories/create'},
-  {component: EditcategoriesAdminComponent, path: 'admin/categories/edit/:id'},
-  {component: UsersAdminComponent, path: 'admin/users'},
-  {component: CreatetagsAdminComponent, path: 'admin/users/create'},
-  {component: EditusersAdminComponent, path: 'admin/users/edit/:id'},
-  {component: TagsAdminComponent, path: 'admin/tags'},
-  {component: EdittagsAdminComponent, path: 'admin/tags/edit/:id'},
+  {component: CreatecategoriesAdminComponent, path: 'admin/categories/create', canActivate:[AuthGuard]},
+  {component: EditcategoriesAdminComponent, path: 'admin/categories/edit/:id', canActivate:[AuthGuard]},
+  {component: UsersAdminComponent, path: 'admin/users', canActivate:[AuthGuard]},
+  {component: CreatetagsAdminComponent, path: 'admin/users/create', canActivate:[AuthGuard]},
+  {component: EditusersAdminComponent, path: 'admin/users/edit/:id', canActivate:[AuthGuard]},
+  {component: TagsAdminComponent, path: 'admin/tags', canActivate:[AuthGuard]},
+  {component: EdittagsAdminComponent, path: 'admin/tags/edit/:id', canActivate:[AuthGuard]},
+  {component:CreatetagsAdminComponent, path: 'admin/tags/create', canActivate:[AuthGuard]},
 
   //*Shared components
   {component: UserprofileComponent, path: 'profile/:id'}
