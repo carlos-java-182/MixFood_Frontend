@@ -10,7 +10,7 @@ export class ProfileUserComponent implements OnInit {
   private isShowFavorites: boolean =   false;
   private isShowSettings: boolean =   false;
   private isShowFollowers: boolean =   false;
-  private isShowProfile: boolean =   false;
+  private isShowProfile: boolean =   true;
   constructor() { }
 
   ngOnInit() {
