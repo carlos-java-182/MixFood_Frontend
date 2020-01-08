@@ -57,3 +57,29 @@
 	top: -6px !important;
 	/* background-color: royalblue; */
 }
+
+.div-ranking
+{
+	display: flex;
+	justify-content: center;
+	/* align-items: center; */
+	/* background: red !important; */
+}
+
+.list-item:hover
+{
+	cursor: pointer;
+	color: #ff4a52;
+	transition: all 0.3s ease-out;
+}
+
+.image-recipe
+{
+	width: 100% !important;
+	max-height: 530px !important;
+}
+
+.media-img-auto
+{
+	width: 90px;
+}

@@ -463,6 +463,7 @@ export interface RecipeProfile{
     name: string;
     lastname: string;
     description: string;
+    porfileimageRoute: string;
   },
   rankings?: Rankings[];
   tags: Tag[];
