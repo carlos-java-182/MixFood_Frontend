@@ -976,3 +976,29 @@ input.file
 	border-color: none;
 	box-shadow: none;
 }
+
+
+/* Cursor pointer on select */
+.pointer:hover
+{
+	cursor: pointer;
+}
+
+/*=============================================
+=            Input errors            =
+=============================================*/
+.input-errors
+{
+    display: none;
+}
+
+.is-invalid-input
+{
+    display: block;
+    color: #dc3545;
+    font-family: 'Hind', sans-serif;
+    font-weight: 400;
+    line-height: 1.6;
+    text-rendering: optimizeLegibility;
+}
+/*=====  End of Input errors  ======*/

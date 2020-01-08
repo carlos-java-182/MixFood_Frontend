@@ -26,6 +26,7 @@ export class RecipeComponent implements OnInit {
   private preparationSteps: string;
   private preparationTime: string;
   private difficulty: string;
+  private userImage: string;
   private totalLikes: number;
   private recipeAverangeRanking: number;
   private views: number;
@@ -141,6 +142,7 @@ export class RecipeComponent implements OnInit {
       this.userName = data.user.name+' '+data.user.lastname;
       this.recipeCreateAt = data.createAt;
       this.recipeDescription = data.description;
+      this.userImage = data.user.porfileimageRoute;
       this.views = data.views;
       this.difficulty = data.difficulty;
       this.preparationTime = data.preparationTime;
@@ -189,11 +191,9 @@ export class RecipeComponent implements OnInit {
 
   getCategoriesList(): void
   {
-    this._categoryService.getCategoriesList().subscribe(response =>
+    this._categoryService.getCategoriesListLimit().subscribe(response =>
     {
-   
       this.categoryList = response.content as CategoryList[];  
-    //  console.log("data: "+data);
     },
     err =>
     {

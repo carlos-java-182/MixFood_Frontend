@@ -18,7 +18,7 @@
                             <ul class="entry-meta">
                                 <li class="single-meta"><a><i class="far fa-calendar-alt"></i>{{recipeCreateAt | date: 'yyyy-MM-dd'}}</a></li>
                                 <li class="single-meta">
-                                    <a (click)="goToProfile(idUser)">
+                                    <a class="pointer" (click)="goToProfile(idUser)">
                                         <i class="fas fa-user"></i><span>{{userName}}</span>
                                     </a>
                                 </li>
@@ -59,7 +59,7 @@
                     <div class="item-figure">
                         <div id="recipe-carousel" class="owl-carousel owl-theme">
                             <div *ngFor="let image of images">
-                                <img src="http://localhost:8080/api/uploads/recipes/{{image.routeImage}}" alt="Product">
+                                <img class="image-recipe" src="http://localhost:8080/api/uploads/recipes/{{image.routeImage}}" alt="Product">
                             </div>
                         </div>
                     </div>
@@ -264,7 +264,7 @@
                             <li>
                                 <ul class="inner-tag">
                                     <li *ngFor="let tag of tags">
-                                        <a (click)="goToRecipesByTag(tag.id)">{{tag.name}}</a>
+                                        <a class="pointer" (click)="goToRecipesByTag(tag.id)">{{tag.name}}</a>
                                     </li>
                                 </ul>
                             </li>
@@ -273,7 +273,7 @@
                     <!-- Recipe Tags End Here -->
                     <div class="recipe-author">
                         <div class="media media-none--xs">
-                            <img src="assets/img/blog/author9.jpg" alt="Blog Author" class="rounded-circle media-img-auto">
+                            <img src="http://localhost:8080/api/uploads/{{userImage}}/type/USER" alt="Blog Author" class="rounded-circle media-img-auto">
                             <div class="media-body">
                                 <h4 class="author-title">{{userName}}</h4>
                                 <h5 class="author-sub-title">Author</h5>
@@ -297,54 +297,7 @@
                                 </ul>
                             </div>
                         </div>
-                    </div>            
-                    <!-- <div class="also-like-wrap">
-                        <h4 class="also-like-title">YOU MAY ALSO LIKE</h4>
-                        <div class="row">
-                            <div class="col-xl-4 col-lg-6 col-md-6 col-12">
-                                <div class="product-box-layout2">
-                                    <figure class="item-figure"><img src="assets/img/product/product11.jpg"
-                                                alt="Product"></figure>
-                                    <div class="item-content">
-                                        <span class="sub-title">BREAKFAST</span>
-                                        <h3 class="item-title"><a href="single-recipe1.html">Tomatoes Stuffed with Foie and
-                                                Chanterelles</a></h3>
-                                        <ul class="entry-meta">
-                                            <li><a href="#"><i class="fas fa-user"></i>by <span>John Martin</span></a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xl-4 col-lg-6 col-md-6 col-12">
-                                <div class="product-box-layout2">
-                                    <figure class="item-figure"><img src="assets/img/product/product12.jpg"
-                                                alt="Product"></figure>
-                                    <div class="item-content">
-                                        <span class="sub-title">DESERT</span>
-                                        <h3 class="item-title"><a href="single-recipe1.html">Pumpkin Cheesecake With
-                                                GingersnapCrust</a></h3>
-                                        <ul class="entry-meta">
-                                            <li><a href="#"><i class="fas fa-user"></i>by <span>John Martin</span></a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xl-4 d-block d-md-none d-xl-block col-12">
-                                <div class="product-box-layout2">
-                                    <figure class="item-figure"><img src="assets/img/product/product13.jpg"
-                                                alt="Product"></figure>
-                                    <div class="item-content">
-                                        <span class="sub-title">JUICE</span>
-                                        <h3 class="item-title"><a href="single-recipe1.html">Blueberry Juice with Lemon Crema</a></h3>
-                                        <ul class="entry-meta">
-                                            <li><a href="#"><i class="fas fa-user"></i>by <span>John Martin</span></a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>             
-                    </div> -->
-                    
+                    </div>                                               
                     <!-- Recipe Reviews Start Here -->
                     <div class="recipe-reviews">
                         <div class="section-heading heading-dark">
@@ -362,7 +315,7 @@
                         <ul>
                             <li class="reviews-single-item" *ngFor="let ranking of rankings">
                                 <div class="media media-none--xs">
-                                    <img [src]="ranking.user.porfileimageRoute" alt="userimage" class="media-img-auto">
+                                    <img src="http://localhost:8080/api/uploads/{{ranking.user.porfileimageRoute}}/type/USER" alt="userimage" class="media-img-auto">
                                     <div class="media-body">
                                         <h4 class="comment-title">{{ranking.user.name+' '+ranking.user.lastname}}</h4>
                                         <span class="post-date">{{ranking.createAt | timeAgo}}</span>
@@ -427,54 +380,6 @@
             <div class="col-lg-4 sidebar-widget-area sidebar-break-md">
                 <div class="widget">
                     <div class="section-heading heading-dark">
-                        <h3 class="item-heading">LATEST RECIPES</h3>
-                    </div>
-                    <div class="widget-latest">
-                        <ul class="block-list">
-                            <li  class="single-item" *ngFor="let latest of recipesLatests let i = index" (click)="goToRecipe(latest.id)">
-                                <div class="item-img">
-                                    <a>
-                                        <img  class="img-thumbnail recipe-thumb" src="http://localhost:8080/api/uploads/recipes/{{latest.thumbRoute}}" alt="Recipe image">
-                                    </a>
-                                    <div class="count-number">{{i+1}}</div>
-                                </div>
-                                <div class="item-content">
-                                    <div class="item-ctg">
-                                        <a (click)="goToCategory(latest.category.id)">
-                                        {{latest.category.name.toUpperCase()}}
-                                        </a>
-                                    </div>
-                                    <h4 class="item-title">
-                                        <a [routerLink]="['/recipe',latest.id]">{{latest.name}}</a>
-                                    </h4>
-                                    <div class="item-post-by">
-                                        <a  [routerLink]="['/profile/',latest.user.id]">
-                                            <i class="fas fa-user"></i>
-                                            {{latest.user.name +' '+latest.user.lastname}}
-                                        </a>
-                                    </div>
-                                </div>
-                            </li >
-                        </ul>
-                    </div>
-                </div>
-                <!-- <div class="widget">
-                    <div class="section-heading heading-dark">
-                        <h3 class="item-heading">SUBSCRIBE &amp; FOLLOW</h3>
-                    </div>
-                    <div class="widget-follow-us">
-                        <ul>
-                            <li class="single-item"><a href="#"><i class="fab fa-facebook-f"></i>LIKE ME ON</a></li>
-                            <li class="single-item"><a href="#"><i class="fab fa-twitter"></i>LIKE ME</a></li>
-                            <li class="single-item"><a href="#"><i class="fab fa-linkedin-in"></i>LIKE ME</a></li>
-                            <li class="single-item"><a href="#"><i class="fab fa-pinterest-p"></i>LIKE ME</a></li>
-                            <li class="single-item"><a href="#"><i class="fab fa-instagram"></i>LIKE ME</a></li>
-                            <li class="single-item"><a href="#"><i class="fab fa-youtube"></i>Subscribe</a></li>
-                        </ul>
-                    </div>
-                </div> -->
-                <div class="widget">
-                    <div class="section-heading heading-dark">
                         <h3 class="item-heading">FEATURED RECIPES</h3>
                     </div>
                     <div class="widget-featured-feed">
@@ -492,39 +397,53 @@
                                     <img src="http://localhost:8080/api/uploads/recipes/{{featured.thumbRoute}}" alt="Brand" class="img-fluid">
                                 </div>
                                 <div class="item-content">    
-                                    <h4 class="item-title"><a href="single-recipe1.html">{{featured.name}}</a></h4>
-                                    <span class="ctg-name">{{featured.category.name.toUpperCase()}}</span>
-                                    <p class="text-center">
-                                        <bar-rating [(rate)]="featured.averangeRanking" [max]="5" ></bar-rating>
-                                    </p>
+                                    <h4 class="item-title"><a [routerLink]="['/recipe',featured.id]" routerLinkActive="router-link-active" >{{featured.name}}</a></h4>
+                                    <span class="ctg-name">
+                                        <a class="pointer" (click)="goToCategory(featured.category.id)">
+                                            {{featured.category.name.toUpperCase()}}
+                                        </a>
+                                    </span>
+                                    <div class="div-ranking">
+                                        <bar-rating [(rate)]="featured.averangeRanking" [readOnly]="true" [max]="5" ></bar-rating>
+                                    </div>
                                     <p>{{featured.description}}</p>
                                 </div>
                             </div>
-                            <!-- <div class="featured-box-layout1">
-                                <div class="item-img">
-                                    <img src="assets/img/product/product18.jpg" alt="Brand" class="img-fluid">
-                                </div>
-                                <div class="item-content">
-                                    <span class="ctg-name">DINNER</span>
-                                    <h4 class="item-title"><a href="single-recipe1.html">Baked Garlic Prawn</a></h4>
-                                    <p>Definitiones noel ei verear intelle
-                                        gatpri civibus consequat area
-                                        refund efficiantue.</p>
-                                </div>
-                            </div>
-                            <div class="featured-box-layout1">
-                                <div class="item-img">
-                                    <img src="assets/img/product/product19.jpg" alt="Brand" class="img-fluid">
-                                </div>
-                                <div class="item-content">
-                                    <span class="ctg-name">SALAD</span>
-                                    <h4 class="item-title"><a href="single-recipe1.html">Baked Garlic Prawn</a></h4>
-                                    <p>Definitiones noel ei verear intelle
-                                        gatpri civibus consequat area
-                                        refund efficiantue.</p>
-                                </div>
-                            </div> -->
                         </div>
+                    </div>
+                </div>
+
+                <div class="widget">
+                    <div class="section-heading heading-dark">
+                        <h3 class="item-heading">LATEST RECIPES</h3>
+                    </div>
+                    <div class="widget-latest">
+                        <ul class="block-list">
+                            <li  class="single-item" *ngFor="let latest of recipesLatests let i = index" (click)="goToRecipe(latest.id)">
+                                <div class="item-img">
+                                    <a>
+                                        <img  class="img-thumbnail recipe-thumb" src="http://localhost:8080/api/uploads/recipes/{{latest.thumbRoute}}" alt="Recipe image">
+                                    </a>
+                                    <div class="count-number">{{i+1}}</div>
+                                </div>
+                                <div class="item-content">
+                                    <div class="item-ctg">
+                                        <a class="pointer" (click)="goToCategory(latest.category.id)">
+                                        {{latest.category.name.toUpperCase()}}
+                                        </a>
+                                    </div>
+                                    <h4 class="item-title">
+                                        <a [routerLink]="['/recipe',latest.id]">{{latest.name}}</a>
+                                    </h4>
+                                    <div class="item-post-by">
+                                        <a  [routerLink]="['/profile/',latest.user.id]">
+                                            <i class="fas fa-user"></i>
+                                            {{latest.user.name +' '+latest.user.lastname}}
+                                        </a>
+                                    </div>
+                                </div>
+                            </li >
+                        </ul>
                     </div>
                 </div>
                 <div class="widget">
@@ -533,12 +452,14 @@
                     </div>
                     <div class="widget-categories">
                         <ul>
-                            <li *ngFor="let category of categoryList">
+                            <li class="list-item" *ngFor="let category of categoryList">
                                 <a (click)="goToCategory(category.id)">{{category.name}}
                                     <!-- <span>{{category.amountRecipes}}</span> -->
                                 </a>
                             </li>  
-                            <li><a href="">Show More...</a></li>                  
+                            <li class="list-item">
+                                <a>Show More...</a>
+                            </li>                  
                         </ul>
                     </div>
                 </div>
@@ -549,7 +470,7 @@
                     <div class="widget-tag">
                         <ul>
                             <li *ngFor="let tag of tagsTrends">
-                                <a (click)="goToTag(tag.id)">{{tag.name}}</a>
+                                <a class="pointer" (click)="goToTag(tag.id)">{{tag.name}}</a>
                             </li>                       
                         </ul>
                     </div>

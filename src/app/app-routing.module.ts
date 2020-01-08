@@ -51,11 +51,7 @@ import { FavoritesComponent } from './components/user/favorites/favorites.compon
 //2.- Asignar ruta al componente
 //mipagina.com/path/path/path
 const routes: Routes = [
- 
-  //*Crud Example routes
-  {component: ShowComponent, path: 'crud/show'},
-  {component: CreateComponent, path: 'crud/create'},
- 
+  
   //*User routes
   {component: ProfileUserComponent, path: 'user/profile-user'},
   {component: EditprofileUserComponent, path: 'user/profile/editprofile-user'},
@@ -70,34 +66,34 @@ const routes: Routes = [
  
   //*Guest routes
   {component: HomeGuestComponent, path: ''},
-  {component: SearchrecipeGuestComponent, path: 'searchrecipe-guest'},
-  {component: SearchresultsGuestComponent, path: 'searchresults-guest'},
+
   {component: CategoriesGuestComponent, path: 'categories'},
   {component: CategoriesGuestComponent, path: 'categories/page/:page'},
-  {component: LoginComponent, path: 'guest/login-guest'},
-  {component: SignupGuestComponent, path: 'guest/signup-guest'},
-  {component: ForgotpasswordGuestComponent, path: 'forgotpassword'},
+  {component: LoginComponent, path: '/login'},
+  {component: SignupGuestComponent, path: '/signup'},
+  {component: ForgotpasswordGuestComponent, path: 'f/orgotpassword'},
   {component: RecipeComponent, path: 'recipe/:id'},
-
 
   //*Search components
   {component: SearchresultsComponent, path: 'search/:term/page/:page'},
   {component: SearchresultsComponent, path: 'search/category/:idCategory/page/:page'},
+  {component: SearchresultsComponent, path: 'search/:term/category/:idCategory/page/:page'},
   {component: SearchresultsComponent, path: 'search/tag/:idTag/page/:page'},
-  {component: SearchresultsComponent, path: 'search/:ingredients/:idcategory'},
+  {component: SearchresultsComponent, path: 'search/ingredient/:ingredient/page/:page'},
+
   //*Admin routes
-  {component: HomeAdminComponent, path: 'admin/home-admin'},
-  {component: IngredientsAdminComponent, path: 'admin/ingredients-admin'},
-  {component: CreateingredientsAdminComponent, path: 'admin/createingredients-admin'},
-  {component: EditingredientsAdminComponent, path: 'admin/editingredient-admin'},
-  {component: CategoriesAdminComponent, path: 'admin/categories-admin'},
-  {component: CreatecategoriesAdminComponent, path: 'admin/createcategories-admin'},
-  {component: EditcategoriesAdminComponent, path: 'admin/editcategories-admin'},
-  {component: UsersAdminComponent, path: 'admin/user-admin'},
-  {component: CreatetagsAdminComponent, path: 'admin/createtags-admin'},
-  {component: EditusersAdminComponent, path: 'admin/edituser-admin'},
-  {component: TagsAdminComponent, path: 'admin/tags-admin'},
-  {component: EdittagsAdminComponent, path: 'admin/edit-admin'},
+  {component: HomeAdminComponent, path: 'admin/home'},
+  {component: IngredientsAdminComponent, path: 'admin/ingredients'},
+  {component: CreateingredientsAdminComponent, path: 'admin/ingredients/create'},
+  {component: EditingredientsAdminComponent, path: 'admin/ingredients/ediit/:id'},
+  {component: CategoriesAdminComponent, path: 'admin/categories'},
+  {component: CreatecategoriesAdminComponent, path: 'admin/categories/create'},
+  {component: EditcategoriesAdminComponent, path: 'admin/categories/edit/:id'},
+  {component: UsersAdminComponent, path: 'admin/users'},
+  {component: CreatetagsAdminComponent, path: 'admin/users/create'},
+  {component: EditusersAdminComponent, path: 'admin/users/edit/:id'},
+  {component: TagsAdminComponent, path: 'admin/tags'},
+  {component: EdittagsAdminComponent, path: 'admin/tags/edit/:id'},
 
   //*Shared components
   {component: UserprofileComponent, path: 'profile/:id'}
