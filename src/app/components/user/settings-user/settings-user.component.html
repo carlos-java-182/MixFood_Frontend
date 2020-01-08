@@ -35,22 +35,45 @@
                         </h2>  
                     </div>     
                     <div *ngIf="isEditPassword" class="ranna-box-padding">
-                        <form class="login-form">
+                        <form [formGroup]="passwordForm" (submit)="changePassword()" class="login-form">
                             <div class="col-lg-4">
                                 <label for="">Actual password</label>
-                                <input  class="main-input-box" type="password">
+                                <input  
+                                formControlName="actualPassword"
+                                [ngClass]="{'is-invalid': passwordForm.get('actualPassword').hasError('required') && passwordForm.get('actualPassword').touched}"
+                                class="main-input-box form-control" 
+                                type="password">
+                                <div class="input-errors" [ngClass]="{'is-invalid-input': passwordForm.get('actualPassword').errors && passwordForm.get('actualPassword').touched}">
+                                    <span *ngIf="passwordForm.get('actualPassword').hasError('required')">The password is required.</span>
+                                </div>
                             </div>
                             <div class="col-lg-4">
                                 <label for="">New password</label>
-                                <input  class="main-input-box" type="password">
+                                <input  
+                                formControlName="password"
+                                [ngClass]="{'is-invalid': passwordForm.get('password').hasError('required') && passwordForm.get('password').touched}"
+                                class="main-input-box form-control" 
+                                type="password">    
+                                <div class="input-errors" [ngClass]="{'is-invalid-input': passwordForm.get('password').errors && passwordForm.get('password').touched}">
+                                    <span *ngIf="passwordForm.get('password').hasError('required')">The new password is required.</span>
+                                </div>                 
                             </div>
                             <div class="col-lg-4">
                                 <label for="">Confirm password</label>
-                                <input  class="main-input-box" type="password">
+                                <input                                 
+                                formControlName="confirmPassword"
+                                [ngClass]="{'is-invalid': passwordForm.get('confirmPassword').hasError('required') && passwordForm.get('confirmPassword').touched}"
+                                class="main-input-box form-control" type="password">
+                                <div class="input-errors" [ngClass]="{'is-invalid-input': passwordForm.get('confirmPassword').errors && passwordForm.get('confirmPassword').touched}">
+                                    <span *ngIf="passwordForm.get('confirmPassword').hasError('required')">Confirm password is required.</span>
+                                </div>
+                                <div class="input-errors" *ngIf="passwordForm.controls.confirmPassword.errors?.MatchPassword && passwordForm.get('confirmPassword').touched">
+                                    The passwords worng.
+                                </div>
                             </div>
 
                             <div class="col-lg-2 inline-box mb-5 mt-4">
-                                <button class="btn-login btn-fill" type="submit" value="Signup">Change</button>     
+                                <button class="btn-login btn-fill" type="submit">Change</button>     
                             </div>
                         </form>
                     </div>
@@ -74,11 +97,11 @@
                             </div>
                             <div class="col-lg-4">
                                 <label for="">New email</label>
-                                <input  class="main-input-box" type="email">
+                                <input formControlName="email" class="main-input-box" type="email">
                             </div>
                             <div class="col-lg-4">
                                 <label for="">Password</label>
-                                <input  class="main-input-box" type="password">
+                                <input formControlName="password" class="main-input-box" type="password">
                             </div>
 
                             <div class="col-lg-2 inline-box mb-5 mt-4">

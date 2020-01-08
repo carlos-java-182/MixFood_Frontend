@@ -1,3 +1,4 @@
+import { PasswordValidation } from 'src/app/helpers/PasswordValidation';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { UserService, UserInformation } from 'src/app/services/user.service';
@@ -11,7 +12,7 @@ import { empty } from 'rxjs';
 })
 export class SettingsUserComponent implements OnInit {
   //*Variables declaration
-  private isEditPassword: boolean = false;
+  private isEditPassword: boolean = true;
   private isEditEmail: boolean = false;
   private isEditInformation: boolean = false;
   private isEditSocial: boolean = false;
@@ -34,10 +35,13 @@ export class SettingsUserComponent implements OnInit {
 
   ngOnInit() 
   {
-    this.passwordForm = this.formBuilder.group({
+    this.passwordForm = this.formBuilder.group({  
+      actualPassword: ['',[Validators.required, Validators.minLength(6)]],
       password: ['',[Validators.required,Validators.minLength(6)]],
       confirmPassword: ['',[Validators.required,Validators.minLength(6)]]
-    });
+    },
+    {validators: PasswordValidation.MatchPassword}
+    );
 
     this.emailForm = this.formBuilder.group({
       email: ['',[Validators.required,Validators.email]],
@@ -247,5 +251,15 @@ export class SettingsUserComponent implements OnInit {
         });
           
       });
+  }
+
+  private changePassword()
+  {
+    console.log(this.passwordForm);    
+  }
+
+  private changeEmail()
+  {
+    
   }
 }
