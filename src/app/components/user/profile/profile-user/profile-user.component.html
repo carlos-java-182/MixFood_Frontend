@@ -1,1 +1,226 @@
-<p>profile-user works!</p>
+<!-- Header Area Start Here -->
+<app-navbar-user></app-navbar-user>
+<!-- Header Area End Here -->
+<!-- Inne Page Banner Area Start Here -->
+<section class="section-header inner-page-banner bg-common">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="breadcrumbs-area">
+                    <h1>Profile</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Inne Page Banner Area End Here -->
+<!-- Content Start Here -->
+<section class="padding-bottom-45 padding-top-75">
+    <div class="container">
+        <div class="row gutters-40">
+            <div class="col-lg-4 sidebar-widget-area sidebar-break-md">
+                <!-- User Info Start Here -->
+                <div class="widget ranna-box-padding">
+                    <div class="section-heading heading-dark ">
+                            <h2 class="item-heading profile-name">{{userName}}</h2>
+                        <button (click)="StartFollowing()" class="btn-fil btn-red" *ngIf="!isFollowing && isLoggedin">Follow</button>
+                        <button (click)="StopFollowing()" class="btn-fil btn-red" *ngIf="isFollowing && isLoggedin">Unfollow</button>
+                    </div>
+                    <div class="widget-about">            
+                        <figure class="author-figure">
+                            <i class="fas fa-pencil-alt"></i>
+                            <img src="assets/img/figure/about.jpg" alt="about">
+                        </figure>
+                        <!-- <figure class="author-signature"><img src="assets/img/figure/signature.png" alt="about"></figure> -->
+                        <h3 class="item-heading">About me <i class="fas fa-pencil-alt"></i></h3>
+                        <p>{{aboutMe}}</p>   
+                    </div>
+                </div>
+                <!-- User Info End Here -->
+                <!-- Social Networks Start Here -->
+                <div class="widget ranna-box-padding">
+                    <div class="section-heading heading-dark">
+                        <h3 class="item-heading">SOCIAL NETWORKS <i class="fas fa-pencil-alt"></i></h3>
+                    </div>
+                    <div class="widget-follow-us">
+                        <ul>
+                            <li class="single-item" *ngFor="let social of socialNetworks">
+                                <a (click)="goToLink(social.link)">
+                                    <i class="fab fa-facebook-f" *ngIf="social.network == 'FACEBOOK'"></i>
+                                    <i class="fab fa-instagram" *ngIf="social.network == 'INSTAGRAM'"></i>
+                                    <i class="fab fa-twitter" *ngIf="social.network == 'TWITTER'"></i>
+                                    <i class="fab fa-linkedin-in" *ngIf="social.network == 'LINKEDIN'"></i>
+                                    <i class="fab fa-youtube" *ngIf="social.network == 'YOUTUBE'"></i>
+                                    <i class="fab fa-pinterest-p" *ngIf="social.network == 'PRINTEREST'"></i>
+                                    <span *ngIf="social.network == 'YOUTUBE'">SUBSCRIBE</span>
+                                    <span *ngIf="social.network != 'YOUTUBE'">LIKE ME</span>            
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <!-- Social Networks End Here -->
+                <!-- Latest Recipes Start Here -->
+                <div class="widget ranna-box-padding">
+                    <div class="section-heading heading-dark">
+                        <h3 class="item-heading">LATEST RECIPES</h3>
+                    </div>
+                    <div class="widget-latest">
+                        <ul class="block-list remove-5th-child-lg">       
+                            <!-- <li  class="single-item" *ngFor="let recipe of recipeLatests; let i = index">
+                                <app-recipe-card-latest [recipe]="recipe"></app-recipe-card-latest>
+                            </li> -->
+                            <li  class="single-item" *ngFor="let recipe of recipeLatests; let i = index">
+                                <div class="item-img">
+                                    <a (click)="goToRecipe(recipe.id)"><img [src]="recipe.thumbRoute" alt="Post"></a>
+                                    <div class="count-number">{{i+1}}</div>
+                                </div>
+                                <div class="item-content">
+                                    <div (click)="goToRecipesByCategory(recipe.category.id)" class="item-ctg">{{recipe.category.name}}</div>
+                                    <h4 class="item-title">
+                                        <a (click)="goToRecipe(recipe.id)">{{recipe.name}}</a>
+                                    </h4>
+    
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <!--Latest Recipes End Here -->
+                <!-- <div class="widget ranna-box-padding">
+                    <div class="widget-ad">
+                        <a href="#"><img src="img/figure/figure3.jpg" alt="Ad" class="img-fluid"></a>
+                    </div>
+                </div> -->
+                <!-- Categories User Start Here -->
+                <div class="widget ranna-box-padding">
+                    <div class="section-heading heading-dark">
+                        <h3 class="item-heading">CATEGORIES</h3>
+                    </div>
+                    <div class="widget-categories">
+                        <ul>
+                            <li *ngFor="let category of categoriesList">
+                                <a href="#">{{category.name}}</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <!-- Categories User End Here -->
+            </div>
+       
+            <div class="col-lg-8">
+                <div class="row gutters-60">
+                    <div class="col-lg-12">
+                        <div class="ranna-box-styles">
+                            <div class=" section-headings heading-darks">
+                                <ul class="profile-menu">
+                                    <li [ngClass]="{'active': isShowProfile}" (click)="showProfile()">
+                                        <a class="pointer">Profile</a>
+                                    </li>
+                                    <li  [ngClass]="{'active': isShowRecipes}" (click)="showRecipes()">
+                                        <a class="pointer " >Recipes</a>
+                                    </li>
+                                    <li [ngClass]="{'active': isShowSettings}" (click)="showSettings()">
+                                        <a class="pointer">Settings</a>
+                                    </li>
+                                    <li [ngClass]="{'active': isShowFavorites}"(click)="showFavorites()">
+                                        <a class="pointer">Favorites</a>
+                                    </li>
+                                    <li [ngClass]="{'active': isShowFollowers}"(click)="showFollowers()">
+                                        <a class="pointer">Followers</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="row gutters-40">
+                            
+                            <div class="col-lg-12"> 
+                                <app-recipes-user *ngIf="isShowRecipes">  </app-recipes-user>
+                                <app-settings-user *ngIf="isShowSettings" ></app-settings-user>
+                                <app-favorites *ngIf="isShowFavorites"></app-favorites>
+                            </div>
+
+                            
+
+                            
+
+                            
+
+
+
+
+                        </div>
+                    </div>
+                  <!-- Recipe Trending End Here -->
+                  <div class="col-lg-12">
+                    <div class="ranna-box-style">
+                        <div class="section-heading heading-dark">
+                            <h2 class="item-heading">POPULAR RECIPES</h2>
+                        </div>
+                        <!-- Popular Recipes Start Here -->
+                        <div class="row gutters-40">
+                            <div *ngFor="let recipe of recipeFeatured | slice: 1" class="col-xl-12 col-lg-6 col-md-6 col-sm-6 col-12">
+                                <app-recipe-card-popular [recipe]="recipe"></app-recipe-card-popular>
+                            </div>
+                        </div>
+                        <!-- Popular Recipes End Here -->
+                    </div>
+                </div>
+                    <!-- Recipe Trending Start Here -->
+                    <div class="col-12">    
+                        <div class="product-box-layout4" *ngFor="let trending of recipeTrending">
+                            <div class="section-heading heading-dark">
+                                <h2 class="item-heading">TRENDING RECIPE</h2>
+                            </div>
+                            <div class="item-figure">
+                                <img [src]="trending.thumbRoute" alt="Product">
+                                <a class="item-dot">
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                </a>
+                            </div>
+                            <div class="item-content">    
+                                <h2 class="item-title">
+                                    <a (click)="goToRecipe(trending.id)">{{trending.name}}</a>
+                                </h2>
+                                <span class="sub-title" (click)="goToRecipesByCategory(trending.category.id)">
+                                    {{trending.category.name.toUpperCase()}}
+                                </span>
+                                <ul class="item-rating">
+                                    <bar-rating [(rate)]="trending.averangeRanking" [max]="5" ></bar-rating>
+                                </ul>
+                                <p>{{trending.description}}</p>
+                                <ul class="entry-meta">
+                                    <li>
+                                        <a><i class="fas fa-clock"></i>{{trending.createAt | timeAgo}}</a>
+                                    </li>
+                                    <li>
+                                        <a (click)="StartaLike(trending.id)">
+                                            <i class="fas fa-heart"></i>
+                                            <span *ngIf="isLiked && trending.totalLikes > 0">You and {{totalLikes}} others likes</span>
+                                            <span *ngIf="!isLiked && trending.totalLikes > 0">{{trending.totalLikes}} likes</span>
+                                            <span *ngIf="!isLiked && trending.totalLikes == 0" >Be the first to like</span>
+                                            <span *ngIf="isLiked && trending.otalLikes == 0">You like this</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a (click)="addToFavorite(trending.id)" *ngIf="!isFavorite && isLoggedin">
+                                            <i class="far fa-heart"></i>
+                                            <span>Add to favorites</span> 
+                                        </a>
+                                        <a  (click)="removeFavorite(trending.id)" *ngIf="isFavorite && isLoggedin">
+                                            <i class="fas fa-heart"></i>
+                                            <span>Remove favorites</span> 
+                                        </a>
+                                    </li>            
+                                </ul>
+                            </div>
+                        </div> 
+                    </div>
+                  
+                </div>
+            </div>                  
+        </div>
+    </div>
+</section>

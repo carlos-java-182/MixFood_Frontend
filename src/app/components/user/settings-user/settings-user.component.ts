@@ -1,3 +1,4 @@
+import { Email, EmailUpdate } from './../../../services/user.service';
 import { PasswordValidation } from 'src/app/helpers/PasswordValidation';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
@@ -48,11 +49,8 @@ export class SettingsUserComponent implements OnInit {
       confirmPassword: ['',[Validators.required, Validators.minLength(6)]]
     });
 
-    
-
     this.formInformationInit();
     this.socialNetworksFormInit();
-
     this.getSocialNetworks();
     
   }
@@ -258,8 +256,22 @@ export class SettingsUserComponent implements OnInit {
     console.log(this.passwordForm);    
   }
 
-  private changeEmail()
+  private changeEmail(event: Event)
   {
-    
+    event.preventDefault();
+    //*Validate email
+  // console.log(this.emailForm.value)
+    let body: EmailUpdate = 
+    {
+      email : this.emailForm.get('email').value,
+      password: this.emailForm.get('confirmPassword').value
+    };
+   
+    this._userService.updateEmail(1,body).subscribe(response =>{
+      console.log(response);
+      this.getEmail();
+    },
+      err => {console.log(err);
+    });
   }
 }

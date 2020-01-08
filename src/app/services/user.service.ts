@@ -37,11 +37,6 @@ export class UserService {
     return this.http.put<PasswordChange>(`${this.url}settings/password/${id}`,JSON.stringify(passwordChange),{headers: this.headers});
   }
 
-  updateEmail()
-  {
-
-  }
-
   updateSocialNetworks(id: number, socialNetwork: SocialNetwork):Observable<SocialNetwork>
   {
     return this.http.put<SocialNetwork>(`${this.url}settings/socialnetworks/${id}`,JSON.stringify(socialNetwork),{headers: this.headers});
@@ -52,7 +47,18 @@ export class UserService {
     return this.http.delete(`${this.url}settings/socialnetworks/${network}/${id}`);
   }
 
+  public updateEmail(id: number, body: EmailUpdate):Observable<any>
+  {
+    return this.http.put(`${this.url}settings/email/${id}`,JSON.stringify(body),{headers: this.headers});
+  }
+
   
+}
+
+export interface EmailUpdate
+{
+  password: string;
+  email: string;
 }
 
 export interface UserInformation

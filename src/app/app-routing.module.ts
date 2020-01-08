@@ -1,3 +1,4 @@
+import { UserprofileComponent } from './components/shared/userprofile/userprofile.component';
 import { CategoriesComponent } from './components/shared/categories/categories.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
@@ -6,7 +7,6 @@ import { Routes, RouterModule } from '@angular/router';
 
 //*Import components
 import { NavbarUserComponent } from './components/user/shared/navbar-user/navbar-user.component';
-import { ProfileUserComponent } from './components/user/profile/profile-user/profile-user.component';
 import { EditprofileUserComponent } from './components/user/profile/editprofile-user/editprofile-user.component';
 import { CreaterecipeUserComponent } from './components/user/recipes/createrecipe-user/createrecipe-user.component';
 import { EditrecipeUserComponent } from './components/user/recipes/editrecipe-user/editrecipe-user.component';
@@ -40,12 +40,12 @@ import { EditComponent } from './components/admin/crud/edit/edit.component';
 import { CreateComponent } from './components/admin/crud/create/create.component';
 import { ShowComponent } from './components/admin/crud/show/show.component';
 import { SearchresultsComponent } from './components/shared/searchresults/searchresults.component';
-import { UserprofileComponent } from './components/shared/userprofile/userprofile.component';
+
 import { SettingsUserComponent } from './components/user/settings-user/settings-user.component';
 import { RecipesUserComponent } from './components/user/recipes/recipes-user/recipes-user.component';
 import { FavoritesComponent } from './components/user/favorites/favorites.component';
 import { AuthGuard } from './guards/auth.guard';
-
+import {ProfileUserComponent} from './components/user/profile/profile-user/profile-user.component';
 //*Crud example imports
 
 
@@ -64,6 +64,7 @@ const routes: Routes = [
   {component: EditrecipeUserComponent, path: 'user/recipes/edit/:id', canActivate:[AuthGuard]},
   {component: RecipesUserComponent, path: 'user/recipes/page/:page/status/:status', canActivate:[AuthGuard]},
   {component: RecipesUserComponent, path: 'user/recipes/page/:page/term/:term/status/:status', canActivate:[AuthGuard]},
+  {component: ProfileUserComponent, path: 'user/profile'},
  
   //*Guest routes
   {component: HomeGuestComponent, path: ''},

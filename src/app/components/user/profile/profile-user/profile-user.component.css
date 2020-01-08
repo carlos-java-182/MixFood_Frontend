@@ -1,0 +1,50 @@
+.profile-menu
+{
+    display: flex;
+    border-bottom: 1px solid #d7d7d7;
+
+}
+.profile-menu li 
+{
+    padding: 10px 20PX;
+    border-bottom: 1px solid #d7d7d7;
+}
+
+.profile-menu li a 
+{
+    font-family: 'Hind', sans-serif;
+    font-size: 20px;
+    font-weight: 600;
+    color: #111;
+}
+
+.profile-menu li:hover 
+{
+    border-color: #ff4a52;
+}
+
+.profile-menu li a:hover 
+{
+    color:  #ff4a52;
+}
+
+.profile-menu .active 
+{
+    border-color: #ff4a52;
+}
+
+.profile-menu .active a
+{
+    color:  #ff4a52;
+}
+
+.nav-heading:before 
+{
+	position: absolute;
+	content: "";
+	bottom: -2px;
+	left: 0;
+	background-color: #ff4a52;
+	height: 3px;
+	width: 50px;
+}
