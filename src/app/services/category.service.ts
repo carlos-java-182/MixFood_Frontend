@@ -16,9 +16,14 @@ export class CategoryService {
     return this.http.get(`${this.url}cards/page/${page}/items/${items}`)
   }
 
-  public getCategoriesList():Observable<any>
+  public getCategoriesListLimit():Observable<any>
   {
-    return this.http.get(this.url+'list');
+    return this.http.get(this.url+'listlimit');
+  }
+
+  public getCategoriesList():Observable<CategoryList[]>
+  {
+    return this.http.get<CategoryList[]>(this.url+'list');
   }
 
   public getCategoriesListUser(id: number, size: number):Observable<CategoryListUser[]>

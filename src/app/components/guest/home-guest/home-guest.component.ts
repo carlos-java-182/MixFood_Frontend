@@ -112,7 +112,7 @@ export class HomeGuestComponent implements OnInit {
       {
         if(!response.empty)
         {
-          this.categories = response.content as CategoryCard
+          this.categories = response.content as CategoryCard[]
         }
     });
 

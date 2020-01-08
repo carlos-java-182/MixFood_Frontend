@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild, ElementRef,OnChanges } from '@angular/core';
 
 import { IngredientService, IngredientList } from 'src/app/services/ingredient.service';
-import { CategoryService, CategoryCard } from 'src/app/services/category.service';
+import { CategoryService, CategoryCard, CategoryList } from 'src/app/services/category.service';
 import { element } from 'protractor';
 import { stringify } from 'querystring';
 import { ProfileService } from 'src/app/services/profile.service';
@@ -42,7 +42,7 @@ export class CreaterecipeUserComponent implements OnInit {
   //Ingredients list for select
   private ingredients: IngredientList[];
   //Categories list for select
-  private categories: CategoryCard[];
+  private categories: CategoryList[];
   //Tags list for multiple select
   private tags: TagShort[];
   
@@ -123,7 +123,7 @@ export class CreaterecipeUserComponent implements OnInit {
    */
   private getCategoriesList():void
   {
-    this._categoryService.getCategoriesCard().subscribe(data => 
+    this._categoryService.getCategoriesList().subscribe(data => 
       {
         this.categories = data;
     });
