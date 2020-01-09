@@ -52,6 +52,7 @@ export class UserService {
     return this.http.put(`${this.url}settings/email/${id}`,JSON.stringify(body),{headers: this.headers});
   }
 
+ 
   
 }
 

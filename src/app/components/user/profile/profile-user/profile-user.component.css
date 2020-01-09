@@ -48,3 +48,108 @@
 	height: 3px;
 	width: 50px;
 }
+
+.widget-about
+{
+    display: flex !important;
+    flex-direction: column;
+    /* justify-content: center !important; */
+    align-items: center !important;
+}
+
+.author-figure
+{
+    position: relative !important;
+    /* transform: translateX(50%); */
+}
+
+.author-figure img 
+{
+    height: 234px !important;
+    width: 234px !important;
+}
+
+.change-image-container
+{
+    display: none;
+}
+
+.change-image-container.active
+{
+    display: block;
+    position: absolute;
+    top: 0;
+    background-color: rgba(0,0,0,0.5);
+    height: 100%;
+    width: 100%;
+    border-radius: 50%;
+    transition: all 0.3s ease-in-out;
+}
+
+.change-image-container.active .button-content
+{
+    position: absolute;
+    width: 100%;
+    bottom: 0px;
+    padding-bottom: 20px;
+}
+
+.change-image-container.active .button-content a 
+{
+    display: flex;
+    flex-direction: column;
+}
+
+.change-image-container.active  .button-content .icon
+{
+    color: white;
+    font-size: 20px;
+}
+
+.change-image-container.active .button-content .text 
+{
+    bottom: 0;
+    color: #fff;
+    font-family: 'Hind', sans-serif;
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 1.6;
+}
+
+
+
+/*=============================================
+=            Custom input file            =
+=============================================*/
+
+.upload-btn-wrapper {
+    position: relative;
+    overflow: hidden;
+    display: inline-block;
+  }
+  
+  .btn {
+    border: 1px solid #722040;
+    color: white;
+    background-color: #d3394c;
+    padding: 8px 20px;
+    border-radius: 2px;
+    font-size: 20px;
+    font-weight: bold;
+  }
+  
+  .change-image-container input[type=file] {
+    font-size: 400px;
+    position: absolute;
+    left: 0;
+    top: 0;
+    opacity: 0;
+  }
+
+/*=====  End of Custom input file  ======*/
+
+.single-item .item-img img 
+{
+    width: 135px;
+    height: 130px;
+}

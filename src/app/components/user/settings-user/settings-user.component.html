@@ -1,249 +1,238 @@
-
 <!-- Content Start Here -->
-        <!-- <div class="row gutters-60"> -->
-            <div class="col-lg-12">
-                <!-- <div class="widget ranna-box-padding"> -->
-                    <div class="section-heading heading-dark ">
-                        <h2 class="item-heading profile-name">Settings</h2>  
-                    </div>     
-                <!-- </div> -->
-            </div>
-            <!-- Edit Password Start Here -->
-            
-            <div class="col-lg-12">
-                <div class="widget ranna-box-padding" [ngClass]="{'edit-container': isEditPassword}">
-                    <div class="section-heading heading-dark ">
-                        <h2 class="item-heading profile-name">Password 
-                            <a (click)="togglePasswordEdit()"><i class="fas fa-pencil-alt"></i></a>
-                        </h2>  
-                    </div>     
-                    <div *ngIf="isEditPassword" class="ranna-box-padding">
-                        <form [formGroup]="passwordForm" (submit)="changePassword()" class="login-form">
-                            <div class="col-lg-12">
-                                <label for="">Actual password</label>
-                                <input  
-                                formControlName="actualPassword"
-                                [ngClass]="{'is-invalid': passwordForm.get('actualPassword').hasError('required') && passwordForm.get('actualPassword').touched}"
-                                class="main-input-box form-control" 
-                                type="password">
-                                <div class="input-errors" [ngClass]="{'is-invalid-input': passwordForm.get('actualPassword').errors && passwordForm.get('actualPassword').touched}">
-                                    <span *ngIf="passwordForm.get('actualPassword').hasError('required')">The password is required.</span>
-                                </div>
-                            </div>
-                            <div class="col-lg-12">
-                                <label for="">New password</label>
-                                <input  
-                                formControlName="password"
-                                [ngClass]="{'is-invalid': passwordForm.get('password').hasError('required') && passwordForm.get('password').touched}"
-                                class="main-input-box form-control" 
-                                type="password">    
-                                <div class="input-errors" [ngClass]="{'is-invalid-input': passwordForm.get('password').errors && passwordForm.get('password').touched}">
-                                    <span *ngIf="passwordForm.get('password').hasError('required')">The new password is required.</span>
-                                </div>                 
-                            </div>
-                            <div class="col-lg-12">
-                                <label for="">Confirm password</label>
-                                <input                                 
-                                formControlName="confirmPassword"
-                                [ngClass]="{'is-invalid': passwordForm.get('confirmPassword').hasError('required') && passwordForm.get('confirmPassword').touched}"
-                                class="main-input-box form-control" type="password">
-                                <div class="input-errors" [ngClass]="{'is-invalid-input': passwordForm.get('confirmPassword').errors && passwordForm.get('confirmPassword').touched}">
-                                    <span *ngIf="passwordForm.get('confirmPassword').hasError('required')">Confirm password is required.</span>
-                                </div>
-                                <div class="input-errors" *ngIf="passwordForm.controls.confirmPassword.errors?.MatchPassword && passwordForm.get('confirmPassword').touched">
-                                    The passwords worng.
-                                </div>
-                            </div>
-
-                            <div class="col-lg-2 inline-box mb-5 mt-4">
-                                <button class="btn-login btn-fill" type="submit">Change</button>     
-                            </div>
-                        </form>
+<!-- Edit Password Start Here -->
+<div class="col-lg-12 padding-top-74">
+    <div class="widget ranna-box-padding" [ngClass]="{'edit-container': isEditPassword}">
+        <div class="section-heading heading-dark ">
+            <h2 class="item-heading profile-name">Password 
+                <a (click)="togglePasswordEdit()"><i class="fas fa-pencil-alt"></i></a>
+            </h2>  
+        </div>     
+        <div *ngIf="isEditPassword" class="ranna-box-padding">
+            <form [formGroup]="passwordForm" (submit)="changePassword()" class="login-form">
+                <div class="col-lg-6">
+                    <label for="">Actual password</label>
+                    <input  
+                    formControlName="actualPassword"
+                    [ngClass]="{'is-invalid': passwordForm.get('actualPassword').hasError('required') && passwordForm.get('actualPassword').touched}"
+                    class="main-input-box form-control" 
+                    type="password">
+                    <div class="input-errors" [ngClass]="{'is-invalid-input': passwordForm.get('actualPassword').errors && passwordForm.get('actualPassword').touched}">
+                        <span *ngIf="passwordForm.get('actualPassword').hasError('required')">The password is required.</span>
                     </div>
                 </div>
-            </div>
-            <!-- Edit Password Stop Here -->
-            <!-- Edit Email Start Here -->
-            <div class="col-lg-12">
-                <div class="widget ranna-box-padding edit-container" [ngClass]="{'edit-container': isEditEmail}">
-                    <div class="section-heading heading-dark ">
-                        <h2 class="item-heading profile-name">
-                            Email 
-                            <a (click)="toggleEmailEdit()"><i class="fas fa-pencil-alt"></i></a>
-                        </h2>  
-                    </div> 
-                    <div *ngIf="isEditEmail" class="ranna-box-padding">
-                        <form class="login-form" [formGroup]="emailForm" (submit)="changeEmail($event)">
-                            <div class="col-lg-12">
-                                <label >Actual email</label>
-                                <p>{{email}}</p>
-                            </div>
-                            <div class="col-lg-12">
-                                <label for="">New email</label>
-                                <input formControlName="email" class="main-input-box" type="email" required>
-                            </div>
-                            <div class="col-lg-12">
-                                <label for="">Password</label>
-                                <input formControlName="confirmPassword" class="main-input-box" type="password" required>
-                            </div>
-
-                            <div class="col-lg-2 inline-box mb-5 mt-4">
-                                <button class="btn-login btn-fill"  >Change</button>     
-                            </div>
-                        </form>
-                    </div>    
+                <div class="col-lg-6">
+                    <label for="">New password</label>
+                    <input  
+                    formControlName="password"
+                    [ngClass]="{'is-invalid': passwordForm.get('password').hasError('required') && passwordForm.get('password').touched}"
+                    class="main-input-box form-control" 
+                    type="password">    
+                    <div class="input-errors" [ngClass]="{'is-invalid-input': passwordForm.get('password').errors && passwordForm.get('password').touched}">
+                        <span *ngIf="passwordForm.get('password').hasError('required')">The new password is required.</span>
+                    </div>                 
                 </div>
-            </div>
-            <!-- Edit Email Stop Here -->
-            <!-- Edit Personal Information Start Here -->
-            <div class="col-lg-12">
-                <div class="widget ranna-box-padding edit-container" [ngClass]="{'edit-container': isEditInformation}">
-                    <div class="section-heading heading-dark ">
-                        <h2 class="item-heading profile-name">Personal information 
-                            <a (click)="toggleInformationEdit()"><i class="fas fa-pencil-alt"></i></a></h2>  
-                    </div> 
-                    <div *ngIf="isEditInformation" class="ranna-box-padding">
-                        <form [formGroup]="informationForm" (ngSubmit)="updateInformation()" class="login-form">
-                            <div class="row">
-                                <div class="col-lg-12 row">
-                                    <div class="col-lg-12">
-                                        <label for="">Name</label>
-                                        <input  formControlName="name" class="main-input-box" type="text">
-                                    </div>
-                                    <div class="col-lg-12">
-                                        <label for="">Last Name</label>
-                                        <input formControlName="lastname"  class="main-input-box" type="text">
-                                    </div>
-                                </div>
-                                <div class="col-lg-12 row">
-                                    <div class="col-lg-12">
-                                        <label for="">Gender</label>
-                                        <select formControlName="gender" class="input-select custom-select" name="" id="" required>
-                                            <option selected>Choose...</option>
-                                            <option class="input-option" value="MALE">Male</option>
-                                            <option value="FEMALE">Female</option>
-                                            <option value="OTHER">Other</option>
-                                        </select>
-                                    </div>
-                                    <div class="col-lg-12">
-                                        <label for="">Date Birth</label>
-                                        <input formControlName="dateBirth" class="main-input-box" type="date">
-                                    </div>
-                                </div>
-                                <div class="col-lg-12 row">
-                                    <div class="col-lg-12">
-                                        <label for="">Country</label>
-                                        <input formControlName="country" class="main-input-box" type="text">
-                                    </div>
-                                </div>
-                                <div class="col-lg-12 row">
-                                    <div class="form-group col-lg-12">
-                                        <label for="">Description</label>
-                                        <textarea formControlName="description" class="form-control" name="" id="" cols="30" rows="10">
-                                        </textarea >
-                                    </div>
-                                </div>                     
-                            </div>
-                            <div class="col-lg-4 inline-box mb-5 mt-4">
-                                <button class="btn-login btn-fill" type="submit" value="Signup">Save</button>     
-                            </div>
-                        </form>  
-                    </div>  
-                </div>
-            </div>
-            <!-- Edit Personal Information Stop Here -->
-            <!-- Edit Social Networks Start Here -->
-            <div class="col-lg-12">
-                <div class="widget ranna-box-padding edit-container" [ngClass]="{'edit-container': isEditSocial}">
-                    <div class="section-heading heading-dark ">
-                        <h2 class="item-heading profile-name">Social Networks
-                            <a (click)="toggleSocialEdit()">
-                                <i class="fas fa-pencil-alt"></i>
-                            </a>
-                        </h2>  
-                    </div>   
-                    <div *ngIf="isEditSocial" class="ranna-box-padding">
-                        <form [formGroup]="socialnetworksForm" class="login-form">
-                            <div class="row">             
-                                <div class="col-lg-12 row">
-                                    <div class="input-group col-lg-6">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text" id=""><i class="fab fa-facebook-square"></i></span>
-                                        </div>
-                                        <input [disabled]="!isEditFacebook" class="form-control main-input-box" #facebook formControlName="facebook"  type="text">
-                                        <div class="input-group-append">
-                                            <button class="btn-group" (click)="addSocialNetwork(facebook)"><i class="fas fa-pencil-alt"></i></button>
-                                            <button class="btn-group" (click)="removeSocialNetwork(facebook)"><i class="fas fa-trash-alt"></i></button>
-                                        </div>
-                                    </div>                                     
-                                    <div class="input-group col-lg-6">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text" id=""><i class="fab fa-instagram"></i></span>
-                                        </div>
-                                        <input #instagram formControlName="instagram" class="form-control main-input-box" type="text">
-                                        <div class="input-group-append">
-                                            <button class="btn-group" (click)="addSocialNetwork(instagram)"><i class="fas fa-pencil-alt"></i></button>
-                                            <button class="btn-group" (click)="removeSocialNetwork(instagram)"><i class="fas fa-trash-alt"></i></button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-lg-12 row">
-                                  <div class="input-group col-lg-6">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text" id=""><i class="fab fa-twitter-square"></i></span>
-                                    </div>
-                                    <input #twitter formControlName="twitter" class="form-control main-input-box" type="text">
-                                    <div class="input-group-append">
-                                        <button class="btn-group" (click)="addSocialNetwork(twitter)"><i class="fas fa-pencil-alt"></i></button>
-                                        <button class="btn-group" (click)="removeSocialNetwork(twitter)"><i class="fas fa-trash-alt"></i></button>
-                                    </div>
-                                  </div>
-                                  <div class="input-group  col-lg-6">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text" id=""><i class="fab fa-pinterest-square"></i></span>
-                                    </div>
-                                    <input #pinterest formControlName="pinterest" class="form-control main-input-box" type="text">
-                                    <div class="input-group-append">
-                                        <button class="btn-group" (click)="addSocialNetwork(pinterest)"><i class="fas fa-pencil-alt"></i></button>
-                                        <button class="btn-group" (click)="removeSocialNetwork(pinterest)"><i class="fas fa-trash-alt"></i></button>
-                                    </div>
-                                  </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-lg-12 row">
-                                  <div class="input-group col-lg-6">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text" id=""><i class="fab fa-linkedin"></i></span>
-                                    </div>
-                                    <input #linkedin formControlName="linkedin" class="form-control main-input-box" type="text">
-                                    <div class="input-group-append">
-                                        <button class="btn-group" (click)="addSocialNetwork(linkedin)"><i class="fas fa-pencil-alt"></i></button>
-                                        <button class="btn-group" (click)="removeSocialNetwork(linkedin)"><i class="fas fa-trash-alt"></i></button>
-                                    </div>
-                                  </div>
-                                  <div class="input-group col-lg-6">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text" id=""><i class="fab fa-youtube"></i></span>
-                                    </div>
-                                    <input #youtube formControlName="youtube" class="form-control main-input-box" type="text">
-                                    <div class="input-group-append">
-                                        <button class="btn-group" (click)="addSocialNetwork(youtube)"><i class="fas fa-pencil-alt"></i></button>
-                                        <button class="btn-group" (click)="removeSocialNetwork(youtube)"><i class="fas fa-trash-alt"></i></button>
-                                    </div>
-                                  </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-2 inline-box mb-5 mt-4">
-                                <button class="btn-login btn-fill" type="submit" value="Signup">Save</button>     
-                            </div>
-                        </form>  
+                <div class="col-lg-6">
+                    <label for="">Confirm password</label>
+                    <input                                 
+                    formControlName="confirmPassword"
+                    [ngClass]="{'is-invalid': passwordForm.get('confirmPassword').hasError('required') && passwordForm.get('confirmPassword').touched}"
+                    class="main-input-box form-control" type="password">
+                    <div class="input-errors" [ngClass]="{'is-invalid-input': passwordForm.get('confirmPassword').errors && passwordForm.get('confirmPassword').touched}">
+                        <span *ngIf="passwordForm.get('confirmPassword').hasError('required')">Confirm password is required.</span>
+                    </div>
+                    <div class="input-errors" *ngIf="passwordForm.controls.confirmPassword.errors?.MatchPassword && passwordForm.get('confirmPassword').touched">
+                        The passwords worng.
                     </div>
                 </div>
-            </div> 
-            <!-- Edit Social Networks Stop Here -->
-        <!-- </div> -->
-    
+
+                <div class="col-lg-2 inline-box mb-5 mt-4">
+                    <button class="btn-login btn-fill" type="submit">Change</button>     
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- Edit Password Stop Here -->
+<!-- Edit Email Start Here -->
+<div class="col-lg-12">
+    <div class="widget ranna-box-padding edit-container" [ngClass]="{'edit-container': isEditEmail}">
+        <div class="section-heading heading-dark ">
+            <h2 class="item-heading profile-name">
+                Email 
+                <a (click)="toggleEmailEdit()"><i class="fas fa-pencil-alt"></i></a>
+            </h2>  
+        </div> 
+        <div *ngIf="isEditEmail" class="ranna-box-padding">
+            <form class="login-form" [formGroup]="emailForm" (submit)="changeEmail($event)">
+                <div class="col-lg-12">
+                    <label >Actual email</label>
+                    <p>{{email}}</p>
+                </div>
+                <div class="col-lg-12">
+                    <label for="">New email</label>
+                    <input formControlName="email" class="main-input-box" type="email" required>
+                </div>
+                <div class="col-lg-12">
+                    <label for="">Password</label>
+                    <input formControlName="confirmPassword" class="main-input-box" type="password" required>
+                </div>
+
+                <div class="col-lg-2 inline-box mb-5 mt-4">
+                    <button class="btn-login btn-fill"  >Change</button>     
+                </div>
+            </form>
+        </div>    
+    </div>
+</div>
+<!-- Edit Email Stop Here -->
+<!-- Edit Personal Information Start Here -->
+<div class="col-lg-12">
+    <div class="widget ranna-box-padding edit-container" [ngClass]="{'edit-container': isEditInformation}">
+        <div class="section-heading heading-dark ">
+            <h2 class="item-heading profile-name">Personal information 
+                <a (click)="toggleInformationEdit()"><i class="fas fa-pencil-alt"></i></a></h2>  
+        </div> 
+        <div *ngIf="isEditInformation" class="ranna-box-padding">
+            <form [formGroup]="informationForm" (ngSubmit)="updateInformation()" class="login-form">
+                <div class="row">
+                    <div class="col-lg-12 row">
+                        <div class="col-lg-12">
+                            <label for="">Name</label>
+                            <input  formControlName="name" class="main-input-box" type="text">
+                        </div>
+                        <div class="col-lg-12">
+                            <label for="">Last Name</label>
+                            <input formControlName="lastname"  class="main-input-box" type="text">
+                        </div>
+                    </div>
+                    <div class="col-lg-12 row">
+                        <div class="col-lg-12">
+                            <label for="">Gender</label>
+                            <select formControlName="gender" class="input-select custom-select" name="" id="" required>
+                                <option selected>Choose...</option>
+                                <option class="input-option" value="MALE">Male</option>
+                                <option value="FEMALE">Female</option>
+                                <option value="OTHER">Other</option>
+                            </select>
+                        </div>
+                        <div class="col-lg-12">
+                            <label for="">Date Birth</label>
+                            <input formControlName="dateBirth" class="main-input-box" type="date">
+                        </div>
+                    </div>
+                    <div class="col-lg-12 row">
+                        <div class="col-lg-12">
+                            <label for="">Country</label>
+                            <input formControlName="country" class="main-input-box" type="text">
+                        </div>
+                    </div>
+                    <div class="col-lg-12 row">
+                        <div class="form-group col-lg-12">
+                            <label for="">Description</label>
+                            <textarea formControlName="description" class="form-control" name="" id="" cols="30" rows="10">
+                            </textarea >
+                        </div>
+                    </div>                     
+                </div>
+                <div class="col-lg-4 inline-box mb-5 mt-4">
+                    <button class="btn-login btn-fill" type="submit" value="Signup">Save</button>     
+                </div>
+            </form>  
+        </div>  
+    </div>
+</div>
+<!-- Edit Personal Information Stop Here -->
+<!-- Edit Social Networks Start Here -->
+<div class="col-lg-12">
+    <div class="widget ranna-box-padding edit-container" [ngClass]="{'edit-container': isEditSocial}">
+        <div class="section-heading heading-dark ">
+            <h2 class="item-heading profile-name">Social Networks
+                <a (click)="toggleSocialEdit()">
+                    <i class="fas fa-pencil-alt"></i>
+                </a>
+            </h2>  
+        </div>   
+        <div *ngIf="isEditSocial" class="ranna-box-padding">
+            <form [formGroup]="socialnetworksForm" class="login-form">
+                <div class="row">             
+                    <div class="col-lg-12 row">
+                        <div class="input-group col-lg-6">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id=""><i class="fab fa-facebook-square"></i></span>
+                            </div>
+                            <input [disabled]="!isEditFacebook" class="form-control main-input-box" #facebook formControlName="facebook"  type="text">
+                            <div class="input-group-append">
+                                <button class="btn-group" (click)="addSocialNetwork(facebook)"><i class="fas fa-pencil-alt"></i></button>
+                                <button class="btn-group" (click)="removeSocialNetwork(facebook)"><i class="fas fa-trash-alt"></i></button>
+                            </div>
+                        </div>                                     
+                        <div class="input-group col-lg-6">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id=""><i class="fab fa-instagram"></i></span>
+                            </div>
+                            <input #instagram formControlName="instagram" class="form-control main-input-box" type="text">
+                            <div class="input-group-append">
+                                <button class="btn-group" (click)="addSocialNetwork(instagram)"><i class="fas fa-pencil-alt"></i></button>
+                                <button class="btn-group" (click)="removeSocialNetwork(instagram)"><i class="fas fa-trash-alt"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12 row">
+                        <div class="input-group col-lg-6">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id=""><i class="fab fa-twitter-square"></i></span>
+                        </div>
+                        <input #twitter formControlName="twitter" class="form-control main-input-box" type="text">
+                        <div class="input-group-append">
+                            <button class="btn-group" (click)="addSocialNetwork(twitter)"><i class="fas fa-pencil-alt"></i></button>
+                            <button class="btn-group" (click)="removeSocialNetwork(twitter)"><i class="fas fa-trash-alt"></i></button>
+                        </div>
+                        </div>
+                        <div class="input-group  col-lg-6">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id=""><i class="fab fa-pinterest-square"></i></span>
+                        </div>
+                        <input #pinterest formControlName="pinterest" class="form-control main-input-box" type="text">
+                        <div class="input-group-append">
+                            <button class="btn-group" (click)="addSocialNetwork(pinterest)"><i class="fas fa-pencil-alt"></i></button>
+                            <button class="btn-group" (click)="removeSocialNetwork(pinterest)"><i class="fas fa-trash-alt"></i></button>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12 row">
+                        <div class="input-group col-lg-6">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id=""><i class="fab fa-linkedin"></i></span>
+                        </div>
+                        <input #linkedin formControlName="linkedin" class="form-control main-input-box" type="text">
+                        <div class="input-group-append">
+                            <button class="btn-group" (click)="addSocialNetwork(linkedin)"><i class="fas fa-pencil-alt"></i></button>
+                            <button class="btn-group" (click)="removeSocialNetwork(linkedin)"><i class="fas fa-trash-alt"></i></button>
+                        </div>
+                        </div>
+                        <div class="input-group col-lg-6">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id=""><i class="fab fa-youtube"></i></span>
+                        </div>
+                        <input #youtube formControlName="youtube" class="form-control main-input-box" type="text">
+                        <div class="input-group-append">
+                            <button class="btn-group" (click)="addSocialNetwork(youtube)"><i class="fas fa-pencil-alt"></i></button>
+                            <button class="btn-group" (click)="removeSocialNetwork(youtube)"><i class="fas fa-trash-alt"></i></button>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-2 inline-box mb-5 mt-4">
+                    <button class="btn-login btn-fill" type="submit" value="Signup">Save</button>     
+                </div>
+            </form>  
+        </div>
+    </div>
+</div> 
+<!-- Edit Social Networks Stop Here -->
+
 <!-- Content End Here -->

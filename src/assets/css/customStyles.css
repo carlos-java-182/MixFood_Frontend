@@ -1002,3 +1002,16 @@ input.file
     text-rendering: optimizeLegibility;
 }
 /*=====  End of Input errors  ======*/
+
+
+/*=============================================
+=            Buttons            =
+=============================================*/
+.btn-table-edit :hover
+{
+    color: #e0a800;
+}
+
+
+/*=====  End of Buttons  ======*/
+
