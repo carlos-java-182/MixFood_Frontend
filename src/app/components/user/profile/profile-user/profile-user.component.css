@@ -67,6 +67,7 @@
 {
     height: 234px !important;
     width: 234px !important;
+    border: 2px solid rgba(0,0,0,0.2)
 }
 
 .change-image-container

@@ -1,3 +1,4 @@
+import { FollowerId } from './follower.service';
 import { Injectable } from '@angular/core';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
@@ -8,7 +9,7 @@ import { Observable } from 'rxjs';
 export class FollowerService {
 
   //*Variables declaration
-  private url:string = 'http://localhost:8080/api/followers';
+  private url:string = 'http://localhost:8080/api/followers/';
   //*Create http header type json
   private headers = new HttpHeaders({'Content-Type': 'application/json'});
   constructor(private http: HttpClient) { }
@@ -20,14 +21,19 @@ export class FollowerService {
 
   public validateFollowing(idUser: number, idFollower: number):Observable<FollowerId>
   {
-    return this.http.get<FollowerId>(`${this.url}/validate/user/${idUser}/follower/${idFollower}`);
+    return this.http.get<FollowerId>(`${this.url}validate/user/${idUser}/follower/${idFollower}`);
   }
 
   public deleteFollowing(id: number)
   {
-    return this.http.delete(`${this.url}/${id}`);
+    return this.http.delete(`${this.url}${id}`);
   }
 
+
+  public getFollowerByIdUser(id: number, page: number,items: number): Observable<any>
+  {
+    return this.http.get(`${this.url}${id}/page/${page}/items/${items}`);
+  }
 }
 
 export interface FollowerId
@@ -47,3 +53,18 @@ export interface NewFollower
     id: number;
   }
 }
+
+export interface FollowerCard
+{
+  id: number;
+  follower: Follower[];
+}
+
+export interface Follower
+{
+  id: number;
+  name: string;
+  lastname: string;
+  PorfileimageRoute: string;    
+}
+

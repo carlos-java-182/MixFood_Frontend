@@ -15,11 +15,11 @@ import { ImageService } from 'src/app/services/image.service';
 export class ProfileUserComponent implements OnInit {
   //*Variables delcaration
   //Booleans for shwo options 
-  private isShowRecipes: boolean =   false;
-  private isShowFavorites: boolean =   false;
-  private isShowSettings: boolean =   false;
-  private isShowFollowers: boolean =   false;
-  private isShowProfile: boolean =   true;
+  private isShowRecipes: boolean =  false;
+  private isShowFavorites: boolean = false;
+  private isShowSettings: boolean = true;
+  private isShowFollowers: boolean = false;
+  private isShowProfile: boolean = false;
   private isProfileImageHover: boolean = false;
   
   //User info

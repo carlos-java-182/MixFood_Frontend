@@ -2,3 +2,88 @@
 {
     background-color: rgba(0, 0,0, .02);
 }
+
+.input-social-container
+{
+    /* background-color: red; */
+}
+.input-social-container .form-control
+{
+    border-radius: 4px;
+    /* left: 20p; */
+    /* background-color: red; */
+}
+
+.input-social-container .input-group-prepend 
+{
+    /* background: none !important; */
+    margin-right: 2px;
+    /* background: red !important; */
+}
+
+.input-social-container .input-group-prepend span
+{
+    /* background: none !important; */
+}
+
+.input-group-text
+{
+    width: 100%;
+    height: 100%;
+    padding: 0 5px !important;
+    box-sizing: border-box;
+    border-radius: 4px !important;
+    /* background-color: red !important; */
+}
+
+.input-group-prepend .social-image
+{
+    width: 38px;
+    height: 38px;
+}
+
+.input-social-container .input-group-append
+{
+    margin-left: 2px;
+}
+
+.input-social-container .input-group-append button
+{
+    color: #fff;
+    margin-left: 2px;
+    border-radius: 4px !important;
+}
+
+.input-social-container .input-group-append button I
+{
+   margin: auto;
+}
+
+.btn-edit 
+{
+    border-color: #ffc107;
+    /* background: none !important; */
+    background-color: #ffc107;
+}
+
+.btn-remove 
+{
+    border-color: #dc3545;
+    background-color: #dc3545;
+}
+
+.social-row
+{
+    margin-bottom: 10px;
+}
+
+.btn-save
+{
+    color: #fff;
+    background-color: #ff4a52;
+}
+
+.btn-save:hover
+{
+    background-color: #e92731;
+}

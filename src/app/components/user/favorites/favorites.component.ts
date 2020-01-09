@@ -38,7 +38,7 @@ export class FavoritesComponent implements OnInit {
       {
         this.favorites = response.content;
         this.totalItems = response.totalElements;
-       this.isResultEmpty = false;
+        this.isResultEmpty = false;
         //*Get current page of results 
         this.currentPage = response.number + 1;
         this.totalPages = response.totalPages;

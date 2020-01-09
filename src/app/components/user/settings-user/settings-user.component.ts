@@ -13,10 +13,10 @@ import { empty } from 'rxjs';
 })
 export class SettingsUserComponent implements OnInit {
   //*Variables declaration
-  private isEditPassword: boolean = true;
+  private isEditPassword: boolean = false;
   private isEditEmail: boolean = false;
   private isEditInformation: boolean = false;
-  private isEditSocial: boolean = false;
+  private isEditSocial: boolean = true;
   private isEditFacebook: boolean = true;
   private email:string;
   //*Objects declaration

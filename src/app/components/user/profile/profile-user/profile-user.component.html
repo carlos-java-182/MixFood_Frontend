@@ -158,70 +158,76 @@
                                 <!-- Settings End Here -->
                                 <!-- Favorites user Start Here -->
                                 <app-favorites *ngIf="isShowFavorites"></app-favorites>
-                                <!-- Favorites User End Start Here -->
-                                <!-- Recipe Trending Start Here -->
-                                <div class="product-box-layout4"  *ngFor="let trending of recipeTrending">
-                                    <div class="section-heading heading-dark">
-                                        <h2 class="item-heading">TRENDING RECIPE</h2>
-                                    </div>
-                                    <div class="item-figure">
-                                        <img [src]="trending.thumbRoute" alt="Product">
-                                        <a class="item-dot">
-                                            <span></span>
-                                            <span></span>
-                                            <span></span>
-                                        </a>
-                                    </div>
-                                    <div class="item-content">    
-                                        <h2 class="item-title pointer">
-                                            <a (click)="goToRecipe(trending.id)">{{trending.name}}</a>
-                                        </h2>
-                                        <span class="sub-title pointer" (click)="goToRecipesByCategory(trending.category.id)">
-                                            {{trending.category.name.toUpperCase()}}
-                                        </span>
-                                        <ul class="item-rating">
-                                            <bar-rating [(rate)]="trending.averangeRanking" [max]="5" ></bar-rating>
-                                        </ul>
-                                        <p>{{trending.description}}</p>
-                                        <ul class="entry-meta">
-                                            <li>
-                                                <a><i class="fas fa-clock"></i>{{trending.createAt | timeAgo}}</a>
-                                            </li>
-                                            <li>
-                                            <a>
-                                                <i class="fas fa-heart"></i>          
-                                                <span *ngIf="trending.totalLikes == 1">{{trending.totalLikes}} Like</span>            
-                                                <span *ngIf="trending.totalLikes > 1">{{trending.totalLikes}} Likes</span>            
-                                            </a>
-                                            </li>
-                                            <li>
-                                                <a (click)="addToFavorite(trending.id)" *ngIf="!isFavorite && isLoggedin">
-                                                    <i class="far fa-heart"></i>
-                                                    <span>Add to favorites</span> 
-                                                </a>
-                                                <a  (click)="removeFavorite(trending.id)" *ngIf="isFavorite && isLoggedin">
-                                                    <i class="fas fa-heart"></i>
-                                                    <span>Remove favorites</span> 
-                                                </a>
-                                            </li>            
-                                        </ul>
-                                    </div>
-                                </div>
-                                <!-- Recipe Trending End Here  -->
-                                <!-- Followers Start Here -->
-                                <!-- Followers End Here  -->
-                                <!-- Popular Recipes Start Here -->
-                                <div class="ranna-box-style" *ngIf="isShowProfile">
-                                    <div class="section-heading heading-dark">
-                                        <h2 class="item-heading">POPULAR RECIPES</h2>
-                                    </div>                                 
-                                    <div class="row gutters-40">
-                                        <div *ngFor="let recipe of recipeFeatured | slice: 1" class="col-xl-12 col-lg-6 col-md-6 col-sm-6 col-12">
-                                            <app-recipe-card-popular [recipe]="recipe"></app-recipe-card-popular>
+                                <!-- Favorites User End Start Here -->                            
+                                <ng-container *ngIf="isShowProfile">
+                                    <!-- Recipe Trending Start Here -->
+                                    <div class="product-box-layout4"  *ngFor="let trending of recipeTrending">
+                                        <div class="section-heading heading-dark">
+                                            <h2 class="item-heading">TRENDING RECIPE</h2>
                                         </div>
-                                    </div>                                    
-                                </div>
-                                <!-- Popular Recipes End Here -->
+                                        <div class="item-figure">
+                                            <img [src]="trending.thumbRoute" alt="Product">
+                                            <a class="item-dot">
+                                                <span></span>
+                                                <span></span>
+                                                <span></span>
+                                            </a>
+                                        </div>
+                                        <div class="item-content">    
+                                            <h2 class="item-title pointer">
+                                                <a (click)="goToRecipe(trending.id)">{{trending.name}}</a>
+                                            </h2>
+                                            <span class="sub-title pointer" (click)="goToRecipesByCategory(trending.category.id)">
+                                                {{trending.category.name.toUpperCase()}}
+                                            </span>
+                                            <ul class="item-rating">
+                                                <bar-rating [(rate)]="trending.averangeRanking" [max]="5" ></bar-rating>
+                                            </ul>
+                                            <p>{{trending.description}}</p>
+                                            <ul class="entry-meta">
+                                                <li>
+                                                    <a><i class="fas fa-clock"></i>{{trending.createAt | timeAgo}}</a>
+                                                </li>
+                                                <li>
+                                                <a>
+                                                    <i class="fas fa-heart"></i>          
+                                                    <span *ngIf="trending.totalLikes == 1">{{trending.totalLikes}} Like</span>            
+                                                    <span *ngIf="trending.totalLikes > 1">{{trending.totalLikes}} Likes</span>            
+                                                </a>
+                                                </li>
+                                                <li>
+                                                    <a (click)="addToFavorite(trending.id)" *ngIf="!isFavorite && isLoggedin">
+                                                        <i class="far fa-heart"></i>
+                                                        <span>Add to favorites</span> 
+                                                    </a>
+                                                    <a  (click)="removeFavorite(trending.id)" *ngIf="isFavorite && isLoggedin">
+                                                        <i class="fas fa-heart"></i>
+                                                        <span>Remove favorites</span> 
+                                                    </a>
+                                                </li>            
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <!-- Recipe Trending End Here  -->
+
+                                    <!-- Popular Recipes Start Here -->
+                                    <div class="ranna-box-style">
+                                        <div class="section-heading heading-dark">
+                                            <h2 class="item-heading">POPULAR RECIPES</h2>
+                                        </div>                                 
+                                        <div class="row gutters-40">
+                                            <div *ngFor="let recipe of recipeFeatured | slice: 1" class="col-xl-12 col-lg-6 col-md-6 col-sm-6 col-12">
+                                                <app-recipe-card-popular [recipe]="recipe"></app-recipe-card-popular>
+                                            </div>
+                                        </div>                                    
+                                    </div>
+                                    <!-- Popular Recipes End Here -->
+                                </ng-container>
+                                
+                                <!-- Followers Start Here -->
+                                <app-followers *ngIf="isShowFollowers"></app-followers>
+                                <!-- Followers End Here  -->
+                               
                             </div>
                         </div>
                     </div>                                                   

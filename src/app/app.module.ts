@@ -68,6 +68,7 @@ import { RecipeCardPrincipalComponent } from './components/shared/recipe-card-pr
 import { FormRecipeComponent } from './components/user/shared/form-recipe/form-recipe.component';
 import { CategoriesComponent } from './components/shared/categories/categories.component';
 import { LoginFormComponent } from './components/guest/shared/login-form/login-form.component';
+import { FollowersComponent } from './components/user/followers/followers.component';
 
 @NgModule({
   declarations: [
@@ -121,7 +122,8 @@ import { LoginFormComponent } from './components/guest/shared/login-form/login-f
     RecipeCardPrincipalComponent,
     FormRecipeComponent,
     CategoriesComponent,
-    LoginFormComponent
+    LoginFormComponent,
+    FollowersComponent
 
     
     

@@ -1,0 +1,43 @@
+.author-personal-info img
+{
+    height: 100px;
+    width: 100px;
+}
+
+.nav-actions
+{
+    position: absolute;
+    transform: translateY(-40%);
+    right: 0;;
+}
+
+td
+{
+    position: relative;
+}
+
+.btn-table
+{
+    font-size: 1.8rem;
+    margin-left: 5px;
+   
+}
+
+.icon-unfollow-table
+{
+    background-color: #ff4a52;
+    color: #fff;
+    padding: 2px 10px;
+    border: 1px solid #e92731;
+    border-radius: 4px !important;
+}
+
+.icon-unfollow-table:hover 
+{
+    background-color: #e92731;
+}
+
+.icon-unfollow-table span, i
+{
+    color: #fff;
+}

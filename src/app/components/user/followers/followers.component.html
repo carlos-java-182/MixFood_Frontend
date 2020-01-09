@@ -1,0 +1,65 @@
+<div class="row gutters-60 padding-top-74">
+    <div class="col-lg-12">
+        <div class="author-box-layout1">
+            <div *ngIf="totalItems > 0" class="section-heading heading-dark ">
+                <h2  class="item-heading profile-name">Total {{totalItems}} favorites</h2>
+            </div>     
+            <div class="table-responsive">
+                <!-- Alert Not Found Start Here -->
+                <div *ngIf="isResultEmpty" class="col-lg-12 alert alert-info" role="alert">
+                    <h4 class="alert-heading"><i class="fas fa-info-circle"></i> You don't have favorites on your list !</h4>
+                </div>
+                <!-- Alert Not Found Stop Here -->
+                <table class="table table-striped">
+                    <tbody>
+                        <tr *ngFor="let follower of followers | paginate: {id: 'pagination-nav', itemsPerPage: itemsPerPage, currentPage: currentPage, totalItems: totalItems}; let i = index">
+                            <th>
+                                <div class="author-personal-info">
+                                    <a href="#" class="item-figure">
+                                        <img src="http://localhost:8080/api/uploads/{{follower.follower.porfileimageRoute}}/type/USER" alt="UserImage">
+                                    </a>
+                                    <div class="item-content">
+                                        <div class="item-title"><a href="#">{{follower.follower.name}}</a></div>
+                                        <!-- <div class="item-designation item-subtitle">{{favorite.recipe.category.name}}</div> -->
+                                        <div class="item-designation">
+                                        </div>
+                                        <div class="item-designation"> 
+                                            <ul class="entry-meta">
+                                                <li class="single-meta">
+                                                    <a>
+                                                        <!-- <i class="fas fa-user icon-heart"></i> <span> {{favorite.user.name}} {{favorite.user.lastname}}</span> -->
+                                                    </a>
+                                                </li>    
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </th>
+                            <td>
+                                <ul class="nav-actions"> 
+                                    <li class="btn-table btn">
+                                        <a class="icon-unfollow-table" (click)="delete(follower.id,i)">
+                                            <span>Unfollow </span>
+                                            <i class="fas fa-rss"></i>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </td>
+                        </tr>             
+                    </tbody>
+                </table>
+            </div>
+            <!-- Pagination Start Here -->
+            <pagination-controls 
+            *ngIf="totalPages > 1"
+            id="pagination-nav"
+            (pageChange)="getPage($event)"
+            previousLabel=""
+            nextLabel=""
+            responsive="true"
+            screenReaderPaginationLabel="Pagination">
+            </pagination-controls>
+            <!-- Pagination End Here -->
+        </div>
+    </div>
+</div>
