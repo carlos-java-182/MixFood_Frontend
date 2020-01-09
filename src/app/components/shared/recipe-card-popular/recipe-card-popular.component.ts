@@ -10,7 +10,8 @@ import { FavoriteService, Favorite } from 'src/app/services/favorite.service';
 export class RecipeCardPopularComponent implements OnInit {
 
   @Input('recipe')recipe: any;
-
+  @Input('isLoggedIn')
+  private istLoggedInt?: boolean = false;
   private isLiked: boolean = false;
   private isFavorite: boolean = false;
   private isLoggedin: boolean = true; 

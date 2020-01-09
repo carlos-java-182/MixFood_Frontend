@@ -1,4 +1,4 @@
-import { Email, EmailUpdate } from './../../../services/user.service';
+import { EmailUpdate } from './../../../services/user.service';
 import { PasswordValidation } from 'src/app/helpers/PasswordValidation';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';

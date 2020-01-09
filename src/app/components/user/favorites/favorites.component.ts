@@ -21,8 +21,13 @@ export class FavoritesComponent implements OnInit {
 
   ngOnInit() 
   {
-    this._favoriteService.getCardsList(1,0,this.itemsPerPage).subscribe(response =>{
-      console.log(response);
+    this.getFavorites(0);
+  }
+
+
+  private getFavorites(page: number)
+  {
+    this._favoriteService.getCardsList(1,page,this.itemsPerPage).subscribe(response =>{
       if(response.empty)
       {
         this.isResultEmpty = true;
@@ -46,6 +51,10 @@ export class FavoritesComponent implements OnInit {
     );
   }
 
+  private getPage(page: number)
+  {
+    this.getFavorites(page-1);
+  }
 
   private removeFavorite(id: number, index: number)
   {

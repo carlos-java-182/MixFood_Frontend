@@ -22,7 +22,7 @@ export interface PublicUser
   id: number;
   name: string;
   lastname: string;
-  porfileImageRoute: string;
+  porfileimageRoute: string;
   description: string;
   createAt: string;
   socialNetworks: SocialNetwork[];

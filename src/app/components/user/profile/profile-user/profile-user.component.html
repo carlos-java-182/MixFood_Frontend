@@ -23,16 +23,30 @@
                 <div class="widget ranna-box-padding">
                     <div class="section-heading heading-dark ">
                             <h2 class="item-heading profile-name">{{userName}}</h2>
-                        <button (click)="StartFollowing()" class="btn-fil btn-red" *ngIf="!isFollowing && isLoggedin">Follow</button>
-                        <button (click)="StopFollowing()" class="btn-fil btn-red" *ngIf="isFollowing && isLoggedin">Unfollow</button>
                     </div>
                     <div class="widget-about">            
-                        <figure class="author-figure">
-                            <i class="fas fa-pencil-alt"></i>
-                            <img src="assets/img/figure/about.jpg" alt="about">
+                        <figure class="author-figure pointer" 
+                        (mouseover)="showOptionProfileImage()"
+                        (mouseleave)="hiddeOptionProfileImage()">
+                            <div class="change-image-container" 
+                             [ngClass]="{'active': isProfileImageHover}">
+                                <div class="button-content">
+                                    <a>
+                                        <span class="icon"><i class="fas fa-camera"></i></span>
+                                        <span class="text">Change image</span>
+                                    </a>                    
+                                </div>
+                                <input 
+                                (change)="onFileSelected($event)"
+                                type="file" 
+                                class="inputfile inputfile-1" 
+                                accept="image/x-png,image/gif,image/jpeg"
+                                required/>
+                            </div>
+                            <img src="http://localhost:8080/api/uploads/{{profileImageRoute}}/type/USER" alt="about">
                         </figure>
                         <!-- <figure class="author-signature"><img src="assets/img/figure/signature.png" alt="about"></figure> -->
-                        <h3 class="item-heading">About me <i class="fas fa-pencil-alt"></i></h3>
+                        <h3 class="item-heading">About me</h3>
                         <p>{{aboutMe}}</p>   
                     </div>
                 </div>
@@ -40,7 +54,7 @@
                 <!-- Social Networks Start Here -->
                 <div class="widget ranna-box-padding">
                     <div class="section-heading heading-dark">
-                        <h3 class="item-heading">SOCIAL NETWORKS <i class="fas fa-pencil-alt"></i></h3>
+                        <h3 class="item-heading">SOCIAL NETWORKS</h3>
                     </div>
                     <div class="widget-follow-us">
                         <ul>
@@ -110,6 +124,7 @@
        
             <div class="col-lg-8">
                 <div class="row gutters-60">
+                    <!-- Profile Menu Start Here -->
                     <div class="col-lg-12">
                         <div class="ranna-box-styles">
                             <div class=" section-headings heading-darks">
@@ -132,8 +147,8 @@
                                 </ul>
                             </div>
                         </div>
-                        <div class="row gutters-40">
-                            
+                        <!-- Profile Menu End Here -->
+                        <div class="row gutters-40">                            
                             <div class="col-lg-12"> 
                                 <!-- Recipes User Start Here -->
                                 <app-recipes-user *ngIf="isShowRecipes">  </app-recipes-user>
@@ -158,10 +173,10 @@
                                         </a>
                                     </div>
                                     <div class="item-content">    
-                                        <h2 class="item-title">
+                                        <h2 class="item-title pointer">
                                             <a (click)="goToRecipe(trending.id)">{{trending.name}}</a>
                                         </h2>
-                                        <span class="sub-title" (click)="goToRecipesByCategory(trending.category.id)">
+                                        <span class="sub-title pointer" (click)="goToRecipesByCategory(trending.category.id)">
                                             {{trending.category.name.toUpperCase()}}
                                         </span>
                                         <ul class="item-rating">
@@ -173,13 +188,11 @@
                                                 <a><i class="fas fa-clock"></i>{{trending.createAt | timeAgo}}</a>
                                             </li>
                                             <li>
-                                                <a (click)="StartaLike(trending.id)">
-                                                    <i class="fas fa-heart"></i>
-                                                    <span *ngIf="isLiked && trending.totalLikes > 0">You and {{totalLikes}} others likes</span>
-                                                    <span *ngIf="!isLiked && trending.totalLikes > 0">{{trending.totalLikes}} likes</span>
-                                                    <span *ngIf="!isLiked && trending.totalLikes == 0" >Be the first to like</span>
-                                                    <span *ngIf="isLiked && trending.otalLikes == 0">You like this</span>
-                                                </a>
+                                            <a>
+                                                <i class="fas fa-heart"></i>          
+                                                <span *ngIf="trending.totalLikes == 1">{{trending.totalLikes}} Like</span>            
+                                                <span *ngIf="trending.totalLikes > 1">{{trending.totalLikes}} Likes</span>            
+                                            </a>
                                             </li>
                                             <li>
                                                 <a (click)="addToFavorite(trending.id)" *ngIf="!isFavorite && isLoggedin">

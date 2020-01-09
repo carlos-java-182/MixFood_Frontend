@@ -25,11 +25,9 @@ export class RecipesUserComponent implements OnInit {
   private term: string = '';
   private isResultEmpty: boolean = false;
 
-
   constructor(private _recipeService: RecipesService,
               private router: Router,
               private activatedRoute: ActivatedRoute) { }
-
 
   ngOnInit() {
     let idUser = 1;
@@ -78,20 +76,21 @@ export class RecipesUserComponent implements OnInit {
     });
   }
 
+  /**
+   **This function get the next page and show in the front 
+   * @param page 
+   */
   public getPage(page: number):void
   {
     let url; 
     if(this.term != '')
     {
-      url = `user/recipes/page/${page}/term/${this.term}/status/${this.status}`;
+      this.getRecipesByName(this.term,page-1);
     }
     else
     {
-      url = `user/recipes/page/${page}/status/${this.status}`;
+      this.getRecipes(page-1);
     }
-
-    //*Navigate to new page results with params
-    this.router.navigate([url]);
   }
 
   private goToEdit(id: number): void
@@ -110,6 +109,11 @@ export class RecipesUserComponent implements OnInit {
     this.getRecipesByName(term,0);
   }
 
+  /**
+   **This function get recipes by term
+   * @param term 
+   * @param page 
+   */
   private getRecipesByName(term: string, page: number):void
   {{
     this._recipeService.getRecipesCardsTableByName(this.idUser,this.status,term,page,this.itemsPerPage).subscribe(response=>{
@@ -121,7 +125,6 @@ export class RecipesUserComponent implements OnInit {
       }
       else
       {
-        console.log(response.number);
         this.recipes = response.content as RecipeCardTable[];
         this.totalItems = response.totalElements;
         this.isResultEmpty = false;
