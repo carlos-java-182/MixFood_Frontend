@@ -13,6 +13,7 @@ import { RecipesService,Recipe } from 'src/app/services/recipes.service';
 import { CategoryService,CategoryCard } from 'src/app/services/category.service';
 import { TagService, TagShort } from 'src/app/services/tag.service';
 import { CountryService,Country } from 'src/app/services/country.service';
+import { OwlOptions } from 'ngx-owl-carousel-o';
 
 //import * as data from '../countries.json';
 
@@ -22,7 +23,70 @@ import { CountryService,Country } from 'src/app/services/country.service';
   templateUrl: './home-guest.component.html',
   styleUrls: ['./home-guest.component.css']
 })
-export class HomeGuestComponent implements OnInit {
+export class HomeGuestComponent implements OnInit 
+{
+  customOptions: OwlOptions = {
+    // loop: true,
+    // mouseDrag: false,
+    // touchDrag: false,
+    // pullDrag: false,
+    // dots: false,
+    // navSpeed: 700,
+    // navText: ['', ''],
+    // items: 1,
+    // responsive: {
+    //   0: {
+    //     items: 1
+    //   },
+    //   400: {
+    //     items: 2
+    //   },
+    //   740: {
+    //     items: 3
+    //   },
+    //   940: {
+    //     items: 4
+    //   }
+    // },
+    // nav: true
+    loop: true,
+    mouseDrag: false,
+    touchDrag: false,
+    pullDrag: false,
+    dots: true,
+    navSpeed: 700,
+    navText: ['Back', 'Next'],
+    responsive: {
+      0: {
+        items: 1
+      },
+      400: {
+        items: 2
+      },
+      740: {
+        items: 3
+      },
+      940: {
+        items: 2
+      }
+    },
+    nav: true
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   //*Variables declaration
   showDropDown: boolean = false;
   isSearchIngredientsVisible: boolean = false;

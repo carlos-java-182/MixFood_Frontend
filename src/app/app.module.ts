@@ -44,7 +44,6 @@ import { NgxTypeaheadModule} from 'ngx-typeahead';
 import { FormsModule,ReactiveFormsModule  } from '@angular/forms';
 //import { NgxTypeAheadComponent } from 'ngx-typeahead/src/modules/ngx-typeahead.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';  
-import { CarouselModule } from 'ngx-owl-carousel-o';
 import {TimeAgoPipe} from 'time-ago-pipe';
 import { RecipeComponent } from './components/shared/recipe/recipe.component';
 import { ReadComponent } from './components/admin/crud/read/read.component';
@@ -69,7 +68,8 @@ import { FormRecipeComponent } from './components/user/shared/form-recipe/form-r
 import { CategoriesComponent } from './components/shared/categories/categories.component';
 import { LoginFormComponent } from './components/guest/shared/login-form/login-form.component';
 import { FollowersComponent } from './components/user/followers/followers.component';
-
+import { CarouselModule } from 'ngx-owl-carousel-o';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations'; 
 @NgModule({
   declarations: [
     AppComponent,
@@ -140,6 +140,7 @@ import { FollowersComponent } from './components/user/followers/followers.compon
     CarouselModule ,
     NgxPaginationModule,
     BarRatingModule,
+    BrowserAnimationsModule,
     QuillModule.forRoot()
   ],
   providers: [],
