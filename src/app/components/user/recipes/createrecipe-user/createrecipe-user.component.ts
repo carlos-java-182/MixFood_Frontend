@@ -378,7 +378,7 @@ export class CreaterecipeUserComponent implements OnInit {
    */
   public createImagesRecipe(id: number): void{
     
-    this._imageService.uploadImage(this.imagesModel,id,this.thumbSelectedRoute).subscribe(response=>
+    this._imageService.uploadImageRecipe(this.imagesModel,id,this.thumbSelectedRoute).subscribe(response=>
     {
         console.log(response);
     });

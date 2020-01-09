@@ -4,7 +4,7 @@
     <div class="widget ranna-box-paddings" [ngClass]="{'edit-container': isEditPassword}">
         <div class="section-heading heading-dark ">
             <h2 class="item-heading profile-name">Password 
-                <a (click)="togglePasswordEdit()"><i class="fas fa-pencil-alt"></i></a>
+                <a (click)="togglePasswordEdit()" class="pointer btn-table-edit"><i class="fas fa-pencil-alt"></i></a>
             </h2>  
         </div>     
         <div *ngIf="isEditPassword" class="ranna-box-padding">
@@ -59,20 +59,20 @@
         <div class="section-heading heading-dark ">
             <h2 class="item-heading profile-name">
                 Email 
-                <a (click)="toggleEmailEdit()"><i class="fas fa-pencil-alt"></i></a>
+                <a (click)="toggleEmailEdit()" class="pointer btn-table-edit"><i class="fas fa-pencil-alt"></i></a>
             </h2>  
         </div> 
         <div *ngIf="isEditEmail" class="ranna-box-padding">
             <form class="login-form" [formGroup]="emailForm" (submit)="changeEmail($event)">
-                <div class="col-lg-12">
+                <div class="col-lg-5">
                     <label >Actual email</label>
                     <p>{{email}}</p>
                 </div>
-                <div class="col-lg-12">
+                <div class="col-lg-5">
                     <label for="">New email</label>
                     <input formControlName="email" class="main-input-box" type="email" required>
                 </div>
-                <div class="col-lg-12">
+                <div class="col-lg-5">
                     <label for="">Password</label>
                     <input formControlName="confirmPassword" class="main-input-box" type="password" required>
                 </div>
@@ -90,7 +90,7 @@
     <div class="widget ranna-box-paddings edit-container" [ngClass]="{'edit-container': isEditInformation}">
         <div class="section-heading heading-dark ">
             <h2 class="item-heading profile-name">Personal information 
-                <a (click)="toggleInformationEdit()"><i class="fas fa-pencil-alt"></i></a></h2>  
+                <a (click)="toggleInformationEdit()" class="pointer btn-table-edit"><i class="fas fa-pencil-alt"></i></a></h2>  
         </div> 
         <div *ngIf="isEditInformation" class="ranna-box-padding">
             <form [formGroup]="informationForm" (ngSubmit)="updateInformation()" class="login-form">
@@ -147,7 +147,7 @@
     <div class="widget ranna-box-paddings edit-container" [ngClass]="{'edit-container': isEditSocial}">
         <div class="section-heading heading-dark ">
             <h2 class="item-heading profile-name">Social Networks
-                <a (click)="toggleSocialEdit()">
+                <a (click)="toggleSocialEdit()" class="pointer btn-table-edit">
                     <i class="fas fa-pencil-alt"></i>
                 </a>
             </h2>  

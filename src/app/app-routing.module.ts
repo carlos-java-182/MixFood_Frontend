@@ -68,6 +68,7 @@ const routes: Routes = [
  
   //*Guest routes
   {component: HomeGuestComponent, path: ''},
+  
   {component: CategoriesGuestComponent, path: 'categories'},
   {component: CategoriesGuestComponent, path: 'categories/page/:page'},
   {component: LoginComponent, path: 'login'},
