@@ -74,19 +74,6 @@ export class HomeGuestComponent implements OnInit
   }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
   //*Variables declaration
   showDropDown: boolean = false;
   isSearchIngredientsVisible: boolean = false;

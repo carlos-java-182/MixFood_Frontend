@@ -213,3 +213,37 @@
 {
     width: 200px;
 }
+
+.categories-header
+{
+    /* position: relative; */
+}
+
+
+.show-more-container
+{
+    width: 150px;
+    margin: auto;
+    /* padding: 0px 5px; */
+    background-color: violet;
+}
+
+.btn-show-more
+{
+   text-align: center;
+}
+
+.btn-show-more span
+{
+    color: #111;
+    font-size: 18px;
+    transition: all 0.3s ease-in-out;
+    /* font-weight: 600; */
+    
+}
+
+.btn-show-more span:hover
+{
+	color: #ff4a52;
+	transition: all 0.3s ease-out;
+}

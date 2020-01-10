@@ -3,11 +3,6 @@
 <!-- Header Area End Here -->
 <!-- Content Area Start Here -->
 <section class="padding-bottom-45">
-
-    
-    
-    
-    
     <div class="container">
         <div class="row gutters-60">
             <!-- Search Start Here -->
@@ -34,44 +29,7 @@
                                 <button (click)="Search()" class="btn-search"><i class="flaticon-search"></i></button>
                             </div>
                         </div>
-                    </div>
-                    <!-- <div class="advance-search-form " >
-                        <div class="row">
-                            <div class="col-lg-6">
-                                <h3 class="item-title">BY CATEGORIES</h3>
-                                <div class="form-group select2-multiple col-lg-10">
-                                    <ng-select
-                                    [(ngModel)]="searchModel.categoryId"
-                                    [items]="categories"
-                                    bindLabel="name"
-                                    bindValue="id"         
-                                    [multiple]="false"
-                                    placeholder ="Select a category"
-                                    notFoundText = "Sin resultados"
-                                    required>
-                                    </ng-select>
-                                </div>
-                            </div>
-                            <div class="col-lg-6">
-                                <h3 class="item-title">BY INGREDIENTS</h3>      
-                                <div class="form-group select2-multiple col-lg-12">
-                                    <ng-select
-                                    [(ngModel)]="searchModel.ingredientsId"
-                                    class="select-multiple"
-                                    [items]="items"
-                                    bindLabel="name"
-                                    bindValue="id"                          
-                                    [multiple]="true"
-                                    placeholder ="Select your ingredients"
-                                    notFoundText = "Sin resultados"
-                                   
-                                    name="ingredients"
-                                    required>
-                                    </ng-select>
-                                </div>
-                            </div>
-                        </div>            
-                    </div> -->
+                    </div>                  
                 </div>
             </div>
             <!-- Search End Here -->
@@ -84,7 +42,6 @@
                     <!-- <div class="alert alert-primary" role="alert">
                         Results not found!
                     </div> -->
-
                     <div *ngFor="let recipe of recipesRes | paginate: {id: 'pagination-nav', itemsPerPage: 12, currentPage: p, totalItems: totalItems}" 
                     class="card-item col-lg-3 col-md-3 col-sm-12" (click)="showRecipe(recipe)">
                         <div class="product-box-layout1">
@@ -111,13 +68,11 @@
                                         <ul class="card-tags">
                                             <!-- <li *ngFor="let tag of recipe.tags"><a >#tag</a></li> -->
                                         </ul>
-                                    </li>
-                                
+                                    </li>                                
                                 </ul>
                             </div>
                         </div>
-                    </div>                                      
-                       
+                    </div>                                                             
                 </div>    
                 <!-- Pagination Start Here -->
                 <pagination-controls 
@@ -153,8 +108,7 @@
                     </ng-template>  
                     <!-- <ng-template> -->
                         <!-- <app-recipe-card-principal [recipe]="recipe"></app-recipe-card-principal> -->
-                    <!-- </ng-template>                  -->
-                   
+                    <!-- </ng-template>                  -->                   
                 </div>
                 <!-- <ng-template carouselSlide>Slide 2</ng-template>  
                 <ng-template carouselSlide>Slide 3</ng-template>   -->
@@ -231,8 +185,9 @@
 <!-- Category Area Start Here -->
 <section class="category-page-wrap padding-top-80 padding-bottom-50">
     <div class="container">
-        <div class="section-heading heading-dark row">
+        <div class="categories-header section-heading heading-dark row">
             <h2 class="item-heading">Categories </h2>
+         
         </div>
         <div class="row">      
             <div 
@@ -246,11 +201,14 @@
                         </a>
                     </figure>
                     <div class="item-content">
-                        <h3 class="item-title"><a (click)="goToCategory(category.id)" routerLinkActive="router-link-active" >{{category.name}}</a></h3>
+                        <h3 class="item-title"><a (click)="goToRecipesByCategory(category.id)" routerLinkActive="router-link-active"  routerLinkActive="router-link-active" >{{category.name}}</a></h3>
                         <span class="sub-title"> {{category.amountRecipes}} Recipes</span>
                     </div>
                 </div>
-            </div>    
+            </div>             
+        </div>
+        <div class="show-more-container">
+            <a [routerLink]="['/categories/page/',1]" routerLinkActive="router-link-active"  class="pointer btn-show-more"><span>Show more...</span></a>
         </div>
     </div>
 </section>

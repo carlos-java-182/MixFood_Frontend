@@ -23,7 +23,7 @@
                 <!-- Form Start Here -->
                 <form 
                 #formRecipe="ngForm" 
-                (ngSubmit)="formRecipe.valid && createRecipe()" 
+                (ngSubmit)="formRecipe.valid && createRecipe() " 
                 class="submit-recipe-form"
                 novalidate>
                     <!-- Input Name Start Here -->
@@ -287,6 +287,7 @@
                         </div>           
                     </div> 
                     <!-- Input Ingredients End Here -->
+                    <!-- New Ingredients List Start Here -->
                     <div class="additional-input-wrap" *ngIf="ingredientsList.length > 0">
                         <label>Ingredients List:</label>
                         <div class="row gutters-5" *ngFor="let ingredient of ingredientsList let i = index">
@@ -320,6 +321,9 @@
                         <!-- <button type="submit" class="btn-upload"><i class="flaticon-add-plus-button"></i>ADD NEW
                             INGREDIENT</button> -->
                     </div>
+                    <!-- New Ingredients List Start Here -->
+                    <!-- Old Ingredients List Start Here -->
+                    <!-- Old Ingredients List End Here -->
                     <div class="form-group">
                         <label>Preparation steps </label>
                         <quill-editor 

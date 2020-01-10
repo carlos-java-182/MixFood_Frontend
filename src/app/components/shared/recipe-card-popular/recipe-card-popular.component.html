@@ -8,12 +8,16 @@
         </a>
     </div>
     <div class="item-content">      
-        <span class="btn-edit pointer btn-table-edit"><a ><i class="fas fa-pencil-alt"></i></a></span>            
+        <span *ngIf="isLoggedIn" class="btn-edit pointer btn-table-edit">
+            <a>
+                <i class="fas fa-pencil-alt"></i>
+            </a>
+        </span>            
         <h3 class="item-title">
-            <a (click)="goToRecipe(recipe.id)">{{recipe.name}}s</a>
+            <a class="pointer" [routerLink]="['/recipe',recipe.id]" routerLinkActive="router-link-active" >{{recipe.name}}s</a>
         </h3>
         <span class="sub-title">
-            <a (click)="goToRecipesByCategory(recipe.category.id)">
+            <a class="pointer" (click)="goToCategory(recipe.category.id)">
                 {{recipe.category.name.toUpperCase()}}
             </a>
         </span>
@@ -35,16 +39,15 @@
                 </a>
             </li>  
             <li>
-                <a (click)="addToFavorite(recipe.id)" *ngIf="!isFavorite && isLoggedin">
+                <a (click)="addToFavorite(recipe.id)" *ngIf="!isFavorite && isLoggedIn">
                     <i class="far fa-heart"></i>
                     <span>Add to favorites</span> 
                 </a>
-                <a  (click)="removeFavorite(recipe.id)" *ngIf="isFavorite && isLoggedin">
+                <a  (click)="removeFavorite(recipe.id)" *ngIf="isFavorite && isLoggedIn">
                     <i class="fas fa-heart"></i>
                     <span>Remove favorites</span> 
                 </a>
-            </li>            
-                            
+            </li>                              
         </ul>
     </div>
 </div>

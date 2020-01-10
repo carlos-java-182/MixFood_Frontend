@@ -317,6 +317,10 @@ export class RecipesService {
     return this.http.put(`${this.url}views/${idRecipe}/user/${idUser}`,{},{headers: this.headers});
   }
 
+  public getRecipeEdit(id: number):Observable<any>
+  {
+    return this.http.get<RecipeEdit>(`${this.url}edit/${id}`);
+  }
 
 }
 /**
@@ -379,6 +383,7 @@ export interface RecipeFeatured{
 
 export class RecipeIngredient{
   quantity: string;
+  unit: string;
 	recipe:
 	{
 		id: number
@@ -388,7 +393,6 @@ export class RecipeIngredient{
 		id: number
 	};
 }
-
 
 export interface NewRecipe
 {
@@ -520,6 +524,30 @@ export interface RecipeCardTable
   {
     id: number;
     name: string;
+  }
+}
+
+export interface RecipeEdit 
+{
+  id: number;
+  name: string;
+  preparationTime: string;
+  difficulty: string;
+  description: string;
+  videoFrame: string;
+  preparationSteps: string;
+  status: string;
+  tags: Tags[];
+  recipeIngredients: 
+  {
+    id: number;
+    quantity: string;
+    unit: string;
+    
+  }
+  category:
+  {
+    id: number;
   }
 }
 

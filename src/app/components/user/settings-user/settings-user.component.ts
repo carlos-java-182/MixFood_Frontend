@@ -16,8 +16,8 @@ export class SettingsUserComponent implements OnInit {
   private isEditPassword: boolean = false;
   private isEditEmail: boolean = false;
   private isEditInformation: boolean = false;
-  private isEditSocial: boolean = true;
-  private isEditFacebook: boolean = true;
+  private isEditSocial: boolean = false;
+  private isEditFacebook: boolean = false;
   private email:string;
   //*Objects declaration
   private information: UserInformation = null;
@@ -194,33 +194,35 @@ export class SettingsUserComponent implements OnInit {
   {
     let idUser = 1;
     let network: string = value.attributes.formcontrolname.value.toUpperCase();
+    console.log("net: "+ network);
     this._userService.deleteSocialNetwork(idUser,network).subscribe(response =>
       {
         console.log(response);
         
         if(network == 'FACEBOOK')
         {
-          this.socialnetworksForm.reset({facebook: ''});
+          console.log('fb');
+          this.socialnetworksForm.get('facebook').reset();
         }
         if(network == 'PINTEREST')
         {
-          this.socialnetworksForm.reset({pinterest: ''});
+          this.socialnetworksForm.get('pinterest').reset();
         }
         if(network == 'INSTAGRAM')
         {
-          this.socialnetworksForm.reset({instagram: ''});
+          this.socialnetworksForm.get('instagram').reset();
         }
         if(network == 'TWITTER')
         {
-          this.socialnetworksForm.reset({twitter: ''});
+          this.socialnetworksForm.get('twiter').reset();
         }
         if(network == 'LINKEDIN')
         {
-          this.socialnetworksForm.reset({linkedin: ''});
+          this.socialnetworksForm.get('linkedin').reset();
         }
         if(network == 'YOUTUBE')
         {
-          this.socialnetworksForm.reset({youtube: ''});
+          this.socialnetworksForm.get('youtube').reset();
         }
       });
   }

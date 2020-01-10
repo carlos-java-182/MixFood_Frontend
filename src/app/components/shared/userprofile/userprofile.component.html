@@ -11,8 +11,12 @@
                 <div class="widget ranna-box-padding">
                     <div class="section-heading heading-dark ">
                             <h2 class="item-heading profile-name">{{userName}}</h2>
-                        <button (click)="StartFollowing()" class="btn-fil btn-red" *ngIf="!isFollowing && isLoggedin">Follow</button>
-                        <button (click)="StopFollowing()" class="btn-fil btn-red" *ngIf="isFollowing && isLoggedin">Unfollow</button>
+                        <button (click)="StartFollowing()" class="icon-unfollow-table" *ngIf="!isFollowing && isLoggedin">
+                            <i class="fas fa-rss"></i> Follow
+                        </button>
+                        <button (click)="StopFollowing()" class=" icon-unfollow-table" *ngIf="isFollowing && isLoggedin"> 
+                            <i class="fas fa-rss"></i> Unfollow
+                        </button>
                     </div>
                     <div class="widget-about">            
                         <figure class="author-figure">

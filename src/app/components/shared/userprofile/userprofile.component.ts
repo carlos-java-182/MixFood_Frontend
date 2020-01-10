@@ -12,7 +12,10 @@ import { FavoriteService, Favorite } from 'src/app/services/favorite.service';
 @Component({
   selector: 'app-userprofile',
   templateUrl: './userprofile.component.html',
-  styleUrls: ['./userprofile.component.css']
+  styleUrls: ['./userprofile.component.css',
+  '../../../../assets/css/followersStyles.css',
+  '../../../../assets/css/profileStyles.css'
+]
 })
 
 export class UserprofileComponent implements OnInit {
