@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { RecipesService } from 'src/app/services/recipes.service';
 import { FavoriteService, Favorite } from 'src/app/services/favorite.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-recipe-card-popular',
@@ -10,16 +11,16 @@ import { FavoriteService, Favorite } from 'src/app/services/favorite.service';
 export class RecipeCardPopularComponent implements OnInit {
 
   @Input('recipe')recipe: any;
-  @Input('isLoggedIn')
-  private istLoggedInt?: boolean = false;
+  //*Variables declaration
+  private isLoggedIn: boolean = false;
   private isLiked: boolean = false;
   private isFavorite: boolean = false;
-  private isLoggedin: boolean = true; 
   private idFavorite: number;
   private totalLikes: number;
 
   constructor(private _recipeService: RecipesService,
               private _favoriteService: FavoriteService,
+              private router: Router
             ) { }
 
   ngOnInit() 
@@ -125,5 +126,11 @@ export class RecipeCardPopularComponent implements OnInit {
         this.isLiked = true;
       });
     }
+  }
+
+  private goToCategory(id: number): void 
+  {
+    let path = `search/category/${id}/page/1`;
+    this.router.navigate([path]);
   }
 }

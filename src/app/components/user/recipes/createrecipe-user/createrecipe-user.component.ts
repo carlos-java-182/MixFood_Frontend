@@ -11,7 +11,8 @@ import { RecipesService, NewRecipe, RecipeIngredient } from 'src/app/services/re
 import  Swal  from 'sweetalert2';
 import { TagService, TagShort } from 'src/app/services/tag.service';
 import { ImageService } from 'src/app/services/image.service';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
+import { timingSafeEqual } from 'crypto';
 
 @Component({
   selector: 'app-createrecipe-user',
@@ -27,17 +28,22 @@ export class CreaterecipeUserComponent implements OnInit {
   //*Variables declaration */
   //Index of ingredient list
   private userId: number = 1;
+  private idRecipe: number;
   private indexList: number = 0;
   private imagesCount: number = 0;
   private indexThumb: number = 0; 
   private descriptionLength = 200;
+
   private isEditIngredient: boolean = false;
   private isImagesLimit: boolean = false;
+  private isEdit: boolean = true;
+
   private selectedFile: File = null;
   private thumbSelectedRoute: string;
  // recipeStatus: RecipeStatus.public;
   private fileModel:string = null;
-  
+  private headerMessage: string;
+
   //*Objects declaration*//
   //Ingredients list for select
   private ingredients: IngredientList[];
@@ -47,6 +53,8 @@ export class CreaterecipeUserComponent implements OnInit {
   private tags: TagShort[];
   
   private ingredientsList: any[] = [];
+  private newIngredientsList: any[] = [];
+  private removeIngredientsList: any[] = [];
   private ingredientsRecipe: any[] = [];
   private imagesURL: any[] = [];
   
@@ -55,6 +63,7 @@ export class CreaterecipeUserComponent implements OnInit {
   private ingredientModel = {id: null, amountIngredient: '',unit: null}
   private tagsModel = [];
   private imagesModel: any[] = [];
+  
   //Recipe model
   private recipeModel = {
     name: '', 
@@ -103,6 +112,7 @@ export class CreaterecipeUserComponent implements OnInit {
     private _recipeService: RecipesService,
     private _imageService: ImageService,
     private router: Router,
+    private activatedRoute: ActivatedRoute,
     private formBuilder: FormBuilder) 
        { }
 
@@ -111,15 +121,54 @@ export class CreaterecipeUserComponent implements OnInit {
     this.getCategoriesList();    
     this.getIngredientsList();
     this.getTagList();
+
+    this.activatedRoute.paramMap.subscribe(params =>
+      {
+        //*Validate if is create or edit recipe
+        if(params.get('id') == undefined)
+        {
+          this.headerMessage = 'Create Recipe';
+         
+        }
+        else
+        {
+          this.idRecipe = Number(params.get('id'));
+          console.log(this.idRecipe);
+          this._recipeService.getRecipeEdit(this.idRecipe).subscribe(data => 
+          {
+            this.headerMessage = 'Edit Recipe';
+            console.log(data);
+            //*Set data to form
+            this.recipeModel.name = data.name;
+            this.recipeModel.difficulty = data.difficulty.toUpperCase();
+            this.recipeModel.description = data.description;
+            this.recipeModel.videFrame = data.videoFrame;
+            this.recipeModel.preparationSteps = data.preparationSteps;
+            this.recipeModel.preparationTime = data.preparationTime;
+            this.recipeModel.status = data.status;
+            this.recipeModel.categoryId = data.category.id;
+          
+           // for(let ingredient of this.recipeModel.)
+
+            //*Create array with tags ids
+            let ids = [];
+            for(let id of data.tags)
+            {
+              ids.push(id.id);
+            }
+            this.tagsModel = ids;
+          },
+          err =>
+          {
+            console.log(err);
+          });
+        }
+      });
   }
 
   
-  OnChanges()
-  {
-    alert();
-  }
   /**
-   * 
+   **This function get categories for list in select
    */
   private getCategoriesList():void
   {
@@ -351,7 +400,8 @@ export class CreaterecipeUserComponent implements OnInit {
       //*Create object with ingredient data
       let list: RecipeIngredient =
       {
-        quantity: this.ingredientsList[i].amount+' '+this.ingredientsList[i].unit,
+        quantity: this.ingredientsList[i].amount,
+        unit: this.ingredientsList[i].unit,
         recipe:
         {
           id: id
@@ -384,15 +434,16 @@ export class CreaterecipeUserComponent implements OnInit {
     });
   }
 
-  tester():void{
-    this.router.navigate(['/home']);
-  }
 
+
+  /**
+   **This function get the value o description for make count of characters
+   * @param value: Description text
+   */
   private countCharacters(value)
   {
     let count = 200 - value.length;
     this.descriptionLength = count;
-    // console.log(count);
   }
 }
  

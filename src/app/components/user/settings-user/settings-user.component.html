@@ -162,11 +162,12 @@
                                 <img class="social-image"  src="assets/img/socialnetworks-icons/facebook.svg" alt="icon">
                                </div>
                             </div>
-                            <input [disabled]="!isEditFacebook" class="form-control main-input-box" #facebook formControlName="facebook"  type="text">
+                            <input class="form-control main-input-box" #facebook formControlName="facebook" placeholder="@username"  type="text">
                             <div class="input-group-append">
-                                <button class="btn-group btn-edit" (click)="addSocialNetwork(facebook)">
-                                    <i class="fas fa-pencil-alt"></i>
+                                <button type="button" class="btn-group btn-add" (click)="addSocialNetwork(facebook)">
+                                    <i class="fas fa-save"></i>                                  
                                 </button>
+                               
                                 <button class="btn-group btn-remove" (click)="removeSocialNetwork(facebook)">
                                     <i class="fas fa-trash-alt"></i>
                                 </button>
@@ -178,10 +179,10 @@
                                     <img class="social-image"  src="assets/img/socialnetworks-icons/instagram.svg" alt="icon">
                                 </div>
                             </div>
-                            <input #instagram formControlName="instagram" class="form-control main-input-box" type="text">
+                            <input #instagram formControlName="instagram" class="form-control main-input-box" placeholder="@username" type="text">
                             <div class="input-group-append">
-                                <button class="btn-group btn-edit" (click)="addSocialNetwork(instagram)">
-                                    <i class="fas fa-pencil-alt"></i>
+                                <button class="btn-group btn-add" (click)="addSocialNetwork(instagram)">
+                                    <i class="fas fa-save"></i>    
                                 </button>
                                 <button class="btn-group btn-remove" (click)="removeSocialNetwork(instagram)">
                                     <i class="fas fa-trash-alt"></i>
@@ -198,10 +199,10 @@
                                     <img class="social-image"  src="assets/img/socialnetworks-icons/twitter.svg" alt="icon">
                                    </div>
                             </div>
-                            <input #twitter formControlName="twitter" class="form-control main-input-box" type="text">
+                            <input #twitter formControlName="twitter" class="form-control main-input-box" placeholder="@username" type="text">
                             <div class="input-group-append">
-                                <button class="btn-group btn-edit" (click)="addSocialNetwork(twitter)">
-                                    <i class="fas fa-pencil-alt"></i>
+                                <button class="btn-group btn-add" (click)="addSocialNetwork(twitter)">
+                                    <i class="fas fa-save"></i>
                                 </button>
                                 <button class="btn-group btn-remove" (click)="removeSocialNetwork(twitter)">
                                     <i class="fas fa-trash-alt"></i>
@@ -214,10 +215,10 @@
                                     <img class="social-image"  src="assets/img/socialnetworks-icons/pinterest.svg" alt="icon">
                                    </div>
                             </div>
-                            <input #pinterest formControlName="pinterest" class="form-control main-input-box" type="text">
+                            <input #pinterest formControlName="pinterest" class="form-control main-input-box" placeholder="@username" type="text">
                             <div class="input-group-append">
-                                <button class="btn-group btn-edit" (click)="addSocialNetwork(pinterest)">
-                                    <i class="fas fa-pencil-alt"></i>
+                                <button class="btn-group btn-add" (click)="addSocialNetwork(pinterest)">
+                                    <i class="fas fa-save"></i>
                                 </button>
                                 <button class="btn-group btn-remove" (click)="removeSocialNetwork(pinterest)">
                                     <i class="fas fa-trash-alt"></i>
@@ -234,10 +235,10 @@
                                     <img class="social-image"  src="assets/img/socialnetworks-icons/linkedin.svg" alt="icon">
                                    </div>
                             </div>
-                            <input #linkedin formControlName="linkedin" class="form-control main-input-box" type="text">
+                            <input #linkedin formControlName="linkedin" class="form-control main-input-box" placeholder="@username" type="text">
                             <div class="input-social-container input-group-append">
-                                <button class="btn-group btn-edit" (click)="addSocialNetwork(linkedin)">
-                                    <i class="fas fa-pencil-alt"></i>
+                                <button class="btn-group btn-add" (click)="addSocialNetwork(linkedin)">
+                                    <i class="fas fa-save"></i>
                                 </button>
                                 <button class="btn-group btn-remove" (click)="removeSocialNetwork(linkedin)">
                                     <i class="fas fa-trash-alt"></i>
@@ -250,10 +251,10 @@
                                     <img class="social-image"  src="assets/img/socialnetworks-icons/youtube.svg" alt="icon">
                                    </div>
                             </div>
-                            <input #youtube formControlName="youtube" class="form-control main-input-box" type="text">
+                            <input #youtube formControlName="youtube" class="form-control main-input-box" placeholder="@username" type="text">
                             <div class="input-group-append">
-                                <button class="btn-group btn-edit" (click)="addSocialNetwork(youtube)">
-                                    <i class="fas fa-pencil-alt"></i>
+                                <button class="btn-group btn-add" (click)="addSocialNetwork(youtube)">
+                                    <i class="fas fa-save"></i>
                                 </button>
                                 <button class="btn-group btn-remove" (click)="removeSocialNetwork(youtube)">
                                     <i class="fas fa-trash-alt"></i>
@@ -262,9 +263,9 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-2 inline-box mb-5 mt-4">
+                <!-- <div class="col-lg-2 inline-box mb-5 mt-4">
                     <button  class="btn-save btn-fill" type="submit">Save</button>     
-                </div>
+                </div> -->
             </form>  
         </div>
     </div>

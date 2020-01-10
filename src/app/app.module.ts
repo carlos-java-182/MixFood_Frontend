@@ -33,7 +33,6 @@ import { EditusersAdminComponent } from './components/admin/users/editusers-admi
 import { TagsAdminComponent } from './components/admin/tags/tags-admin/tags-admin.component';
 import { EdittagsAdminComponent } from './components/admin/tags/edittags-admin/edittags-admin.component';
 import { SearchrecipeGuestComponent } from './components/guest/searchrecipe-guest/searchrecipe-guest.component';
-import { EditprofileUserComponent } from './components/user/profile/editprofile-user/editprofile-user.component';
 import { RecipesUserComponent } from './components/user/recipes/recipes-user/recipes-user.component';
 import { LoginComponent } from './components/guest/login-guest/login.component';
 
@@ -100,7 +99,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     TagsAdminComponent,
     EdittagsAdminComponent,
     SearchrecipeGuestComponent,
-    EditprofileUserComponent,
     RecipesUserComponent,
     LoginComponent,
     TimeAgoPipe,
@@ -124,9 +122,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     CategoriesComponent,
     LoginFormComponent,
     FollowersComponent
-
-    
-    
   ],
   imports: [
     BrowserModule,

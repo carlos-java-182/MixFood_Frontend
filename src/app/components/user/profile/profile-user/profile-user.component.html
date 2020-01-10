@@ -31,7 +31,7 @@
                             <div class="change-image-container" 
                              [ngClass]="{'active': isProfileImageHover}">
                                 <div class="button-content">
-                                    <a>
+                                    <a class="pointer">
                                         <span class="icon"><i class="fas fa-camera"></i></span>
                                         <span class="text">Change image</span>
                                     </a>                    
@@ -175,9 +175,9 @@
                                         </div>
                                         <div class="item-content">    
                                             <h2 class="item-title pointer">
-                                                <a (click)="goToRecipe(trending.id)">{{trending.name}}</a>
+                                                <a [routerLink]="['/recipe/',trending.id]" routerLinkActive="router-link-active" >{{trending.name}}</a>
                                             </h2>
-                                            <span class="sub-title pointer" (click)="goToRecipesByCategory(trending.category.id)">
+                                            <span class="sub-title pointer" (click)="goToCategory(trending.category.id)">
                                                 {{trending.category.name.toUpperCase()}}
                                             </span>
                                             <ul class="item-rating">

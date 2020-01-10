@@ -62,7 +62,6 @@
 .btn-edit 
 {
     border-color: #ffc107;
-    /* background: none !important; */
     background-color: #ffc107;
 }
 
@@ -79,6 +78,7 @@
 
 .btn-save
 {
+    
     color: #fff;
     background-color: #ff4a52;
 }
@@ -86,4 +86,26 @@
 .btn-save:hover
 {
     background-color: #e92731;
+}
+
+.btn-add 
+{
+    color:#fff;
+    background-color:#28a745;
+    border-color: #28a745; 
+}
+.btn-add:hover 
+{
+    background-color: #218838;
+    border-color: #1e7e34;
+}
+
+.form-control, .custom-select
+{
+    font-size: 16px;
+}
+
+.custom-select
+{
+    height: 45px !important;
 }

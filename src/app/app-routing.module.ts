@@ -7,7 +7,6 @@ import { Routes, RouterModule } from '@angular/router';
 
 //*Import components
 import { NavbarUserComponent } from './components/user/shared/navbar-user/navbar-user.component';
-import { EditprofileUserComponent } from './components/user/profile/editprofile-user/editprofile-user.component';
 import { CreaterecipeUserComponent } from './components/user/recipes/createrecipe-user/createrecipe-user.component';
 import { EditrecipeUserComponent } from './components/user/recipes/editrecipe-user/editrecipe-user.component';
 import { HomeUserComponent } from './components/user/home-user/home-user.component';
@@ -55,12 +54,11 @@ const routes: Routes = [
   
   //*User routes
   {component: ProfileUserComponent, path: 'user/profile-user', canActivate:[AuthGuard]},
-  {component: EditprofileUserComponent, path: 'user/profile/editprofile-user', canActivate:[AuthGuard]},
   {component: HomeUserComponent, path: 'user/home'},
-  {component: SettingsUserComponent, path: 'user/settings', canActivate:[AuthGuard]},
+
   {component: RecipesUserComponent, path: 'user/recipes', canActivate:[AuthGuard]},
-  {component:FavoritesComponent, path: 'user/favorites', canActivate:[AuthGuard]},
-  {component: CreaterecipeUserComponent, path: 'user/recipes/createrecipe', canActivate:[AuthGuard]},
+  {component: CreaterecipeUserComponent, path: 'user/recipes/create', canActivate:[AuthGuard]},
+  {component: CreaterecipeUserComponent, path: 'user/recipes/edit/:id', canActivate:[AuthGuard]},
   {component: EditrecipeUserComponent, path: 'user/recipes/edit/:id', canActivate:[AuthGuard]},
   {component: RecipesUserComponent, path: 'user/recipes/page/:page/status/:status', canActivate:[AuthGuard]},
   {component: RecipesUserComponent, path: 'user/recipes/page/:page/term/:term/status/:status', canActivate:[AuthGuard]},

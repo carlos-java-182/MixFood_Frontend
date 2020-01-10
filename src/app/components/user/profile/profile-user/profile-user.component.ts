@@ -10,16 +10,18 @@ import { ImageService } from 'src/app/services/image.service';
 @Component({
   selector: 'app-profile-user',
   templateUrl: './profile-user.component.html',
-  styleUrls: ['./profile-user.component.css']
+  styleUrls: ['./profile-user.component.css',
+              '../../../../../assets/css/followersStyles.css'
+              ]
 })
 export class ProfileUserComponent implements OnInit {
   //*Variables delcaration
   //Booleans for shwo options 
   private isShowRecipes: boolean =  false;
   private isShowFavorites: boolean = false;
-  private isShowSettings: boolean = true;
+  private isShowSettings: boolean = false;
   private isShowFollowers: boolean = false;
-  private isShowProfile: boolean = false;
+  private isShowProfile: boolean = true;
   private isProfileImageHover: boolean = false;
   
   //User info
@@ -200,6 +202,17 @@ export class ProfileUserComponent implements OnInit {
     },err => {
       console.log(err)
     });
+  }
+
+  private goToLink(url: string): void
+  {
+    window.open(url, "_blank");
+  }
+
+  private goToCategory(id: number): void 
+  {
+    let path = `search/category/${id}/page/1`;
+    this.router.navigate([path]);
   }
 
 }
