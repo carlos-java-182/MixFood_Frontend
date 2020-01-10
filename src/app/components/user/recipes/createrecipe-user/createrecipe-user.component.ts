@@ -121,49 +121,7 @@ export class CreaterecipeUserComponent implements OnInit {
     this.getCategoriesList();    
     this.getIngredientsList();
     this.getTagList();
-
-    this.activatedRoute.paramMap.subscribe(params =>
-      {
-        //*Validate if is create or edit recipe
-        if(params.get('id') == undefined)
-        {
-          this.headerMessage = 'Create Recipe';
-         
-        }
-        else
-        {
-          this.idRecipe = Number(params.get('id'));
-          console.log(this.idRecipe);
-          this._recipeService.getRecipeEdit(this.idRecipe).subscribe(data => 
-          {
-            this.headerMessage = 'Edit Recipe';
-            console.log(data);
-            //*Set data to form
-            this.recipeModel.name = data.name;
-            this.recipeModel.difficulty = data.difficulty.toUpperCase();
-            this.recipeModel.description = data.description;
-            this.recipeModel.videFrame = data.videoFrame;
-            this.recipeModel.preparationSteps = data.preparationSteps;
-            this.recipeModel.preparationTime = data.preparationTime;
-            this.recipeModel.status = data.status;
-            this.recipeModel.categoryId = data.category.id;
-          
-           // for(let ingredient of this.recipeModel.)
-
-            //*Create array with tags ids
-            let ids = [];
-            for(let id of data.tags)
-            {
-              ids.push(id.id);
-            }
-            this.tagsModel = ids;
-          },
-          err =>
-          {
-            console.log(err);
-          });
-        }
-      });
+ 
   }
 
   
@@ -201,6 +159,7 @@ export class CreaterecipeUserComponent implements OnInit {
    */
   private addIngredient(ingredientId: number, amount: string, unit: string):void
   {
+    
     //*Create ingredient and find the name by id
     let ingredient =
     {
@@ -213,6 +172,7 @@ export class CreaterecipeUserComponent implements OnInit {
     console.log(ingredient);
     //*Add ingredient to list for show in the front
     this.ingredientsList.push(ingredient);
+   // this.newIngredientsList.push(ingredient);
 
     //*Clear model
     this.clearIngredients();
@@ -251,6 +211,7 @@ export class CreaterecipeUserComponent implements OnInit {
     //*Add changes to list
     this.ingredientsList[this.indexList].name = name;
     this.ingredientsList[this.indexList].amount = this.ingredientModel.amountIngredient;
+    this.ingredientsList[this.indexList].unit = this.ingredientModel.unit;
 
     
     //*Show add button

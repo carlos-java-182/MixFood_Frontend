@@ -17,7 +17,7 @@ import { isDate } from 'util';
 export class RecipeComponent implements OnInit {
   //*Variables declaration
   private id: number;
-  private idUser: number;
+  private idUser: number = 1;
   private recipeName: string;
   private recipeCategoryName: string;
   private userName: string;
@@ -46,7 +46,7 @@ export class RecipeComponent implements OnInit {
   private tagsTrends: TagShort[];
   public rankings: RankingComment[] = [];
   ///ratingComment: number = 0;
-  isLoggedIn: boolean = false;
+  isLoggedIn: boolean = true;
   private showMoreRankigns: boolean = false;
   private arr = [];
   private videoFrame: any;

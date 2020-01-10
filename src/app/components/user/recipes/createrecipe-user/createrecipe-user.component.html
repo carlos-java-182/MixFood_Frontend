@@ -288,7 +288,7 @@
                     </div> 
                     <!-- Input Ingredients End Here -->
                     <!-- New Ingredients List Start Here -->
-                    <div class="additional-input-wrap" *ngIf="ingredientsList.length > 0">
+                    <div class="additional-input-wrap" *ngIf="newIngredientsList.length > 0">
                         <label>Ingredients List:</label>
                         <div class="row gutters-5" *ngFor="let ingredient of ingredientsList let i = index">
                             <div class="col-6">
@@ -323,6 +323,39 @@
                     </div>
                     <!-- New Ingredients List Start Here -->
                     <!-- Old Ingredients List Start Here -->
+                    <div class="additional-input-wrap" *ngIf="ingredientsList.length > 0">
+                        <label>Ingredients List:</label>
+                        <div class="row gutters-5" *ngFor="let ingredient of ingredientsList let i = index">
+                            <div class="col-6">
+                                <div class="form-group additional-input-box2 ">
+                                    <div class=" ingredient-item">
+                                        <p>{{ingredient.name}}</p>
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                            <div class="col-3">
+                                <div class="form-group additional-input-box2 icon-right">
+                                    <div class="ingredient-item">
+                                        <p>{{ingredient.amount}}</p>
+                                    </div>
+                                    <!-- <a (click)="editIngredient(i)"><i class="fas fa-pen icon-edit"></i></a> -->
+                                    <!-- <a (click)="removeIngredient(i)"> <i class="fas fa-times icon-remove"></i></a> -->
+                                </div>
+                            </div>
+                            <div class="col-3">
+                                <div class="form-group additional-input-box2 icon-right">
+                                    <div class="ingredient-item">
+                                        <p>{{ingredient.unit}}</p>
+                                    </div>
+                                    <a (click)="editIngredient(i)"><i class="fas fa-pen icon-edit"></i></a>
+                                    <a (click)="removeIngredient(i)"> <i class="fas fa-times icon-remove"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- <button type="submit" class="btn-upload"><i class="flaticon-add-plus-button"></i>ADD NEW
+                            INGREDIENT</button> -->
+                    </div>
                     <!-- Old Ingredients List End Here -->
                     <div class="form-group">
                         <label>Preparation steps </label>

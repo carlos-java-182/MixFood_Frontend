@@ -58,7 +58,6 @@ const routes: Routes = [
 
   {component: RecipesUserComponent, path: 'user/recipes', canActivate:[AuthGuard]},
   {component: CreaterecipeUserComponent, path: 'user/recipes/create', canActivate:[AuthGuard]},
-  {component: CreaterecipeUserComponent, path: 'user/recipes/edit/:id', canActivate:[AuthGuard]},
   {component: EditrecipeUserComponent, path: 'user/recipes/edit/:id', canActivate:[AuthGuard]},
   {component: RecipesUserComponent, path: 'user/recipes/page/:page/status/:status', canActivate:[AuthGuard]},
   {component: RecipesUserComponent, path: 'user/recipes/page/:page/term/:term/status/:status', canActivate:[AuthGuard]},

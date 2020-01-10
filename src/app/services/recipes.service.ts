@@ -422,7 +422,8 @@ export interface Tags
 
 export interface Images
 {
-  routeImage: string
+  id?: number;
+  routeImage: string;
 }
 
 export interface Recipe{
@@ -548,7 +549,8 @@ export interface RecipeEdit
   category:
   {
     id: number;
-  }
+  },
+  images: Images[];
 }
 
 export enum Status
