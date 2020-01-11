@@ -188,16 +188,13 @@
                                                 </div>
                                             </div>
                                         </form>
-                                    </div> -->
-
-                                    
+                                    </div> -->                                    
                                     <div class="checkbox checkbox-primary" *ngFor="let ingredient of ingredients; let i = index">              
                                         <input id="checkbox{{i}}" type="checkbox" checked>
                                         <label for="checkbox{{i}}">{{ingredient.quantity}} of {{ingredient.ingredient.name}}</label>
                                     </div>
                                 </div>
-                            </div>
-                          
+                            </div>                          
                         </div>
                     </div>
                     <!-- <iframe width="560" height="315" [src]='videoFrame' frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe> -->
@@ -207,79 +204,33 @@
                         </div>
                         <div class="section-paragraph">
                             <p [innerHTML]="preparationSteps"></p>
-                        </div>
-                        <!-- <div class="direction-box-layout1">
-                            <div class="item-figure">
-                                <img src="img/figure/direction1.jpg" alt="DIRECTIONS">
-                            </div>
-                            <div class="item-content">
-                                <div class="serial-number">01 Step</div>
-                                <p>Recipe View<span class="item-time"><i class="far fa-clock"></i>5 Minutes</span> chemaorg is a
-                                    collaboration improve
-                                    the web by creat inegaera structured markupinn ocuously
-                                    side crudey mightily rigorous plot life.</p>
-                            </div>
-                        </div>
-                        <div class="direction-box-layout1">
-                            <div class="item-figure">
-                                <img src="img/figure/direction2.jpg" alt="DIRECTIONS">
-                            </div>
-                            <div class="item-content">
-                                <div class="serial-number">02 Step</div>
-                                <p>Recipe View<span class="item-time"><i class="far fa-clock"></i>5 Minutes</span> chemaorg is a
-                                    collaboration improve
-                                    the web by creat inegaera structured markupinn ocuously
-                                    side crudey mightily rigorous plot life.</p>
-                            </div>
-                        </div>
-                        <div class="direction-box-layout1">
-                            <div class="item-figure">
-                                <img src="img/figure/direction3.jpg" alt="DIRECTIONS">
-                            </div>
-                            <div class="item-content">
-                                <div class="serial-number">03 Step</div>
-                                <p>Recipe View<span class="item-time"><i class="far fa-clock"></i>5 Minutes</span> chemaorg is a
-                                    collaboration improve
-                                    the web by creat inegaera structured markupinn ocuously
-                                    side crudey mightily rigorous plot life.</p>
-                            </div>
-                        </div>
-                        <div class="direction-box-layout1">
-                            <div class="item-figure">
-                                <img src="img/figure/direction4.jpg" alt="DIRECTIONS">
-                            </div>
-                            <div class="item-content">
-                                <div class="serial-number">04 Step</div>
-                                <p>Recipe View<span class="item-time"><i class="far fa-clock"></i>5 Minutes</span> chemaorg is a
-                                    collaboration improve
-                                    the web by creat inegaera structured markupinn ocuously
-                                    side crudey mightily rigorous plot life.</p>
-                            </div>
-                        </div> -->
+                        </div>            
                     </div>
                     <!-- Recipe Tags Start Here -->
-                    <div class="section-heading heading-dark row">
-                        <h2 class="item-heading">Tags</h2>
+                    <div class="direction-wrap-layout1">
+                        <div class="section-heading heading-dark">
+                            <h2 class="item-heading">Tags</h2>
+                        </div>
+                        <div class="tag-share">
+                            <ul>
+                                <li>
+                                    <ul class="inner-tag">
+                                        <li *ngFor="let tag of tags">
+                                            <a class="pointer" (click)="goToRecipesByTag(tag.id)">{{tag.name}}</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div> 
                     </div>
-                    <div class="tag-share">
-                        <ul>
-                            <li>
-                                <ul class="inner-tag">
-                                    <li *ngFor="let tag of tags">
-                                        <a class="pointer" (click)="goToRecipesByTag(tag.id)">{{tag.name}}</a>
-                                    </li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </div>  
                     <!-- Recipe Tags End Here -->
                     <div class="recipe-author">
                         <div class="media media-none--xs">
                             <img src="http://localhost:8080/api/uploads/{{userImage}}/type/USER" alt="Blog Author" class="rounded-circle media-img-auto">
                             <div class="media-body">
-                                <h4 class="author-title">{{userName}}</h4>
+                                <h4 class="author-title pointer">{{userName}}</h4>
                                 <h5 class="author-sub-title">Author</h5>
-                                <p>{{recipe.user.description}}</p>
+                                <!-- <p>{{recipe.user.description}}</p> -->
                                
                             </div>
                         </div>
@@ -321,7 +272,7 @@
                     <!-- Recipe Reviews End Here -->
 
                     <!-- Form Review Start Here -->
-                    <div *ngIf="isLoggedIn" class="leave-review">
+                    <div *ngIf="isLoggedIn && !isCommented" class="leave-review">
                         <form class="leave-form-box" 
                         [formGroup]="commentForm" 
                         (ngSubmit)="createComment(commentForm.value) && commentForm.valid"
@@ -361,6 +312,14 @@
                         </form>
                     </div>
                     <!-- Form Review End Here -->
+                    <!-- Alert Review Start Here -->
+                    <div *ngIf="isCommented && showAlert" class="alert alert-success" role="alert">
+                        <h4 class="alert-heading">Success!</h4>
+                        <hr>
+                        <p>Your review has been created</p>   
+                    </div>
+                    <!-- Alert Review End Here -->
+
                 </div>
             </div>
             <div class="col-lg-4 sidebar-widget-area sidebar-break-md">

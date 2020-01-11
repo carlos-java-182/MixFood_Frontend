@@ -36,7 +36,9 @@ export class RecipeComponent implements OnInit {
   private currentPageRankings: number = 0;
   private totalPagesRankings: number;
   private isAlreadyComent: boolean = false;
-  isRankingsAvailable: boolean = false;
+  private isRankingsAvailable: boolean = false;
+  private isCommented: boolean = false;
+  private showAlert: boolean = false;
   //private videoFrame: string;
   //*Objects declaration
   private recipe: RecipeProfile;
@@ -230,6 +232,8 @@ export class RecipeComponent implements OnInit {
       {
         console.log(response);
         this.rankings.push(response.ranking as RankingComment);
+        this.isCommented = true;
+        this.showAlert = true;
         this.commentForm.reset();
         
       },

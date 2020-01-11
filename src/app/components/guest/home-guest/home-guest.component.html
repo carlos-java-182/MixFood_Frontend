@@ -89,31 +89,18 @@
             <!-- Results Recipe End Here -->
            
             <!-- Recent Recipe Start Here -->
-            <div class="col-lg-12">
-              <owl-carousel-o [options]="customOptions">
-                <!-- <ng-template carouselSlide>
-                    <img style="width: 200px;" src="https://cdn.pixabay.com/photo/2017/05/13/23/05/img-src-x-2310895_960_720.png" alt="image">
-                </ng-template>  
-                <ng-template carouselSlide>
-                    <img style="width: 200px;" src="https://cdn.pixabay.com/photo/2017/05/13/23/05/img-src-x-2310895_960_720.png" alt="image">
-                </ng-template>  
-                <ng-template carouselSlide>
-                    <img style="width: 200px;" src="https://cdn.pixabay.com/photo/2017/05/13/23/05/img-src-x-2310895_960_720.png" alt="image">
-                </ng-template>  
-                -->
+            <!-- <div class="col-lg-10">
+              <owl-carousel-o  [options]="customOptions">
+               
                 <div class="item"  *ngFor="let recipe of recipes">
                     <ng-template class="template-card" carouselSlide>
                       <app-recipe-card-principal [recipe]="recipe"></app-recipe-card-principal>
-                        <!-- <img style="width: 200px;" src="https://cdn.pixabay.com/photo/2017/05/13/23/05/img-src-x-2310895_960_720.png" alt="image"> -->
                     </ng-template>  
-                    <!-- <ng-template> -->
-                        <!-- <app-recipe-card-principal [recipe]="recipe"></app-recipe-card-principal> -->
-                    <!-- </ng-template>                  -->                   
+                                   
                 </div>
-                <!-- <ng-template carouselSlide>Slide 2</ng-template>  
-                <ng-template carouselSlide>Slide 3</ng-template>   -->
+               
               </owl-carousel-o>
-            </div>
+            </div> -->
 
 
 
@@ -144,7 +131,7 @@
            </div> -->
 
 
-            <!-- <div class="col-lg-10" *ngIf="!isSearch">
+            <div class="col-lg-10">
                 <div class="section-heading heading-dark row">
                     <h2 class="item-heading">Recent recipes </h2>
                 </div>
@@ -153,7 +140,7 @@
                          <app-recipe-card-principal [recipe]="recipe"></app-recipe-card-principal>
                     </div>
                 </div>
-            </div> -->
+            </div>
             <!-- Recent Recipe End Here -->
  
             <!-- Popular tags start here -->

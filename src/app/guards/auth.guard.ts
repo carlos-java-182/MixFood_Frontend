@@ -19,11 +19,12 @@ export class AuthGuard implements CanActivate
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree 
   {
     //*Validate if user is loggedin
-    if(this._authServiche.isLoggedIn())
+    if(this._authServiche.isAuthenticated())
     {
+      console.log('IN GUARD!!!');
       return true;
-      console.log('IN GUARD!!!')
     }
+    console.log('You are not auth')
     //*Redirect user to login if this is not logged
     this.router.navigate(['/login']);
     return false;

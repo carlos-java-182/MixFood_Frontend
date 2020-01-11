@@ -163,7 +163,6 @@
     color: #fff;
 }
 
-
 .search-byingredients,
 .search-byrecipes{
   background: #fff;
@@ -195,11 +194,13 @@
 =============================================*/
 
 .carousel-inner{
-    background-color: red;
+    /* background-color: red; */
 }
 
-
-
+.owl-carousel
+{
+    /* height: 90px !important; */
+}
 
 /*=====  End of Section Slider cards block  ======*/
 
@@ -247,3 +248,9 @@
 	color: #ff4a52;
 	transition: all 0.3s ease-out;
 }
+
+
+
+
+
+

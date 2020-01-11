@@ -289,7 +289,7 @@ export class EditrecipeUserComponent implements OnInit {
         this.updateIngredients();    
         this.deleteImages();
         this.updateImages();
-        this.router.navigate(['/recipe/',response.id]);
+        this.router.navigate(['/recipe/',this.idRecipe]);
       },
       err =>
       {
