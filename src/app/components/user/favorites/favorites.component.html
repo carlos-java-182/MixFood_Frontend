@@ -1,6 +1,22 @@
 <div class="row gutters-60 padding-top-74">
     <div class="col-lg-12">
         <div class="author-box-layout1">
+            <div class="adv-search-wrap row">
+                <form (ngSubmit)="searchFavorites(searchTerm.value) && searchTerm.value != ''" class="col-lg-8" novalidate>
+                    <div class="input-group col-lg-12">
+                        <input #searchTerm type="text" class="form-control" placeholder="Recipe name. . ." required>
+                        <div class="btn-group">
+                            <div class="input-group-btn">
+                                <button type="submit" class="btn-search">
+                                    <i class="flaticon-search"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+        <div class="author-box-layout1">
             <div *ngIf="totalItems > 0" class="section-heading heading-dark ">
                 <h2  class="item-heading profile-name">Total {{totalItems}} favorites</h2>
             </div>     

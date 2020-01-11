@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
-import { HttpHeaders, HttpClient } from '@angular/common/http';
+import { HttpHeaders, HttpClient, HttpRequest } from '@angular/common/http';
 import { catchError } from 'rxjs/operators';
 import { throwError, Observable } from 'rxjs';
+import { AuthService } from './auth.service';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +13,7 @@ export class ImageService {
   //*Create http headers
   headers = new HttpHeaders({'Content-type': 'application/json'});
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private _authService: AuthService) { }
 
   /**
    * 
@@ -34,7 +35,21 @@ export class ImageService {
     //*Add params to formData
     formData.append("id", id);
     formData.append("principalImage",principalImage);
-    return this.http.post(`${this.url}upload/`,formData).pipe(
+
+    let httpHeaders = new HttpHeaders();
+    let token = this._authService.token;
+    if(token != null)
+    {
+      httpHeaders =  httpHeaders.append('Authorization', 'Bearer '+ token); 
+    }
+
+    // const req = new HttpRequest('POST',`${this.url}upload/`,formData,
+    // {
+    //   reportProgress: false,
+    //   headers: httpHeaders
+    // });
+
+    return this.http.post(`${this.url}upload/`,formData,{headers: httpHeaders}).pipe(
     catchError( e =>
       {
         //*Get http response status

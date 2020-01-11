@@ -335,7 +335,7 @@ export class CreaterecipeUserComponent implements OnInit {
         this.createImagesRecipe(id);
         
         //*Clear model
-        Swal.fire('Success!','The recipe: '+response.recipeName+' was created.','success');  
+       // Swal.fire('Success!','The recipe: '+response.recipeName+' was created.','success');  
         this.router.navigate(['/recipe/',response.id]);
       },
       err =>

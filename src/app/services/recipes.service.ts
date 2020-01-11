@@ -5,6 +5,7 @@ import { TestBed } from '@angular/core/testing';
 import { catchError,map } from 'rxjs/operators';
 import  Swal  from 'sweetalert2';
 import { error } from 'protractor';
+import { AuthService } from './auth.service';
 @Injectable({
   providedIn: 'root'
 })
@@ -18,12 +19,23 @@ export class RecipesService {
   //*Create http headers
   headers = new HttpHeaders({'Content-type': 'application/json'});
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private _authService: AuthService) { }
 
- 
+  //*Auth authorization header for private routes
+  private addAuthorizationHeader()
+  {
+    //*Validate if exits token
+    let token = this._authService.token;
+    if(token != null)
+    {
+      return this.headers.append('Authorization', 'Bearer '+ token);
+    }
+    return this.headers;
+  }
+
   public createRecipe(recipe: NewRecipe):Observable<ResponseCreate>
   {
-    return this.http.post<any>(this.url,recipe,{headers: this.headers}).pipe(
+    return this.http.post<any>(this.url,recipe,{headers: this.addAuthorizationHeader()}).pipe(
       map((response: any) => response as ResponseCreate),
       catchError( e =>
       {
@@ -269,7 +281,7 @@ export class RecipesService {
     formData.append('idRecipe',idRecipe);
     formData.append('idUser',idUser);
 
-    return this.http.post(`${this.url}/like`,formData).pipe(
+    return this.http.post(`${this.url}like`,formData).pipe(
       catchError( e =>
       {
         //*Get http response status
@@ -287,7 +299,7 @@ export class RecipesService {
    */
   public stopLike(idRecipe: number, idUser: number)
   {
-    return this.http.delete(`${this.url}/${idRecipe}/like/${idUser}`).pipe(
+    return this.http.delete(`${this.url}${idRecipe}/like/${idUser}`).pipe(
       catchError( e =>
       {
         //*Get http response status
@@ -304,7 +316,7 @@ export class RecipesService {
    */
   public validateLike(idRecipe: number, idUser: number)
   {
-    return this.http.get(`${this.url}/${idRecipe}/like/${idUser}`).pipe(
+    return this.http.get(`${this.url}${idRecipe}/like/${idUser}`).pipe(
       catchError( e =>
       {
         //*Get http response status

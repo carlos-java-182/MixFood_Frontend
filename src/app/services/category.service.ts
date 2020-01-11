@@ -33,7 +33,7 @@ export class CategoryService {
 
   public getCategoyNameById(id: number):Observable<any>
   {
-    return this.http.get(`${this.url}/name/${id}`).pipe(
+    return this.http.get(`${this.url}name/${id}`).pipe(
       catchError(e => 
         {
           return throwError(e);

@@ -67,7 +67,7 @@ import { FormRecipeComponent } from './components/user/shared/form-recipe/form-r
 import { CategoriesComponent } from './components/shared/categories/categories.component';
 import { LoginFormComponent } from './components/guest/shared/login-form/login-form.component';
 import { FollowersComponent } from './components/user/followers/followers.component';
-import { CarouselModule } from 'ngx-owl-carousel-o';
+
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'; 
 @NgModule({
   declarations: [
@@ -132,7 +132,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     FormsModule,
     ReactiveFormsModule,
     //NgbModule,
-    CarouselModule ,
     NgxPaginationModule,
     BarRatingModule,
     BrowserAnimationsModule,
