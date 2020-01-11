@@ -54,4 +54,9 @@ export class ImageService {
     return this.http.post(`${this.url}uploads/users`,formData);
   }
 
+  public deleteImageRecipe(id: number):Observable<any>
+  {
+    return this.http.delete(`${this.url}/recipes/${id}`);
+  }
+
 }

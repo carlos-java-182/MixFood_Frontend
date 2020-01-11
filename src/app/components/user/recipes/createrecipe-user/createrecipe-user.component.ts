@@ -312,7 +312,7 @@ export class CreaterecipeUserComponent implements OnInit {
         description: this.recipeModel.description,
         thumbRoute: 'null',
         preparationSteps: this.recipeModel.preparationSteps,
-        difficulty: '',
+        difficulty: this.recipeModel.difficulty,
         status: this.recipeModel.status,
         videFrame: this.recipeModel.videFrame,
         category: 
@@ -378,9 +378,9 @@ export class CreaterecipeUserComponent implements OnInit {
 
     //*Send ingredients to apii
     this._recipeService.createRecipeIngredient(recipeIngredient).subscribe(response =>
-      {
-        console.log(response);
-      });
+    {
+      console.log(response);
+    });
   }
 
   /**

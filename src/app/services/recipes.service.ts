@@ -36,6 +36,21 @@ export class RecipesService {
     )
 
   }
+  public updateRecipe(recipe: NewRecipe):Observable<ResponseCreate>
+  {
+    return this.http.put<any>(this.url,recipe,{headers: this.headers}).pipe(
+      map((response: any) => response as ResponseCreate),
+      catchError( e =>
+      {
+        //*Get http response status
+        let status = e.status;
+        console.log(status);
+       // Swal.fire('An error occurred while creating the recipe',e.error.message,'error');
+        return throwError(e);
+      })
+    )
+
+  }
 
   public createRecipeIngredient(ingredients: RecipeIngredient[]):Observable<RecipeIngredient[]>
   {
@@ -322,6 +337,19 @@ export class RecipesService {
     return this.http.get<RecipeEdit>(`${this.url}edit/${id}`);
   }
 
+  public updateIngredientsRecipe(ingredients: RecipeIngredient[]):Observable<any>
+  {
+    return this.http.put(`${this.url}ingredients`,ingredients,{headers: this.headers});
+  }
+  public deleteIngredientsRecipe(id: number):Observable<any>
+  {
+    return this.http.delete(`${this.url}ingredients/${id}`);
+  }
+
+  
+
+
+
 }
 /**
  **Inter faces
@@ -382,6 +410,7 @@ export interface RecipeFeatured{
 }
 
 export class RecipeIngredient{
+  id?: number;
   quantity: string;
   unit: string;
 	recipe:
@@ -396,6 +425,7 @@ export class RecipeIngredient{
 
 export interface NewRecipe
 {
+  id?: number,
   name: string;
   preparationTime: string;
 	description: string;
@@ -420,11 +450,6 @@ export interface Tags
   id: number;
 }
 
-export interface Images
-{
-  id?: number;
-  routeImage: string;
-}
 
 export interface Recipe{
   id : number;
@@ -494,8 +519,9 @@ export interface Tag
 
 export interface Images 
 {
-  id: number;
+  id?: number;
   routeImage: string;
+  isPrincipal?: boolean;
 }
 
 export interface Rankings
