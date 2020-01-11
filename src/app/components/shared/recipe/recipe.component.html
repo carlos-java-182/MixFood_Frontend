@@ -205,7 +205,9 @@
                         <div class="section-heading heading-dark">
                             <h2 class="item-heading">STEPS</h2>
                         </div>
-                        <div class="section-paragraph">{{preparationSteps}}</div>
+                        <div class="section-paragraph">
+                            <p [innerHTML]="preparationSteps"></p>
+                        </div>
                         <!-- <div class="direction-box-layout1">
                             <div class="item-figure">
                                 <img src="img/figure/direction1.jpg" alt="DIRECTIONS">

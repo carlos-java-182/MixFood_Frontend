@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Recipe, RecipesService } from 'src/app/services/recipes.service';
+import { Recipe, RecipesService, RecipeIngredient, NewRecipe } from 'src/app/services/recipes.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { IngredientService, IngredientList } from 'src/app/services/ingredient.service';
 import { CategoryService, CategoryList } from 'src/app/services/category.service';
@@ -13,9 +13,10 @@ import { ImageService } from 'src/app/services/image.service';
 })
 export class EditrecipeUserComponent implements OnInit {
   //*Variable declarations
-  private idRecipe: number;
+  private idRecipe: number = 1;
   private indexList: number = 0;
   private imagesCount: number = 0;
+  private indexThumb: number = 0; 
 
 
   private isEditIngredient: boolean = false;
@@ -77,8 +78,6 @@ export class EditrecipeUserComponent implements OnInit {
         console.log(this.idRecipe);
         this._recipeService.getRecipeEdit(this.idRecipe).subscribe(data => 
         {
-         
-          console.log(data);
           //*Set data to form
           this.recipeModel.name = data.name;
           this.recipeModel.difficulty = data.difficulty.toUpperCase();
@@ -89,16 +88,19 @@ export class EditrecipeUserComponent implements OnInit {
           this.recipeModel.status = data.status;
           this.recipeModel.categoryId = data.category.id;
           this.imagesCount = data.images.length;
-         
+          this.imagesModel = data.images;
           //* server route to image
-          let imageServer = 'http://localhost:8080/uploads/recipe/';
-          for(let item of data.images)
+          let imageServer = 'http://localhost:8080/api/uploads/recipes/';
+          for(let i = 0; i < data.images.length; i++)
           {
-            imageServer  += item.routeImage;    
-            this.imagesURL.push(imageServer);
+            this.imagesURL.push(imageServer+data.images[i].routeImage);
+            if(data.images[i].isPrincial)
+            {
+              this.selecAsThumb(i);
+            }
           }
-          console.log(this.imagesURL);
-
+         
+          //*Add ingredients to list
          for(let item of data.recipeIngredients)
          {
            //*Create ingredient and find the name by id
@@ -111,13 +113,8 @@ export class EditrecipeUserComponent implements OnInit {
               unit: item.unit
             }
            this.ingredientsList.push(ingredient);
-         }
+          }
 
-
-
-
-
-         console.log(this.ingredientsList);
           //*Create array with tags ids
           let ids = [];
           for(let id of data.tags)
@@ -167,7 +164,7 @@ export class EditrecipeUserComponent implements OnInit {
    */
   private addIngredient(ingredientId: number, amount: string, unit: string):void
   {
-    
+    console.log('ID: '+ingredientId);
     //*Create ingredient and find the name by id
     let ingredient =
     {
@@ -216,8 +213,6 @@ export class EditrecipeUserComponent implements OnInit {
     //*Shot update button
     this.isEditIngredient = true;
   }
-
-
   
   /**
    * This function cleans the ingredient model
@@ -248,12 +243,60 @@ export class EditrecipeUserComponent implements OnInit {
   }
 
 
-  public createRecipe():void
+  public updateRecipe():void
   {
-    console.log('remove');
-    console.log(this.removeIngredientsList);
-    console.log('list');
-    console.log(this.ingredientsList);
+
+    if(this.recipeModel.preparationSteps != '')
+    {
+      //*Variable declaration
+    
+      //*Create object tags
+      let tags = [];
+      for(let i = 0; i < this.tagsModel.length; i++)
+      {
+        let tag = {id: this.tagsModel[i]}
+        tags.push(tag);
+      }
+
+      //*Create object recipe
+      let newRecipe: NewRecipe =
+      {
+        id: this.idRecipe,
+        name: this.recipeModel.name,
+        preparationTime: this.recipeModel.preparationTime,
+        description: this.recipeModel.description,
+        thumbRoute: 'null',
+        preparationSteps: this.recipeModel.preparationSteps,
+        difficulty: this.recipeModel.difficulty,
+        status: this.recipeModel.status,
+        videFrame: this.recipeModel.videFrame,
+        category: 
+        {
+          id: this.recipeModel.categoryId
+        },
+        user:
+        {
+          id: 1
+        },
+        tags: tags  
+      }
+
+      //*Send recipe to api for save
+      this._recipeService.updateRecipe(newRecipe).subscribe(response =>
+      {
+        console.log(response);
+        this.deleteIngredients();
+        this.updateIngredients();    
+        this.deleteImages();
+        this.updateImages();
+        this.router.navigate(['/recipe/',response.id]);
+      },
+      err =>
+      {
+        console.log(err);
+      }
+      );
+    }
   }
 
    /**
@@ -262,8 +305,7 @@ export class EditrecipeUserComponent implements OnInit {
    */
   private onFileSelected(event: any): void
   {
-    //this.imagesURL = [];
-    this.imagesModel = [];
+    //this.imagesModel = [];
     //*Get images length
     let elements = event.target.files.length;
     //*Validate max images 
@@ -286,7 +328,11 @@ export class EditrecipeUserComponent implements OnInit {
         this.imagesCount++;
       }
       console.log(this.imagesCount);
-     // this.selecAsThumb(0);
+    
+      if(elements == 0)
+      {
+         this.selecAsThumb(0);
+      }
       this.isImagesLimit = false;
     }
   }
@@ -297,13 +343,144 @@ export class EditrecipeUserComponent implements OnInit {
    */
   public removeImage(index: number): void
   {
-    //this.removeImages.push(this.images);
+    //*Validate if image exits in db
+    if(this.imagesModel[index].id != undefined)
+    {
+      this.removeImages.push(this.imagesModel[index].id);
+      console.log(this.removeImages);
+    }
+    else if(this.imagesModel.length == 0)
+    {
+      this.selecAsThumb(0);
+    }
+  
     this.imagesURL.splice(index, 1); 
     this.imagesModel.splice(index, 1);
     this.imagesCount--;
-    console.log(this.imagesCount);
-    console.log(this.imagesModel);
   }
 
+    /**
+   * 
+   * @param index 
+   */
+  private selecAsThumb(index: number): void
+  {
+    this.indexThumb = index;
+    this.thumbSelectedRoute = this.imagesModel[index].name;
+  }
+
+  private updateIngredients(): void
+  {
+    //*Array declaration
+    let oldIngredients = [];
+    let newIngredients = [];
+    let list: RecipeIngredient;
+
+     //*Get all ingredients in array
+     for(let i = 0; i < this.ingredientsList.length; i++ )
+     {
+      
+       //*Create object with ingredient data
+      if(this.ingredientsList[i].idRI == undefined)
+      {
+        list = 
+        {
+          quantity: this.ingredientsList[i].amount,
+          unit: this.ingredientsList[i].unit,
+          recipe:
+          {
+            id: this.idRecipe
+          },
+          ingredient:
+          {
+            id: this.ingredientsList[i].idIngredient
+          }
+        }
+
+        //*Add ingredient to list
+        newIngredients.push(list);
+      }
+      else
+      {
+        list =
+        {
+          id: this.ingredientsList[i].idRI,
+          quantity: this.ingredientsList[i].amount,
+          unit: this.ingredientsList[i].unit,
+          recipe:
+          {
+            id: this.idRecipe
+          },
+          ingredient:
+          {
+            id: this.ingredientsList[i].idIngredient
+          }
+        }
+
+        //*Add ingredient to list
+        oldIngredients.push(list);      
+      }
+
+     }
+
+     console.log(newIngredients)
+     //*Validate if exits new ingredients
+     if(newIngredients.length > 0)
+     {
+      this._recipeService.createRecipeIngredient(newIngredients).subscribe(response =>
+        {
+          console.log(response);
+        },
+        err =>
+        {
+          console.log(err);
+        });
+     }
+
+    this._recipeService.updateIngredientsRecipe(oldIngredients).subscribe(response =>
+    {
+      console.log(response)
+    },
+    err =>{
+      console.log(err)
+    });
+  }
+
+  private deleteIngredients():void 
+  {
+    for(let id of this.removeIngredientsList)
+    {
+      this._recipeService.deleteIngredientsRecipe(id).subscribe(response =>
+        {
+          console.log(response);
+        },
+        err =>
+        {
+          console.log(err);
+        }
+      );
+    }
+  }
+
+  private deleteImages():void 
+  {
+    for(let id of this.removeImages)
+    {
+      this._imageService.deleteImageRecipe(id).subscribe(response =>
+      {
+        console.log(response)
+      },
+      err =>
+      {
+        console.log(err);
+      });
+    }
+   
+  }
+
+  private updateImages():void 
+  {
+    this._imageService.uploadImageRecipe(this.imagesModel,1,this.thumbSelectedRoute).subscribe(response =>{console.log(response)},err =>{console.log(err)});
+  }
 
 }

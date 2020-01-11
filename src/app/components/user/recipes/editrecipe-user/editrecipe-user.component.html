@@ -23,7 +23,7 @@
                 <!-- Form Start Here -->
                 <form 
                 #formRecipe="ngForm" 
-                (ngSubmit)="formRecipe.valid && createRecipe()" 
+                (ngSubmit)="formRecipe.valid && updateRecipe()"
                 class="submit-recipe-form"
                 novalidate>
                     <!-- Input Name Start Here -->
@@ -173,7 +173,7 @@
                             accept="image/x-png,image/gif,image/jpeg"
                             data-multiple-caption="{count} files selected" 
                             multiple 
-                            required/>
+                            />
                             <button class="btn">Choose images...</button>    
                             <div class="input-errors" [ngClass]="{'is-invalid-input': formRecipe.submitted && formRecipe.invalid || image.value == ''}">
                                 Please choose at least one image.
