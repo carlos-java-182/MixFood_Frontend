@@ -1,5 +1,6 @@
 <!-- Header Navbar Start Here -->
-<app-navbar-guest></app-navbar-guest>
+<app-navbar-guest *ngIf="!isLoggedIn"></app-navbar-guest>
+<app-navbar-user *ngIf="isLoggedIn"></app-navbar-user>
 <!-- Header Navbar End Here -->
 
 <!-- Content Start Here -->
@@ -26,7 +27,7 @@
                                     <bar-rating [(rate)]="recipeAverangeRanking" [max]="5" [readOnly]="true"></bar-rating>                             
                                 </li>
                                 <li class="single-meta" *ngIf="isLoggedIn">
-                                    <a (click)="StartaLike()">
+                                    <a class="pointer" (click)="StartaLike()">
                                         <i class="fas fa-heart"></i>
                                         <span *ngIf="isLiked && totalLikes > 0">You and {{totalLikes}} others likes</span>
                                         <span *ngIf="!isLiked && totalLikes > 0">{{totalLikes}} likes</span>
@@ -430,28 +431,28 @@
     <div class="instagram-feed-title"><a href="#"><i class="fab fa-instagram"></i>Follow On Instagram</a></div>
     <ul class="instagram-feed-figure">
         <li>
-            <a href="single-recipe1.html"><img src="img/social-figure/social-figure1.jpg" alt="Social"></a>
+            <a href="single-recipe1.html"><img src="assets/img/social-figure/social-figure1.jpg" alt="Social"></a>
         </li>
         <li>
-            <a href="single-recipe1.html"><img src="img/social-figure/social-figure2.jpg" alt="Social"></a>
+            <a href="single-recipe1.html"><img src="assets/img/social-figure/social-figure2.jpg" alt="Social"></a>
         </li>
         <li>
-            <a href="single-recipe1.html"><img src="img/social-figure/social-figure3.jpg" alt="Social"></a>
+            <a href="single-recipe1.html"><img src="assets/img/social-figure/social-figure3.jpg" alt="Social"></a>
         </li>
         <li>
-            <a href="single-recipe1.html"><img src="img/social-figure/social-figure4.jpg" alt="Social"></a>
+            <a href="single-recipe1.html"><img src="assets/img/social-figure/social-figure4.jpg" alt="Social"></a>
         </li>
         <li>
-            <a href="single-recipe1.html"><img src="img/social-figure/social-figure5.jpg" alt="Social"></a>
+            <a href="single-recipe1.html"><img src="assets/img/social-figure/social-figure5.jpg" alt="Social"></a>
         </li>
         <li>
-            <a href="single-recipe1.html"><img src="img/social-figure/social-figure6.jpg" alt="Social"></a>
+            <a href="single-recipe1.html"><img src="assets/img/social-figure/social-figure6.jpg" alt="Social"></a>
         </li>
         <li>
-            <a href="single-recipe1.html"><img src="img/social-figure/social-figure7.jpg" alt="Social"></a>
+            <a href="single-recipe1.html"><img src="assets/img/social-figure/social-figure7.jpg" alt="Social"></a>
         </li>
         <li>
-            <a href="single-recipe1.html"><img src="img/social-figure/social-figure8.jpg" alt="Social"></a>
+            <a href="single-recipe1.html"><img src="assets/img/social-figure/social-figure8.jpg" alt="Social"></a>
         </li>
     </ul>
 </section>

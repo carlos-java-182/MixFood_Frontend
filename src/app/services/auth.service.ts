@@ -82,6 +82,9 @@ export class AuthService
     this._user.username = payload.username;
     this._user.email = payload.email;
     this._user.roles = payload.authorities;
+    this._user.name = payload.name;
+    this._user.lastname = payload.lastname;
+    this._user.porfileimageRoute = payload.profileImage;
     console.log('ROLES'+ payload.authorities)
    
     //*Add user data on sessionStorage and this is convert to json
@@ -98,10 +101,11 @@ export class AuthService
     return null;
   }
 
-
+  /**
+   **Get the info user if this is logged
+   */
   public get user(): User
   {
-
     if(this._user != null)
     {
       return this._user;
@@ -115,6 +119,9 @@ export class AuthService
     return new User();
   }
 
+  /**
+   **This function get the token if extist
+   */
   public get token(): string
   {
     if(this._token != null)

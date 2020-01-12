@@ -9,6 +9,7 @@ import { RankingService, NewRanking, RankingComment } from 'src/app/services/ran
 import { CategoryService, CategoryCard } from 'src/app/services/category.service';
 import { DomSanitizer } from '@angular/platform-browser';
 import { isDate } from 'util';
+import { AuthService } from 'src/app/services/auth.service';
 @Component({
   selector: 'app-recipe',
   templateUrl: './recipe.component.html',
@@ -17,7 +18,7 @@ import { isDate } from 'util';
 export class RecipeComponent implements OnInit {
   //*Variables declaration
   private id: number;
-  private idUser: number = 1;
+  private idUser: number;
   private recipeName: string;
   private recipeCategoryName: string;
   private userName: string;
@@ -27,6 +28,7 @@ export class RecipeComponent implements OnInit {
   private preparationTime: string;
   private difficulty: string;
   private userImage: string;
+
   private totalLikes: number;
   private recipeAverangeRanking: number;
   private views: number;
@@ -35,35 +37,38 @@ export class RecipeComponent implements OnInit {
   private isLiked = false;
   private currentPageRankings: number = 0;
   private totalPagesRankings: number;
+
   private isAlreadyComent: boolean = false;
   private isRankingsAvailable: boolean = false;
   private isCommented: boolean = false;
   private showAlert: boolean = false;
+  private isLoggedIn: boolean = this._authService.isAuthenticated();
+
   //private videoFrame: string;
   //*Objects declaration
   private recipe: RecipeProfile;
-  private images: Images[];
-  private ingredients: Ingredients[];
-  private tags: Tag[];
-  private tagsTrends: TagShort[];
+  private images: Images[] = [];
+  private ingredients: Ingredients[] = [];
+  private tags: Tag[] = [];
+  private tagsTrends: TagShort[] = [];
   public rankings: RankingComment[] = [];
   ///ratingComment: number = 0;
-  isLoggedIn: boolean = true;
+  private isLoggedIn: boolean = true;
   private showMoreRankigns: boolean = false;
   private arr = [];
   private videoFrame: any;
-  //*Objects declaration
- 
+
+  //*Objects declaration 
   recipesLatests: RecipeLatest[];
   recipesFeatured: RecipeFeatured[];
   categoryList: CategoryList[];
-  //recipe: any;
   commentForm: FormGroup;
 
   constructor(private _recipeService: RecipesService,
               private _rankingService: RankingService,
               private _tagService: TagService,
               private _categoryService: CategoryService,
+              private _authService: AuthService,
               private activatedRoute: ActivatedRoute,
               private router: Router,
               private formBuilder: FormBuilder,
@@ -72,6 +77,7 @@ export class RecipeComponent implements OnInit {
 
   ngOnInit() 
   {
+
     this.videoFrame = this._sanitizer.bypassSecurityTrustResourceUrl('https://www.youtube.com/watch?v=SLZDNUdQmJ8');
 
     //*Create form group for new comment
@@ -83,33 +89,60 @@ export class RecipeComponent implements OnInit {
     //this.getRecipeById(1);
     this.activatedRoute.paramMap.subscribe(params =>
       {
-        let idUser = 1;
         this.id = Number.parseInt(params.get('id'));
-
-        this._recipeService.updateViews(this.id,idUser).subscribe(response =>
+        
+        //*Validate if user is logged
+        if(this._authService.isAuthenticated)
+        {
+          console.log('USER IN ')
+          //*Get id user 
+          let idUser = this._authService.user.id;
+          //*Update views number
+          this._recipeService.updateViews(this.id,idUser).subscribe(response =>
           {
-         //   console.log(response);
+            console.log(response);
           },
           err =>
           {
+            console.log(err);
             if(err.status == 404)
             {
               console.log(err.error.message);
             }      
           });
+
+          //*Validate if exist a like of the user logged 
+          this._recipeService.validateLike(this.id).subscribe(response =>
+          {
+            this.isLiked = false;
+          },
+          err =>
+          {
+            this.isLiked = true;  
+          }
+          );
+          
+          this._rankingService.validateUserLoggedRanking(this.id).subscribe(response =>
+          {
+            console.log('NOP')
+            console.log(response);
+          },
+          err =>
+          {
+            this.isCommented = true;
+            console.log(err);
+          });
+         }
+        else 
+        {
+          this.isLoggedIn = false;
+        }
+
         this.getRecipeById(this.id);
         this.getCategoriesList();
         this.getRankingComments(this.id);
         this.getTrends();
-        this._recipeService.validateLike(1,1).subscribe(response =>
-        {
-          this.isLiked = false;
-        },
-        err =>
-        {
-          this.isLiked = true;  
-        }
-        );
+
       });
 
      // this.getRecipeById(1);
@@ -120,7 +153,6 @@ export class RecipeComponent implements OnInit {
     this._tagService.getTrends().subscribe(response =>
       {
         this.tagsTrends = response.content as TagShort[];
-       // console.log(this.tagsTrends);
       },
       err =>
       {
@@ -131,7 +163,7 @@ export class RecipeComponent implements OnInit {
 
 
   //*Get recipe by id param get in rotute
-  getRecipeById(id: number):void
+  private getRecipeById(id: number):void
   {
     this._recipeService.getProfile(id).subscribe(data =>
     {
@@ -166,7 +198,7 @@ export class RecipeComponent implements OnInit {
   } 
 
   //*Get Latests recipes by id and create object with data response
-  getRecipesLatests(id: number):void
+  private getRecipesLatests(id: number):void
   {
     this._recipeService.getRecipesLatests(id,5).subscribe(data =>
     {
@@ -175,7 +207,7 @@ export class RecipeComponent implements OnInit {
   }
 
   //*Get Featured recipeds and create object with data response
-  getRecipesCardsFeatured(id: number):void
+  private getRecipesCardsFeatured(id: number):void
   {
     this._recipeService.getRecipesCardsFeatured(id,5).subscribe(data =>
     {
@@ -191,7 +223,7 @@ export class RecipeComponent implements OnInit {
   }
 
 
-  getCategoriesList(): void
+  private getCategoriesList(): void
   {
     this._categoryService.getCategoriesListLimit().subscribe(response =>
     {
@@ -219,12 +251,15 @@ export class RecipeComponent implements OnInit {
         punctuation: values.rating,
         user:
         {
-          id: 1,
-          name: 'york',
-          lastname: 'glez'
+          id: this._authService.user.id,
+          name: this._authService.user.name,
+          lastname: this._authService.user.lastname,
+          porfileimageRoute: this._authService.user.porfileimageRoute
+
         },
-        recipe: {
-          id: 1
+        recipe: 
+        {
+          id: this.id
         }
       };
       
@@ -235,7 +270,6 @@ export class RecipeComponent implements OnInit {
         this.isCommented = true;
         this.showAlert = true;
         this.commentForm.reset();
-        
       },
       err =>
       {
@@ -254,7 +288,7 @@ export class RecipeComponent implements OnInit {
   {
     if(this.isLiked)
     {
-      this._recipeService.stopLike(this.id ,1).subscribe(response =>
+      this._recipeService.stopLike(this.id).subscribe(response =>
       {
         console.log(response);
         this.isLiked = false;
@@ -262,15 +296,20 @@ export class RecipeComponent implements OnInit {
         {
           this.totalLikes--;
         }
-      });
+      }
+      );
     }
     else
     {
-      this._recipeService.startLike(this.id,1).subscribe(response =>
+      this._recipeService.startLike(this.id).subscribe(response =>
       {
         console.log(response);
         this.totalRankings++;
         this.isLiked = true;
+      },
+      err =>
+      {
+        console.log(err);
       });
     }
     

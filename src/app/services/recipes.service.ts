@@ -274,14 +274,22 @@ export class RecipesService {
    * @param idRecipe 
    * @param idUser 
    */
-  public startLike(idRecipe, idUser)
+  public startLike(idRecipe)
   {
+    let id = this._authService.user.id;
     let formData = new FormData();
     
     formData.append('idRecipe',idRecipe);
-    formData.append('idUser',idUser);
-
-    return this.http.post(`${this.url}like`,formData).pipe(
+    formData.append('idUser',id.toString());
+    let httpHeaders = new HttpHeaders();
+    let token = this._authService.token;
+    //*Validate if token exits
+    if(token != null)
+    {
+      //*Add headers
+      httpHeaders =  httpHeaders.append('Authorization', 'Bearer '+ token); 
+    }
+    return this.http.post(`${this.url}like`,formData,{headers: httpHeaders}).pipe(
       catchError( e =>
       {
         //*Get http response status
@@ -297,9 +305,11 @@ export class RecipesService {
    * @param idRecipe 
    * @param idUser 
    */
-  public stopLike(idRecipe: number, idUser: number)
+  public stopLike(idRecipe: number)
   {
-    return this.http.delete(`${this.url}${idRecipe}/like/${idUser}`).pipe(
+    //*Get id user logged
+    let id = this._authService.user.id;
+    return this.http.delete(`${this.url}${idRecipe}/like/${id}`,{headers: this.addAuthorizationHeader()}).pipe(
       catchError( e =>
       {
         //*Get http response status
@@ -314,9 +324,10 @@ export class RecipesService {
    * @param idRecipe 
    * @param idUser 
    */
-  public validateLike(idRecipe: number, idUser: number)
+  public validateLike(idRecipe: number)
   {
-    return this.http.get(`${this.url}${idRecipe}/like/${idUser}`).pipe(
+    let id = this._authService.user.id;
+    return this.http.get(`${this.url}${idRecipe}/like/${id}`,{headers: this.addAuthorizationHeader()}).pipe(
       catchError( e =>
       {
         //*Get http response status
@@ -341,7 +352,7 @@ export class RecipesService {
 
   public updateViews(idRecipe: number, idUser: number):Observable<any>
   {
-    return this.http.put(`${this.url}views/${idRecipe}/user/${idUser}`,{},{headers: this.headers});
+    return this.http.put(`${this.url}views/${idRecipe}/user/${idUser}`,{},{headers: this.addAuthorizationHeader()});
   }
 
   public getRecipeEdit(id: number):Observable<any>
