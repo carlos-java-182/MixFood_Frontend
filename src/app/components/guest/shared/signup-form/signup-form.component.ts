@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { PasswordValidation } from 'src/app/helpers/PasswordValidation';
 import { CountryService, Country } from 'src/app/services/country.service';
+import { User } from 'src/app/models/user';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-signup-form',
@@ -14,15 +16,24 @@ export class SignupFormComponent implements OnInit {
 
   //*Objects declaration
   countries: Country[];
+  user: User;
 
   constructor(private formBuilder: FormBuilder,
-              private _countryService: CountryService) { }
+              private _countryService: CountryService,
+              private _userService: UserService) 
+              {
+                this.user = new User(); 
+              }
 
-  ngOnInit() {
-  
+  ngOnInit() 
+  {
     this.countries = this._countryService.getountries();
-  
+    this.formInit();
+  }
 
+
+  private formInit():void
+  {
     this.signupForm = this.formBuilder.group({
       name: ['',Validators.required],
       lastName: ['',Validators.required],
@@ -41,6 +52,23 @@ export class SignupFormComponent implements OnInit {
 
   signup()
   {
-    console.log(this.signupForm.value);
+    this.user.email = 'carlos4@mixfood.com';
+    this.user.password = 'password';
+    this.user.country = 'mexico';
+    this.user.dateBirth = '1980-01-01';
+    this.user.gender = 'MALE';
+    this.user.name = 'Carlos';
+    this.user.lastname = 'Villasenor';
+
+   console.log(JSON.stringify(this.user));
+    this._userService.signUp(this.user).subscribe(response => 
+      {
+        console.log(response);
+      },
+      err =>
+      {
+        console.log(err);
+      })
+  //  console.log(this.signupForm.value);
   }
 }

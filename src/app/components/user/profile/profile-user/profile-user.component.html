@@ -79,7 +79,7 @@
                     <div class="section-heading heading-dark">
                         <h3 class="item-heading">LATEST RECIPES</h3>
                     </div>
-                    <div class="widget-latest">
+                    <div class="widget-latest" >
                         <ul class="block-list remove-5th-child-lg">       
                             <!-- <li  class="single-item" *ngFor="let recipe of recipeLatests; let i = index">
                                 <app-recipe-card-latest [recipe]="recipe"></app-recipe-card-latest>
@@ -158,9 +158,19 @@
                                 <!-- Settings End Here -->
                                 <!-- Favorites user Start Here -->
                                 <app-favorites *ngIf="isShowFavorites"></app-favorites>
-                                <!-- Favorites User End Start Here -->                            
-                                <ng-container *ngIf="isShowProfile">
+                                <!-- Favorites User End Start Here -->
+                                <br>                            
+                                <ng-container *ngIf="isShowProfile ">
+                                    <div *ngIf="recipeFeatured.length == 0" class="alert alert-info padding-top-75" role="alert">
+                                        <h4 class="alert-heading">You dont have recipes!</h4>
+                                        <hr>
+                                        <p>To create a <a [routerLink]="['/user/recipes/create']" routerLinkActive="router-link-active" >click here</a></p>
+                                      </div>
                                     <!-- Recipe Trending Start Here -->
+                                    <!-- <ng-container *ngIf="recipeTreanding.lenght > 0">
+
+                                    </ng-container> -->
+                                    <!-- <ng-container *ngIf="recipeTreanding "></ng-container> -->
                                     <div class="product-box-layout4"  *ngFor="let trending of recipeTrending">
                                         <div class="section-heading heading-dark">
                                             <h2 class="item-heading">TRENDING RECIPE</h2>
@@ -211,7 +221,7 @@
                                     <!-- Recipe Trending End Here  -->
 
                                     <!-- Popular Recipes Start Here -->
-                                    <div class="ranna-box-style">
+                                    <div class="ranna-box-style" *ngIf="recipeFeatured.length > 0">
                                         <div class="section-heading heading-dark">
                                             <h2 class="item-heading">POPULAR RECIPES</h2>
                                         </div>                                 

@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, ElementRef } from '@angular/core';
 import * as $ from 'jquery';
 import { Router } from '@angular/router';
 import { CountryService,Country } from 'src/app/services/country.service';
@@ -13,11 +13,12 @@ import { throwIfEmpty } from 'rxjs/operators';
   styleUrls: ['./navbar-guest.component.css']
 })
 export class NavbarGuestComponent implements OnInit {
+  @ViewChild('closeModalLogin',{static: false}) public closeModalLogin: ElementRef;
   @Input('term') term?: string;
- 
   //*Variable declarations
   private categories: CategoryList[];
   private isMobile: boolean = false;
+  private showModal: boolean = false;
   //*Create models
   private searchModel = {searchTerm: '',
   categoryId: null,
@@ -37,6 +38,8 @@ export class NavbarGuestComponent implements OnInit {
 
   ngOnInit() 
   {
+
+    this.closeModalLogin.nativeElement.click();
     this.loginForm = this.formBuilder.group(
     {
       email: ['',[Validators.required,Validators.email]],
@@ -87,6 +90,7 @@ export class NavbarGuestComponent implements OnInit {
     {
       this._recipeService.getSearchForName(this.searchModel.searchTerm).subscribe(data =>
         {
+         
           route = `/search/${this.searchModel.searchTerm}/page/1`;
           this.router.navigate([route]);
         },

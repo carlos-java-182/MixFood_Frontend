@@ -45,6 +45,7 @@ import { RecipesUserComponent } from './components/user/recipes/recipes-user/rec
 import { FavoritesComponent } from './components/user/favorites/favorites.component';
 import { AuthGuard } from './guards/auth.guard';
 import {ProfileUserComponent} from './components/user/profile/profile-user/profile-user.component';
+import { RoleGuard } from './guards/role.guard';
 //*Crud example imports
 
 
@@ -57,7 +58,7 @@ const routes: Routes = [
   {component: HomeUserComponent, path: 'user/home'},
 
   //{component: RecipesUserComponent, path: 'user/recipes', canActivate:[AuthGuard]},
-  {component: CreaterecipeUserComponent, path: 'user/recipes/create', canActivate:[AuthGuard]},
+  {component: CreaterecipeUserComponent, path: 'user/recipes/create', canActivate:[AuthGuard, RoleGuard],data: {role: 'ROLE_USER'}},
   {component: EditrecipeUserComponent, path: 'user/recipes/edit/:id', canActivate:[AuthGuard]},
   {component: RecipesUserComponent, path: 'user/recipes/page/:page/status/:status', canActivate:[AuthGuard]},
   {component: RecipesUserComponent, path: 'user/recipes/page/:page/term/:term/status/:status', canActivate:[AuthGuard]},
