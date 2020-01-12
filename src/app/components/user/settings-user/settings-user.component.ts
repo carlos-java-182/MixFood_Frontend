@@ -2,9 +2,10 @@ import { EmailUpdate } from './../../../services/user.service';
 import { PasswordValidation } from 'src/app/helpers/PasswordValidation';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { UserService, UserInformation } from 'src/app/services/user.service';
+import { UserService, UserInformation,PasswordChange } from 'src/app/services/user.service';
 import { SocialNetwork } from 'src/app/services/profile.service';
 import { empty } from 'rxjs';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-settings-user',
@@ -13,11 +14,15 @@ import { empty } from 'rxjs';
 })
 export class SettingsUserComponent implements OnInit {
   //*Variables declaration
-  private isEditPassword: boolean = false;
+  private idUser = this._authService.user.id;
+  private isEditPassword: boolean = true;
   private isEditEmail: boolean = false;
   private isEditInformation: boolean = false;
   private isEditSocial: boolean = false;
   private isEditFacebook: boolean = false;
+  private isPasswordInvalid: boolean = false;
+  private oldPasswordisSame: boolean = false; 
+  private showAlert: boolean = false;
   private email:string;
   //*Objects declaration
   private information: UserInformation = null;
@@ -32,7 +37,8 @@ export class SettingsUserComponent implements OnInit {
   private socialnetworksForm: FormGroup;
 
   constructor(private formBuilder: FormBuilder,
-              private _userService: UserService) { }
+              private _userService: UserService,
+              private _authService: AuthService) { }
 
   ngOnInit() 
   {
@@ -52,7 +58,7 @@ export class SettingsUserComponent implements OnInit {
     this.formInformationInit();
     this.socialNetworksFormInit();
     this.getSocialNetworks();
-    
+
   }
 
   private formInformationInit():void
@@ -120,10 +126,9 @@ export class SettingsUserComponent implements OnInit {
 
   private updateInformation(): void
   {
-    let idUser = 1;
-
-    this._userService.updateInformation(idUser,this.informationForm.value).subscribe(response =>{
+    this._userService.updateInformation(this.idUser,this.informationForm.value).subscribe(response =>{
       console.log(response);
+      this.showAlertMessage();
     },
     err =>
     {
@@ -133,8 +138,7 @@ export class SettingsUserComponent implements OnInit {
 
   private getInformation(): void
   {
-    let idUser = 1;
-    this._userService.getSettingsInformation(idUser).subscribe(data =>
+    this._userService.getSettingsInformation(this.idUser).subscribe(data =>
     {
       this.information = data;
       console.log(this.information);
@@ -156,8 +160,7 @@ export class SettingsUserComponent implements OnInit {
 
   private getEmail(): void
   {
-    let idUser = 1;
-    this._userService.getEmailById(idUser).subscribe(data =>{
+    this._userService.getEmailById(this.idUser).subscribe(data =>{
       this.email = data.email;
      // console.log(data.email);
     },
@@ -169,7 +172,6 @@ export class SettingsUserComponent implements OnInit {
 
   private addSocialNetwork(values)
   {
-    let idUser = 1;
     let network: string = values.attributes.formcontrolname.value.toUpperCase();
     let link = values.value;
     let socialNetwork: SocialNetwork = 
@@ -179,9 +181,10 @@ export class SettingsUserComponent implements OnInit {
       network: network
     }
 
-    this._userService.updateSocialNetworks(idUser, socialNetwork).subscribe(response =>
+    this._userService.updateSocialNetworks(this.idUser, socialNetwork).subscribe(response =>
       {
         console.log(response);
+        this.showAlertMessage();
       },
       err =>
       {
@@ -195,7 +198,7 @@ export class SettingsUserComponent implements OnInit {
     let idUser = 1;
     let network: string = value.attributes.formcontrolname.value.toUpperCase();
     console.log("net: "+ network);
-    this._userService.deleteSocialNetwork(idUser,network).subscribe(response =>
+    this._userService.deleteSocialNetwork(this.idUser,network).subscribe(response =>
       {
         console.log(response);
         
@@ -229,8 +232,7 @@ export class SettingsUserComponent implements OnInit {
 
   private getSocialNetworks()
   {
-    let idUser = 1;
-    this._userService.getSettingsSocialNetworks(idUser ).subscribe(data =>
+    this._userService.getSettingsSocialNetworks(this.idUser).subscribe(data =>
       {
         this.socialNetworksView  = data;
        
@@ -255,7 +257,28 @@ export class SettingsUserComponent implements OnInit {
 
   private changePassword()
   {
-    console.log(this.passwordForm);    
+    let passwords: PasswordChange =
+    {
+      actualPassword: this.passwordForm.get('actualPassword').value,
+      newPassword: this.passwordForm.get('password').value
+    }
+
+    console.log(passwords)
+    this._userService.updatePassword(passwords).subscribe(response =>
+    {
+      console.log(response);
+      this.showAlertMessage();
+    },
+    err =>
+    {
+      console.log(err);
+        if(err.status == 404)
+        {
+          this.isPasswordInvalid = true;
+        }
+    }
+    );
+
   }
 
   private changeEmail(event: Event)
@@ -269,11 +292,49 @@ export class SettingsUserComponent implements OnInit {
       password: this.emailForm.get('confirmPassword').value
     };
    
-    this._userService.updateEmail(1,body).subscribe(response =>{
+    console.log(body);
+    this._userService.updateEmail(body).subscribe(response =>
+      {
       console.log(response);
       this.getEmail();
+      this.showAlertMessage();
     },
-      err => {console.log(err);
+      err => 
+      {
+       console.log(err);
+       
     });
+  }
+
+  private validateSamePassword()
+  {
+    let oldPassword = this.passwordForm.get('actualPassword').value;
+    let newPassword = this.passwordForm.get('password').value;
+
+    if(oldPassword == newPassword)
+    {
+      this.oldPasswordisSame = true;
+    }
+    else
+    {
+      this.oldPasswordisSame = false;
+    }
+  }
+
+  private hiddeWrongPassword()
+  {
+    if(this.isPasswordInvalid)
+    {
+      this.isPasswordInvalid = false;
+    }
+  }
+
+  private showAlertMessage():void 
+  {
+    this.showAlert = true;
+      setTimeout(()=>
+      {
+        this.showAlert = false;
+      },2000);
   }
 }

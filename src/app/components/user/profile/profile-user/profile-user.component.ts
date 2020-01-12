@@ -7,6 +7,7 @@ import { ProfileService, PublicUser } from 'src/app/services/profile.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ImageService } from 'src/app/services/image.service';
 import { AuthService } from 'src/app/services/auth.service';
+import { CountryService } from 'src/app/services/country.service';
 
 @Component({
   selector: 'app-profile-user',
@@ -20,9 +21,9 @@ export class ProfileUserComponent implements OnInit {
   //Booleans for shwo options 
   private isShowRecipes: boolean =  false;
   private isShowFavorites: boolean = false;
-  private isShowSettings: boolean = false;
+  private isShowSettings: boolean = true;
   private isShowFollowers: boolean = false;
-  private isShowProfile: boolean = true;
+  private isShowProfile: boolean = false;
   private isProfileImageHover: boolean = false;
   
   //User info
@@ -50,6 +51,7 @@ export class ProfileUserComponent implements OnInit {
   private _favoriteService: FavoriteService,
   private _imagesService: ImageService,
   private _authService: AuthService,
+  private _countriesService: CountryService,
   private router: Router) 
   { }
 
@@ -104,9 +106,12 @@ export class ProfileUserComponent implements OnInit {
         {
           console.log('is null');
         }
-      
-        //console.log(this.recipesList);
-      });      
+      },
+      err =>
+      {
+        console.log(err);
+      }
+      );      
   }
 
   private getLatestsRecipes():void
@@ -114,7 +119,6 @@ export class ProfileUserComponent implements OnInit {
     this._recipeService.getRecipesLatestsByUser(this.idUser,5).subscribe(data=>
     {
       this.recipeLatests = data;
-
       //Add recipes to list
       for(let i = 0; i < data.length; i++)
       {
@@ -134,7 +138,10 @@ export class ProfileUserComponent implements OnInit {
         }
        
       }
-     //console.log(this.recipesList);
+    },
+    err => 
+    {
+        console.log(err);
     });
   }
 

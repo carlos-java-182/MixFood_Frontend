@@ -17,7 +17,6 @@ export class RoleGuard implements CanActivate
   canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    
       if(!this._authServiche.isAuthenticated())
       {
         console.log('YOU CANT NOT!!!')
@@ -26,7 +25,7 @@ export class RoleGuard implements CanActivate
       }
     
     let role = next.data['role'] as string;
-    console.log('ROLE: '+role);
+    console.log('ROLE in roles: '+role);
     if(this._authServiche.hasRole(role))
     {
       console.log('YOU HAVE ACCESS!!');

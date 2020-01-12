@@ -4,6 +4,7 @@ import { empty } from 'rxjs';
 import { Route } from '@angular/compiler/src/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import  Swal  from 'sweetalert2';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-recipes-user',
@@ -12,10 +13,10 @@ import  Swal  from 'sweetalert2';
 })
 export class RecipesUserComponent implements OnInit {
   //*Objects declaration
-  private recipes: RecipeCardTable[];
+  private recipes: RecipeCardTable[] =  [];
   
   //*Variables declaration
-  private idUser = 1;
+  private idUser = this._authService.user.id;
   private itemsPerPage = 10;
   private totalItems: number = 0;
   private currentPage = 1;
@@ -27,10 +28,10 @@ export class RecipesUserComponent implements OnInit {
 
   constructor(private _recipeService: RecipesService,
               private router: Router,
-              private activatedRoute: ActivatedRoute) { }
+              private activatedRoute: ActivatedRoute,
+              private _authService: AuthService) { }
 
   ngOnInit() {
-    let idUser = 1;
     this.activatedRoute.paramMap.subscribe(params =>{
       console.log(params.get('page'));
       if(params.get('page') == undefined)

@@ -13,6 +13,7 @@ import { RecipesService,Recipe } from 'src/app/services/recipes.service';
 import { CategoryService,CategoryCard } from 'src/app/services/category.service';
 import { TagService, TagShort } from 'src/app/services/tag.service';
 import { CountryService,Country } from 'src/app/services/country.service';
+import { AuthService } from 'src/app/services/auth.service';
 
 //import * as data from '../countries.json';
 
@@ -25,12 +26,12 @@ import { CountryService,Country } from 'src/app/services/country.service';
 export class HomeGuestComponent implements OnInit 
 {
  
-
   //*Variables declaration
-  showDropDown: boolean = false;
-  isSearchIngredientsVisible: boolean = false;
-  isSearch: boolean =  false;
-  term: string = '';
+  private showDropDown: boolean = false;
+  private isSearchIngredientsVisible: boolean = false;
+  private isSearch: boolean =  false;
+  private isLoggedIn: boolean = this._authService.isAuthenticated();
+  private term: string = '';
   categoryId: number = 0;
   test:string  ='hello World!!';
   from: number;
@@ -41,16 +42,18 @@ export class HomeGuestComponent implements OnInit
   showAlert: boolean = false;
   
   //*Objects declaration
-  recipes: Recipe[];
-  recipesRes: Recipe[];
-  categories: CategoryCard[];
-  searchModel = {searchTerm: '',
-  categoryId: null,
-  ingredientsId: null
+  recipes: Recipe[] = [];
+  recipesRes: Recipe[]  = [];
+  categories: CategoryCard[] = [];
+  searchModel = 
+  {
+    searchTerm: '',
+    categoryId: null,
+    ingredientsId: null
   };
   recipesNames: any;
   //countries: Country[];
-  tags: TagShort[];
+  tags: TagShort[] = [];
   
   //*Create FormGroups
   recipeForm: FormGroup;
@@ -80,7 +83,8 @@ export class HomeGuestComponent implements OnInit
 
   public search1 = '';
   
-  selectedStatic(result) {
+  selectedStatic(result) 
+  {
     this.search1 = result;
   }
 
@@ -89,6 +93,7 @@ export class HomeGuestComponent implements OnInit
     private _categoryService: CategoryService,
     private _tagService: TagService,
     private _countryService: CountryService,
+    private _authService: AuthService,
     private router: Router,
     private activateRoute: ActivatedRoute,
     private formBuilder: FormBuilder,
@@ -107,7 +112,6 @@ export class HomeGuestComponent implements OnInit
     this._recipeService.getRecipeCard().subscribe(data => 
     {
       this.recipes = data;
-      // this.recipes[0].thumbRoute = 'http://localhost:8080/api/uploads/recipes/' + this.recipes[0].thumbRoute;
       console.log(this.recipes[0].thumbRoute);
     });
   

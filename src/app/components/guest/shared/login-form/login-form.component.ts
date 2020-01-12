@@ -46,7 +46,8 @@ export class LoginFormComponent implements OnInit {
     {
       this._authService.saveToken(response.access_token);
       this._authService.saveUser(response.access_token); 
-      let user = this._authService.user;  
+      let user = this._authService.user; 
+      console.log('USERRRRRR: '+user.roles);
       let auth = this._authService.isAuthenticated();
      // console.log(sessionStorage);
       //console.log(auth);  

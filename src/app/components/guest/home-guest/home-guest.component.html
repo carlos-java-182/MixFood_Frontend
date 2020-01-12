@@ -1,5 +1,6 @@
 <!-- Header Area Start Here -->
-<app-navbar-guest></app-navbar-guest>
+<app-navbar-guest *ngIf="!isLoggedIn"></app-navbar-guest>
+<app-navbar-user *ngIf="isLoggedIn"></app-navbar-user>
 <!-- Header Area End Here -->
 <!-- Content Area Start Here -->
 <section class="padding-bottom-45">
