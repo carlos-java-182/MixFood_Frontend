@@ -19,79 +19,89 @@
 <section class="submit-recipe-page-wrap padding-top-45 padding-bottom-50">
     <div class="container">
         <div class="row gutters-60">
-            <div class="col-lg-12">
+            <div class="col-lg-5">
                 <br>
                 <!-- Form Start Here -->
                 <form 
-                #formRecipe="ngForm" 
-                (ngSubmit)="formRecipe.valid && createRecipe() " 
+                [formGroup]="form"
                 class="submit-recipe-form"
                 novalidate>
                     <!-- Input Name Start Here -->
                     <div class="form-group">
                         <label>Name</label>
                         <input 
-                        #recipeName="ngModel"
-                        name="recipeName"
-                        [(ngModel)]="recipeModel.name"
-                        type="text" 
-                        placeholder="Recipe Name" 
-                        class="form-control is-invalid"    
-                        [ngClass]="{'is-invalid': formRecipe.submitted && recipeName.invalid && recipeName || recipeName.touched && recipeName.invalid}"                          
+                        formControlName="name"
+                        id="name"
+                        placeholder="Tomato" 
+                        class="form-control "    
+                        [ngClass]="{'is-invalid': form.get('name').errors.required && form.get('name').touched}"
                         data-error="Name field is required"
                         required>       
-                    <div class="input-errors"                         
-                    [ngClass]="{'is-invalid-input': formRecipe.submitted && recipeName.invalid && recipeName || recipeName.touched && recipeName.invalid}"                            
-                        >
-                            Please write a name.
+                        <div class="input-errors" >
+                           <span> Please write a name.</span>
+                           <span> This name exists in db.</span>
                         </div>
+
                     </div>
                     <!-- Input Name End Here -->
                  
-                    <button type="submit" class="btn-submit">CREATE</button>
+                   <button [disabled]="form.invalid" *ngIf="!isEdit" type="submit" (click)="create()" class="btn-submit">CREATE</button>
+                   <button  [disabled]="form.invalid" *ngIf="isEdit" type="submit" (click)="update()" class="btn-submit">UPDATE</button>
                 </form>
             </div>
-            <div class="col-lg-12">
+            <div class="col-lg-8">
                 <div class="author-box-layout1">
                     <div class="adv-search-wrap">
                         <div class="input-group">
-                            <input type="text" class="form-control" placeholder="Author Name Search . . ." />
+                            <input [(ngModel)]="serarchTem" #searchTem type="text" class="form-control" placeholder="Ingredient Name Search . . ." />
                             <div class="btn-group">
                                 <div class="input-group-btn">
-                                    <button type="submit" class="btn-search"><i class="flaticon-search"></i></button>
+                                    <button (click)="search(searchTem.value)" class="btn-search"><i class="flaticon-search"></i></button>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <h3 class="author-section-title">Total 1,050 Authors</h3>
+                    <h3  class="author-section-title">Total {{totalItems}} Ingredients</h3>
                     <div class="table-responsive">
-                        <table class="table table-striped">
+                        <!-- Alert Not Found Start Here -->
+                        <div *ngIf="ingredients.length == 0" class="col-lg-12 alert alert-info" role="alert">
+                            <h4 class="alert-heading"><i class="fas fa-info-circle"></i> Results not found!</h4>
+                            <p *ngIf="searchTerm != '' && ingredients.length == 0">No results were found with the term: <b>{{searchTem}}</b></p>
+                            <p *ngIf="searchTerm == '' ">No results were found!</p>
+                        </div>
+                        <!-- Alert Not Found Stop Here -->
+                        <table *ngIf="ingredients.length > 0"  class="table table-striped">
                             <thead>
                                 <tr>
                                     <th>Name</th>
-                                    <th>Create At</th>
+                                    <th>Create At</th> 
                                     <th>Update At</th>
                                     <th>Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <th>
-                                      
-                                    </th>
+                                <tr *ngFor="let ingredient of ingredients | paginate: {id: 'pagination-nav', itemsPerPage: itemsPerPage, currentPage: currentPage, totalItems: totalItems}; let i = index">
+                                    <th>{{ingredient.name}}</th>
+                                    <td>{{ingredient.createAt}}</td>
+                                    <td>{{ingredient.updateAt}}</td>
                                     <td>
-                                        
-                                    </td>
-                                    <td>
-                                        
-                                    </td>
-                                    <td>
-                                        
+                                        <button class="btn-table-edit" (click)="edit(i)"><i class="fas fa-pencil-alt"></i></button>
+                                        <button class="btn-table-remove" (click)="remove(i)"><i class="fas fa-trash"></i></button>
                                     </td>
                                 </tr>
-                  
                             </tbody>
                         </table>
+                        <!-- Pagination Start Here -->
+                        <pagination-controls 
+                        *ngIf="totalPages > 1"
+                        id="pagination-nav"
+                        (pageChange)="getPage($event)"
+                        previousLabel=""
+                        nextLabel=""
+                        responsive="true"
+                        screenReaderPaginationLabel="Pagination">
+                        </pagination-controls>
+                        <!-- Pagination End Here -->
                     </div>
                   
                 </div>
