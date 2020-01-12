@@ -3,6 +3,7 @@ import { Observable } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { UserService } from './user.service';
 import { User } from '../models/user';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +14,7 @@ export class AuthService
   private _user: User;
   private _token: string;
   private urlEndPoint: string = 'http://localhost:8080/oauth/token';
-  constructor(private http: HttpClient,
+  constructor(private http: HttpClient, private router: Router
               ) { }
 
   public login(user: User):Observable<any>
@@ -145,11 +146,12 @@ export class AuthService
     this._user = null;
     this._token = null;
     sessionStorage.clear();
+    this.router.navigate(['/']);
   }
 
   public hasRole(role: string): boolean
   {
-    if(this._user.roles.includes(role))
+    if(this.user.roles.includes(role))
     {
       return true;
     }

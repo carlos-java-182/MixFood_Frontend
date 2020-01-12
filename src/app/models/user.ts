@@ -4,6 +4,14 @@ export class User
   username: string;
   email: string;
   password: string;
+  gender: string;
+  name: string;
+  lastname: string;
+  country: string;
+  dateBirth: string;
+  porfileimageRoute: string;
+  description: string;
+  status: string;
   roles: string[] = [];
 }
 

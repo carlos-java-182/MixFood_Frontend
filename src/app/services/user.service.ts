@@ -52,6 +52,11 @@ export class UserService {
     return this.http.put(`${this.url}settings/email/${id}`,JSON.stringify(body),{headers: this.headers});
   }
 
+  public signUp(user):Observable<any>
+  {
+    return this.http.post(`${this.url}register`,user,{headers: this.headers});
+  }
+
  
   
 }

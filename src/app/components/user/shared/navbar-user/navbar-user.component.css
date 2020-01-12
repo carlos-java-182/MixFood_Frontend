@@ -1,3 +1,7 @@
+.show
+{
+	display: none !important;
+}
 .user-menu>ul.dropdown-menu-col-1 {
 	left: -20px;
 }

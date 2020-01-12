@@ -6,6 +6,7 @@ import { RecipesService, RecipeFeatured, RecipeLatestUser } from 'src/app/servic
 import { ProfileService, PublicUser } from 'src/app/services/profile.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ImageService } from 'src/app/services/image.service';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-profile-user',
@@ -29,13 +30,13 @@ export class ProfileUserComponent implements OnInit {
   private aboutMe: string;
   private profileImageRoute: string;
   
-  private idUser: number = 1;
+  private idUser: number;
   //*Objects declaration
-  private publicUser: PublicUser;
-  private recipeFeatured: RecipeFeatured[];
-  private recipeLatests: RecipeLatestUser[];
-  private categoriesList: CategoryListUser[];
-  private recipeItems: RecipeList;
+  private publicUser: PublicUser = null;
+  private recipeFeatured: RecipeFeatured[] = [];
+  private recipeLatests: RecipeLatestUser[] = [];
+  private categoriesList: CategoryListUser[] = [];
+  private recipeItems: RecipeList = null;
   private recipesList: any[] = [];
   recipeTrending: any[] = [];
   socialNetworks;
@@ -48,11 +49,15 @@ export class ProfileUserComponent implements OnInit {
   private _categorySerive: CategoryService,
   private _favoriteService: FavoriteService,
   private _imagesService: ImageService,
+  private _authService: AuthService,
   private router: Router) 
   { }
 
   ngOnInit() 
   {
+    this.idUser = this._authService.user.id;
+    console.log(this.idUser)
+
     this.getProfileById(this.idUser);
     this.getFeaturedRecipes(this.idUser);
     this.getLatestsRecipes();
@@ -68,6 +73,7 @@ export class ProfileUserComponent implements OnInit {
       this.aboutMe = data.description;
       this.socialNetworks = data.socialNetworks;
       this.profileImageRoute = data.porfileimageRoute;
+      console.log(data);
     });
   }
 
@@ -77,21 +83,28 @@ export class ProfileUserComponent implements OnInit {
     this._recipeService.getRecipesCardsFeatured(id,4).subscribe(data =>
       {
         //*Sort recipes by ranking
-        data.sort((a)=> a.averangeRanking);
-        this.recipeFeatured = data;
-        this.recipeTrending.push(data[0]);
-
-        //Add recipes to list
-        for(let i = 0; i < data.length; i++)
+        if(data.length > 0)
         {
-          let recipeItems: RecipeList = {
-            id: data[i].id,
-            isFavorite: false,
-            isLiked: false
-          };
-
-          this.recipesList.push(recipeItems);
+          data.sort((a)=> a.averangeRanking);
+          this.recipeFeatured = data;
+          this.recipeTrending.push(data[0]);
+          // console.log(data.length);
+          //Add recipes to list
+          for(let i = 0; i < data.length; i++)
+          {
+            let recipeItems: RecipeList = {
+              id: data[i].id,
+              isFavorite: false,
+              isLiked: false
+            };
+            this.recipesList.push(recipeItems);
+          }
         }
+        else
+        {
+          console.log('is null');
+        }
+      
         //console.log(this.recipesList);
       });      
   }

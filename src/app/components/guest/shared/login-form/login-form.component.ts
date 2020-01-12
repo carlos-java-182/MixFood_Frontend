@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/services/auth.service';
 import { access } from 'fs';
 import {User} from 'src/app/models/user';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login-form',
@@ -16,7 +17,8 @@ export class LoginFormComponent implements OnInit {
   private user: User;
 
   constructor(private formBuilder: FormBuilder,
-              private _authService: AuthService) 
+              private _authService: AuthService,
+              private router: Router) 
               {
                 this.user = new User();
                }
@@ -33,8 +35,10 @@ export class LoginFormComponent implements OnInit {
     //  email: this.loginForm.get('email').value,
     //  password: this.loginForm.get('password').value 
     // }
-    this.user.email = 'york@mixfood.com';
-    this.user.password = '123456' ;
+    this.user.email = 'carlos3@mixfood.com';
+    this.user.password = 'password' ;
+    // this.user.email = 'york@mixfood.com';
+    // this.user.password = '123456' ;
     // this.user.email = this.loginForm.get('email').value;
     // this.user.password = this.loginForm.get('password').value ;
 
@@ -44,9 +48,10 @@ export class LoginFormComponent implements OnInit {
       this._authService.saveUser(response.access_token); 
       let user = this._authService.user;  
       let auth = this._authService.isAuthenticated();
-      console.log(sessionStorage);
-      console.log(auth);  
-      alert('You are logged!!');
+     // console.log(sessionStorage);
+      //console.log(auth);  
+      console.log('You are logged!!');
+      this.router.navigate(['/user/profile']);
     },
     err =>
     {
