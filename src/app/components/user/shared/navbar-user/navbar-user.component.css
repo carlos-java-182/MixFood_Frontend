@@ -95,3 +95,13 @@ ul.dropdown-menu-col-1>li:last-child {
 	-ms-transform: translateY(0);
 	transform: translateY(0);
 }
+
+.hover:hover
+{
+	color: #ff4a52 !important;
+	-webkit-transition: all 0.2s ease-in-out;
+	-moz-transition: all 0.2s ease-in-out;
+	-ms-transition: all 0.2s ease-in-out;
+	-o-transition: all 0.2s ease-in-out;
+	transition: all 0.3s ease-in-out;
+}

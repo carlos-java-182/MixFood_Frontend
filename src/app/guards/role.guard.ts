@@ -25,7 +25,7 @@ export class RoleGuard implements CanActivate
       }
     
     let role = next.data['role'] as string;
-    console.log('ROLE in roles: '+role);
+    //console.log('ROLE in roles: '+role);
     if(this._authServiche.hasRole(role))
     {
       console.log('YOU HAVE ACCESS!!');

@@ -66,7 +66,13 @@ export class ImageService {
     let formData = new FormData();
     formData.append('file',file);
     formData.append('id',id);
-    return this.http.post(`${this.url}uploads/users`,formData);
+    let httpHeaders = new HttpHeaders();
+    let token = this._authService.token;
+    if(token != null)
+    {
+      httpHeaders =  httpHeaders.append('Authorization', 'Bearer '+ token); 
+    }
+    return this.http.post(`${this.url}uploads/users`,formData,{headers: httpHeaders});
   }
 
   public deleteImageRecipe(id: number):Observable<any>

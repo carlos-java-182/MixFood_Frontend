@@ -46,3 +46,16 @@ td
 {
     color: #ff4a52;
 }
+
+
+.rounded-circle.media-img-auto
+{
+    background-color: red;
+    width: 100px !important;
+    height: 100px !important;
+}
+
+.media  
+{
+    background-color: rebeccapurple !important;
+}

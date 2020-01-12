@@ -10,13 +10,14 @@ import { throwIfEmpty } from 'rxjs/operators';
 @Component({
   selector: 'app-navbar-guest',
   templateUrl: './navbar-guest.component.html',
-  styleUrls: ['./navbar-guest.component.css']
+  styleUrls: ['./navbar-guest.component.css',
+  '../../../../assets/css/navbarsearchStyles.css']
 })
 export class NavbarGuestComponent implements OnInit {
   @ViewChild('closeModalLogin',{static: false}) public closeModalLogin: ElementRef;
   @Input('term') term?: string;
   //*Variable declarations
-  private categories: CategoryList[];
+  private categories: CategoryList[] = [];
   private isMobile: boolean = false;
   private showModal: boolean = false;
   //*Create models

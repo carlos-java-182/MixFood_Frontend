@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { AuthService } from './auth.service';
 
 @Injectable({
   providedIn: 'root'
@@ -13,27 +14,37 @@ export class FavoriteService {
   //*Create http header type json
   private headers = new HttpHeaders({'Content-Type': 'application/json'});
  
-  constructor(private http: HttpClient) { }
-
+  constructor(private http: HttpClient, private _authService: AuthService) { }
+  //*Auth authorization header for private routes
+  private addAuthorizationHeader()
+  {
+    //*Validate if exits token
+    let token = this._authService.token;
+    if(token != null)
+    {
+      return this.headers.append('Authorization', 'Bearer '+ token);
+    }
+    return this.headers;
+  }
 
   public create(favorite: Favorite):Observable<Favorite>
   {
-    return this.http.post<Favorite>(this.url,favorite,{headers: this.headers});
+    return this.http.post<Favorite>(this.url,favorite,{headers: this.addAuthorizationHeader()});
   }
 
   public remove(idRecipe: number, idUser: number)
   {
-    return this.http.delete(`${this.url}recipe/${idRecipe}/user/${idUser}`);
+    return this.http.delete(`${this.url}recipe/${idRecipe}/user/${idUser}`,{headers: this.addAuthorizationHeader()});
   }
   
   public show(idRecipe: number, idUser: number):Observable<any>
   {
-    return this.http.get<any>(`${this.url}recipe/${idRecipe}/user/${idUser}`);
+    return this.http.get<any>(`${this.url}recipe/${idRecipe}/user/${idUser}`,{headers: this.addAuthorizationHeader()});
   }
 
   public getCardsList(id: number,page: number,items: number):Observable<any>
   {
-    return this.http.get(`${this.url}${id}/page/${page}/items/${items}`).pipe(
+    return this.http.get(`${this.url}${id}/page/${page}/items/${items}`,{headers: this.addAuthorizationHeader()}).pipe(
       map((response: any) =>
       {
         (response.content as FavoriteCard[]).map(favorite =>

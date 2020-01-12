@@ -57,12 +57,12 @@ const routes: Routes = [
   {component: ProfileUserComponent, path: 'user/profile-user', canActivate:[AuthGuard]},
   {component: HomeUserComponent, path: 'user/home'},
 
-  //{component: RecipesUserComponent, path: 'user/recipes', canActivate:[AuthGuard]},
-  {component: CreaterecipeUserComponent, path: 'user/recipes/create', canActivate:[AuthGuard, RoleGuard],data: {role: 'ROLE_USER'}},
+  {component: RecipesUserComponent, path: 'user/recipes', canActivate:[AuthGuard]},
+  {component: CreaterecipeUserComponent, path: 'user/recipes/create'},
   {component: EditrecipeUserComponent, path: 'user/recipes/edit/:id', canActivate:[AuthGuard]},
   {component: RecipesUserComponent, path: 'user/recipes/page/:page/status/:status', canActivate:[AuthGuard]},
   {component: RecipesUserComponent, path: 'user/recipes/page/:page/term/:term/status/:status', canActivate:[AuthGuard]},
-  {component: ProfileUserComponent, path: 'user/profile'},
+  {component: ProfileUserComponent, path: 'user/profile',canActivate: [AuthGuard],data: {role: 'ROLE_USER'}},
  
   //*Guest routes
   {component: HomeGuestComponent, path: ''},
@@ -84,7 +84,7 @@ const routes: Routes = [
   //*Admin routes
   {component: HomeAdminComponent, path: 'admin/home', canActivate:[AuthGuard]},
   {component: IngredientsAdminComponent, path: 'admin/ingredients', canActivate:[AuthGuard]},
-  {component: CreateingredientsAdminComponent, path: 'admin/ingredients/create', canActivate:[AuthGuard]},
+  {component: CreateingredientsAdminComponent, path: 'admin/ingredients/create'},
   {component: EditingredientsAdminComponent, path: 'admin/ingredients/ediit/:id', canActivate:[AuthGuard]},
   {component: CategoriesAdminComponent, path: 'admin/categories'},
   {component: CreatecategoriesAdminComponent, path: 'admin/categories/create', canActivate:[AuthGuard]},
