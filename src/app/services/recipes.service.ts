@@ -66,7 +66,7 @@ export class RecipesService {
 
   public createRecipeIngredient(ingredients: RecipeIngredient[]):Observable<RecipeIngredient[]>
   {
-    return this.http.post<RecipeIngredient[]>(this.url+'ingredients',JSON.stringify(ingredients),{headers: this.headers});
+    return this.http.post<RecipeIngredient[]>(this.url+'ingredients',JSON.stringify(ingredients),{headers: this.addAuthorizationHeader()});
   }
 
   //*This function get the recipes cards for home

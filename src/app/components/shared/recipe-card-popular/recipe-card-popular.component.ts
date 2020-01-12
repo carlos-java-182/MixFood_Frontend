@@ -40,7 +40,7 @@ export class RecipeCardPopularComponent implements OnInit {
     });
 
     //*Validate if exists like
-    this._recipeService.validateLike(this.recipe.id,idUser).subscribe(response =>
+    this._recipeService.validateLike(this.recipe.id).subscribe(response =>
       {
         this.isLiked = false;
        // console.log(response);
@@ -108,7 +108,7 @@ export class RecipeCardPopularComponent implements OnInit {
     let idUser = 1;
     if(this.isLiked)
     {
-      this._recipeService.stopLike(idRecipe ,idUser).subscribe(response =>
+      this._recipeService.stopLike(idRecipe).subscribe(response =>
       {
         console.log(response);
         this.isLiked = false;
@@ -120,7 +120,7 @@ export class RecipeCardPopularComponent implements OnInit {
     }
     else
     {
-      this._recipeService.startLike(idRecipe,idUser).subscribe(response =>
+      this._recipeService.startLike(idRecipe).subscribe(response =>
       {
         console.log(response);
         this.isLiked = true;

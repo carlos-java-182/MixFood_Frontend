@@ -11,31 +11,86 @@
                     <nav class="site-nav">
                         <ul id="site-menu" class="site-menu" [ngClass]="{'menu-mobile': isMobile}">
                             <a class="navbar-brand" href="#">
-                                <img src="/docs/4.3/assets/brand/bootstrap-solid.svg" width="30" height="30" alt="Logo">
+                                <img src="assets/img/logo-light.png" width="150" height="100" alt="Logo">
                             </a>
                             <li>
-                                <a [routerLink]="['/']"><i class="fas fa-home"></i> Home</a>
+                                <a class="pointer hover" [routerLink]="['/']"><i class="fas fa-home"></i> Home</a>
                             </li>
-                            <!-- <li>
-                                <a href="category.html"><i class="fas fa-search"></i> Search</a>
-                            </li> -->
-                            <!-- <li>
-                                <a href="#"><i class="fas fa-utensils"></i> Categories </a>
-                            </li> -->
                             <li>
-                                <a  routerLinkActive="router-link-active" >
+                                <a class="pointer hover" routerLinkActive="router-link-active" >
                                     <i class="fas fa-utensils"></i>
                                     Recipes
                                 </a>
                                 <ul class="dropdown-menu-col-1">
                                     <li>
-                                        <a [routerLink]="['/user/recipes/create']"> Create</a>
+                                        <a [routerLink]="['/user/recipes/create']"><i class="fas fa-plus"></i> Create</a>
                                     </li>
-                                    <!-- <li>
-                                        <a [routerLink]="['/user/recipes']"> Show</a>
-                                    </li>                                    -->
                                 </ul>
                             </li>
+                            
+                            <li class="adv-search-wrap">
+                                <div class="input-group">
+                                    <input 
+                                    #searchTerm
+                                    type="text" 
+                                    [(ngModel)]="searchModel.searchTerm"
+                                    class="form-control" 
+                                    placeholder="Recipe Search . . ." />
+                                    <div class="btn-group">
+                                        <div class="input-group-btn">
+                                            <button 
+                                                
+                                                type="button" 
+                                                id="adv-serch" 
+                                                class="btn-adv-serch">
+                                                <i class="icon-plus flaticon-add-plus-button"></i>
+                                                <i class="icon-minus fas fa-minus"></i>
+                                                Advanced Search</button>
+                                        </div>
+                                        <div class="input-group-btn">
+                                            <button (click)="search()" class="btn-search"><i class="flaticon-search"></i></button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="advance-search-form " >
+                                    <div class="row">
+                                        <div class="col-lg-6">
+                                            <h3 class="item-title">BY CATEGORIES</h3>
+                                            <div class="form-group select2-multiple col-lg-10">
+                                                <ng-select
+                                                [(ngModel)]="searchModel.categoryId"
+                                                [items]="categories"
+                                                bindLabel="name"
+                                                bindValue="id"         
+                                                [multiple]="false"
+                                                placeholder ="Select a category"
+                                                notFoundText = "Sin resultados"
+                                                required>
+                                                </ng-select>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <h3 class="item-title">BY INGREDIENTS</h3>      
+                                            <div class="form-group select2-multiple col-lg-12">
+                                                <ng-select
+                                                [(ngModel)]="searchModel.ingredientsId"
+                                                class="select-multiple"
+                                                [items]="items"
+                                                bindLabel="name"
+                                                bindValue="id"                          
+                                                [multiple]="true"
+                                                placeholder ="Select your ingredients"
+                                                notFoundText = "Sin resultados"
+                                               
+                                                name="ingredients"
+                                                required>
+                                                </ng-select>
+                                            </div>
+                                        </div>
+                                    </div>            
+                                </div> 
+                            </li>
+                            
                             <!-- <li>
                                 <a href="contact.html">About</a>
                             </li> -->
@@ -47,18 +102,15 @@
                         <ul id="site-menu" 
                         class="site-menu user-menu" [ngClass]="{'menu-mobile': isMobile}">
                             <li>
-                                <a>
+                                <a class="pointer hover">
                                     <i class="fas fa-user"></i> {{username}}
                                 </a>
                                 <ul class="dropdown-menu-col-1">
                                     <li>
-                                        <a [routerLink]="['/user/profile']">Profile</a>
+                                        <a [routerLink]="['/user/profile']"><i class="fas fa-user-circle"></i> Profile</a>
                                     </li>                                 
-                                    <!-- <li>
-                                        <a [routerLink]="['/user/favorites']">Favorites</a>
-                                    </li> -->
                                     <li>
-                                        <a class="pointer" (click)="logout()">Logout</a>
+                                        <a class="pointer" (click)="logout()"><i class="fas fa-sign-out-alt"></i> Logout</a>
                                     </li>       
                                 </ul>
                             </li>

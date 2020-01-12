@@ -131,7 +131,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     NgxTypeaheadModule,
     FormsModule,
     ReactiveFormsModule,
-    //NgbModule,
+    NgbModule,
     NgxPaginationModule,
     BarRatingModule,
     BrowserAnimationsModule,

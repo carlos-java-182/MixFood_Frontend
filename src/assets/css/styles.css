@@ -1546,7 +1546,8 @@ ul {
 	}
 
 	.media-none--lg img.media-img-auto {
-		width: auto;
+		/* width: auto; */
+		/* height: auto; */
 	}
 
 	.media-none--lg .media-body,

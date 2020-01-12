@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef,OnChanges } from '@angular/core';
+import { Component, OnInit,OnChanges } from '@angular/core';
 
 import { IngredientService, IngredientList } from 'src/app/services/ingredient.service';
 import { CategoryService, CategoryCard, CategoryList } from 'src/app/services/category.service';
@@ -13,6 +13,7 @@ import { TagService, TagShort } from 'src/app/services/tag.service';
 import { ImageService } from 'src/app/services/image.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { timingSafeEqual } from 'crypto';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-createrecipe-user',
@@ -22,12 +23,12 @@ import { timingSafeEqual } from 'crypto';
 
 export class CreaterecipeUserComponent implements OnInit {
 
-  @ViewChild('attachments', {static: false}) 
-   attachment: ElementRef;
+  //@ViewChild('attachments', {static: false}) 
+   //attachment: ElementRef;
 
   //*Variables declaration */
   //Index of ingredient list
-  private userId: number = 1;
+  //private userId: number = 1;
   private idRecipe: number;
   private indexList: number = 0;
   private imagesCount: number = 0;
@@ -111,6 +112,7 @@ export class CreaterecipeUserComponent implements OnInit {
     private _tagService: TagService,
     private _recipeService: RecipesService,
     private _imageService: ImageService,
+    private _authService: AuthService,
     private router: Router,
     private activatedRoute: ActivatedRoute,
     private formBuilder: FormBuilder) 
@@ -321,7 +323,7 @@ export class CreaterecipeUserComponent implements OnInit {
         },
         user:
         {
-          id: this.userId
+          id: this._authService.user.id
         },
         tags: tags  
       }

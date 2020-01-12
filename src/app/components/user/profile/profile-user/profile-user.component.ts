@@ -21,9 +21,9 @@ export class ProfileUserComponent implements OnInit {
   //Booleans for shwo options 
   private isShowRecipes: boolean =  false;
   private isShowFavorites: boolean = false;
-  private isShowSettings: boolean = true;
+  private isShowSettings: boolean = false;
   private isShowFollowers: boolean = false;
-  private isShowProfile: boolean = false;
+  private isShowProfile: boolean = true;
   private isProfileImageHover: boolean = false;
   
   //User info

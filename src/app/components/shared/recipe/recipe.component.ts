@@ -53,7 +53,6 @@ export class RecipeComponent implements OnInit {
   private tagsTrends: TagShort[] = [];
   public rankings: RankingComment[] = [];
   ///ratingComment: number = 0;
-  private isLoggedIn: boolean = true;
   private showMoreRankigns: boolean = false;
   private arr = [];
   private videoFrame: any;
