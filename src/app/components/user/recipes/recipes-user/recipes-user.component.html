@@ -1,4 +1,7 @@
 <div class="author-box-layout1 padding-top-74">
+    
+   
+
     <div class="adv-search-wrap row">
         <form (ngSubmit)="searchRecipes(searchTerm.value) && searchTerm.value != ''" class="col-lg-8" novalidate>
             <div class="input-group col-lg-12">
@@ -29,6 +32,7 @@
         <h2  class="item-heading profile-name">Total {{totalItems}} recipes</h2>
     </div>      -->
     <div class="table-responsive">
+
         <!-- Alert Not Found Start Here -->
         <div *ngIf="isResultEmpty" class="col-lg-12 alert alert-info" role="alert">
             <h4 class="alert-heading"><i class="fas fa-info-circle"></i> Results not found!</h4>
@@ -36,6 +40,14 @@
             <p *ngIf="term == '' ">No results were found!</p>
         </div>
         <!-- Alert Not Found Stop Here -->
+
+        <!-- Alert No Recipes Start Here -->
+          <div  *ngIf="recipes.length == 0" class="alert alert-info padding-top-75" role="alert">
+            <h4 class="alert-heading">You dont have recipes!</h4>
+            <hr>
+            <p>To create a <a [routerLink]="['/user/recipes/create']" routerLinkActive="router-link-active" >click here</a></p>
+        </div>
+        <!-- Alert No Recipes End Here -->
         <table class="table table-striped">
             <tbody>
                 <tr *ngFor="let recipe of recipes | paginate: {id: 'pagination-nav', itemsPerPage: itemsPerPage, currentPage: currentPage, totalItems: totalItems}; let i = index">

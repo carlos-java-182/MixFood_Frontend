@@ -8,10 +8,14 @@
             </h2>  
         </div>     
         <div *ngIf="isEditPassword" class="ranna-box-padding">
-            <form [formGroup]="passwordForm" (submit)="changePassword()" class="login-form">
+            <div *ngIf="showAlert && isEditPassword" class="alert alert-success" role="alert">
+                <i class="fas fa-check"></i> Password changed successfully!
+            </div>
+            <form [formGroup]="passwordForm" (ngSubmit)="changePassword() && passwordForm.valid" class="login-form">
                 <div class="col-lg-6">
                     <label for="">Actual password</label>
-                    <input  
+                    <input
+                    (click)="hiddeWrongPassword()"  
                     formControlName="actualPassword"
                     [ngClass]="{'is-invalid': passwordForm.get('actualPassword').hasError('required') && passwordForm.get('actualPassword').touched}"
                     class="main-input-box form-control" 
@@ -24,6 +28,7 @@
                     <label for="">New password</label>
                     <input  
                     formControlName="password"
+                    (keyup)="validateSamePassword()"
                     [ngClass]="{'is-invalid': passwordForm.get('password').hasError('required') && passwordForm.get('password').touched}"
                     class="main-input-box form-control" 
                     type="password">    
@@ -40,13 +45,20 @@
                     <div class="input-errors" [ngClass]="{'is-invalid-input': passwordForm.get('confirmPassword').errors && passwordForm.get('confirmPassword').touched}">
                         <span *ngIf="passwordForm.get('confirmPassword').hasError('required')">Confirm password is required.</span>
                     </div>
-                    <div class="input-errors" *ngIf="passwordForm.controls.confirmPassword.errors?.MatchPassword && passwordForm.get('confirmPassword').touched">
+                    <div class="input-errors" [ngClass]="{'is-invalid-input': passwordForm.controls.confirmPassword.errors?.MatchPassword && passwordForm.get('confirmPassword').touched}">
                         The passwords worng.
+                    </div>
+                    <div class="input-errors" [ngClass]="{'is-invalid-input': isPasswordInvalid}">
+                        Your current password is incorrect.
+                    </div>
+                    <div class="input-errors" [ngClass]="{'is-invalid-input': oldPasswordisSame}">
+                        The new password is the same as the current one.
                     </div>
                 </div>
 
+
                 <div class="col-lg-2 inline-box mb-5 mt-4">
-                    <button class="btn-save btn-fill" type="submit">Change</button>     
+                    <button [disabled]="!passwordForm.valid || oldPasswordisSame" class="btn-save btn-fill" type="submit">Change</button>     
                 </div>
             </form>
         </div>
@@ -62,6 +74,10 @@
                 <a (click)="toggleEmailEdit()" class="pointer btn-table-edit"><i class="fas fa-pencil-alt"></i></a>
             </h2>  
         </div> 
+        <div *ngIf="showAlert && isEditEmail" class="alert alert-success" role="alert">
+            <i class="fas fa-check"></i> Email changed successfully!
+        </div>
+
         <div *ngIf="isEditEmail" class="ranna-box-padding">
             <form class="login-form" [formGroup]="emailForm" (submit)="changeEmail($event)">
                 <div class="col-lg-5">
@@ -92,6 +108,9 @@
             <h2 class="item-heading profile-name">Personal information 
                 <a (click)="toggleInformationEdit()" class="pointer btn-table-edit"><i class="fas fa-pencil-alt"></i></a></h2>  
         </div> 
+        <div *ngIf="showAlert && isEditInformation" class="alert alert-success" role="alert">
+            <i class="fas fa-check"></i> Your information changed successfully!
+        </div>
         <div *ngIf="isEditInformation" class="ranna-box-padding">
             <form [formGroup]="informationForm" (ngSubmit)="updateInformation()" class="login-form">
                 <div class="row">
@@ -151,7 +170,11 @@
                     <i class="fas fa-pencil-alt"></i>
                 </a>
             </h2>  
-        </div>   
+        </div>
+        <div *ngIf="showAlert && isEditSocial" class="alert alert-success" role="alert">
+            <i class="fas fa-check"></i> Social Network changed successfully!
+        </div>
+        
         <div *ngIf="isEditSocial" class="ranna-box-padding">
             <form [formGroup]="socialnetworksForm" class="login-form">
                 <div class="row">             

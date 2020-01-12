@@ -4,6 +4,7 @@ import { error } from 'protractor';
 import { FollowerService, FollowerCard } from 'src/app/services/follower.service';
 import { Component, OnInit } from '@angular/core';
 import  Swal  from 'sweetalert2';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-followers',
@@ -12,16 +13,17 @@ import  Swal  from 'sweetalert2';
 })
 export class FollowersComponent implements OnInit {
   //*Variables declaration
-  private idUser = 1;
-  private itemsPerPage = 1;
+  private idUser = this._authService.user.id;
+  private itemsPerPage = 10;
   private totalItems: number = 0;
   private currentPage = 1;
   private totalPages: number;
   private isResultEmpty: boolean = false;
 
   //*Objects declaration
-  private followers: FollowerCard[];
-  constructor(private _followerService: FollowerService) { }
+  private followers: FollowerCard[] = [];
+  constructor(private _followerService: FollowerService,
+              private _authService: AuthService) { }
 
   ngOnInit() 
   {
@@ -30,13 +32,12 @@ export class FollowersComponent implements OnInit {
 
   private getFollowers(page: number)
   {
-    this._followerService.getFollowerByIdUser(1,page,this.itemsPerPage).subscribe(response => 
+    this._followerService.getFollowerByIdUser(this.idUser,page,this.itemsPerPage).subscribe(response => 
     {
       if(response.empty)
       {
           this.isResultEmpty = true;
           this.totalItems = 0;
-          this.followers = [];
       }
       else
       {

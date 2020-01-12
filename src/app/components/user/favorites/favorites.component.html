@@ -19,7 +19,15 @@
         <div class="author-box-layout1">
             <div *ngIf="totalItems > 0" class="section-heading heading-dark ">
                 <h2  class="item-heading profile-name">Total {{totalItems}} favorites</h2>
-            </div>     
+            </div>   
+            
+            <!-- Alert No Favorites Start Here -->
+            <div  class="alert alert-info padding-top-75" role="alert">
+                <h4 class="alert-heading">You dont have Favorites!</h4>
+                <hr>
+            </div>
+            <!-- Alert No Favorites End Here -->
+            
             <div class="table-responsive">
                 <!-- Alert Not Found Start Here -->
                 <div *ngIf="isResultEmpty" class="col-lg-12 alert alert-info" role="alert">

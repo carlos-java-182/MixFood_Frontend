@@ -61,6 +61,7 @@ export class AuthService
   public saveToken(accessToken: string):void
   {
     this._token = accessToken;
+    console.log(this._token);
     sessionStorage.setItem('token',accessToken);
   }
 
@@ -81,6 +82,7 @@ export class AuthService
     this._user.username = payload.username;
     this._user.email = payload.email;
     this._user.roles = payload.authorities;
+    console.log('ROLES'+ payload.authorities)
    
     //*Add user data on sessionStorage and this is convert to json
     sessionStorage.setItem('user',JSON.stringify(this._user));
@@ -151,6 +153,8 @@ export class AuthService
 
   public hasRole(role: string): boolean
   {
+    console.log('IN HASH')
+    console.log(this.user.roles);
     if(this.user.roles.includes(role))
     {
       return true;
