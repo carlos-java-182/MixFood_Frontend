@@ -17,6 +17,8 @@ export class CreateingredientsAdminComponent implements OnInit {
   private idIngredient: number;
   private index: number;
 
+  private searchTerm: string = '';
+
   private isEdit: boolean = false;
   //*Objects declaration
   private ingredients = [];
@@ -88,7 +90,7 @@ export class CreateingredientsAdminComponent implements OnInit {
     this.getIngredientsPages(page-1);
   }
 
-  private update()
+  private update(): void 
   {
     let ingredient = new Ingredient();
     ingredient.name = this.form.get('name').value;
@@ -119,5 +121,33 @@ export class CreateingredientsAdminComponent implements OnInit {
     {
       console.log(err);
     });
+  }
+
+  private search(term: string): void
+  {
+    console.log(term);
+    this.searchTerm = term;
+    this._ingredientService.getIngredientsPagesByTerm(0,this.itemsPerPage,term).subscribe(response =>
+      {
+        if(!response.empty)
+        {
+          console.log(response);
+          this.totalItems = response.totalElements;
+          //*Get current page of results 
+          this.currentPage = response.number + 1;
+          this.totalPages = response.totalPages;
+          this.ingredients = response.content as Ingredient[];
+        }
+        else
+        {
+          this.ingredients = [];
+          this.totalPages = 0;
+          this.totalItems = 0;
+        }
+      },
+      err =>
+      {
+        console.log(err);
+      })
   }
 }
