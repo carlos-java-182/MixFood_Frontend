@@ -1,1 +1,117 @@
-<p>createtags-admin works!</p>
+<!-- User Navabar Start Here -->
+<app-navbar-admin></app-navbar-admin>
+<!-- User Navabar End Here -->
+<!-- Inne Page Banner Area Start Here -->
+<section class="section-header inner-page-banner bg-common">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="breadcrumbs-area">
+                    <h1>Tags</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Inne Page Banner Area End Here -->
+
+<!-- Submit Recipe Area Start Here -->
+<section class="submit-recipe-page-wrap padding-top-45 padding-bottom-50">
+    <div class="container">
+        <div class="row gutters-60">
+            <div class="col-lg-4">
+                <!-- Form Start Here -->
+                <form 
+                [formGroup]="form"
+                class="submit-recipe-form"
+                novalidate>
+                    <!-- Input Name Start Here -->
+                    <div class="form-group col-lg-12">
+                        <label>Name</label>
+                        <input 
+                        formControlName="name"
+                        id="name"
+                        placeholder="Tomato" 
+                        class="form-control "    
+                        (click)="hiddeAlreadyExists()"
+                        data-error="Name field is required"
+                        required>                      
+                        <div class="input-errors" >
+                           <span> Please write a name.</span>
+                           <span> This name exists in db.</span>
+                        </div>
+                        <div  class="input-errors" [ngClass]="{'is-invalid-input': isAlreadyExists}">
+                            This tag already exists.
+                        </div>
+                    </div>
+                    <div class="form-group col-lg-2">
+                       
+                        <button [disabled]="form.invalid" *ngIf="!isEdit" type="submit" (click)="create()" class="btn-submit">CREATE</button>
+                        <button  [disabled]="form.invalid" *ngIf="isEdit" type="submit" (click)="update()" class="btn-submit">UPDATE</button>   
+                    </div>
+                    <!-- Input Name End Here -->
+
+                </form>           
+            </div>
+            <div class="col-lg-4">
+                <div class="adv-search-wrap ">
+                    <div class="input-group">
+                        <input [(ngModel)]="serarchTem" #searchTem type="text" class="form-control" placeholder="Tag Name Search . . ." />
+                        <div class="btn-group">
+                            <div class="input-group-btn">
+                                <button (click)="search(searchTem.value)" class="btn-search"><i class="flaticon-search"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-8">
+                <div class="author-box-layout1">
+                    <h3  class="author-section-title">Total {{totalItems}} Tags</h3>
+                    <div class="table-responsive">
+                        <!-- Alert Not Found Start Here -->
+                        <div *ngIf="tags.length == 0" class="col-lg-12 alert alert-info" role="alert">
+                            <h4 class="alert-heading"><i class="fas fa-info-circle"></i> Results not found!</h4>
+                            <p *ngIf="searchTerm != '' && tags.length == 0">No results were found with the term: <b>{{searchTem}}</b></p>
+                            <p *ngIf="searchTerm == '' ">No results were found!</p>
+                        </div>
+                        <!-- Alert Not Found Stop Here -->
+                        <table *ngIf="tags.length > 0"  class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Create At</th> 
+                                    <th>Update At</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let tag of tags | paginate: {id: 'pagination-nav', itemsPerPage: itemsPerPage, currentPage: currentPage, totalItems: totalItems}; let i = index">
+                                    <th>{{tag.name}}</th>
+                                    <td>{{tag.createAt}}</td>
+                                    <td>{{tag.updateAt}}</td>
+                                    <td>
+                                        <button class="btn-table-edit" (click)="edit(i)"><i class="fas fa-pencil-alt"></i></button>
+                                        <button class="btn-table-remove" (click)="remove(i)"><i class="fas fa-trash"></i></button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <!-- Pagination Start Here -->
+                        <pagination-controls 
+                        *ngIf="totalPages > 1"
+                        id="pagination-nav"
+                        (pageChange)="getPage($event)"
+                        previousLabel=""
+                        nextLabel=""
+                        responsive="true"
+                        screenReaderPaginationLabel="Pagination">
+                        </pagination-controls>
+                        <!-- Pagination End Here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Submit Recipe Area End Here -->

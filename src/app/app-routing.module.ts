@@ -87,14 +87,14 @@ const routes: Routes = [
   {component: CreateingredientsAdminComponent, path: 'admin/ingredients/create'},
   {component: EditingredientsAdminComponent, path: 'admin/ingredients/ediit/:id', canActivate:[AuthGuard]},
   {component: CategoriesAdminComponent, path: 'admin/categories'},
-  {component: CreatecategoriesAdminComponent, path: 'admin/categories/create', canActivate:[AuthGuard]},
+  {component: CreatecategoriesAdminComponent, path: 'admin/categories/create'},
   {component: EditcategoriesAdminComponent, path: 'admin/categories/edit/:id', canActivate:[AuthGuard]},
   {component: UsersAdminComponent, path: 'admin/users', canActivate:[AuthGuard]},
   {component: CreatetagsAdminComponent, path: 'admin/users/create', canActivate:[AuthGuard]},
   {component: EditusersAdminComponent, path: 'admin/users/edit/:id', canActivate:[AuthGuard]},
   {component: TagsAdminComponent, path: 'admin/tags', canActivate:[AuthGuard]},
   {component: EdittagsAdminComponent, path: 'admin/tags/edit/:id', canActivate:[AuthGuard]},
-  {component:CreatetagsAdminComponent, path: 'admin/tags/create', canActivate:[AuthGuard]},
+  {component:CreatetagsAdminComponent, path: 'admin/tags/create'},
 
   //*Shared components
   {component: UserprofileComponent, path: 'profile/:id'}
