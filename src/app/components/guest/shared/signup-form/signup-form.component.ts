@@ -4,6 +4,7 @@ import { PasswordValidation } from 'src/app/helpers/PasswordValidation';
 import { CountryService, Country } from 'src/app/services/country.service';
 import { User } from 'src/app/models/user';
 import { UserService } from 'src/app/services/user.service';
+import * as $ from 'jquery';
 
 @Component({
   selector: 'app-signup-form',
@@ -17,6 +18,7 @@ export class SignupFormComponent implements OnInit {
   //*Objects declaration
   countries: Country[];
   user: User;
+  private isEmailInUse: boolean = false;
 
   constructor(private formBuilder: FormBuilder,
               private _countryService: CountryService,
@@ -60,14 +62,18 @@ export class SignupFormComponent implements OnInit {
     this.user.name = 'Carlos';
     this.user.lastname = 'Villasenor';
 
-   console.log(JSON.stringify(this.user));
     this._userService.signUp(this.user).subscribe(response => 
       {
         console.log(response);
+      
       },
       err =>
       {
         console.log(err);
+        if(err.status == 404)
+        {
+          this.isEmailInUse = true;
+        }
       })
   //  console.log(this.signupForm.value);
   }

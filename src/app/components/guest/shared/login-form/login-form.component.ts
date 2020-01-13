@@ -4,6 +4,7 @@ import { AuthService } from 'src/app/services/auth.service';
 import { access } from 'fs';
 import {User} from 'src/app/models/user';
 import { Router } from '@angular/router';
+import * as $ from 'jquery';
 
 @Component({
   selector: 'app-login-form',
@@ -52,7 +53,16 @@ export class LoginFormComponent implements OnInit {
      // console.log(sessionStorage);
       //console.log(auth);  
       console.log('You are logged!!');
-      this.router.navigate(['/user/profile']);
+      $('.modal-backdrop').remove();
+      if(this._authService.hasRole('ROLE_USER'))
+      {
+        this.router.navigate(['/user/profile']);
+      }
+      else if( this._authService.hasRole('ROLE_ADMIN'))
+      {
+        this.router.navigate(['/admin/users']);
+      }
+
     },
     err =>
     {
