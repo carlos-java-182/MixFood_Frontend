@@ -19,48 +19,54 @@
 <section class="submit-recipe-page-wrap padding-top-45 padding-bottom-50">
     <div class="container">
         <div class="row gutters-60">
-            <div class="col-lg-5">
-                <br>
+            <div class="col-lg-4">
                 <!-- Form Start Here -->
                 <form 
                 [formGroup]="form"
                 class="submit-recipe-form"
                 novalidate>
                     <!-- Input Name Start Here -->
-                    <div class="form-group">
+                    <div class="form-group col-lg-12">
                         <label>Name</label>
                         <input 
                         formControlName="name"
                         id="name"
                         placeholder="Tomato" 
                         class="form-control "    
-                        [ngClass]="{'is-invalid': form.get('name').errors.required && form.get('name').touched}"
+                        (click)="hiddeAlreadyExists()"
                         data-error="Name field is required"
-                        required>       
+                        required>                      
                         <div class="input-errors" >
                            <span> Please write a name.</span>
                            <span> This name exists in db.</span>
                         </div>
-
+                        <div  class="input-errors" [ngClass]="{'is-invalid-input': isAlreadyExists}">
+                            This ingredient already exists.
+                        </div>
+                    </div>
+                    <div class="form-group col-lg-2">
+                       
+                        <button [disabled]="form.invalid" *ngIf="!isEdit" type="submit" (click)="create()" class="btn-submit">CREATE</button>
+                        <button  [disabled]="form.invalid" *ngIf="isEdit" type="submit" (click)="update()" class="btn-submit">UPDATE</button>   
                     </div>
                     <!-- Input Name End Here -->
-                 
-                   <button [disabled]="form.invalid" *ngIf="!isEdit" type="submit" (click)="create()" class="btn-submit">CREATE</button>
-                   <button  [disabled]="form.invalid" *ngIf="isEdit" type="submit" (click)="update()" class="btn-submit">UPDATE</button>
-                </form>
+
+                </form>           
             </div>
-            <div class="col-lg-8">
-                <div class="author-box-layout1">
-                    <div class="adv-search-wrap">
-                        <div class="input-group">
-                            <input [(ngModel)]="serarchTem" #searchTem type="text" class="form-control" placeholder="Ingredient Name Search . . ." />
-                            <div class="btn-group">
-                                <div class="input-group-btn">
-                                    <button (click)="search(searchTem.value)" class="btn-search"><i class="flaticon-search"></i></button>
-                                </div>
+            <div class="col-lg-4">
+                <div class="adv-search-wrap ">
+                    <div class="input-group">
+                        <input [(ngModel)]="serarchTem" #searchTem type="text" class="form-control" placeholder="Ingredient Name Search . . ." />
+                        <div class="btn-group">
+                            <div class="input-group-btn">
+                                <button (click)="search(searchTem.value)" class="btn-search"><i class="flaticon-search"></i></button>
                             </div>
                         </div>
                     </div>
+                </div>
+            </div>
+            <div class="col-lg-8">
+                <div class="author-box-layout1">
                     <h3  class="author-section-title">Total {{totalItems}} Ingredients</h3>
                     <div class="table-responsive">
                         <!-- Alert Not Found Start Here -->
@@ -103,7 +109,6 @@
                         </pagination-controls>
                         <!-- Pagination End Here -->
                     </div>
-                  
                 </div>
             </div>
         </div>

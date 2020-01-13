@@ -20,11 +20,13 @@ export class CreateingredientsAdminComponent implements OnInit {
   private searchTerm: string = '';
 
   private isEdit: boolean = false;
+  private isAlreadyExists: boolean = false;
   //*Objects declaration
   private ingredients = [];
 
   private form: FormGroup;
-  constructor(private _ingredientService: IngredientService,private formBuilder: FormBuilder)
+  constructor(private _ingredientService: IngredientService,
+    private formBuilder: FormBuilder)
   {
   
   }
@@ -103,6 +105,10 @@ export class CreateingredientsAdminComponent implements OnInit {
     },
     err =>
     {
+      if(err.status == 404)
+      {
+        this.isAlreadyExists = true;
+      }
       console.log(err);
     });
   }
@@ -119,6 +125,10 @@ export class CreateingredientsAdminComponent implements OnInit {
     },
     err =>
     {
+      if(err.status == 404)
+      {
+        this.isAlreadyExists = true;
+      }
       console.log(err);
     });
   }
@@ -149,5 +159,13 @@ export class CreateingredientsAdminComponent implements OnInit {
       {
         console.log(err);
       })
+  }
+
+  private hiddeAlreadyExists(): void
+  {
+    if(this.isAlreadyExists)
+    {
+      this.isAlreadyExists = false;
+    }
   }
 }
