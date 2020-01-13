@@ -226,7 +226,7 @@
     width: 150px;
     margin: auto;
     /* padding: 0px 5px; */
-    background-color: violet;
+    /* background-color: violet; */
 }
 
 .btn-show-more
@@ -236,7 +236,7 @@
 
 .btn-show-more span
 {
-    color: #111;
+    color: #ff4a52;
     font-size: 18px;
     transition: all 0.3s ease-in-out;
     /* font-weight: 600; */
@@ -245,7 +245,7 @@
 
 .btn-show-more span:hover
 {
-	color: #ff4a52;
+	color: #f52f39;
 	transition: all 0.3s ease-out;
 }
 

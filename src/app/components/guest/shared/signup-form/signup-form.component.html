@@ -51,6 +51,9 @@
             [ngClass]="{'has-error': signupForm.get('email').errors && signupForm.get('email').touched}">   
             <label for="">Email</label>
             <input formControlName="email" class="main-input-box" type="email" placeholder="" required/>
+            <div [ngClass]="{'is-invalid-input': isEmailInUse}" class="input-errors">
+                The email is already in use.
+            </div>
         </div>
         <div class="col-lg-12" [ngClass]="{'has-error': signupForm.get('password').errors && signupForm.get('password').touched}">   
             <label for="">Password</label>
