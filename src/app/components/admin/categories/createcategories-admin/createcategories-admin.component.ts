@@ -8,7 +8,8 @@ import { ImageService } from 'src/app/services/image.service';
 @Component({
   selector: 'app-createcategories-admin',
   templateUrl: './createcategories-admin.component.html',
-  styleUrls: ['./createcategories-admin.component.css']
+  styleUrls: ['./createcategories-admin.component.css',
+  '../../../../../assets/css/tableStyles.css']
 })
 export class CreatecategoriesAdminComponent implements OnInit {
 

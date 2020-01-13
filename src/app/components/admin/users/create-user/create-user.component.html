@@ -1,0 +1,213 @@
+<!-- User Navabar Start Here -->
+<app-navbar-admin></app-navbar-admin>
+<!-- User Navabar End Here -->
+<!-- Inne Page Banner Area Start Here -->
+<section class="section-header inner-page-banner bg-common">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="breadcrumbs-area">
+                    <h1>Users</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Inne Page Banner Area End Here -->
+
+<!-- Submit Recipe Area Start Here -->
+<section class="submit-recipe-page-wrap padding-top-45 padding-bottom-50">
+    <div class="container">
+        <div class="row gutters-60">
+            <div class="col-lg-8">
+                <!-- Form Start Here -->
+                <form [formGroup]="form"
+                class="submit-recipe-form"
+                novalidate>
+                    <!-- Input Name Start Here -->
+                    <div class="row">
+                        <div class="form-group  col-lg-4">
+                            <label>Name</label>
+                            <input 
+                            formControlName="name"
+                            id="name"
+                            placeholder="Mexican" 
+                            class="form-control "    
+                            (click)="hiddeAlreadyExists()"
+                            data-error="Name field is required"
+                            required>                      
+                            <div class="input-errors" >
+                               <span> Please write a name.</span>
+                               <span> This name exists in db.</span>
+                            </div>
+                            <div  class="input-errors" [ngClass]="{'is-invalid-input': isAlreadyExists}">
+                                This category already exists.
+                            </div>
+                        </div>
+                        <div class="form-group col-lg-4">
+                            <label>Last name</label>
+                            <input 
+                            formControlName="lastname"
+                            id="name"
+                            placeholder="Mexican" 
+                            class="form-control "    
+                            (click)="hiddeAlreadyExists()"
+                            data-error="Name field is required"
+                            required>                      
+                            <div class="input-errors" >
+                               <span> Please write a lastname.</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group  col-lg-4">
+                            <label>Email</label>
+                            <input 
+                            formControlName="email"
+                            id="name"
+                            type="email"
+                            placeholder="email@example" 
+                            class="form-control "    
+                            (click)="hiddeAlreadyExists()"
+                            data-error="Name field is required"
+                            required>                      
+                            <div class="input-errors" >
+                               <span> Please write a name.</span>
+                               <span> This name exists in db.</span>
+                            </div>
+                            <div  class="input-errors" [ngClass]="{'is-invalid-input': isAlreadyExists}">
+                                This category already exists.
+                            </div>
+                        </div>
+                        <div class="form-group col-lg-4">
+                            <label>Password</label>
+                            <input 
+                            formControlName="password"
+                            id="name"
+                            type="password"
+                            placeholder="*******" 
+                            class="form-control "    
+                            (click)="hiddeAlreadyExists()"
+                            data-error="Name field is required"
+                            required>                      
+                            <div class="input-errors" >
+                               <span> Please write a lastname.</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-lg-4">
+                            <label for="">Role</label>
+                            <select formControlName="role" class="custom-select custom-select-crud">
+                                <option selected value="1">Admin</option>
+                                <option value="2">User</option>
+                            </select>
+                        </div>
+                        <div class="col-lg-4">
+                            <label for="">Status</label>
+                            <select formControlName="status" class="custom-select custom-select-crud">
+                                <option selected value="true">Active</option>
+                                <option value="false">Inactive</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <br>
+                    <div class="row">
+                        <div class="btn-group form-group col-lg-2">     
+                            <button   *ngIf="!isEdit"  type="submit" (click)="create()" class="btn-submit">CREATE</button>
+                            <button   *ngIf="isEdit" type="submit" (click)="update()" class="btn-submit">UPDATE</button>
+                        </div>
+                    </div>
+                </form>           
+            </div>
+
+            <div class="col-lg-12">
+                <div class="col-lg-10">
+                    <div class="adv-search-wrap row">
+                        <form (ngSubmit)="search(searchTerm.value) && searchTerm.value != ''" class="col-lg-6" novalidate>
+                            <div class="input-group col-lg-12">
+                                <input #searchTerm type="text" class="form-control" placeholder="Recipe name. . ." required>
+                                <div class="btn-group">
+                                    <div class="input-group-btn">
+                                        <button type="submit" class="btn-search"><i class="flaticon-search"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                
+                        <div class="input-group col-lg-2">
+                            <select [(ngModel)]="status" (change)="getByStatus()" class="custom-select custom-select-search"  name="" id="">
+                                <option selected value="true">Active</option>
+                                <option  value="false">Inactive</option>
+                            </select>
+                        </div>
+                        <div class="input-group col-lg-2">
+                            <select [(ngModel)]="role" (change)="getByStatus()" class="custom-select custom-select-search"  name="" id="">
+                                <option selected value="1">Admin</option>
+                                <option value="2">User</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="author-box-layout1">
+                    <h3  class="author-section-title">Total {{totalItems}} Users</h3>
+                    <div class="table-responsive">
+                        <!-- Alert Not Found Start Here -->
+                        <div *ngIf="users.length == 0" class="col-lg-12 alert alert-info" role="alert">
+                            <h4 class="alert-heading"><i class="fas fa-info-circle"></i> Results not found!</h4>
+                            <p *ngIf="searchTerm != '' && users.length == 0">No results were found with the term: <b>{{searchTem}}</b></p>
+                            <p *ngIf="searchTerm == '' ">No results were found!</p>
+                        </div>
+                        <!-- Alert Not Found Stop Here -->
+                        <table *ngIf="users.length > 0"  class="table table-striped table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Last name</th>
+                                    <th>Email</th>
+                                    <th>Role</th>
+                                    <th>Status</th>
+                                    <th>Create At</th> 
+                                    <th>Update At</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let user of users | paginate: {id: 'pagination-nav', itemsPerPage: itemsPerPage, currentPage: currentPage, totalItems: totalItems}; let i = index">
+                                    <th>{{user.name}}</th>
+                                    <th>{{user.lastname}}</th>
+                                    <th>{{user.email}}</th>
+                                    <th>{{user.roles.type}}</th>
+                                    <th>
+                                        <span  class="badge badge-success" *ngIf="user.enabled">Active</span>
+                                        <span  class="badge badge-warning" *ngIf="!user.enabled">Inactive</span>
+                                    </th>
+                                    <td>{{user.createAt}}</td>
+                                    <td>{{user.updateAt}}</td>
+                                    <td>
+                                        <button class="btn-table btn btn-warning" (click)="edit(i)"><i class="fas fa-pencil-alt"></i></button>
+                                        <button class="btn-table btn btn-danger" (click)="remove(i)"><i class="fas fa-trash"></i></button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <!-- Pagination Start Here -->
+                        <pagination-controls 
+                        *ngIf="totalPages > 1"
+                        id="pagination-nav"
+                        (pageChange)="getPage($event)"
+                        previousLabel=""
+                        nextLabel=""
+                        responsive="true"
+                        screenReaderPaginationLabel="Pagination">
+                        </pagination-controls>
+                        <!-- Pagination End Here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Submit Recipe Area End Here -->

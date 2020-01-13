@@ -1,1 +1,70 @@
-<p>navbar-admin works!</p>
+<!-- Header Area Start Here -->
+<header class="header-one">
+    <div id="header-main-menu" class="header-main-menu header-sticky">
+        <div class="container">                    
+            <div class="row">
+                <div class="col-lg-8 col-md-3 col-sm-4 col-4 possition-static">
+                    <div class="site-logo-mobile">
+                        <a href="index.html" class="sticky-logo-light"><img src="assets/img/logo-light.png" alt="Site Logo"></a>
+                        <a href="index.html" class="sticky-logo-dark"><img src="assets/img/logo-dark.png" alt="Site Logo"></a>
+                    </div>
+                    <nav class="site-nav">
+                        <ul id="site-menu" class="site-menu" [ngClass]="{'menu-mobile': isMobile}">
+                            <a class="navbar-brand" href="#">
+                                <img src="assets/img/logo-light.png" width="150" height="100" alt="Logo">
+                            </a>
+                            <li>
+                                <a class="pointer hover" [routerLink]="['/admin/users']"><i class="fas fa-home"></i> Users</a>
+                            </li>
+                            <li>
+                                <a class="pointer hover" [routerLink]="['/admin/tags']" routerLinkActive="router-link-active" >
+                                    <i class="fas fa-utensils"></i>
+                                    Tags
+                                </a>
+                            </li>
+                            <li>
+                                <a class="pointer hover" [routerLink]="['/admin/categories']" routerLinkActive="router-link-active" >
+                                    <i class="fas fa-utensils"></i>
+                                    Categories
+                                </a>
+                            </li>
+                            <li>
+                                <a class="pointer hover" [routerLink]="['/admin/ingredients']" routerLinkActive="router-link-active"  >
+                                    <i class="fas fa-utensils"></i>
+                                    Ingredients
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+                <div class="col-lg-4 col-md-9 col-sm-8 col-8 d-flex align-items-center justify-content-end">
+                    <div class="nav-action-elements-layout1">
+                        <ul id="site-menu" 
+                        class="site-menu user-menu" [ngClass]="{'menu-mobile': isMobile}">
+                            <li>
+                                <a class="pointer hover">
+                                    <i class="fas fa-user"></i> {{username}}
+                                </a>
+                                <ul class="dropdown-menu-col-1">
+                                    <li>
+                                        <a [routerLink]="['/user/profile']"><i class="fas fa-user-circle"></i> Profile</a>
+                                    </li>                                 
+                                    <li>
+                                        <a class="pointer" (click)="logout()"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                                    </li>       
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="mob-menu-open toggle-menu" (click)="showMobileMenu()">
+                        <span class="bar"></span>
+                        <span class="bar"></span>
+                        <span class="bar"></span>
+                        <span class="bar"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+<!-- Header Area End Here -->

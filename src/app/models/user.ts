@@ -11,6 +11,7 @@ export class User
   dateBirth: string;
   porfileimageRoute: string;
   description: string;
+  enabled: boolean;
   status: string;
   roles: string[] = [];
 }

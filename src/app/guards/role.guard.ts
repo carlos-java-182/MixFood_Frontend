@@ -25,6 +25,7 @@ export class RoleGuard implements CanActivate
       }
     
     let role = next.data['role'] as string;
+    console.log(role);
     //console.log('ROLE in roles: '+role);
     if(this._authServiche.hasRole(role))
     {
@@ -32,7 +33,7 @@ export class RoleGuard implements CanActivate
       return true;
     }  
     console.log('ACCESS DENEGATE!!!');
-    this.router.navigate(['/login']);
+    this.router.navigate(['/error404']);
     return false;
   } 
 }

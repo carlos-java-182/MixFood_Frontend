@@ -46,6 +46,9 @@ import { FavoritesComponent } from './components/user/favorites/favorites.compon
 import { AuthGuard } from './guards/auth.guard';
 import {ProfileUserComponent} from './components/user/profile/profile-user/profile-user.component';
 import { RoleGuard } from './guards/role.guard';
+import { CreateUserComponent } from './components/admin/users/create-user/create-user.component';
+import { Error404Component } from './components/shared/error404/error404.component';
+
 //*Crud example imports
 
 
@@ -54,15 +57,14 @@ import { RoleGuard } from './guards/role.guard';
 const routes: Routes = [
   
   //*User routes
-  {component: ProfileUserComponent, path: 'user/profile-user', canActivate:[AuthGuard]},
+  // {component: ProfileUserComponent, path: 'user/profile-user', canActivate:[AuthGuard]},
   {component: HomeUserComponent, path: 'user/home'},
-
-  {component: RecipesUserComponent, path: 'user/recipes', canActivate:[AuthGuard]},
-  {component: CreaterecipeUserComponent, path: 'user/recipes/create'},
-  {component: EditrecipeUserComponent, path: 'user/recipes/edit/:id', canActivate:[AuthGuard]},
-  {component: RecipesUserComponent, path: 'user/recipes/page/:page/status/:status', canActivate:[AuthGuard]},
-  {component: RecipesUserComponent, path: 'user/recipes/page/:page/term/:term/status/:status', canActivate:[AuthGuard]},
-  {component: ProfileUserComponent, path: 'user/profile',canActivate: [AuthGuard],data: {role: 'ROLE_USER'}},
+  {component: RecipesUserComponent, path: 'user/recipes', canActivate:[AuthGuard, RoleGuard]},
+  {component: CreaterecipeUserComponent, path: 'user/recipes/create',canActivate:[AuthGuard, RoleGuard], data: {role: 'ROLE_USER'}},
+  {component: EditrecipeUserComponent, path: 'user/recipes/edit/:id', canActivate:[AuthGuard, RoleGuard], data: {role: 'ROLE_USER'}},
+  {component: RecipesUserComponent, path: 'user/recipes/page/:page/status/:status', canActivate:[AuthGuard, RoleGuard], data: {role: 'ROLE_USER'}},
+  {component: RecipesUserComponent, path: 'user/recipes/page/:page/term/:term/status/:status', canActivate:[AuthGuard, RoleGuard], data: {role: 'ROLE_USER'}},
+  {component: ProfileUserComponent, path: 'user/profile',canActivate: [AuthGuard, RoleGuard],data: {role: 'ROLE_USER'}},
  
   //*Guest routes
   {component: HomeGuestComponent, path: ''},
@@ -82,22 +84,19 @@ const routes: Routes = [
   {component: SearchresultsComponent, path: 'search/ingredient/:ingredient/page/:page'},
 
   //*Admin routes
-  {component: HomeAdminComponent, path: 'admin/home', canActivate:[AuthGuard]},
-  {component: IngredientsAdminComponent, path: 'admin/ingredients', canActivate:[AuthGuard]},
-  {component: CreateingredientsAdminComponent, path: 'admin/ingredients/create'},
-  {component: EditingredientsAdminComponent, path: 'admin/ingredients/ediit/:id', canActivate:[AuthGuard]},
-  {component: CategoriesAdminComponent, path: 'admin/categories'},
-  {component: CreatecategoriesAdminComponent, path: 'admin/categories/create'},
-  {component: EditcategoriesAdminComponent, path: 'admin/categories/edit/:id', canActivate:[AuthGuard]},
-  {component: UsersAdminComponent, path: 'admin/users', canActivate:[AuthGuard]},
-  {component: CreatetagsAdminComponent, path: 'admin/users/create', canActivate:[AuthGuard]},
-  {component: EditusersAdminComponent, path: 'admin/users/edit/:id', canActivate:[AuthGuard]},
-  {component: TagsAdminComponent, path: 'admin/tags', canActivate:[AuthGuard]},
-  {component: EdittagsAdminComponent, path: 'admin/tags/edit/:id', canActivate:[AuthGuard]},
-  {component:CreatetagsAdminComponent, path: 'admin/tags/create'},
+  {component: HomeAdminComponent, path: 'admin/home', canActivate:[AuthGuard, RoleGuard], data: {role: 'ROLE_ADMIN'}},
+
+  {component: CreateingredientsAdminComponent, path: 'admin/ingredients', canActivate:[AuthGuard, RoleGuard], data: {role: 'ROLE_ADMIN'}},
+
+  {component: CreatecategoriesAdminComponent, path: 'admin/categories', canActivate:[AuthGuard, RoleGuard], data: {role: 'ROLE_ADMIN'}},
+
+  {component: CreateUserComponent, path: 'admin/users', canActivate:[AuthGuard, RoleGuard], data: {role: 'ROLE_ADMIN'}},
+
+  {component:CreatetagsAdminComponent, path: 'admin/tags', canActivate:[AuthGuard, RoleGuard], data: {role: 'ROLE_ADMIN'}},
 
   //*Shared components
-  {component: UserprofileComponent, path: 'profile/:id'}
+  {component: UserprofileComponent, path: 'profile/:id'},
+  {component: Error404Component, path: 'error404'}
 ];
 
 @NgModule({
