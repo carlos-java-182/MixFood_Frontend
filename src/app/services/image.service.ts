@@ -80,4 +80,18 @@ export class ImageService {
     return this.http.delete(`${this.url}/recipes/${id}`);
   }
 
+  public uploadImageCategory(id, file: File):Observable<any>
+  {
+    let formData = new FormData();
+    formData.append('file',file);
+    formData.append('id',id);
+    let httpHeaders = new HttpHeaders();
+    let token = this._authService.token;
+    if(token != null)
+    {
+      httpHeaders =  httpHeaders.append('Authorization', 'Bearer '+ token); 
+    }
+    return this.http.post(`${this.url}uploads/categories`,formData,{headers: httpHeaders});
+  }
+
 }

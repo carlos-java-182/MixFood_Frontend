@@ -82,6 +82,8 @@ export class CategoryService {
   {
     return this.http.delete(`${this.url}${id}`,{headers: this.addAuthorizationHeader()});
   }
+
+
   
 }
 

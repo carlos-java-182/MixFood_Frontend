@@ -76,7 +76,7 @@
                             <p *ngIf="searchTerm == '' ">No results were found!</p>
                         </div>
                         <!-- Alert Not Found Stop Here -->
-                        <table *ngIf="tags.length > 0"  class="table table-striped">
+                        <table *ngIf="tags.length > 0"  class="table table-striped table-hover">
                             <thead>
                                 <tr>
                                     <th>Name</th>
@@ -86,13 +86,13 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr *ngFor="let tag of tags | paginate: {id: 'pagination-nav', itemsPerPage: itemsPerPage, currentPage: currentPage, totalItems: totalItems}; let i = index">
+                                <tr class="table-row"  *ngFor="let tag of tags | paginate: {id: 'pagination-nav', itemsPerPage: itemsPerPage, currentPage: currentPage, totalItems: totalItems}; let i = index">
                                     <th>{{tag.name}}</th>
                                     <td>{{tag.createAt}}</td>
                                     <td>{{tag.updateAt}}</td>
                                     <td>
-                                        <button class="btn-table-edit" (click)="edit(i)"><i class="fas fa-pencil-alt"></i></button>
-                                        <button class="btn-table-remove" (click)="remove(i)"><i class="fas fa-trash"></i></button>
+                                        <button class="btn-table btn btn-warning" (click)="edit(i)"><i class="fas fa-pencil-alt"></i></button>
+                                        <button class="btn-table btn btn-danger" (click)="remove(i)"><i class="fas fa-trash"></i></button>
                                     </td>
                                 </tr>
                             </tbody>

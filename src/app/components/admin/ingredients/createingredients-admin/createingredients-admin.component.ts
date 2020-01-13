@@ -6,7 +6,8 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 @Component({
   selector: 'app-createingredients-admin',
   templateUrl: './createingredients-admin.component.html',
-  styleUrls: ['./createingredients-admin.component.css']
+  styleUrls: ['./createingredients-admin.component.css',
+  '../../../../../assets/css/tableStyles.css']
 })
 export class CreateingredientsAdminComponent implements OnInit {
   //*Variables declaration

@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnInit } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { User } from '../models/user';
@@ -79,6 +79,30 @@ export class UserService {
     return this.http.put(`${this.url}settings/password/${id}`,passwords,{headers: this.addAuthorizationHeader()});
   }
 
+  public getPaginate(status: boolean,page: number,items: number):Observable<any>
+  {
+    return this.http.get(`${this.url}enabled/${status}/page/${page}/items/${items}`,{headers: this.addAuthorizationHeader()});
+  }
+
+  public getPaginateByTerm(status: boolean,term: string,page: number,items: number):Observable<any>
+  {
+    return this.http.get(`${this.url}enabled/${status}/page/${page}/items/${items}/term/${term}`,{headers: this.addAuthorizationHeader()});
+  }
+
+  public create(user: User):Observable<User>
+  {
+    return this.http.post<User>(`${this.url}`,JSON.stringify(user),{headers: this.addAuthorizationHeader()});
+  }
+
+  public update(id: number,user: User):Observable<any>
+  {
+    return this.http.put<User>(`${this.url}${id}`,user,{headers: this.addAuthorizationHeader()});
+  }
+
+  public delete(id: number):Observable<any>
+  {
+    return this.http.delete<User>(`${this.url}${id}`,{headers: this.addAuthorizationHeader()});
+  }
  
   
 }

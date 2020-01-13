@@ -4,7 +4,6 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
-
 import { NavbarUserComponent } from './components/user/shared/navbar-user/navbar-user.component';
 import { HomeUserComponent } from './components/user/home-user/home-user.component';
 import { FooterComponent } from './components/shared/footer/footer.component';
@@ -68,7 +67,10 @@ import { CategoriesComponent } from './components/shared/categories/categories.c
 import { LoginFormComponent } from './components/guest/shared/login-form/login-form.component';
 import { FollowersComponent } from './components/user/followers/followers.component';
 
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations'; 
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { CreateUserComponent } from './components/admin/users/create-user/create-user.component';
+import { Error404Component } from './components/shared/error404/error404.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -121,7 +123,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     FormRecipeComponent,
     CategoriesComponent,
     LoginFormComponent,
-    FollowersComponent
+    FollowersComponent,
+    CreateUserComponent,
+    Error404Component,
   ],
   imports: [
     BrowserModule,

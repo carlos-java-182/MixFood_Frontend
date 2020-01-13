@@ -3,3 +3,87 @@
     height: 80px;
     width: 80px;
 }
+
+
+/*=============================================
+=            Section Input file            =
+=============================================*/
+
+.upload-btn-wrapper {
+    position: relative;
+    overflow: hidden;
+    display: inline-block;
+  }
+  
+  /* .btn {
+    border: 1px solid #722040;
+    color: white;
+    background-color: #d3394c;
+    padding: 8px 20px;
+    border-radius: 2px;
+    font-size: 20px;
+    font-weight: bold;
+  } */
+  
+  .upload-btn-wrapper input[type=file] {
+    font-size: 100px;
+    position: absolute;
+    left: 0;
+    top: 0;
+    opacity: 0;
+  }
+
+/*=====  End of Section Input file  ======*/
+
+.file-container 
+{
+    /* position: relative; */
+    /* background-color: red !important; */
+}
+
+.custom-file
+{
+    /* position: absolute; */
+    /* bottom: 0; */
+}
+
+.custom-file
+{
+    height: 50px;
+}
+
+.custom-file .custom-file-input
+{
+    height: 100%;
+}
+
+.custom-file .custom-file-label
+{
+    height: 100%;
+}
+
+.btn-group
+{
+    /* background-color: red; */
+    /* position: relative; */
+}
+
+.btn-group button
+{
+    /* position: absolute; */
+    /* bottom: 0; */
+}
+
+.prev-image-container
+{
+    background-color: rgb(206, 206, 206);
+    border: 1px solid rgba(1,1,1,0.2);
+    height: 200px;
+    width: 200px;
+}
+
+.prev-image-container img 
+{
+    width: 100%;
+    height: 100%;
+}

@@ -5,4 +5,5 @@ export class Category
     thumbRoute: string;
     createAt: string;
     updateAt: string;
+    amountRecipes: number = 0;
 }

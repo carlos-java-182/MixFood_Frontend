@@ -6,7 +6,8 @@ import { Tag } from 'src/app/models/tag';
 @Component({
   selector: 'app-createtags-admin',
   templateUrl: './createtags-admin.component.html',
-  styleUrls: ['./createtags-admin.component.css']
+  styleUrls: ['./createtags-admin.component.css',
+    '../../../../../assets/css/tableStyles.css']
 })
 export class CreatetagsAdminComponent implements OnInit 
 {

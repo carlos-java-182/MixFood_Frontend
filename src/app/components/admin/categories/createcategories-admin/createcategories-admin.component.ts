@@ -2,11 +2,14 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { CategoryService } from 'src/app/services/category.service';
 import { Category } from 'src/app/models/category';
+import { renderFlagCheckIfStmt } from '@angular/compiler/src/render3/view/template';
+import { ImageService } from 'src/app/services/image.service';
 
 @Component({
   selector: 'app-createcategories-admin',
   templateUrl: './createcategories-admin.component.html',
-  styleUrls: ['./createcategories-admin.component.css']
+  styleUrls: ['./createcategories-admin.component.css',
+  '../../../../../assets/css/tableStyles.css']
 })
 export class CreatecategoriesAdminComponent implements OnInit {
 
@@ -15,18 +18,23 @@ export class CreatecategoriesAdminComponent implements OnInit {
  private totalItems: number = 0;
  private currentPage = 1;
  private totalPages: number;
- private idTag: number;
+ private idCategory: number;
  private index: number;
 
  private searchTerm: string = '';
+ private imageURL: string;
 
+ private isChangeImage: boolean = false;
  private isEdit: boolean = false;
  private isAlreadyExists: boolean = false;
  //*Objects declaration
  private categories = [];
 
  private form: FormGroup;
-  constructor(private formBuilder: FormBuilder, private _categoryService: CategoryService) { }
+ private image: File;
+  constructor(private formBuilder: FormBuilder,
+    private _categoryService: CategoryService,
+    private _imageService: ImageService) { }
 
   ngOnInit() 
   {
@@ -81,9 +89,14 @@ export class CreatecategoriesAdminComponent implements OnInit {
   private edit(index: number)
   {
     this.index = index;
-    this.idTag  = this.categories[index].id;
-    this.form.setValue({name: this.categories[index].name });
+    this.idCategory  = this.categories[index].id;
+    this.form.setValue({
+      name: this.categories[index].name,
+      image: ''
+    });
+    this.imageURL = this.categories[index].thumbRoute;
     this.isEdit = true;
+    this.isChangeImage = false;
   }
 
   private getPage(page: number)
@@ -93,23 +106,46 @@ export class CreatecategoriesAdminComponent implements OnInit {
 
   private update(): void 
   {
+    console.log('in update')
+    console.log(this.form.value);
     let category = new Category();
     category.name = this.form.get('name').value;
-    this._categoryService.update(this.idTag,tag).subscribe(response =>
+    
+    if(this.form.get('image').value != '' )
     {
-      console.log(response);
-      this.categories[this.index] = response; 
-      this.form.reset();
-      this.isEdit = false;
-    },
-    err =>
+      this._imageService.uploadImageCategory(this.idCategory, this.image).subscribe(response =>
+        {
+          console.log(response);
+        },
+        err =>
+        {
+          console.log(err)
+        });
+    }
+
+    if(this.categories[this.index].name != category.name)
     {
-      if(err.status == 404)
-      {
-        this.isAlreadyExists = true;
-      }
-      console.log(err);
-    });
+      this._categoryService.update(this.idCategory,category).subscribe(response =>
+        {
+          console.log(response);
+          this.categories[this.index] = response; 
+          if(category.thumbRoute != '')
+          {
+          }
+    
+          this.form.reset();
+          this.isEdit = false;
+        },
+        err =>
+        {
+          if(err.status == 404)
+          {
+            this.isAlreadyExists = true;
+          }
+          console.log(err);
+        });
+    }
+   
   }
 
   private create()
@@ -121,6 +157,13 @@ export class CreatecategoriesAdminComponent implements OnInit {
     {
       console.log(response);
       this.categories.push(response.category);
+      this._imageService.uploadImageCategory(response.id, this.image).subscribe(response =>{
+        console.log(response);
+      },
+      err =>
+      {
+        console.log(err);
+      });
       this.form.reset();
     },
     err =>
@@ -167,6 +210,27 @@ export class CreatecategoriesAdminComponent implements OnInit {
     {
       this.isAlreadyExists = false;
     }
+  }
+
+  private onFileSelected(event: any): void
+  {
+    
+    //*Declare object reader for read file
+    const reader = new FileReader();
+
+    console.log('In file')
+    this.imageURL = '';
+    this.image = null;
+    //*Get image
+    this.image = event.target.files[0];
+
+    reader.readAsDataURL(event.target.files[0]);
+    reader.onload = (event: any) =>
+    {
+      this.imageURL = event.target.result;
+    }
+    console.log(event.target.files[0]);
+    this.isChangeImage = true;
   }
 
 
