@@ -10,12 +10,14 @@ import { CategoryService, CategoryCard } from 'src/app/services/category.service
 import { DomSanitizer } from '@angular/platform-browser';
 import { isDate } from 'util';
 import { AuthService } from 'src/app/services/auth.service';
+import { FavoriteService, Favorite } from 'src/app/services/favorite.service';
 @Component({
   selector: 'app-recipe',
   templateUrl: './recipe.component.html',
   styleUrls: ['./recipe.component.css']
 })
-export class RecipeComponent implements OnInit {
+export class RecipeComponent implements OnInit 
+{
   //*Variables declaration
   private id: number;
   private idUser: number;
@@ -34,7 +36,7 @@ export class RecipeComponent implements OnInit {
   private views: number;
   private rating: number = 0;
   private totalRankings = 0;
-  private isLiked = false;
+ 
   private currentPageRankings: number = 0;
   private totalPagesRankings: number;
 
@@ -42,6 +44,8 @@ export class RecipeComponent implements OnInit {
   private isRankingsAvailable: boolean = false;
   private isCommented: boolean = false;
   private showAlert: boolean = false;
+  private isLiked: boolean = false;
+  private isFavorite: boolean = false;
   private isLoggedIn: boolean = this._authService.isAuthenticated();
 
   //private videoFrame: string;
@@ -68,6 +72,7 @@ export class RecipeComponent implements OnInit {
               private _tagService: TagService,
               private _categoryService: CategoryService,
               private _authService: AuthService,
+              private _favoriteService: FavoriteService,
               private activatedRoute: ActivatedRoute,
               private router: Router,
               private formBuilder: FormBuilder,
@@ -91,7 +96,7 @@ export class RecipeComponent implements OnInit {
         this.id = Number.parseInt(params.get('id'));
         
         //*Validate if user is logged
-        if(this._authService.isAuthenticated)
+        if(this._authService.isAuthenticated())
         {
           console.log('USER IN ')
           //*Get id user 
@@ -123,13 +128,21 @@ export class RecipeComponent implements OnInit {
           
           this._rankingService.validateUserLoggedRanking(this.id).subscribe(response =>
           {
-            console.log('NOP')
             console.log(response);
           },
           err =>
           {
             this.isCommented = true;
-            console.log(err);
+          });
+
+          //*Validate if exits favorite
+          this._favoriteService.validate(this.id,idUser).subscribe(response =>
+          {
+            this.isFavorite = false;
+          },
+          err =>
+          {
+            this.isFavorite = true;
           });
          }
         else 
@@ -141,7 +154,6 @@ export class RecipeComponent implements OnInit {
         this.getCategoriesList();
         this.getRankingComments(this.id);
         this.getTrends();
-
       });
 
      // this.getRecipeById(1);
@@ -184,14 +196,15 @@ export class RecipeComponent implements OnInit {
       this.images = data.images;
       this.ingredients = data.recipeIngredients;
       this.tags = data.tags;
+      this.idUser = data.user.id;
      
     ///  console.log(this.images);
       this.totalRankings = this.rankings.length;
-      this.idUser = data.user.id;
+      let idUser = data.user.id;
 
       this.arr.push(1);
-      this.getRecipesLatests(this.idUser);
-      this.getRecipesCardsFeatured(this.idUser);
+      this.getRecipesLatests(idUser);
+      this.getRecipesCardsFeatured(idUser);
     });
     //console.log(this.arr);  
   } 
@@ -211,7 +224,6 @@ export class RecipeComponent implements OnInit {
     this._recipeService.getRecipesCardsFeatured(id,5).subscribe(data =>
     {
         this.recipesFeatured = data;
-      //  console.log(this.recipesFeatured);
     });
   }
 
@@ -220,7 +232,6 @@ export class RecipeComponent implements OnInit {
     let path = `search/category/${id}/page/1`;
     this.router.navigate([path]);
   }
-
 
   private getCategoriesList(): void
   {
@@ -369,7 +380,6 @@ export class RecipeComponent implements OnInit {
         {
           this.rankings.push(response.content[i] as RankingComment);
         }
-        //console.log(response)
       },
       err =>
       {
@@ -401,6 +411,56 @@ export class RecipeComponent implements OnInit {
     {
       console.log(err);
     });
+  }
+
+    /**
+   **This function sends the user id and recipe to service to create a favorite
+   * @param idRecipe: id recipe 
+   */
+  private addToFavorite(): void
+  {
+    let idUser = this._authService.user.id;
+    let favorite: Favorite = 
+    {
+      user:
+      {
+        id: idUser
+      },
+      recipe:
+      {
+        id: this.id
+      }
+    };
+    this._favoriteService.create(favorite).subscribe(response =>
+    {
+      this.isFavorite = true;
+    },
+    err =>
+    {
+      console.log(err);
+    });
+  }
+
+  /**
+   **This function sends the user id and recipe to service to delete a favorite 
+   * @param id: id Recipe
+   */
+  private removeFavorite()
+  {
+    let idUser = this._authService.user.id;
+    this._favoriteService.remove(this.id, idUser).subscribe(response =>
+    {
+      this.isFavorite = false;
+    },
+    err =>
+    {
+
+    });
+  }
+
+  private validateFavorite()
+  {
+    
   }
 }
 

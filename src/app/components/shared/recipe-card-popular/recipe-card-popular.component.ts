@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { RecipesService } from 'src/app/services/recipes.service';
 import { FavoriteService, Favorite } from 'src/app/services/favorite.service';
 import { Router } from '@angular/router';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-recipe-card-popular',
@@ -20,6 +21,7 @@ export class RecipeCardPopularComponent implements OnInit {
 
   constructor(private _recipeService: RecipesService,
               private _favoriteService: FavoriteService,
+              private _authService: AuthService,
               private router: Router
             ) { }
 
@@ -28,28 +30,36 @@ export class RecipeCardPopularComponent implements OnInit {
     //console.log();
     this.totalLikes = this.recipe.totalLikes;
     let idUser = 1;
-    //*Validate if exists favorite
-    this._favoriteService.show(this.recipe.id,idUser).subscribe(data =>
-    {
-      this.idFavorite = data.id;
-      this.isFavorite = true;
-    },
-    err =>
-    {
-      
-    });
+    this.isLoggedIn = this._authService.isAuthenticated();
+    //*Validate if user is authenticated
 
-    //*Validate if exists like
-    this._recipeService.validateLike(this.recipe.id).subscribe(response =>
+    if(this.isLoggedIn)
+    {
+        //*Validate if exists favorite
+      this._favoriteService.show(this.recipe.id,idUser).subscribe(data =>
+      {
+        this.idFavorite = data.id;
+        this.isFavorite = true;
+      },
+      err =>
+      {
+        
+      });
+  
+      //*Validate if exists like
+      this._recipeService.validateLike(this.recipe.id).subscribe(response =>
       {
         this.isLiked = false;
-       // console.log(response);
+        // console.log(response);
       },
       err =>
       {
         this.isLiked = true;  
-       // console.log(err);
+        // console.log(err);
       });
+    }
+    
+  
   }
 
   /**

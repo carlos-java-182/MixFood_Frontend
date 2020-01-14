@@ -36,14 +36,14 @@
                     </div>
                     <div class="widget-follow-us">
                         <ul>
-                            <li class="single-item" *ngFor="let social of socialNetworks">
+                            <li class="single-item socialnetworks-container" *ngFor="let social of socialNetworks">
                                 <a (click)="goToLink(social.link)">
                                     <i class="fab fa-facebook-f" *ngIf="social.network == 'FACEBOOK'"></i>
                                     <i class="fab fa-instagram" *ngIf="social.network == 'INSTAGRAM'"></i>
                                     <i class="fab fa-twitter" *ngIf="social.network == 'TWITTER'"></i>
                                     <i class="fab fa-linkedin-in" *ngIf="social.network == 'LINKEDIN'"></i>
                                     <i class="fab fa-youtube" *ngIf="social.network == 'YOUTUBE'"></i>
-                                    <i class="fab fa-pinterest-p" *ngIf="social.network == 'PRINTEREST'"></i>
+                                    <i class="fab fa-pinterest-p" *ngIf="social.network == 'PINTEREST'"></i>
                                     <span *ngIf="social.network == 'YOUTUBE'">SUBSCRIBE</span>
                                     <span *ngIf="social.network != 'YOUTUBE'">LIKE ME</span>            
                                 </a>
@@ -132,13 +132,14 @@
                                         <a><i class="fas fa-clock"></i>{{trending.createAt | timeAgo}}</a>
                                     </li>
                                     <li>
-                                        <a (click)="StartaLike(trending.id)">
+                                        <a *ngIf="isLoggedin" (click)="StartaLike(trending.id)">
                                             <i class="fas fa-heart"></i>
                                             <span *ngIf="isLiked && trending.totalLikes > 0">You and {{totalLikes}} others likes</span>
-                                            <span *ngIf="!isLiked && trending.totalLikes > 0">{{trending.totalLikes}} likes</span>
+                                            <span *ngIf="!isLiked && trending.totalLikes > 0">{{trending.totalLikes}} Likes</span>
                                             <span *ngIf="!isLiked && trending.totalLikes == 0" >Be the first to like</span>
                                             <span *ngIf="isLiked && trending.otalLikes == 0">You like this</span>
                                         </a>
+                                        <a *ngIf="!isLoggedIn" ><i class="fas fa-heart"></i>{{trending.totalLikes}} Likes</a>
                                     </li>
                                     <li>
                                         <a (click)="addToFavorite(trending.id)" *ngIf="!isFavorite && isLoggedin">

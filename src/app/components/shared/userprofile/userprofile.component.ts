@@ -8,6 +8,7 @@ import { concat } from 'rxjs';
 import { CategoryService, CategoryListUser } from 'src/app/services/category.service';
 import { FollowerService, NewFollower } from 'src/app/services/follower.service';
 import { FavoriteService, Favorite } from 'src/app/services/favorite.service';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-userprofile',
@@ -24,7 +25,7 @@ export class UserprofileComponent implements OnInit {
   private idFollower: number;
   private totalLikes: number = 1;
   private isFollowing: boolean = false;
-  private isLoggedin: boolean = true;
+  private isLoggedIn: boolean = false;
   private isLiked: boolean = false;
   private isFavorite: boolean = false;
   private userName: string;
@@ -47,6 +48,7 @@ export class UserprofileComponent implements OnInit {
               private _followerService: FollowerService,
               private _categorySerive: CategoryService,
               private _favoriteService: FavoriteService,
+              private _authService: AuthService,
               private router: Router) 
               { }
   ngOnInit() 
@@ -55,8 +57,11 @@ export class UserprofileComponent implements OnInit {
       this.id = Number.parseInt(params['id']);
       this.getProfileById(this.id);
     });
+    this.isLoggedIn = this._authService.isAuthenticated();
+    console.log(this.isLoggedIn);
+  
 
-    if(this.isLoggedin)
+    if(this.isLoggedIn)
     {
       let idUser = 1;
       let idRecipe = 1;

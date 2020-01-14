@@ -19,7 +19,7 @@
                             <ul class="entry-meta">
                                 <li class="single-meta"><a><i class="far fa-calendar-alt"></i>{{recipeCreateAt | date: 'yyyy-MM-dd'}}</a></li>
                                 <li class="single-meta">
-                                    <a class="pointer" (click)="goToProfile(idUser)">
+                                    <a class="pointer" [routerLink]="['/profile/',idUser]" routerLinkActive="router-link-active" >
                                         <i class="fas fa-user"></i><span>{{userName}}</span>
                                     </a>
                                 </li>
@@ -48,11 +48,15 @@
                         </div>
                         <div class="col-xl-3 col-12">
                             <ul class="entry-meta" *ngIf="isLoggedIn">
-                                <li class="btn-group-favorite">
-                                    <a class="icon-heart"><i class="fas fa-heart"></i>  <span> Remove favorite</span></a>
+                                <li class="btn-group-favorite" *ngIf="isFavortie">
+                                    <a  (click)="removeFavorite()" class="icon-heart pointer">
+                                        <i class="fas fa-heart"></i>  <span> Remove favorite</span>
+                                    </a>
                                 </li>
-                                <li class="btn-group-favorite">
-                                    <a class="icon-heart"><i class="far fa-heart"></i> <span>Add to favorites</span></a>
+                                <li class="btn-group-favorite" *ngIf="!isFavorite">
+                                    <a (click)="addToFavorite()" class="icon-heart pointer">
+                                        <i class="far fa-heart"></i> <span>Add to favorites</span>
+                                    </a>
                                 </li>
                             </ul>
                         </div>

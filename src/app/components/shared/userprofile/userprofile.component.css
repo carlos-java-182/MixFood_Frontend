@@ -11,3 +11,8 @@
 {
     display: block !important;
 }
+
+.socialnetworks-container a i
+{
+    color: #111;
+}

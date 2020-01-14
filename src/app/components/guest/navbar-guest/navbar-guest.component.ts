@@ -14,7 +14,6 @@ import { throwIfEmpty } from 'rxjs/operators';
   '../../../../assets/css/navbarsearchStyles.css']
 })
 export class NavbarGuestComponent implements OnInit {
-  @ViewChild('closeModalLogin',{static: false}) public closeModalLogin: ElementRef;
   @Input('term') term?: string;
   //*Variable declarations
   private categories: CategoryList[] = [];
@@ -40,7 +39,6 @@ export class NavbarGuestComponent implements OnInit {
   ngOnInit() 
   {
 
-    this.closeModalLogin.nativeElement.click();
     this.loginForm = this.formBuilder.group(
     {
       email: ['',[Validators.required,Validators.email]],
