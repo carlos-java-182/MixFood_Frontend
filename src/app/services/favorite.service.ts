@@ -42,6 +42,10 @@ export class FavoriteService {
     return this.http.get<any>(`${this.url}recipe/${idRecipe}/user/${idUser}`,{headers: this.addAuthorizationHeader()});
   }
 
+  public validate(idRecipe: number,idUser: number):Observable<any>
+  {
+    return this.http.get(`${this.url}validate/recipe/${idRecipe}/user/${idUser}`,{headers: this.addAuthorizationHeader()})
+  }
   public getCardsList(id: number,page: number,items: number):Observable<any>
   {
     return this.http.get(`${this.url}${id}/page/${page}/items/${items}`,{headers: this.addAuthorizationHeader()}).pipe(

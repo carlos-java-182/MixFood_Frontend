@@ -30,13 +30,15 @@
                 <a href="#"><i class="fas fa-clock"></i>{{recipe.createAt | timeAgo}}</a>
             </li>                            
             <li>
-                <a (click)="StartaLike(recipe.id)">
+                <a *ngIf="isLoggedIn" (click)="StartaLike(recipe.id)">
                     <i class="fas fa-heart"></i>
                     <span *ngIf="isLiked && totalLikes > 0">You and {{totalLikes}} others likes</span>
                     <span *ngIf="!isLiked && totalLikes > 0">{{recipe.totalLikes}} likes</span>
                     <span *ngIf="!isLiked && totalLikes == 0" >Be the first to like</span>
                     <span *ngIf="isLiked && totalLikes == 0">You like this</span>
                 </a>
+                <a *ngIf="!isLoggedIn"><i class="fas fa-heart"></i> {{totalLikes}} Likes</a>
+                <!-- <a *ngIf="!isLoggedIn && totalLikes == 1"><i class="fas fa-heart"></i> {{totalLikes}} Like</a> -->
             </li>  
             <li>
                 <a (click)="addToFavorite(recipe.id)" *ngIf="!isFavorite && isLoggedIn">
