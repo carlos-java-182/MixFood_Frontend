@@ -36,12 +36,12 @@ export class LoginFormComponent implements OnInit {
     //  email: this.loginForm.get('email').value,
     //  password: this.loginForm.get('password').value 
     // }
-    this.user.email = 'carlos3@mixfood.com';
-    this.user.password = 'password' ;
+    // this.user.email = 'carlos@mixfood.com';
+    // this.user.password = '123456' ;
     // this.user.email = 'york@mixfood.com';
     // this.user.password = '123456' ;
-    // this.user.email = this.loginForm.get('email').value;
-    // this.user.password = this.loginForm.get('password').value ;
+    this.user.email = this.loginForm.get('email').value;
+    this.user.password = this.loginForm.get('password').value ;
 
     this._authService.login(this.user).subscribe(response=>
     {

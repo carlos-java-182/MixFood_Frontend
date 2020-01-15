@@ -139,7 +139,7 @@ export class AuthService
   public isAuthenticated(): boolean
   {
     let payload = this.getDataToken(this.token);
-    console.log('token: '+ payload);
+    console.log('token: '+ payload.user_name);
     if(payload != null && payload.user_name.length > 0)
     {
       return true;
