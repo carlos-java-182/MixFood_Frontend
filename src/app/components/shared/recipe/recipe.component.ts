@@ -46,6 +46,7 @@ export class RecipeComponent implements OnInit
   private showAlert: boolean = false;
   private isLiked: boolean = false;
   private isFavorite: boolean = false;
+  private isOtherUser: boolean = false;
   private isLoggedIn: boolean = this._authService.isAuthenticated();
 
   //private videoFrame: string;
@@ -104,6 +105,7 @@ export class RecipeComponent implements OnInit
           //*Update views number
           this._recipeService.updateViews(this.id,idUser).subscribe(response =>
           {
+            this.isOtherUser = true;
             console.log(response);
           },
           err =>
@@ -111,6 +113,7 @@ export class RecipeComponent implements OnInit
             console.log(err);
             if(err.status == 404)
             {
+              this.isOtherUser = false;
               console.log(err.error.message);
             }      
           });
@@ -154,6 +157,18 @@ export class RecipeComponent implements OnInit
         this.getCategoriesList();
         this.getRankingComments(this.id);
         this.getTrends();
+
+        this._recipeService.validate(this._authService.user.id,this.id).subscribe(response =>
+          {
+            console.log(response);
+          },
+          err =>
+          {
+            if(err.status == 404)
+            {
+
+            }
+          });
       });
 
      // this.getRecipeById(1);
@@ -180,7 +195,7 @@ export class RecipeComponent implements OnInit
     {
       this.recipe = data;
     //  console.log(this.recipe);
-      
+  
       this.recipeName = data.name;
       this.recipeCategoryName = data.category.name;
       this.recipeAverangeRanking = data.averangeRanking;
@@ -197,7 +212,7 @@ export class RecipeComponent implements OnInit
       this.ingredients = data.recipeIngredients;
       this.tags = data.tags;
       this.idUser = data.user.id;
-     
+      console.log(this.images);
     ///  console.log(this.images);
       this.totalRankings = this.rankings.length;
       let idUser = data.user.id;

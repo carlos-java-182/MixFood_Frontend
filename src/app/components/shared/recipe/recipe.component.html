@@ -47,7 +47,7 @@
                             
                         </div>
                         <div class="col-xl-3 col-12">
-                            <ul class="entry-meta" *ngIf="isLoggedIn">
+                            <ul class="entry-meta" *ngIf="isLoggedIn && isOtherUser">
                                 <li class="btn-group-favorite" *ngIf="isFavortie">
                                     <a  (click)="removeFavorite()" class="icon-heart pointer">
                                         <i class="fas fa-heart"></i>  <span> Remove favorite</span>
@@ -62,11 +62,34 @@
                         </div>
                     </div>
                     <div class="item-figure">
-                        <div id="recipe-carousel" class="owl-carousel owl-theme">
+                        <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+                            <ol class="carousel-indicators">
+                              <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+                              <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+                              <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+                            </ol>
+                            <div class="carousel-inner">
+                              <div class="carousel-item" [ngClass]="{'active': i == 1}" *ngFor="let image of images let i = index;">
+                                <img  class="carousel-img" src="http://localhost:8080/api/uploads/recipes/{{image.routeImage}}">
+                              </div>
+                             
+                            </div>
+                            <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                              <span class="sr-only">Previous</span>
+                            </a>
+                            <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                              <span class="sr-only">Next</span>
+                            </a>
+                          </div>
+
+
+                        <!-- <div id="recipe-carousel" class="owl-carousel owl-theme">
                             <div *ngFor="let image of images">
                                 <img class="image-recipe" src="http://localhost:8080/api/uploads/recipes/{{image.routeImage}}" alt="Product">
                             </div>
-                        </div>
+                        </div> -->
                     </div>
                     <div class="item-feature">
                         <!-- <div class="row mb-4">
@@ -277,7 +300,7 @@
                     <!-- Recipe Reviews End Here -->
 
                     <!-- Form Review Start Here -->
-                    <div *ngIf="isLoggedIn && !isCommented" class="leave-review">
+                    <div *ngIf="isLoggedIn && !isCommented && isOtherUser" class="leave-review">
                         <form class="leave-form-box" 
                         [formGroup]="commentForm" 
                         (ngSubmit)="createComment(commentForm.value) && commentForm.valid"

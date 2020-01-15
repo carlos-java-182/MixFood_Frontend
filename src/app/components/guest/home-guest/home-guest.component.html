@@ -1,3 +1,6 @@
+<!-- Loader Start Here -->
+<app-loader></app-loader>
+<!-- Loader End Here -->
 <!-- Header Area Start Here -->
 <app-navbar-guest *ngIf="!isLoggedIn"></app-navbar-guest>
 <app-navbar-user *ngIf="isLoggedIn"></app-navbar-user>
@@ -226,14 +229,14 @@
         </div>
         <div class="row">      
             <div 
-            class="col-lg-2 col-md-6 col-sm-6 col-12" 
+            class="col-lg-3 col-md-6 col-sm-6 col-12" 
             *ngFor="let category of categories"
             (click)="goToRecipesByCategory(category.id)">
-                <div class="category-box-layout1">
-                    <figure class="item-figure">
-                        <a href="single-recipe1.html">
-                            <img [src]="category.thumbRoute" alt="Category">
-                        </a>
+                <div class="category-box-layout1 category">
+                    <figure class="item-figure ">
+                        <a>
+                            <img src="http://localhost:8080/api/uploads/{{category.thumbRoute}}/type/CATEGORY" alt="Category">
+                        </a> 
                     </figure>
                     <div class="item-content">
                         <h3 class="item-title"><a (click)="goToRecipesByCategory(category.id)" routerLinkActive="router-link-active"  routerLinkActive="router-link-active" >{{category.name}}</a></h3>

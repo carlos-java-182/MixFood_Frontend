@@ -60,27 +60,31 @@ export class FavoritesComponent implements OnInit {
 
   private removeFavorite(id: number, index: number)
   {
-    Swal.fire({
-      title: 'Are you sure you want to delete this recipe from your favorites?',
-      text: '',
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonText: 'Yes, delete it!',
-      cancelButtonText: 'No, cancel!',
-    })
-    .then((result) =>{
-      if(result.value)
+    this._favoriteService.remove(id,this.idUser).subscribe(response =>
       {
-        this._favoriteService.remove(id,this.idUser).subscribe(response =>
-        {
-          this.favorites.splice(1,index);
-        },
-        err=>
-        {
-          console.log(err);
-        });
-      }
-    });       
+        this.favorites.splice(1,index);
+        console.log(response);
+      },
+      err=>
+      {
+        console.log(err);
+      });
+
+    //!Eliminar
+    // Swal.fire({
+    //   title: 'Are you sure you want to delete this recipe from your favorites?',
+    //   text: '',
+    //   icon: 'warning',
+    //   showCancelButton: true,
+    //   confirmButtonText: 'Yes, delete it!',
+    //   cancelButtonText: 'No, cancel!',
+    // })
+    // .then((result) =>{
+    //   if(result.value)
+    //   {
+       
+    //   }
+    // });       
   }
 
 }

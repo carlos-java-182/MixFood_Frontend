@@ -4,8 +4,8 @@
 }
 
 .recipe-thumb{
-	max-width: 110px;
-	max-height: 125px;
+	width: 110px;
+	height: 125px;
 }
 
 .show-more-container
@@ -83,4 +83,31 @@
 {
 	width: 100px;
 	height: 100px;
+}
+
+.item-figure
+{
+
+	/* background-color: red; */
+	height: 500px !important;
+	width: 80%;
+}
+.item-figure .carousel 
+{
+	height: 100% !important;
+}
+
+.carousel-img 
+{
+	width: 100% !important;
+	height: 100% !important;
+}
+.carousel-inner
+{
+	height: 100%;
+}
+.carousel-item
+{
+	height: 100%;
+	background-color: green !important;
 }

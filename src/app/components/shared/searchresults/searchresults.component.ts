@@ -6,6 +6,8 @@ import { Message } from '@angular/compiler/src/i18n/i18n_ast';
 import { CategoryService } from 'src/app/services/category.service';
 import { TagService } from 'src/app/services/tag.service';
 import { NgbAlertModule } from '@ng-bootstrap/ng-bootstrap';
+import { AuthService } from 'src/app/services/auth.service';
+import * as $ from 'jquery';
 
 @Component({
   selector: 'app-searchresults',
@@ -24,6 +26,7 @@ export class SearchresultsComponent implements OnInit {
   private categoryName: string;
   private tagName: string;
 
+  private isLoggedIn: boolean = this._authService.isAuthenticated();
   private isResultEmpty: boolean = false;
   private isSearchByCategory: boolean = false;
   private isSearchByTerm: boolean = false;
@@ -36,11 +39,16 @@ export class SearchresultsComponent implements OnInit {
   constructor(private _recipeservice: RecipesService,
               private _categoryService: CategoryService,
               private activateroute: ActivatedRoute,
+              private _authService: AuthService,
               private _tagService: TagService,
               private router: Router) { }
 
   ngOnInit() 
   {
+    
+   
+   // this.showLoader = false;
+
     this.activateroute.paramMap.subscribe( params => 
     {
       this.page = Number(params.get('page'))-1;

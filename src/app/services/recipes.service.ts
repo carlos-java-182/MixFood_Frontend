@@ -50,7 +50,7 @@ export class RecipesService {
   }
   public updateRecipe(recipe: NewRecipe):Observable<ResponseCreate>
   {
-    return this.http.put<any>(this.url,recipe,{headers: this.headers}).pipe(
+    return this.http.put<any>(this.url,recipe,{headers: this.addAuthorizationHeader()}).pipe(
       map((response: any) => response as ResponseCreate),
       catchError( e =>
       {
@@ -67,6 +67,10 @@ export class RecipesService {
   public createRecipeIngredient(ingredients: RecipeIngredient[]):Observable<RecipeIngredient[]>
   {
     return this.http.post<RecipeIngredient[]>(this.url+'ingredients',JSON.stringify(ingredients),{headers: this.addAuthorizationHeader()});
+  }
+  public validate(idUser: number, idRecipe: number):Observable<any>
+  {
+    return this.http.get(`${this.url}validate/recipe/${idRecipe}/user/${idUser}`,{headers: this.addAuthorizationHeader()});
   }
 
   //*This function get the recipes cards for home
@@ -340,7 +344,7 @@ export class RecipesService {
 
   public removeRecipe(id: number)
   {
-    return this.http.delete(`${this.url}${id}`).pipe(
+    return this.http.delete(`${this.url}${id}`,{headers: this.addAuthorizationHeader()}).pipe(
       catchError( e =>
       {
         //*Get http response status
@@ -357,16 +361,16 @@ export class RecipesService {
 
   public getRecipeEdit(id: number):Observable<any>
   {
-    return this.http.get<RecipeEdit>(`${this.url}edit/${id}`);
+    return this.http.get<RecipeEdit>(`${this.url}edit/${id}`,{headers: this.addAuthorizationHeader()});
   }
 
   public updateIngredientsRecipe(ingredients: RecipeIngredient[]):Observable<any>
   {
-    return this.http.put(`${this.url}ingredients`,ingredients,{headers: this.headers});
+    return this.http.put(`${this.url}ingredients`,ingredients,{headers: this.addAuthorizationHeader()});
   }
   public deleteIngredientsRecipe(id: number):Observable<any>
   {
-    return this.http.delete(`${this.url}ingredients/${id}`);
+    return this.http.delete(`${this.url}ingredients/${id}`,{headers: this.addAuthorizationHeader()});
   }
 
   

@@ -1,5 +1,7 @@
+<app-loader></app-loader>
 <!-- Header Area Start Here -->
-<app-navbar-guest [term]="term"></app-navbar-guest>
+<app-navbar-guest *ngIf="!isLoggedIn"></app-navbar-guest>
+<app-navbar-user *ngIf="isLoggedIn"></app-navbar-user>
 <!-- Header Area End Here -->
 <!-- Inne Page Banner Area Start Here -->
 <section class="section-header inner-page-banner bg-common" data-bg-image="https://radiustheme.com/demo/html/ranna/ranna/img/figure/inner-page-banner1.jpg">

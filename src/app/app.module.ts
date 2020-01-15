@@ -70,7 +70,8 @@ import { FollowersComponent } from './components/user/followers/followers.compon
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CreateUserComponent } from './components/admin/users/create-user/create-user.component';
 import { Error404Component } from './components/shared/error404/error404.component';
-
+import { NgxUiLoaderModule } from  'ngx-ui-loader';
+import { LoaderComponent } from './components/shared/loader/loader.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -126,6 +127,7 @@ import { Error404Component } from './components/shared/error404/error404.compone
     FollowersComponent,
     CreateUserComponent,
     Error404Component,
+    LoaderComponent,
   ],
   imports: [
     BrowserModule,
@@ -139,6 +141,7 @@ import { Error404Component } from './components/shared/error404/error404.compone
     NgxPaginationModule,
     BarRatingModule,
     BrowserAnimationsModule,
+    NgxUiLoaderModule,
     QuillModule.forRoot()
   ],
   providers: [],

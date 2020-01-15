@@ -4,6 +4,7 @@ import { empty } from 'rxjs';
 import { CategoryService, CategoryCard } from 'src/app/services/category.service';
 import { Component, OnInit } from '@angular/core';
 import { ThrowStmt } from '@angular/compiler';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-categories-guest',
@@ -18,8 +19,11 @@ export class CategoriesGuestComponent implements OnInit {
   private numberOfElement: number;
   private itemsPerPage: number = 10;
   private totalPages: number;
+  private isLoggedIn: boolean = this._authService.isAuthenticated();
+
   constructor(private _categoryService: CategoryService,
               private router: Router,
+              private _authService: AuthService,
               private activatedRoute: ActivatedRoute) { }
 
   ngOnInit() 
