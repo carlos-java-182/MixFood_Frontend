@@ -1,3 +1,6 @@
+<!-- Loader Start Here -->
+<app-loader></app-loader>
+<!-- Loader End Here -->
 <!-- Header Area Start Here -->
 <app-navbar-user></app-navbar-user>
 <!-- Header Area End Here -->
@@ -59,7 +62,7 @@
                     <div class="widget-follow-us">
                         <ul>
                             <li class="single-item" *ngFor="let social of socialNetworks">
-                                <a (click)="goToLink(social.link)">
+                                <a class="social pointer" (click)="goToLink(social.link)">
                                     <i class="fab fa-facebook-f" *ngIf="social.network == 'FACEBOOK'"></i>
                                     <i class="fab fa-instagram" *ngIf="social.network == 'INSTAGRAM'"></i>
                                     <i class="fab fa-twitter" *ngIf="social.network == 'TWITTER'"></i>

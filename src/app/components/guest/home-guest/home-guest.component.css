@@ -250,7 +250,16 @@
 }
 
 
+.category
+{
+    width: 300px;
+    height: 300px;
+}
 
-
+.category figure img 
+{
+    width:  100% !important;
+    height: 100% !important;
+}
 
 

@@ -1,5 +1,7 @@
 <!-- Header Area Start Here -->
-<app-navbar-guest></app-navbar-guest>
+<!-- Header Area Start Here -->
+<app-navbar-guest *ngIf="!isLoggedIn"></app-navbar-guest>
+<app-navbar-user *ngIf="isLoggedIn"></app-navbar-user>
 <!-- Header Area End Here -->
 <!-- Inne Page Banner Area Start Here -->
 <section class="section-header inner-page-banner bg-common" data-bg-image="https://radiustheme.com/demo/html/ranna/ranna/img/figure/inner-page-banner1.jpg">
@@ -18,13 +20,13 @@
     <section class="category-page-wrap padding-top-80 padding-bottom-50">
         <div class="container">
             <div class="row">
-                <div class="col-lg-4 col-md-6 col-sm-6 col-12"
+                <div class="col-lg-3 col-md-6 col-sm-6 col-12"
                  *ngFor="let category of categories | paginate: {id: 'pagination-nav', itemsPerPage: itemsPerPage, currentPage: currentPage, totalItems: totalItems}">
                     <div class="category-box-layout1">
                         <figure class="item-figure">
                             <a href="single-recipe1.html">
-                                <img [src]="category.thumbRoute"
-                                    alt="Product">
+                                <img src="http://localhost:8080/api/uploads/{{category.thumbRoute}}/type/CATEGORY"
+                                    alt="{{category.thumbRoute}}">
                             </a>
                         </figure>
                         <div class="item-content">
