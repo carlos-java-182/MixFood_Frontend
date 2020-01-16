@@ -10,6 +10,9 @@
                     </div>
                     <nav class="site-nav">
                         <ul id="site-menu" class="site-menu" [ngClass]="{'menu-mobile': isMobile}">
+                            <a class="navbar-brand" [routerLink]="['/']">
+                                <img src="assets/img/mix.png" width="50" height="50" alt="Logo">
+                            </a>
                             <li>
                                 <a routerLink="/" routerLinkActive="router-link-active" ><i class="fas fa-home hover"></i> Home</a>
                             </li>
